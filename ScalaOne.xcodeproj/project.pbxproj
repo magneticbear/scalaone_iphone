@@ -1,0 +1,450 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
+		E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
+		E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */; };
+		E8A4FFC415E4377F00D10907 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8A4FFC215E4377F00D10907 /* InfoPlist.strings */; };
+		E8A4FFC615E4377F00D10907 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A4FFC515E4377F00D10907 /* main.m */; };
+		E8A4FFCA15E4377F00D10907 /* SOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */; };
+		E8A4FFCD15E4377F00D10907 /* SOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A4FFCC15E4377F00D10907 /* SOViewController.m */; };
+		E8A4FFD015E4377F00D10907 /* SOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8A4FFCE15E4377F00D10907 /* SOViewController.xib */; };
+		E8A4FFD815E4377F00D10907 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFD715E4377F00D10907 /* SenTestingKit.framework */; };
+		E8A4FFD915E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
+		E8A4FFDA15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
+		E8A4FFE215E4377F00D10907 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8A4FFE015E4377F00D10907 /* InfoPlist.strings */; };
+		E8A4FFE515E4377F00D10907 /* ScalaOneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A4FFE415E4377F00D10907 /* ScalaOneTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E8A4FFDB15E4377F00D10907 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A4FFAC15E4377F00D10907 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8A4FFB415E4377F00D10907;
+			remoteInfo = ScalaOne;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E8A4FFB515E4377F00D10907 /* ScalaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScalaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8A4FFB915E4377F00D10907 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E8A4FFBB15E4377F00D10907 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E8A4FFC115E4377F00D10907 /* ScalaOne-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ScalaOne-Info.plist"; sourceTree = "<group>"; };
+		E8A4FFC315E4377F00D10907 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E8A4FFC515E4377F00D10907 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E8A4FFC715E4377F00D10907 /* ScalaOne-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScalaOne-Prefix.pch"; sourceTree = "<group>"; };
+		E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOAppDelegate.h; sourceTree = "<group>"; };
+		E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOAppDelegate.m; sourceTree = "<group>"; };
+		E8A4FFCB15E4377F00D10907 /* SOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SOViewController.h; sourceTree = "<group>"; };
+		E8A4FFCC15E4377F00D10907 /* SOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOViewController.m; sourceTree = "<group>"; };
+		E8A4FFCF15E4377F00D10907 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SOViewController.xib; sourceTree = "<group>"; };
+		E8A4FFD615E4377F00D10907 /* ScalaOneTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScalaOneTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8A4FFD715E4377F00D10907 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		E8A4FFDF15E4377F00D10907 /* ScalaOneTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ScalaOneTests-Info.plist"; sourceTree = "<group>"; };
+		E8A4FFE115E4377F00D10907 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E8A4FFE315E4377F00D10907 /* ScalaOneTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScalaOneTests.h; sourceTree = "<group>"; };
+		E8A4FFE415E4377F00D10907 /* ScalaOneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScalaOneTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8A4FFB215E4377F00D10907 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */,
+				E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */,
+				E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8A4FFD215E4377F00D10907 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A4FFD815E4377F00D10907 /* SenTestingKit.framework in Frameworks */,
+				E8A4FFD915E4377F00D10907 /* UIKit.framework in Frameworks */,
+				E8A4FFDA15E4377F00D10907 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8A4FFAA15E4377F00D10907 = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFBF15E4377F00D10907 /* ScalaOne */,
+				E8A4FFDD15E4377F00D10907 /* ScalaOneTests */,
+				E8A4FFB815E4377F00D10907 /* Frameworks */,
+				E8A4FFB615E4377F00D10907 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8A4FFB615E4377F00D10907 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFB515E4377F00D10907 /* ScalaOne.app */,
+				E8A4FFD615E4377F00D10907 /* ScalaOneTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFB915E4377F00D10907 /* UIKit.framework */,
+				E8A4FFBB15E4377F00D10907 /* Foundation.framework */,
+				E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */,
+				E8A4FFD715E4377F00D10907 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8A4FFBF15E4377F00D10907 /* ScalaOne */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */,
+				E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */,
+				E8A4FFCB15E4377F00D10907 /* SOViewController.h */,
+				E8A4FFCC15E4377F00D10907 /* SOViewController.m */,
+				E8A4FFCE15E4377F00D10907 /* SOViewController.xib */,
+				E8A4FFC015E4377F00D10907 /* Supporting Files */,
+			);
+			path = ScalaOne;
+			sourceTree = "<group>";
+		};
+		E8A4FFC015E4377F00D10907 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFC115E4377F00D10907 /* ScalaOne-Info.plist */,
+				E8A4FFC215E4377F00D10907 /* InfoPlist.strings */,
+				E8A4FFC515E4377F00D10907 /* main.m */,
+				E8A4FFC715E4377F00D10907 /* ScalaOne-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E8A4FFDD15E4377F00D10907 /* ScalaOneTests */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFE315E4377F00D10907 /* ScalaOneTests.h */,
+				E8A4FFE415E4377F00D10907 /* ScalaOneTests.m */,
+				E8A4FFDE15E4377F00D10907 /* Supporting Files */,
+			);
+			path = ScalaOneTests;
+			sourceTree = "<group>";
+		};
+		E8A4FFDE15E4377F00D10907 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFDF15E4377F00D10907 /* ScalaOneTests-Info.plist */,
+				E8A4FFE015E4377F00D10907 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8A4FFB415E4377F00D10907 /* ScalaOne */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8A4FFE815E4377F00D10907 /* Build configuration list for PBXNativeTarget "ScalaOne" */;
+			buildPhases = (
+				E8A4FFB115E4377F00D10907 /* Sources */,
+				E8A4FFB215E4377F00D10907 /* Frameworks */,
+				E8A4FFB315E4377F00D10907 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScalaOne;
+			productName = ScalaOne;
+			productReference = E8A4FFB515E4377F00D10907 /* ScalaOne.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E8A4FFD515E4377F00D10907 /* ScalaOneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8A4FFEB15E4377F00D10907 /* Build configuration list for PBXNativeTarget "ScalaOneTests" */;
+			buildPhases = (
+				E8A4FFD115E4377F00D10907 /* Sources */,
+				E8A4FFD215E4377F00D10907 /* Frameworks */,
+				E8A4FFD315E4377F00D10907 /* Resources */,
+				E8A4FFD415E4377F00D10907 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E8A4FFDC15E4377F00D10907 /* PBXTargetDependency */,
+			);
+			name = ScalaOneTests;
+			productName = ScalaOneTests;
+			productReference = E8A4FFD615E4377F00D10907 /* ScalaOneTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8A4FFAC15E4377F00D10907 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SO;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Magnetic Bear Studios";
+			};
+			buildConfigurationList = E8A4FFAF15E4377F00D10907 /* Build configuration list for PBXProject "ScalaOne" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8A4FFAA15E4377F00D10907;
+			productRefGroup = E8A4FFB615E4377F00D10907 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8A4FFB415E4377F00D10907 /* ScalaOne */,
+				E8A4FFD515E4377F00D10907 /* ScalaOneTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8A4FFB315E4377F00D10907 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A4FFC415E4377F00D10907 /* InfoPlist.strings in Resources */,
+				E8A4FFD015E4377F00D10907 /* SOViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8A4FFD315E4377F00D10907 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A4FFE215E4377F00D10907 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E8A4FFD415E4377F00D10907 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8A4FFB115E4377F00D10907 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A4FFC615E4377F00D10907 /* main.m in Sources */,
+				E8A4FFCA15E4377F00D10907 /* SOAppDelegate.m in Sources */,
+				E8A4FFCD15E4377F00D10907 /* SOViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8A4FFD115E4377F00D10907 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8A4FFE515E4377F00D10907 /* ScalaOneTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E8A4FFDC15E4377F00D10907 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8A4FFB415E4377F00D10907 /* ScalaOne */;
+			targetProxy = E8A4FFDB15E4377F00D10907 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E8A4FFC215E4377F00D10907 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8A4FFC315E4377F00D10907 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E8A4FFCE15E4377F00D10907 /* SOViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8A4FFCF15E4377F00D10907 /* en */,
+			);
+			name = SOViewController.xib;
+			sourceTree = "<group>";
+		};
+		E8A4FFE015E4377F00D10907 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8A4FFE115E4377F00D10907 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E8A4FFE615E4377F00D10907 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E8A4FFE715E4377F00D10907 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E8A4FFE915E4377F00D10907 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
+				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E8A4FFEA15E4377F00D10907 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
+				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E8A4FFEC15E4377F00D10907 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ScalaOne.app/ScalaOne";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
+				INFOPLIST_FILE = "ScalaOneTests/ScalaOneTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E8A4FFED15E4377F00D10907 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ScalaOne.app/ScalaOne";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
+				INFOPLIST_FILE = "ScalaOneTests/ScalaOneTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8A4FFAF15E4377F00D10907 /* Build configuration list for PBXProject "ScalaOne" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8A4FFE615E4377F00D10907 /* Debug */,
+				E8A4FFE715E4377F00D10907 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8A4FFE815E4377F00D10907 /* Build configuration list for PBXNativeTarget "ScalaOne" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8A4FFE915E4377F00D10907 /* Debug */,
+				E8A4FFEA15E4377F00D10907 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E8A4FFEB15E4377F00D10907 /* Build configuration list for PBXNativeTarget "ScalaOneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8A4FFEC15E4377F00D10907 /* Debug */,
+				E8A4FFED15E4377F00D10907 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E8A4FFAC15E4377F00D10907 /* Project object */;
+}
