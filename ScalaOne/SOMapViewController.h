@@ -10,4 +10,6 @@
 
 @interface SOMapViewController : UIViewController
 
+- (IBAction)backOne:(id)sender;
+
 @end

@@ -10,4 +10,6 @@
 
 @interface SOChatViewController : UIViewController
 
+- (IBAction)backOne:(id)sender;
+
 @end

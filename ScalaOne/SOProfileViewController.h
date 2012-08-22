@@ -10,4 +10,6 @@
 
 @interface SOProfileViewController : UIViewController
 
+- (IBAction)backOne:(id)sender;
+
 @end

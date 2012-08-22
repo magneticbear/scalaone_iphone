@@ -10,4 +10,6 @@
 
 @interface SOSessionListViewController : UIViewController
 
+- (IBAction)backOne:(id)sender;
+
 @end

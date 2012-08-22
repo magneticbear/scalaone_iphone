@@ -10,4 +10,6 @@
 
 @interface SOSpeakerViewController : UIViewController
 
+- (IBAction)backOne:(id)sender;
+
 @end

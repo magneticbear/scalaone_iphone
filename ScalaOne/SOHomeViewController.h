@@ -10,4 +10,12 @@
 
 @interface SOHomeViewController : UIViewController
 
+- (IBAction)pushSessionListVC:(id)sender;
+- (IBAction)pushSpeakerListVC:(id)sender;
+- (IBAction)pushFavoritesVC:(id)sender;
+- (IBAction)pushProfileVC:(id)sender;
+- (IBAction)pushChatVC:(id)sender;
+- (IBAction)pushMapVC:(id)sender;
+- (IBAction)pushPlaygroundVC:(id)sender;
+
 @end
