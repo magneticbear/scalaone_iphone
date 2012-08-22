@@ -8,7 +8,7 @@
 
 #import "SOAppDelegate.h"
 
-#import "SOViewController.h"
+#import "SOHomeViewController.h"
 
 @implementation SOAppDelegate
 
@@ -16,7 +16,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[SOViewController alloc] initWithNibName:@"SOViewController" bundle:nil];
+    self.viewController = [[SOHomeViewController alloc] initWithNibName:@"SOHomeViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

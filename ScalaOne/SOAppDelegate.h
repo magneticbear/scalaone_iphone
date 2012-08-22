@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class SOViewController;
+@class SOHomeViewController;
 
 @interface SOAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) SOViewController *viewController;
+@property (strong, nonatomic) SOHomeViewController *viewController;
 
 @end

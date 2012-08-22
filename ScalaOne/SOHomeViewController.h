@@ -1,5 +1,5 @@
 //
-//  SOViewController.h
+//  SOHomeViewController.h
 //  ScalaOne
 //
 //  Created by Jean-Pierre Simard on 8/21/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SOViewController : UIViewController
+@interface SOHomeViewController : UIViewController
 
 @end
