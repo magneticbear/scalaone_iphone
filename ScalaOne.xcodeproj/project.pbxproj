@@ -35,6 +35,24 @@
 		E865EED315E48B920063007F /* sessions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EEB715E48B920063007F /* sessions@2x.png */; };
 		E865EED415E48B920063007F /* speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EEB815E48B920063007F /* speaker@2x.png */; };
 		E865EED515E48B920063007F /* speakers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EEB915E48B920063007F /* speakers@2x.png */; };
+		E865EEE615E492C10063007F /* SOSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE415E492C10063007F /* SOSessionViewController.m */; };
+		E865EEE715E492C10063007F /* SOSessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEE515E492C10063007F /* SOSessionViewController.xib */; };
+		E865EEEB15E492D70063007F /* SOSessionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE915E492D70063007F /* SOSessionListViewController.m */; };
+		E865EEEC15E492D70063007F /* SOSessionListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEA15E492D70063007F /* SOSessionListViewController.xib */; };
+		E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */; };
+		E865EEF115E492E10063007F /* SOSpeakerListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEF15E492E10063007F /* SOSpeakerListViewController.xib */; };
+		E865EEF515E492E80063007F /* SOSpeakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEF315E492E80063007F /* SOSpeakerViewController.m */; };
+		E865EEF615E492E80063007F /* SOSpeakerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEF415E492E80063007F /* SOSpeakerViewController.xib */; };
+		E865EEFA15E492F10063007F /* SOFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEF815E492F10063007F /* SOFavoritesViewController.m */; };
+		E865EEFB15E492F10063007F /* SOFavoritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEF915E492F10063007F /* SOFavoritesViewController.xib */; };
+		E865EEFF15E492F70063007F /* SOProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEFD15E492F70063007F /* SOProfileViewController.m */; };
+		E865EF0015E492F70063007F /* SOProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEFE15E492F70063007F /* SOProfileViewController.xib */; };
+		E865EF0415E492FF0063007F /* SOChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0215E492FF0063007F /* SOChatViewController.m */; };
+		E865EF0515E492FF0063007F /* SOChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0315E492FF0063007F /* SOChatViewController.xib */; };
+		E865EF0915E493070063007F /* SOMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0715E493070063007F /* SOMapViewController.m */; };
+		E865EF0A15E493070063007F /* SOMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0815E493070063007F /* SOMapViewController.xib */; };
+		E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */; };
+		E865EF0F15E4930E0063007F /* SOPlaygroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */; };
 		E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
 		E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
 		E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */; };
@@ -89,6 +107,33 @@
 		E865EEB715E48B920063007F /* sessions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sessions@2x.png"; sourceTree = "<group>"; };
 		E865EEB815E48B920063007F /* speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker@2x.png"; sourceTree = "<group>"; };
 		E865EEB915E48B920063007F /* speakers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speakers@2x.png"; sourceTree = "<group>"; };
+		E865EEE315E492C10063007F /* SOSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSessionViewController.h; sourceTree = "<group>"; };
+		E865EEE415E492C10063007F /* SOSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSessionViewController.m; sourceTree = "<group>"; };
+		E865EEE515E492C10063007F /* SOSessionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSessionViewController.xib; sourceTree = "<group>"; };
+		E865EEE815E492D70063007F /* SOSessionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSessionListViewController.h; sourceTree = "<group>"; };
+		E865EEE915E492D70063007F /* SOSessionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSessionListViewController.m; sourceTree = "<group>"; };
+		E865EEEA15E492D70063007F /* SOSessionListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSessionListViewController.xib; sourceTree = "<group>"; };
+		E865EEED15E492E10063007F /* SOSpeakerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeakerListViewController.h; sourceTree = "<group>"; };
+		E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeakerListViewController.m; sourceTree = "<group>"; };
+		E865EEEF15E492E10063007F /* SOSpeakerListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSpeakerListViewController.xib; sourceTree = "<group>"; };
+		E865EEF215E492E80063007F /* SOSpeakerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeakerViewController.h; sourceTree = "<group>"; };
+		E865EEF315E492E80063007F /* SOSpeakerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeakerViewController.m; sourceTree = "<group>"; };
+		E865EEF415E492E80063007F /* SOSpeakerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSpeakerViewController.xib; sourceTree = "<group>"; };
+		E865EEF715E492F10063007F /* SOFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOFavoritesViewController.h; sourceTree = "<group>"; };
+		E865EEF815E492F10063007F /* SOFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOFavoritesViewController.m; sourceTree = "<group>"; };
+		E865EEF915E492F10063007F /* SOFavoritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOFavoritesViewController.xib; sourceTree = "<group>"; };
+		E865EEFC15E492F70063007F /* SOProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOProfileViewController.h; sourceTree = "<group>"; };
+		E865EEFD15E492F70063007F /* SOProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOProfileViewController.m; sourceTree = "<group>"; };
+		E865EEFE15E492F70063007F /* SOProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOProfileViewController.xib; sourceTree = "<group>"; };
+		E865EF0115E492FF0063007F /* SOChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatViewController.h; sourceTree = "<group>"; };
+		E865EF0215E492FF0063007F /* SOChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatViewController.m; sourceTree = "<group>"; };
+		E865EF0315E492FF0063007F /* SOChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOChatViewController.xib; sourceTree = "<group>"; };
+		E865EF0615E493070063007F /* SOMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewController.h; sourceTree = "<group>"; };
+		E865EF0715E493070063007F /* SOMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewController.m; sourceTree = "<group>"; };
+		E865EF0815E493070063007F /* SOMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOMapViewController.xib; sourceTree = "<group>"; };
+		E865EF0B15E4930E0063007F /* SOPlaygroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOPlaygroundViewController.h; sourceTree = "<group>"; };
+		E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOPlaygroundViewController.m; sourceTree = "<group>"; };
+		E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPlaygroundViewController.xib; sourceTree = "<group>"; };
 		E8A4FFB515E4377F00D10907 /* ScalaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScalaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A4FFB915E4377F00D10907 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E8A4FFBB15E4377F00D10907 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -186,6 +231,123 @@
 			path = "elements@2x";
 			sourceTree = "<group>";
 		};
+		E865EED715E48D0B0063007F /* SOHomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E8A4FFCB15E4377F00D10907 /* SOHomeViewController.h */,
+				E8A4FFCC15E4377F00D10907 /* SOHomeViewController.m */,
+				E8A4FFCE15E4377F00D10907 /* SOHomeViewController.xib */,
+			);
+			name = SOHomeViewController;
+			sourceTree = "<group>";
+		};
+		E865EED815E48D610063007F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E865EED715E48D0B0063007F /* SOHomeViewController */,
+				E865EEDB15E491DA0063007F /* SOSessionListViewController */,
+				E865EEDE15E491FB0063007F /* SOSessionViewController */,
+				E865EEDC15E491EB0063007F /* SOSpeakerListViewController */,
+				E865EEDD15E491F40063007F /* SOSpeakerViewController */,
+				E865EEE115E4921F0063007F /* SOFavoritesViewController */,
+				E865EEE215E4926E0063007F /* SOProfileViewController */,
+				E865EEDF15E492040063007F /* SOChatViewController */,
+				E865EEE015E492130063007F /* SOMapViewController */,
+				E865EED915E48D730063007F /* SOPlaygroundViewController */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		E865EED915E48D730063007F /* SOPlaygroundViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EF0B15E4930E0063007F /* SOPlaygroundViewController.h */,
+				E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */,
+				E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */,
+			);
+			name = SOPlaygroundViewController;
+			sourceTree = "<group>";
+		};
+		E865EEDB15E491DA0063007F /* SOSessionListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EEE815E492D70063007F /* SOSessionListViewController.h */,
+				E865EEE915E492D70063007F /* SOSessionListViewController.m */,
+				E865EEEA15E492D70063007F /* SOSessionListViewController.xib */,
+			);
+			name = SOSessionListViewController;
+			sourceTree = "<group>";
+		};
+		E865EEDC15E491EB0063007F /* SOSpeakerListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EEED15E492E10063007F /* SOSpeakerListViewController.h */,
+				E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */,
+				E865EEEF15E492E10063007F /* SOSpeakerListViewController.xib */,
+			);
+			name = SOSpeakerListViewController;
+			sourceTree = "<group>";
+		};
+		E865EEDD15E491F40063007F /* SOSpeakerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EEF215E492E80063007F /* SOSpeakerViewController.h */,
+				E865EEF315E492E80063007F /* SOSpeakerViewController.m */,
+				E865EEF415E492E80063007F /* SOSpeakerViewController.xib */,
+			);
+			name = SOSpeakerViewController;
+			sourceTree = "<group>";
+		};
+		E865EEDE15E491FB0063007F /* SOSessionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EEE315E492C10063007F /* SOSessionViewController.h */,
+				E865EEE415E492C10063007F /* SOSessionViewController.m */,
+				E865EEE515E492C10063007F /* SOSessionViewController.xib */,
+			);
+			name = SOSessionViewController;
+			sourceTree = "<group>";
+		};
+		E865EEDF15E492040063007F /* SOChatViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EF0115E492FF0063007F /* SOChatViewController.h */,
+				E865EF0215E492FF0063007F /* SOChatViewController.m */,
+				E865EF0315E492FF0063007F /* SOChatViewController.xib */,
+			);
+			name = SOChatViewController;
+			sourceTree = "<group>";
+		};
+		E865EEE015E492130063007F /* SOMapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EF0615E493070063007F /* SOMapViewController.h */,
+				E865EF0715E493070063007F /* SOMapViewController.m */,
+				E865EF0815E493070063007F /* SOMapViewController.xib */,
+			);
+			name = SOMapViewController;
+			sourceTree = "<group>";
+		};
+		E865EEE115E4921F0063007F /* SOFavoritesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EEF715E492F10063007F /* SOFavoritesViewController.h */,
+				E865EEF815E492F10063007F /* SOFavoritesViewController.m */,
+				E865EEF915E492F10063007F /* SOFavoritesViewController.xib */,
+			);
+			name = SOFavoritesViewController;
+			sourceTree = "<group>";
+		};
+		E865EEE215E4926E0063007F /* SOProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E865EEFC15E492F70063007F /* SOProfileViewController.h */,
+				E865EEFD15E492F70063007F /* SOProfileViewController.m */,
+				E865EEFE15E492F70063007F /* SOProfileViewController.xib */,
+			);
+			name = SOProfileViewController;
+			sourceTree = "<group>";
+		};
 		E8A4FFAA15E4377F00D10907 = {
 			isa = PBXGroup;
 			children = (
@@ -222,9 +384,7 @@
 				E865EE9B15E48B920063007F /* images */,
 				E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */,
 				E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */,
-				E8A4FFCB15E4377F00D10907 /* SOHomeViewController.h */,
-				E8A4FFCC15E4377F00D10907 /* SOHomeViewController.m */,
-				E8A4FFCE15E4377F00D10907 /* SOHomeViewController.xib */,
+				E865EED815E48D610063007F /* View Controllers */,
 				E8A4FFC015E4377F00D10907 /* Supporting Files */,
 			);
 			path = ScalaOne;
@@ -362,6 +522,15 @@
 				E865EED315E48B920063007F /* sessions@2x.png in Resources */,
 				E865EED415E48B920063007F /* speaker@2x.png in Resources */,
 				E865EED515E48B920063007F /* speakers@2x.png in Resources */,
+				E865EEE715E492C10063007F /* SOSessionViewController.xib in Resources */,
+				E865EEEC15E492D70063007F /* SOSessionListViewController.xib in Resources */,
+				E865EEF115E492E10063007F /* SOSpeakerListViewController.xib in Resources */,
+				E865EEF615E492E80063007F /* SOSpeakerViewController.xib in Resources */,
+				E865EEFB15E492F10063007F /* SOFavoritesViewController.xib in Resources */,
+				E865EF0015E492F70063007F /* SOProfileViewController.xib in Resources */,
+				E865EF0515E492FF0063007F /* SOChatViewController.xib in Resources */,
+				E865EF0A15E493070063007F /* SOMapViewController.xib in Resources */,
+				E865EF0F15E4930E0063007F /* SOPlaygroundViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +568,15 @@
 				E8A4FFC615E4377F00D10907 /* main.m in Sources */,
 				E8A4FFCA15E4377F00D10907 /* SOAppDelegate.m in Sources */,
 				E8A4FFCD15E4377F00D10907 /* SOHomeViewController.m in Sources */,
+				E865EEE615E492C10063007F /* SOSessionViewController.m in Sources */,
+				E865EEEB15E492D70063007F /* SOSessionListViewController.m in Sources */,
+				E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */,
+				E865EEF515E492E80063007F /* SOSpeakerViewController.m in Sources */,
+				E865EEFA15E492F10063007F /* SOFavoritesViewController.m in Sources */,
+				E865EEFF15E492F70063007F /* SOProfileViewController.m in Sources */,
+				E865EF0415E492FF0063007F /* SOChatViewController.m in Sources */,
+				E865EF0915E493070063007F /* SOMapViewController.m in Sources */,
+				E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
