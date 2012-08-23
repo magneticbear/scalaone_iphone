@@ -35,7 +35,6 @@
 
 - (id)init {
 //	NSString *version = [[self class] apiVersion];
-//    NSURL *base = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/%@/", kSOAPIScheme, kSOAPIHost, version]];
     NSURL *base = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/", kSOAPIScheme, kSOAPIHost]];
 	if ((self = [super initWithBaseURL:base])) {
 		// Use JSON
@@ -80,9 +79,11 @@
 	}];
 }
 
-- (void)postMessage:(NSString *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-	NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
-							message, @"message",
+- (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+							message.text, @"text",
+                            [NSNumber numberWithInt:message.senderID], @"senderID",
+                            message.dateSent, @"dateSent",
 							nil];
 	[self postPath:@"messages" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {

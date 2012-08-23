@@ -7,6 +7,7 @@
 //
 
 #import "AFNetworking.h"
+#import "SOChatMessage.h"
 
 typedef void (^SOHTTPClientSuccess)(AFJSONRequestOperation *operation, id responseObject);
 typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *error);
@@ -20,6 +21,6 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 
 // Messages
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
-- (void)postMessage:(NSString *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+- (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 @end

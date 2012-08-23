@@ -8,6 +8,7 @@
 
 #import "SOChatViewController.h"
 #import "SOHTTPClient.h"
+#import "SOChatMessage.h"
 
 @interface SOChatViewController ()
 
@@ -15,6 +16,7 @@
 
 @implementation SOChatViewController
 @synthesize client;
+@synthesize chatChannel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,7 +33,7 @@
     // Do any additional setup after loading the view from its nib.
 #if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
-    BLYChannel *chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
+    chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
     [chatChannel bindToEvent:@"new_message" block:^(id message) {
         NSLog(@"New message: %@", message);
     }];
@@ -46,15 +48,19 @@
 		});
 	}];
     
-    [[SOHTTPClient sharedClient] postMessage:@"My iPhone message" success:^(AFJSONRequestOperation *operation, id responseObject) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
-		});
-	} failure:^(AFJSONRequestOperation *operation, NSError *error) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"postMessage failed");
-		});
-	}];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        SOChatMessage *message = [SOChatMessage messageWithText:@"Message from SOChatMessage class" senderID:123456 date:[NSDate date]];
+        
+        [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+            });
+        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"postMessage failed");
+            });
+        }];
+    });
 #endif
 }
 

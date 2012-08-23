@@ -13,9 +13,11 @@
 
 @interface SOChatViewController : UIViewController <BLYClientDelegate> {
     BLYClient *client;
+    BLYChannel *chatChannel;
 }
 
 @property (nonatomic, retain) BLYClient *client;
+@property (nonatomic, retain) BLYChannel *chatChannel;
 
 - (IBAction)backOne:(id)sender;
 
