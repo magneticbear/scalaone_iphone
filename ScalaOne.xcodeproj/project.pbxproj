@@ -80,6 +80,7 @@
 		E8A4FFE215E4377F00D10907 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8A4FFE015E4377F00D10907 /* InfoPlist.strings */; };
 		E8A4FFE515E4377F00D10907 /* ScalaOneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8A4FFE415E4377F00D10907 /* ScalaOneTests.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
+		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,8 @@
 		E8A4FFE415E4377F00D10907 /* ScalaOneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScalaOneTests.m; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
+		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
+		E8E4624015E6E59F00908C6A /* SOChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +316,7 @@
 		E865EED815E48D610063007F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E8E4623E15E6E58300908C6A /* SOChatCell */,
 				E865EED715E48D0B0063007F /* SOHomeViewController */,
 				E865EEDB15E491DA0063007F /* SOSessionListViewController */,
 				E865EEDE15E491FB0063007F /* SOSessionViewController */,
@@ -503,6 +507,15 @@
 			name = SOChatMessage;
 			sourceTree = "<group>";
 		};
+		E8E4623E15E6E58300908C6A /* SOChatCell */ = {
+			isa = PBXGroup;
+			children = (
+				E8E4623F15E6E59F00908C6A /* SOChatCell.h */,
+				E8E4624015E6E59F00908C6A /* SOChatCell.m */,
+			);
+			name = SOChatCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -688,6 +701,7 @@
 				E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */,
 				E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */,
 				E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */,
+				E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

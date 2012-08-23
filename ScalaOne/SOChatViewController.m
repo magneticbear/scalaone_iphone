@@ -9,6 +9,7 @@
 #import "SOChatViewController.h"
 #import "SOHTTPClient.h"
 #import "SOChatMessage.h"
+#import "SOChatCell.h"
 
 @interface SOChatViewController ()
 
@@ -17,6 +18,7 @@
 @implementation SOChatViewController
 @synthesize client;
 @synthesize chatChannel;
+@synthesize chatTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +68,7 @@
 
 - (void)viewDidUnload
 {
+    [self setChatTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -78,6 +81,35 @@
 
 - (IBAction)backOne:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return 10;
+}
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 64;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *const cellIdentifier = @"cellIdentifier";
+
+    SOChatCell *cell = (SOChatCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[SOChatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    cell.messageTextView.text = @"This is my pretty long chat message, hard coded into cellForRowAtIndexPath. This is my pretty long chat message, hard coded into cellForRowAtIndexPath.";
+    cell.cellAlignment = indexPath.row % 2 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
+    [cell layoutSubviews];
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"selected cell: %d",indexPath.row);
 }
 
 @end
