@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Bully/Bully.h>
 
-@interface SOChatViewController : UIViewController
+@class BLYClient;
+
+@interface SOChatViewController : UIViewController <BLYClientDelegate> {
+    BLYClient *client;
+}
+
+@property (nonatomic, retain) BLYClient *client;
 
 - (IBAction)backOne:(id)sender;
 

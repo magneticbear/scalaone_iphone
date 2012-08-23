@@ -1,0 +1,352 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0AE2A18D21274761986738A5 /* NSData+SRB64Additions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CCEB98A16C4347A6B2B1245A /* NSData+SRB64Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16B3D79F3D0D40DF973FAC37 /* PodsDummy_Pods.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F584CEE784E8B86DBE4A2 /* PodsDummy_Pods.m */; };
+		21574C5CA1B340EABC9E4392 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D5D2BE08E4BE6AF0C1265 /* SRWebSocket.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		237E64B5113C41BF9F8CF1B5 /* Bully.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6C633564A99C4FA3B722235B /* Bully.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2C638205FA8644B4A0980A89 /* BLYChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D52D49004EF4610A341776E /* BLYChannel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		36DB43CB0755464B9F9DD0A0 /* BLYClientPrivate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 583F803312FB452CB6FF770F /* BLYClientPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5489E25740534CCCB8422AB1 /* SRWebSocket.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 44DFD9C1ACD34FC9882C2AAD /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5A599D052C554E99AD00DA47 /* base64.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ACAB2D95A25F4BD2AA5FEF4E /* base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		760A1AF5488B4ECA91E06EE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91FB05790BD44542B4566AE7 /* Foundation.framework */; };
+		825F0A7CC1D84163A823A341 /* BLYChannelPrivate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EFBBAF2054D44FEAB67B84A4 /* BLYChannelPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88BB9BD13E4749A1AC253C0D /* BLYChannel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A6CA15156FC649E2808B2BE1 /* BLYChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D12044B4561E467B8D6DE7E0 /* BLYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAA62104A4B4B4DA669D93A /* BLYClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		E1AAC6F2D40847728BCEFCFC /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A5536F007A4905BB2B0C22 /* NSData+SRB64Additions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		ED6EA2A5F6CC4E2C902AB8BB /* BLYClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CAEF1800EEE74A8B94F33871 /* BLYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC3D3A7336E044D0B904F837 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 5038107745594CAEBFB6F39E /* base64.c */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		660F58AB67EF417E9A510513 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				88BB9BD13E4749A1AC253C0D /* BLYChannel.h in CopyFiles */,
+				825F0A7CC1D84163A823A341 /* BLYChannelPrivate.h in CopyFiles */,
+				ED6EA2A5F6CC4E2C902AB8BB /* BLYClient.h in CopyFiles */,
+				36DB43CB0755464B9F9DD0A0 /* BLYClientPrivate.h in CopyFiles */,
+				237E64B5113C41BF9F8CF1B5 /* Bully.h in CopyFiles */,
+				5A599D052C554E99AD00DA47 /* base64.h in CopyFiles */,
+				0AE2A18D21274761986738A5 /* NSData+SRB64Additions.h in CopyFiles */,
+				5489E25740534CCCB8422AB1 /* SRWebSocket.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		078F584CEE784E8B86DBE4A2 /* PodsDummy_Pods.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PodsDummy_Pods.m; sourceTree = SOURCE_ROOT; };
+		1E4C2DC5C3AC46F8B7CE982A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		30A5536F007A4905BB2B0C22 /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+SRB64Additions.m"; path = "SocketRocket/SocketRocket/NSData+SRB64Additions.m"; sourceTree = SOURCE_ROOT; };
+		44DFD9C1ACD34FC9882C2AAD /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SocketRocket/SRWebSocket.h; sourceTree = SOURCE_ROOT; };
+		5038107745594CAEBFB6F39E /* base64.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = base64.c; path = SocketRocket/SocketRocket/base64.c; sourceTree = SOURCE_ROOT; };
+		583F803312FB452CB6FF770F /* BLYClientPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BLYClientPrivate.h; path = Bully/Bully/BLYClientPrivate.h; sourceTree = SOURCE_ROOT; };
+		5D52D49004EF4610A341776E /* BLYChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BLYChannel.m; path = Bully/Bully/BLYChannel.m; sourceTree = SOURCE_ROOT; };
+		6C633564A99C4FA3B722235B /* Bully.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Bully.h; path = Bully/Bully/Bully.h; sourceTree = SOURCE_ROOT; };
+		7AAA62104A4B4B4DA669D93A /* BLYClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BLYClient.m; path = Bully/Bully/BLYClient.m; sourceTree = SOURCE_ROOT; };
+		8E8D5D2BE08E4BE6AF0C1265 /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SocketRocket/SRWebSocket.m; sourceTree = SOURCE_ROOT; };
+		91FB05790BD44542B4566AE7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A6CA15156FC649E2808B2BE1 /* BLYChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BLYChannel.h; path = Bully/Bully/BLYChannel.h; sourceTree = SOURCE_ROOT; };
+		ACAB2D95A25F4BD2AA5FEF4E /* base64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = base64.h; path = SocketRocket/SocketRocket/base64.h; sourceTree = SOURCE_ROOT; };
+		CAEF1800EEE74A8B94F33871 /* BLYClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BLYClient.h; path = Bully/Bully/BLYClient.h; sourceTree = SOURCE_ROOT; };
+		CCEB98A16C4347A6B2B1245A /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+SRB64Additions.h"; path = "SocketRocket/SocketRocket/NSData+SRB64Additions.h"; sourceTree = SOURCE_ROOT; };
+		E5979DFEF55845C5BD7D73B5 /* Pods-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-prefix.pch"; sourceTree = SOURCE_ROOT; };
+		EDF586FB3BB14A99BD4135F5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		EF4950D00B1B44A082E4EB1F /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = SOURCE_ROOT; };
+		EFBBAF2054D44FEAB67B84A4 /* BLYChannelPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BLYChannelPrivate.h; path = Bully/Bully/BLYChannelPrivate.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C21D9CAED7934F228B1B0A09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				760A1AF5488B4ECA91E06EE6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E67616975D4421C803E2553 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF4950D00B1B44A082E4EB1F /* Pods-resources.sh */,
+				E5979DFEF55845C5BD7D73B5 /* Pods-prefix.pch */,
+				EDF586FB3BB14A99BD4135F5 /* Pods.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2EB502D3D32E4DDE9511A170 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E67616975D4421C803E2553 /* Pods */,
+				078F584CEE784E8B86DBE4A2 /* PodsDummy_Pods.m */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		39AB60A64E5D4E7A9995FEA5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80C5A46CADA74C82B659347B /* Bully */,
+				BAF7EEDC17684D1A8FF8BE1B /* SocketRocket */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7AF9C128C8CE4CF09408CA06 = {
+			isa = PBXGroup;
+			children = (
+				E3FDB830442547C3B48A1BAF /* Products */,
+				39AB60A64E5D4E7A9995FEA5 /* Pods */,
+				2EB502D3D32E4DDE9511A170 /* Targets Support Files */,
+				9F77D2E8FD9448B58FD1E7A7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		80C5A46CADA74C82B659347B /* Bully */ = {
+			isa = PBXGroup;
+			children = (
+				A6CA15156FC649E2808B2BE1 /* BLYChannel.h */,
+				EFBBAF2054D44FEAB67B84A4 /* BLYChannelPrivate.h */,
+				CAEF1800EEE74A8B94F33871 /* BLYClient.h */,
+				583F803312FB452CB6FF770F /* BLYClientPrivate.h */,
+				6C633564A99C4FA3B722235B /* Bully.h */,
+				5D52D49004EF4610A341776E /* BLYChannel.m */,
+				7AAA62104A4B4B4DA669D93A /* BLYClient.m */,
+			);
+			name = Bully;
+			sourceTree = "<group>";
+		};
+		9F77D2E8FD9448B58FD1E7A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91FB05790BD44542B4566AE7 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BAF7EEDC17684D1A8FF8BE1B /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				ACAB2D95A25F4BD2AA5FEF4E /* base64.h */,
+				CCEB98A16C4347A6B2B1245A /* NSData+SRB64Additions.h */,
+				44DFD9C1ACD34FC9882C2AAD /* SRWebSocket.h */,
+				30A5536F007A4905BB2B0C22 /* NSData+SRB64Additions.m */,
+				8E8D5D2BE08E4BE6AF0C1265 /* SRWebSocket.m */,
+				5038107745594CAEBFB6F39E /* base64.c */,
+			);
+			name = SocketRocket;
+			sourceTree = "<group>";
+		};
+		E3FDB830442547C3B48A1BAF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E4C2DC5C3AC46F8B7CE982A /* libPods.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6859C721529949E7922C5A90 /* Pods */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5934D75F2A844558CF02A91 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildPhases = (
+				7A83A5F57F8C4C22BD7AC5A1 /* Sources */,
+				660F58AB67EF417E9A510513 /* CopyFiles */,
+				C21D9CAED7934F228B1B0A09 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = 1E4C2DC5C3AC46F8B7CE982A /* libPods.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A5553D0A93343B9BBEC4024 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 462E130802E240F383BCF215 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7AF9C128C8CE4CF09408CA06;
+			productRefGroup = E3FDB830442547C3B48A1BAF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6859C721529949E7922C5A90 /* Pods */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A83A5F57F8C4C22BD7AC5A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C638205FA8644B4A0980A89 /* BLYChannel.m in Sources */,
+				D12044B4561E467B8D6DE7E0 /* BLYClient.m in Sources */,
+				E1AAC6F2D40847728BCEFCFC /* NSData+SRB64Additions.m in Sources */,
+				21574C5CA1B340EABC9E4392 /* SRWebSocket.m in Sources */,
+				FC3D3A7336E044D0B904F837 /* base64.c in Sources */,
+				16B3D79F3D0D40DF973FAC37 /* PodsDummy_Pods.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0041BD5C00F84773A930563F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		6635CD9C848845DA91054D86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDF586FB3BB14A99BD4135F5 /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "";
+				PODS_HEADERS_SEARCH_PATHS = "${PODS_BUILD_HEADERS_SEARCH_PATHS}";
+				PODS_ROOT = "${SRCROOT}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		67C3D15D1744419B832538CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		89C70BF4251C4927A513E5BA /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = "Ad Hoc";
+		};
+		E78409244A4E424F81F42048 /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDF586FB3BB14A99BD4135F5 /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "";
+				PODS_HEADERS_SEARCH_PATHS = "${PODS_BUILD_HEADERS_SEARCH_PATHS}";
+				PODS_ROOT = "${SRCROOT}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		ED34BDBD905443D0978147B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDF586FB3BB14A99BD4135F5 /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Pods-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "";
+				PODS_HEADERS_SEARCH_PATHS = "${PODS_BUILD_HEADERS_SEARCH_PATHS}";
+				PODS_ROOT = "${SRCROOT}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		462E130802E240F383BCF215 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67C3D15D1744419B832538CC /* Debug */,
+				0041BD5C00F84773A930563F /* Release */,
+				89C70BF4251C4927A513E5BA /* Ad Hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5934D75F2A844558CF02A91 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED34BDBD905443D0978147B0 /* Debug */,
+				6635CD9C848845DA91054D86 /* Release */,
+				E78409244A4E424F81F42048 /* Ad Hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A5553D0A93343B9BBEC4024 /* Project object */;
+}
