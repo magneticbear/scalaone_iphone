@@ -28,12 +28,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+#if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
     BLYChannel *chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
     [chatChannel bindToEvent:@"chat_message" block:^(id message) {
         // `message` is a dictionary of the Pusher message
         NSLog(@"New message: %@", [message objectForKey:@"text"]);
     }];
+#endif
 }
 
 - (void)viewDidUnload
