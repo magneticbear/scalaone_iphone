@@ -7,6 +7,7 @@
 //
 
 #import "SOChatViewController.h"
+#import "SOHTTPClient.h"
 
 @interface SOChatViewController ()
 
@@ -35,6 +36,16 @@
         // `message` is a dictionary of the Pusher message
         NSLog(@"New message: %@", [message objectForKey:@"text"]);
     }];
+    
+    [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"loading: no\nresponseObject: %@",(NSDictionary*)responseObject);
+		});
+	} failure:^(AFJSONRequestOperation *operation, NSError *error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"loading: no\nresetLimitForName");
+		});
+	}];
 #endif
 }
 

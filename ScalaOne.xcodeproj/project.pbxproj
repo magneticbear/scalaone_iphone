@@ -18,6 +18,8 @@
 		E82EF79815E4A23400FA7E78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78E15E4A23400FA7E78 /* Icon@2x.png */; };
 		E82EF79915E4A23400FA7E78 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78F15E4A23400FA7E78 /* iTunesArtwork.png */; };
 		E82EF79A15E4A23400FA7E78 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */; };
+		E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */; };
+		E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CC1B15E6876B00B40B33 /* SODefines.m */; };
 		E865EEBA15E48B920063007F /* favourites.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EE9D15E48B920063007F /* favourites.png */; };
 		E865EEBB15E48B920063007F /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EE9E15E48B920063007F /* home.png */; };
 		E865EEBC15E48B920063007F /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EE9F15E48B920063007F /* map.png */; };
@@ -102,6 +104,10 @@
 		E82EF78E15E4A23400FA7E78 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E82EF78F15E4A23400FA7E78 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOHTTPClient.h; sourceTree = "<group>"; };
+		E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOHTTPClient.m; sourceTree = "<group>"; };
+		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
+		E842CC1B15E6876B00B40B33 /* SODefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SODefines.m; sourceTree = "<group>"; };
 		E865EE9D15E48B920063007F /* favourites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favourites.png; sourceTree = "<group>"; };
 		E865EE9E15E48B920063007F /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		E865EE9F15E48B920063007F /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
@@ -218,6 +224,24 @@
 				E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */,
 			);
 			path = "App Icon";
+			sourceTree = "<group>";
+		};
+		E842CC1D15E6887B00B40B33 /* SODefines */ = {
+			isa = PBXGroup;
+			children = (
+				E842CC1A15E6876B00B40B33 /* SODefines.h */,
+				E842CC1B15E6876B00B40B33 /* SODefines.m */,
+			);
+			name = SODefines;
+			sourceTree = "<group>";
+		};
+		E842CC1E15E68AF000B40B33 /* SOHTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */,
+				E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */,
+			);
+			name = SOHTTPClient;
 			sourceTree = "<group>";
 		};
 		E865EE9B15E48B920063007F /* images */ = {
@@ -430,6 +454,8 @@
 				E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */,
 				E865EED815E48D610063007F /* View Controllers */,
 				E8A4FFC015E4377F00D10907 /* Supporting Files */,
+				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
+				E842CC1D15E6887B00B40B33 /* SODefines */,
 			);
 			path = ScalaOne;
 			sourceTree = "<group>";
@@ -646,6 +672,8 @@
 				E865EF0415E492FF0063007F /* SOChatViewController.m in Sources */,
 				E865EF0915E493070063007F /* SOMapViewController.m in Sources */,
 				E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */,
+				E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */,
+				E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
