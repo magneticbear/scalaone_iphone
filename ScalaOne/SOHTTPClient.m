@@ -69,7 +69,7 @@
 #pragma mark - Messages
 
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-	[self getPath:@"messages.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+	[self getPath:@"messages" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}
@@ -80,7 +80,7 @@
 	}];
 }
 
-- (void)createMessage:(NSString *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+- (void)postMessage:(NSString *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
 	NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
 							message, @"message",
 							nil];

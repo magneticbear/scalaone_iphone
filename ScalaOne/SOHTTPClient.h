@@ -20,6 +20,6 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 
 // Messages
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
-- (void)createMessage:(NSString *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+- (void)postMessage:(NSString *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 @end

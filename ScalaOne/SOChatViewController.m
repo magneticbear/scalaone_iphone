@@ -32,18 +32,27 @@
 #if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
     BLYChannel *chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
-    [chatChannel bindToEvent:@"chat_message" block:^(id message) {
-        // `message` is a dictionary of the Pusher message
-        NSLog(@"New message: %@", [message objectForKey:@"text"]);
+    [chatChannel bindToEvent:@"new_message" block:^(id message) {
+        NSLog(@"New message: %@", message);
     }];
     
     [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"loading: no\nresponseObject: %@",(NSDictionary*)responseObject);
+            NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
 		});
 	} failure:^(AFJSONRequestOperation *operation, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"loading: no\nresetLimitForName");
+            NSLog(@"getMessages failed");
+		});
+	}];
+    
+    [[SOHTTPClient sharedClient] postMessage:@"My iPhone message" success:^(AFJSONRequestOperation *operation, id responseObject) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+		});
+	} failure:^(AFJSONRequestOperation *operation, NSError *error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"postMessage failed");
 		});
 	}];
 #endif
