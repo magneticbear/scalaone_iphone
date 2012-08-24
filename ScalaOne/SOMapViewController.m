@@ -35,6 +35,21 @@
     SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f];
     [self.mapView addAnnotation:locationAnnotation];
     locationAnnotation.mapView = self.mapView;
+    {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.715f lon:-90.71f];
+        [self.mapView addAnnotation:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
+    {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.685f lon:-90.71f];
+        [self.mapView addAnnotation:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
+    {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.715f lon:-90.69f];
+        [self.mapView addAnnotation:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
     
     [self.mapView setRegion:MKCoordinateRegionMake(locationAnnotation.coordinate, MKCoordinateSpanMake(0.03, 0.03)) animated:YES];
     

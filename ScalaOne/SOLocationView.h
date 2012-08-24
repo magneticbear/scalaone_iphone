@@ -6,11 +6,22 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 #import "SOLocationProtocols.h"
 
-@interface SOLocationView : MKAnnotationView 
-<SOAnnotationViewProtocol>
+typedef enum {
+    SOLocationViewAnimationDirectionGrow   = 0,
+    SOLocationViewAnimationDirectionShrink   = 1
+} SOLocationViewAnimationDirection;
+
+@interface SOLocationView : MKAnnotationView <SOAnnotationViewProtocol> {
+    CGFloat _yShadowOffset;
+    CAShapeLayer *shapeLayer;
+    CAShapeLayer *strokeAndShadowLayer;
+}
+
+@property (nonatomic, readonly) CGFloat yShadowOffset;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation;
 
