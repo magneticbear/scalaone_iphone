@@ -66,6 +66,7 @@
 		E865EF0A15E493070063007F /* SOMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0815E493070063007F /* SOMapViewController.xib */; };
 		E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */; };
 		E865EF0F15E4930E0063007F /* SOPlaygroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */; };
+		E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037BC15E7277C00B591CC /* MapKit.framework */; };
 		E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
 		E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
 		E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */; };
@@ -165,6 +166,7 @@
 		E865EF0B15E4930E0063007F /* SOPlaygroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOPlaygroundViewController.h; sourceTree = "<group>"; };
 		E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOPlaygroundViewController.m; sourceTree = "<group>"; };
 		E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPlaygroundViewController.xib; sourceTree = "<group>"; };
+		E88037BC15E7277C00B591CC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E8A4FFB515E4377F00D10907 /* ScalaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScalaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A4FFB915E4377F00D10907 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E8A4FFBB15E4377F00D10907 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -195,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */,
 				E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */,
 				E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */,
 				E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */,
@@ -444,6 +447,7 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E88037BC15E7277C00B591CC /* MapKit.framework */,
 				E8A4FFB915E4377F00D10907 /* UIKit.framework */,
 				E8A4FFBB15E4377F00D10907 /* Foundation.framework */,
 				E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */,
