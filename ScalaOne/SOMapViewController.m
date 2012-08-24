@@ -10,15 +10,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import <MapKit/MapKit.h>
-#import "SOCalloutProtocols.h"
-#import "SOCalloutView.h"
+#import "SOLocationProtocols.h"
 
 @interface SOMapViewController ()
 
 @end
 
 @implementation SOMapViewController
-@synthesize mapView, locationAnnotation;
+@synthesize mapView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,11 +32,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f];
-    [self.mapView addAnnotation:self.locationAnnotation];
-    self.locationAnnotation.mapView = self.mapView;
+    SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f];
+    [self.mapView addAnnotation:locationAnnotation];
+    locationAnnotation.mapView = self.mapView;
     
-    [self.mapView setRegion:MKCoordinateRegionMake(self.locationAnnotation.coordinate, MKCoordinateSpanMake(0.03, 0.03)) animated:YES];
+    [self.mapView setRegion:MKCoordinateRegionMake(locationAnnotation.coordinate, MKCoordinateSpanMake(0.03, 0.03)) animated:YES];
     
     [super viewDidLoad];
 }
@@ -80,21 +79,16 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    MKAnnotationView *aV;
-    
-    for (aV in views) {
+    for (MKAnnotationView *aV in views) {
+        CGRect endFrame = aV.frame;
         
-        if (![aV isKindOfClass:[SOCalloutView class]]) {
-            CGRect endFrame = aV.frame;
-            
-            aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-230.0, aV.frame.size.width, aV.frame.size.height);
-            
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDuration:0.45];
-            [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-            [aV setFrame:endFrame];
-            [UIView commitAnimations];
-        }
+        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-230.0, aV.frame.size.width, aV.frame.size.height);
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.45];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [aV setFrame:endFrame];
+        [UIView commitAnimations];
     }
 }
 

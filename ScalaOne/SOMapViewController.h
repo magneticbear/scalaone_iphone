@@ -13,8 +13,6 @@
 
 @property (nonatomic, retain) IBOutlet MKMapView* mapView;
 
-@property (nonatomic, retain) SOLocationAnnotation* locationAnnotation;
-
 - (IBAction)backOne:(id)sender;
 
 @end
