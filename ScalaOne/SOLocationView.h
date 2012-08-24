@@ -19,9 +19,9 @@ typedef enum {
     CGFloat _yShadowOffset;
     CAShapeLayer *shapeLayer;
     CAShapeLayer *strokeAndShadowLayer;
+    UIImageView *avatarImg;
+    UIButton *disclosureButton;
 }
-
-@property (nonatomic, readonly) CGFloat yShadowOffset;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation;
 

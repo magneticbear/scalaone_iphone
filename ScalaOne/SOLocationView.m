@@ -7,10 +7,10 @@
 
 #import "SOLocationView.h"
 
-#define CalloutMapAnnotationViewBottomShadowBufferSize 6.0f
-#define CalloutMapAnnotationViewContentHeightBuffer 8.0f
-#define CalloutMapAnnotationViewHeightAboveParent 30.0f
-#define CalloutMapAnnotationViewInset 4.0f
+#define AnnotationViewStandardWidth 74.5f
+#define AnnotationViewStandardHeight 87.0f
+#define AnnotationViewExpandOffset 200.0f
+#define AnimationDuration 0.33f
 
 @interface ShadowShapeLayer : CAShapeLayer
 @end
@@ -32,23 +32,32 @@
         return nil;
     
     self.canShowCallout = NO;
-    self.frame = CGRectMake(0, 0, 100, 100);
+    self.frame = CGRectMake(0, 0, AnnotationViewStandardWidth, AnnotationViewStandardHeight);
     self.backgroundColor = [UIColor clearColor];
-    self.centerOffset = CGPointMake(50, 100);
-    self.clipsToBounds = NO;
+//    self.centerOffset = CGPointMake(-AnnotationViewStandardWidth/2, AnnotationViewStandardHeight);
+    
+    avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
+    avatarImg.frame = CGRectMake(12.5, 12, avatarImg.frame.size.width, avatarImg.frame.size.height);
+    [self addSubview:avatarImg];
+    self.layer.masksToBounds = NO;
+    
+    disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    disclosureButton.frame = CGRectMake(AnnotationViewExpandOffset/2 + self.frame.size.width/2 - 4.0f, 21, disclosureButton.frame.size.width, disclosureButton.frame.size.height);
+    disclosureButton.alpha = 0;
+    [self addSubview:disclosureButton];
     return self;
 }
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
 {
     NSLog(@"didSelectAnnotationViewInMap");
-    [self animateBubbleWithDirection:SOLocationViewAnimationDirectionGrow];
+    [self expand];
 }
 
 - (void)didDeselectAnnotationViewInMap:(MKMapView*) mapView;
 {
     NSLog(@"didDeselectAnnotationViewInMap");
-    [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
+    [self shrink];
 }
 
 - (void)layoutSubviews {
@@ -57,13 +66,13 @@
 
 - (void)setLayerProperties {
     shapeLayer = [ShadowShapeLayer layer];
-    shapeLayer.path = [self bubbleWithRect:self.bounds];
+    shapeLayer.path = [self bubbleWithRect:self.bounds andOffset:CGSizeMake(AnnotationViewExpandOffset/2, 0)];
     
     //Fill Callout Bubble & Add Shadow
     shapeLayer.fillColor = [[UIColor blackColor] colorWithAlphaComponent:1].CGColor;
     
     strokeAndShadowLayer = [CAShapeLayer layer];
-    strokeAndShadowLayer.path = shapeLayer.path;
+    strokeAndShadowLayer.path = [self bubbleWithRect:self.bounds];
     strokeAndShadowLayer.fillColor = [UIColor clearColor].CGColor;
     strokeAndShadowLayer.shadowColor = [UIColor blackColor].CGColor;
     strokeAndShadowLayer.shadowOffset = CGSizeMake (0, self.yShadowOffset);
@@ -73,33 +82,31 @@
     strokeAndShadowLayer.lineWidth = 1.0;
     
     CAGradientLayer *bubbleGradient = [CAGradientLayer layer];
-    bubbleGradient.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width+30, self.bounds.size.height-22);
+    bubbleGradient.frame = CGRectMake(self.bounds.origin.x-AnnotationViewExpandOffset/2, self.bounds.origin.y, AnnotationViewExpandOffset+self.bounds.size.width, self.bounds.size.height-7);
     bubbleGradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithWhite:0 alpha:.5].CGColor, (id)[UIColor colorWithWhite:0 alpha:.5].CGColor,(id)[UIColor colorWithWhite:0.13 alpha:.5].CGColor,(id)[UIColor colorWithWhite:0.33 alpha:.5].CGColor, nil];
     bubbleGradient.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:0.53],[NSNumber numberWithFloat:.54],[NSNumber numberWithFloat:1], nil];
     bubbleGradient.startPoint = CGPointMake(0.0f, 1.0f);
     bubbleGradient.endPoint = CGPointMake(0.0f, 0.0f);
-    BOOL gradient = TRUE;
-    if (gradient) {
-        bubbleGradient.mask = shapeLayer;
-        [strokeAndShadowLayer addSublayer:bubbleGradient];
-        [self.layer addSublayer:strokeAndShadowLayer];
-    } else {
-        [self.layer addSublayer:bubbleGradient];
-        [self.layer addSublayer:shapeLayer];
-    }
+    bubbleGradient.mask = shapeLayer;
+    
+    shapeLayer.masksToBounds = NO;
+    bubbleGradient.masksToBounds = NO;
+    strokeAndShadowLayer.masksToBounds = NO;
+    
+    [strokeAndShadowLayer addSublayer:bubbleGradient];
+    [self.layer insertSublayer:strokeAndShadowLayer atIndex:0];
 }
 
 - (CGPathRef)bubbleWithRect:(CGRect)rect {
-    CGFloat xOffset = 15;
     CGFloat stroke = 1.0;
 	CGFloat radius = 7.0;
 	CGMutablePathRef path = CGPathCreateMutable();
-	CGFloat parentX = [self relativeParentXPosition]+xOffset;
+	CGFloat parentX = rect.origin.x + rect.size.width/2;
 	
 	//Determine Size
 	rect.size.width -= stroke + 14;
-	rect.size.height -= stroke + 14 + CalloutMapAnnotationViewHeightAboveParent;
-	rect.origin.x += stroke / 2.0 + 7 + xOffset;
+	rect.size.height -= stroke + 29;
+	rect.origin.x += stroke / 2.0 + 7;
 	rect.origin.y += stroke / 2.0 + 7;
     
 	//Create Path For Callout Bubble
@@ -119,24 +126,66 @@
     return path;
 }
 
+- (CGPathRef)bubbleWithRect:(CGRect)rect andOffset:(CGSize)offset {
+    CGRect offsetRect = CGRectMake(rect.origin.x+offset.width, rect.origin.y+offset.height, rect.size.width, rect.size.height);
+    return [self bubbleWithRect:offsetRect];
+}
+
+- (void)expand {
+    
+    [self animateBubbleWithDirection:SOLocationViewAnimationDirectionGrow];
+    [UIView animateWithDuration:AnimationDuration delay:AnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
+        disclosureButton.alpha = 1;
+    } completion:^(BOOL finished) {
+        NSLog(@"Animations completed");
+    }];
+}
+
+- (void)shrink {
+    [UIView animateWithDuration:AnimationDuration delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+        disclosureButton.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
+        NSLog(@"Animations completed");
+    }];
+}
+
 - (void)animateBubbleWithDirection:(SOLocationViewAnimationDirection)animationDirection {
-    CGPathRef largePath = [self bubbleWithRect:CGRectMake(self.bounds.origin.x-20, self.bounds.origin.y, self.bounds.size.width+40, self.bounds.size.height)];
-    CGPathRef standardPath = [self bubbleWithRect:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height)];
+//    Avatar
+    [UIView animateWithDuration:AnimationDuration animations:^{
+        if (animationDirection == SOLocationViewAnimationDirectionGrow) {
+            avatarImg.frame = CGRectMake(avatarImg.frame.origin.x-AnnotationViewExpandOffset/2, avatarImg.frame.origin.y, avatarImg.frame.size.width, avatarImg.frame.size.height);
+        } else if (animationDirection == SOLocationViewAnimationDirectionShrink) {
+            avatarImg.frame = CGRectMake(avatarImg.frame.origin.x+AnnotationViewExpandOffset/2, avatarImg.frame.origin.y, avatarImg.frame.size.width, avatarImg.frame.size.height);
+        }
+    }];
+    
+//    Bubble
+    CGRect largeRect = CGRectMake(self.bounds.origin.x-AnnotationViewExpandOffset/2, self.bounds.origin.y, self.bounds.size.width+AnnotationViewExpandOffset, self.bounds.size.height);
+    CGRect standardRect = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    
-    animation.fromValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
-        (__bridge id)standardPath : (__bridge id)largePath;
-    
-    animation.toValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
-        (__bridge id)largePath : (__bridge id)standardPath;
     
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.repeatCount = 1;
     animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
-    animation.duration = 0.5;
-    [shapeLayer addAnimation:animation forKey:animation.keyPath];
+    animation.duration = AnimationDuration;
+    
+//    Stroke & Shadow From/To Values
+    animation.fromValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
+    (__bridge id)[self bubbleWithRect:standardRect] : (__bridge id)[self bubbleWithRect:largeRect];
+    
+    animation.toValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
+    (__bridge id)[self bubbleWithRect:largeRect] : (__bridge id)[self bubbleWithRect:standardRect];
     [strokeAndShadowLayer addAnimation:animation forKey:animation.keyPath];
+    
+//    ShapeLayer From/To Values
+    animation.fromValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
+    (__bridge id)[self bubbleWithRect:standardRect andOffset:CGSizeMake(AnnotationViewExpandOffset/2, 0)] : (__bridge id)[self bubbleWithRect:largeRect andOffset:CGSizeMake(AnnotationViewExpandOffset/2, 0)];
+    
+    animation.toValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
+    (__bridge id)[self bubbleWithRect:largeRect andOffset:CGSizeMake(AnnotationViewExpandOffset/2, 0)] : (__bridge id)[self bubbleWithRect:standardRect andOffset:CGSizeMake(AnnotationViewExpandOffset/2, 0)];
+    [shapeLayer addAnimation:animation forKey:animation.keyPath];
 }
 
 - (CGFloat)yShadowOffset {
@@ -149,10 +198,6 @@
 		}
 	}
 	return _yShadowOffset;
-}
-
-- (CGFloat)relativeParentXPosition {
-	return self.bounds.size.width / 2;
 }
 
 @end
