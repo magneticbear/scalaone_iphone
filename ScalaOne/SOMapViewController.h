@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOLocationAnnotation.h"
 
-@interface SOMapViewController : UIViewController
+@interface SOMapViewController : UIViewController <MKMapViewDelegate>
+
+@property (nonatomic, retain) IBOutlet MKMapView* mapView;
+
+@property (nonatomic, retain) SOLocationAnnotation* locationAnnotation;
 
 - (IBAction)backOne:(id)sender;
 

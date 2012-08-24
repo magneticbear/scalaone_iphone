@@ -67,6 +67,15 @@
 		E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */; };
 		E865EF0F15E4930E0063007F /* SOPlaygroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */; };
 		E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037BC15E7277C00B591CC /* MapKit.framework */; };
+		E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037D715E7400400B591CC /* CoreLocation.framework */; };
+		E88037DB15E798CE00B591CC /* map_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = E88037D915E798CE00B591CC /* map_marker.png */; };
+		E88037DC15E798CE00B591CC /* map_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E88037DA15E798CE00B591CC /* map_marker@2x.png */; };
+		E880380015E79D0F00B591CC /* CalloutAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E88037F515E79D0F00B591CC /* CalloutAnnotationView.m */; };
+		E880380115E79D0F00B591CC /* SOCalloutAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E88037F715E79D0F00B591CC /* SOCalloutAnnotation.m */; };
+		E880380215E79D0F00B591CC /* SOCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E88037F915E79D0F00B591CC /* SOCalloutView.m */; };
+		E880380315E79D0F00B591CC /* SOCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E88037FA15E79D0F00B591CC /* SOCalloutView.xib */; };
+		E880380415E79D0F00B591CC /* SOLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E88037FC15E79D0F00B591CC /* SOLocationAnnotation.m */; };
+		E880380515E79D0F00B591CC /* SOLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E88037FE15E79D0F00B591CC /* SOLocationView.m */; };
 		E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
 		E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
 		E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */; };
@@ -167,6 +176,21 @@
 		E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOPlaygroundViewController.m; sourceTree = "<group>"; };
 		E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPlaygroundViewController.xib; sourceTree = "<group>"; };
 		E88037BC15E7277C00B591CC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E88037D715E7400400B591CC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E88037D915E798CE00B591CC /* map_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_marker.png; sourceTree = "<group>"; };
+		E88037DA15E798CE00B591CC /* map_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_marker@2x.png"; sourceTree = "<group>"; };
+		E88037F415E79D0F00B591CC /* CalloutAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutAnnotationView.h; sourceTree = "<group>"; };
+		E88037F515E79D0F00B591CC /* CalloutAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutAnnotationView.m; sourceTree = "<group>"; };
+		E88037F615E79D0F00B591CC /* SOCalloutAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCalloutAnnotation.h; sourceTree = "<group>"; };
+		E88037F715E79D0F00B591CC /* SOCalloutAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCalloutAnnotation.m; sourceTree = "<group>"; };
+		E88037F815E79D0F00B591CC /* SOCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCalloutView.h; sourceTree = "<group>"; };
+		E88037F915E79D0F00B591CC /* SOCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCalloutView.m; sourceTree = "<group>"; };
+		E88037FA15E79D0F00B591CC /* SOCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOCalloutView.xib; sourceTree = "<group>"; };
+		E88037FB15E79D0F00B591CC /* SOLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocationAnnotation.h; sourceTree = "<group>"; };
+		E88037FC15E79D0F00B591CC /* SOLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOLocationAnnotation.m; sourceTree = "<group>"; };
+		E88037FD15E79D0F00B591CC /* SOLocationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocationView.h; sourceTree = "<group>"; };
+		E88037FE15E79D0F00B591CC /* SOLocationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOLocationView.m; sourceTree = "<group>"; };
+		E88037FF15E79D0F00B591CC /* SOCalloutProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCalloutProtocols.h; sourceTree = "<group>"; };
 		E8A4FFB515E4377F00D10907 /* ScalaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScalaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A4FFB915E4377F00D10907 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E8A4FFBB15E4377F00D10907 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -197,6 +221,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */,
 				E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */,
 				E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */,
 				E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */,
@@ -256,6 +281,8 @@
 		E865EE9B15E48B920063007F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				E88037D915E798CE00B591CC /* map_marker.png */,
+				E88037DA15E798CE00B591CC /* map_marker@2x.png */,
 				E82EF78615E4A23400FA7E78 /* App Icon */,
 				E865EE9C15E48B920063007F /* elements@1x */,
 				E865EEAB15E48B920063007F /* elements@2x */,
@@ -424,6 +451,25 @@
 			name = SOProfileViewController;
 			sourceTree = "<group>";
 		};
+		E88037C415E73DE400B591CC /* SOMapCallout */ = {
+			isa = PBXGroup;
+			children = (
+				E88037F415E79D0F00B591CC /* CalloutAnnotationView.h */,
+				E88037F515E79D0F00B591CC /* CalloutAnnotationView.m */,
+				E88037F615E79D0F00B591CC /* SOCalloutAnnotation.h */,
+				E88037F715E79D0F00B591CC /* SOCalloutAnnotation.m */,
+				E88037F815E79D0F00B591CC /* SOCalloutView.h */,
+				E88037F915E79D0F00B591CC /* SOCalloutView.m */,
+				E88037FA15E79D0F00B591CC /* SOCalloutView.xib */,
+				E88037FB15E79D0F00B591CC /* SOLocationAnnotation.h */,
+				E88037FC15E79D0F00B591CC /* SOLocationAnnotation.m */,
+				E88037FD15E79D0F00B591CC /* SOLocationView.h */,
+				E88037FE15E79D0F00B591CC /* SOLocationView.m */,
+				E88037FF15E79D0F00B591CC /* SOCalloutProtocols.h */,
+			);
+			name = SOMapCallout;
+			sourceTree = "<group>";
+		};
 		E8A4FFAA15E4377F00D10907 = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +493,7 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E88037D715E7400400B591CC /* CoreLocation.framework */,
 				E88037BC15E7277C00B591CC /* MapKit.framework */,
 				E8A4FFB915E4377F00D10907 /* UIKit.framework */,
 				E8A4FFBB15E4377F00D10907 /* Foundation.framework */,
@@ -460,6 +507,7 @@
 		E8A4FFBF15E4377F00D10907 /* ScalaOne */ = {
 			isa = PBXGroup;
 			children = (
+				E88037C415E73DE400B591CC /* SOMapCallout */,
 				E865EE9B15E48B920063007F /* images */,
 				E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */,
 				E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */,
@@ -642,6 +690,9 @@
 				E82EF79815E4A23400FA7E78 /* Icon@2x.png in Resources */,
 				E82EF79915E4A23400FA7E78 /* iTunesArtwork.png in Resources */,
 				E82EF79A15E4A23400FA7E78 /* iTunesArtwork@2x.png in Resources */,
+				E88037DB15E798CE00B591CC /* map_marker.png in Resources */,
+				E88037DC15E798CE00B591CC /* map_marker@2x.png in Resources */,
+				E880380315E79D0F00B591CC /* SOCalloutView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,6 +757,11 @@
 				E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */,
 				E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */,
 				E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */,
+				E880380015E79D0F00B591CC /* CalloutAnnotationView.m in Sources */,
+				E880380115E79D0F00B591CC /* SOCalloutAnnotation.m in Sources */,
+				E880380215E79D0F00B591CC /* SOCalloutView.m in Sources */,
+				E880380415E79D0F00B591CC /* SOLocationAnnotation.m in Sources */,
+				E880380515E79D0F00B591CC /* SOLocationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
