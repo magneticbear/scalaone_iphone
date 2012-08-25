@@ -7,7 +7,7 @@
 
 #import "SOLocationView.h"
 
-#define AnnotationViewStandardWidth 74.5f
+#define AnnotationViewStandardWidth 75.0f
 #define AnnotationViewStandardHeight 87.0f
 #define AnnotationViewExpandOffset 200.0f
 #define AnimationDuration 0.33f
@@ -37,7 +37,7 @@
 //    self.centerOffset = CGPointMake(-AnnotationViewStandardWidth/2, AnnotationViewStandardHeight);
     
     avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
-    avatarImg.frame = CGRectMake(12.5, 12, avatarImg.frame.size.width, avatarImg.frame.size.height);
+    avatarImg.frame = CGRectMake(13, 12, avatarImg.frame.size.width, avatarImg.frame.size.height);
     [self addSubview:avatarImg];
     self.layer.masksToBounds = NO;
     
