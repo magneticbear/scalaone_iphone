@@ -19,5 +19,9 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIView *segmentView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *segmentEventsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *segmentSpeakersBtn;
+
+- (IBAction)didSelectSegment:(UIButton*)sender;
 
 @end

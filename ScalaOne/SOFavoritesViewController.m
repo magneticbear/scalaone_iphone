@@ -18,6 +18,8 @@
 @implementation SOFavoritesViewController
 @synthesize segmentView = _segmentView;
 @synthesize tableView = _tableView;
+@synthesize segmentEventsBtn = _segmentEventsBtn;
+@synthesize segmentSpeakersBtn = _segmentSpeakersBtn;
 @synthesize events = _events;
 @synthesize speakers = _speakers;
 
@@ -38,15 +40,18 @@
     _tableView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1];
     _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];
     _speakers = @[@"Speaker 1",@"Speaker 2",@"Speaker 3",@"Speaker 4",@"Speaker 5",@"Speaker 6",@"Speaker 7",@"Speaker 8",@"Speaker 9",@"Speaker 10",@"Speaker 11",@"Speaker 12"];
-    currentSegment = SOFavoritesSegmentTypeEvents;
     
     _segmentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"segment_bg"]];
+    
+    [self didSelectSegment:_segmentEventsBtn];
 }
 
 - (void)viewDidUnload
 {
     [self setSegmentView:nil];
     [self setTableView:nil];
+    [self setSegmentEventsBtn:nil];
+    [self setSegmentSpeakersBtn:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -103,6 +108,24 @@
         [self.navigationController pushViewController:speakerVC animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (IBAction)didSelectSegment:(UIButton*)sender {
+    NSLog(@"selected %@",sender.titleLabel.text);
+    if (sender == _segmentEventsBtn) {
+        [_segmentSpeakersBtn setHighlighted:NO];
+        currentSegment = SOFavoritesSegmentTypeEvents;
+    } else if (sender == _segmentSpeakersBtn) {
+        [_segmentEventsBtn setHighlighted:NO];
+        currentSegment = SOFavoritesSegmentTypeSpeakers;
+    }
+    [_tableView reloadData];
+    [_tableView setContentOffset:CGPointMake(0, 0)];
+    [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
+}
+
+- (void)doHighlight:(UIButton*)b {
+    [b setHighlighted:YES];
 }
 
 @end
