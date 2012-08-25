@@ -53,7 +53,7 @@
     self.layer.masksToBounds = NO;
     
 //    Name Label
-    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(-36, 20, 170, 20)];
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 20, 170, 20)];
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.textColor = [UIColor whiteColor];
     nameLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
@@ -64,7 +64,7 @@
     [self addSubview:nameLabel];
     
 //    Distance Label
-    distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(-36, 36, 170, 20)];
+    distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 36, 170, 20)];
     distanceLabel.backgroundColor = [UIColor clearColor];
     distanceLabel.textColor = [UIColor whiteColor];
     distanceLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
