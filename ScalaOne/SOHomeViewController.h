@@ -17,5 +17,6 @@
 - (IBAction)pushChatVC:(id)sender;
 - (IBAction)pushMapVC:(id)sender;
 - (IBAction)pushPlaygroundVC:(id)sender;
+- (IBAction)pushAboutVC:(id)sender;
 
 @end

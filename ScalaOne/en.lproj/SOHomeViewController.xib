@@ -73,11 +73,11 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-events-icon.png</string>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="408455383">
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="741935497">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-btn-rec-down.png</string>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="195503716">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="217687474">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-btns-rec.png</string>
 						</object>
@@ -113,11 +113,11 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">Speakers</string>
-						<object class="NSColor" key="IBUIHighlightedTitleColor" id="1039626730">
+						<object class="NSColor" key="IBUIHighlightedTitleColor" id="267756888">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4wNTAxMjU0NTYyIDAuNjQ0NTAyNzM3MiAwLjgxNjQ5MTc4ODMAA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor" id="313278615">
+						<object class="NSColor" key="IBUINormalTitleColor" id="433063883">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4wNTAxMjU0NTYyIDAuNjQ0NTAyNzM3MiAwLjgxNjQ5MTc4ODMAA</bytes>
 						</object>
@@ -126,8 +126,8 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-speakers-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
@@ -153,15 +153,15 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">Favorites</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1039626730"/>
-						<reference key="IBUINormalTitleColor" ref="313278615"/>
+						<reference key="IBUIHighlightedTitleColor" ref="267756888"/>
+						<reference key="IBUINormalTitleColor" ref="433063883"/>
 						<reference key="IBUINormalTitleShadowColor" ref="416679497"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-favourites-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
@@ -187,15 +187,15 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">My Profile</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1039626730"/>
-						<reference key="IBUINormalTitleColor" ref="313278615"/>
+						<reference key="IBUIHighlightedTitleColor" ref="267756888"/>
+						<reference key="IBUINormalTitleColor" ref="433063883"/>
 						<reference key="IBUINormalTitleShadowColor" ref="416679497"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-profile-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
@@ -205,7 +205,7 @@
 						<string key="NSFrame">{{9, 226}, {96, 97}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="888900994"/>
+						<reference key="NSNextKeyView" ref="724669472"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -221,25 +221,25 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">Playground</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1039626730"/>
-						<reference key="IBUINormalTitleColor" ref="313278615"/>
+						<reference key="IBUIHighlightedTitleColor" ref="267756888"/>
+						<reference key="IBUINormalTitleColor" ref="433063883"/>
 						<reference key="IBUINormalTitleShadowColor" ref="416679497"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-play-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
-					<object class="IBUIButton" id="888900994">
+					<object class="IBUIButton" id="724669472">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{113, 226}, {96, 97}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="869015872"/>
+						<reference key="NSNextKeyView" ref="540178441"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -255,15 +255,15 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">About</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1039626730"/>
-						<reference key="IBUINormalTitleColor" ref="313278615"/>
+						<reference key="IBUIHighlightedTitleColor" ref="267756888"/>
+						<reference key="IBUINormalTitleColor" ref="433063883"/>
 						<reference key="IBUINormalTitleShadowColor" ref="416679497"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-about-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
@@ -289,15 +289,15 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">Discuss</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1039626730"/>
-						<reference key="IBUINormalTitleColor" ref="313278615"/>
+						<reference key="IBUIHighlightedTitleColor" ref="267756888"/>
+						<reference key="IBUINormalTitleColor" ref="433063883"/>
 						<reference key="IBUINormalTitleShadowColor" ref="416679497"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-chat-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
@@ -323,19 +323,19 @@
 						<double key="IBUIImageEdgeInsets.left">0.0</double>
 						<double key="IBUIImageEdgeInsets.right">0.0</double>
 						<string key="IBUINormalTitle">Find</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1039626730"/>
-						<reference key="IBUINormalTitleColor" ref="313278615"/>
+						<reference key="IBUIHighlightedTitleColor" ref="267756888"/>
+						<reference key="IBUINormalTitleColor" ref="433063883"/>
 						<reference key="IBUINormalTitleShadowColor" ref="416679497"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-map-icon.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="408455383"/>
-						<reference key="IBUINormalBackgroundImage" ref="195503716"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
+						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
 						<reference key="IBUIFontDescription" ref="924084335"/>
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
-					<object class="IBUIButton" id="869015872">
+					<object class="IBUIButton" id="540178441">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{112, 371}, {99, 25}}</string>
@@ -455,12 +455,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">pushPlaygroundVC:</string>
-						<reference key="source" ref="888900994"/>
+						<string key="label">pushAboutVC:</string>
+						<reference key="source" ref="724669472"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">27</int>
+					<int key="connectionID">31</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -493,8 +493,8 @@
 							<reference ref="805241114"/>
 							<reference ref="773187916"/>
 							<reference ref="912855608"/>
-							<reference ref="888900994"/>
-							<reference ref="869015872"/>
+							<reference ref="724669472"/>
+							<reference ref="540178441"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -535,12 +535,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">26</int>
-						<reference key="object" ref="888900994"/>
+						<reference key="object" ref="724669472"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">29</int>
-						<reference key="object" ref="869015872"/>
+						<reference key="object" ref="540178441"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
 				</array>
@@ -581,7 +581,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">30</int>
+			<int key="maxID">31</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -589,16 +589,20 @@
 					<string key="className">SOHomeViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="pushAboutVC:">id</string>
 						<string key="pushChatVC:">id</string>
 						<string key="pushEventListVC:">id</string>
 						<string key="pushFavoritesVC:">id</string>
 						<string key="pushMapVC:">id</string>
 						<string key="pushPlaygroundVC:">id</string>
 						<string key="pushProfileVC:">id</string>
-						<string key="pushSessionListVC:">id</string>
 						<string key="pushSpeakerListVC:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="pushAboutVC:">
+							<string key="name">pushAboutVC:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="pushChatVC:">
 							<string key="name">pushChatVC:</string>
 							<string key="candidateClassName">id</string>
@@ -621,10 +625,6 @@
 						</object>
 						<object class="IBActionInfo" key="pushProfileVC:">
 							<string key="name">pushProfileVC:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pushSessionListVC:">
-							<string key="name">pushSessionListVC:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="pushSpeakerListVC:">

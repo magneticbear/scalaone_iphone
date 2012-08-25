@@ -26,11 +26,14 @@
     UIImage *barBtnDown = [[UIImage imageNamed:@"top-bar-btn-stretch-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:barBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    UIImage *backBtn = [[UIImage imageNamed:@"backbutton"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 6)];
+    UIImage *backBtn = [[UIImage imageNamed:@"back-btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
-    UIImage *backBtnDown = [[UIImage imageNamed:@"backbutton_down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 6)];
+    UIImage *backBtnDown = [[UIImage imageNamed:@"back-btn-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(HUGE_VALF, HUGE_VALF) forBarMetrics:UIBarMetricsDefault];
     
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];

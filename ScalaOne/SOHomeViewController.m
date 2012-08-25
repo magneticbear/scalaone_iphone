@@ -14,6 +14,7 @@
 #import "SOChatViewController.h"
 #import "SOMapViewController.h"
 #import "SOPlaygroundViewController.h"
+#import "SOAboutViewController.h"
 
 @interface SOHomeViewController ()
 
@@ -68,6 +69,12 @@
     NSLog(@"pushPlaygroundVC");
     SOPlaygroundViewController *playgroundVC = [[SOPlaygroundViewController alloc] initWithNibName:@"SOPlaygroundViewController" bundle:nil];
     [self.navigationController pushViewController:playgroundVC animated:YES];
+}
+
+- (IBAction)pushAboutVC:(id)sender {
+    NSLog(@"pushAboutVC");
+    SOAboutViewController *aboutVC = [[SOAboutViewController alloc] initWithNibName:@"SOAboutViewController" bundle:nil];
+    [self.navigationController pushViewController:aboutVC animated:YES];
 }
 
 - (void)viewDidUnload
