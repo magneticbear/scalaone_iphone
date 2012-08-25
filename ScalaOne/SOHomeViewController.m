@@ -7,7 +7,7 @@
 //
 
 #import "SOHomeViewController.h"
-#import "SOSessionListViewController.h"
+#import "SOEventListViewController.h"
 #import "SOSessionViewController.h"
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
@@ -30,10 +30,10 @@
     self.title = @"ScalaOne";
 }
 
-- (IBAction)pushSessionListVC:(id)sender {
-    NSLog(@"pushSessionListVC");
-    SOSessionListViewController *sessionListVC = [[SOSessionListViewController alloc] initWithNibName:@"SOSessionListViewController" bundle:nil];
-    [self.navigationController pushViewController:sessionListVC animated:YES];
+- (IBAction)pushEventListVC:(id)sender {
+    NSLog(@"pushEventListVC");
+    SOEventListViewController *eventListVC = [[SOEventListViewController alloc] initWithNibName:@"SOEventListViewController" bundle:nil];
+    [self.navigationController pushViewController:eventListVC animated:YES];
 }
 
 - (IBAction)pushSpeakerListVC:(id)sender {

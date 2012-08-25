@@ -10,7 +10,7 @@
 
 @interface SOHomeViewController : UIViewController
 
-- (IBAction)pushSessionListVC:(id)sender;
+- (IBAction)pushEventListVC:(id)sender;
 - (IBAction)pushSpeakerListVC:(id)sender;
 - (IBAction)pushFavoritesVC:(id)sender;
 - (IBAction)pushProfileVC:(id)sender;
