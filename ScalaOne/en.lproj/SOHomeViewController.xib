@@ -39,7 +39,7 @@
 					<object class="IBUIImageView" id="275395754">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 490}</string>
+						<string key="NSFrame">{{0, -44}, {320, 490}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="912855608"/>
@@ -54,7 +54,7 @@
 					<object class="IBUIButton" id="912855608">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 77}, {82, 84}}</string>
+						<string key="NSFrame">{{15, 32}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="9105741"/>
@@ -89,7 +89,7 @@
 					<object class="IBUIButton" id="9105741">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{119, 77}, {82, 84}}</string>
+						<string key="NSFrame">{{119, 32}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1039267080"/>
@@ -111,7 +111,7 @@
 					<object class="IBUIButton" id="1039267080">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{222, 77}, {82, 84}}</string>
+						<string key="NSFrame">{{222, 32}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="883767370"/>
@@ -133,7 +133,7 @@
 					<object class="IBUIButton" id="883767370">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 187}, {82, 84}}</string>
+						<string key="NSFrame">{{15, 142}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="509859465"/>
@@ -155,9 +155,10 @@
 					<object class="IBUIButton" id="773187916">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{15, 301}, {82, 84}}</string>
+						<string key="NSFrame">{{15, 256}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -176,7 +177,7 @@
 					<object class="IBUIButton" id="509859465">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{119, 187}, {82, 84}}</string>
+						<string key="NSFrame">{{119, 142}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="805241114"/>
@@ -198,7 +199,7 @@
 					<object class="IBUIButton" id="805241114">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{222, 187}, {82, 84}}</string>
+						<string key="NSFrame">{{222, 142}, {82, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="773187916"/>
@@ -218,7 +219,7 @@
 						<reference key="IBUIFont" ref="31850326"/>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
+				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="275395754"/>
@@ -231,6 +232,9 @@
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
+					<bool key="IBUIPrompted">NO</bool>
+				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</array>

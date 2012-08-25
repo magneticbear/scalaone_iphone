@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Find a Scala enthusiast";
     SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f];
     [self.mapView addAnnotation:locationAnnotation];
     locationAnnotation.mapView = self.mapView;
