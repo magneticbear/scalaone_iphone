@@ -1,0 +1,9 @@
+PODS:
+  - AFNetworking (1.0RC1)
+  - Bully (0.1.0):
+    - SocketRocket
+  - SocketRocket (0.1)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Bully
