@@ -17,7 +17,21 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[SOHomeViewController alloc] initWithNibName:@"SOHomeViewController" bundle:nil]];
-//    navController.navigationBarHidden = TRUE;
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top-bar-repeat"] forBarMetrics:UIBarMetricsDefault];
+    
+    UIImage *barBtn = [[UIImage imageNamed:@"top-bar-btn-stretch"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [[UIBarButtonItem appearance] setBackgroundImage:barBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    UIImage *barBtnDown = [[UIImage imageNamed:@"top-bar-btn-stretch-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [[UIBarButtonItem appearance] setBackgroundImage:barBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    
+    UIImage *backBtn = [[UIImage imageNamed:@"backbutton"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 6)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    UIImage *backBtnDown = [[UIImage imageNamed:@"backbutton_down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 6)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return YES;
