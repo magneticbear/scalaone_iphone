@@ -492,7 +492,6 @@
 		E8A4FFAA15E4377F00D10907 = {
 			isa = PBXGroup;
 			children = (
-				E877A21D15E7CF9D00AB243A /* QuartzCore.framework */,
 				E8A4FFBF15E4377F00D10907 /* ScalaOne */,
 				E8A4FFDD15E4377F00D10907 /* ScalaOneTests */,
 				E8A4FFB815E4377F00D10907 /* Frameworks */,
@@ -513,6 +512,7 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E877A21D15E7CF9D00AB243A /* QuartzCore.framework */,
 				E88037D715E7400400B591CC /* CoreLocation.framework */,
 				E88037BC15E7277C00B591CC /* MapKit.framework */,
 				E8A4FFB915E4377F00D10907 /* UIKit.framework */,

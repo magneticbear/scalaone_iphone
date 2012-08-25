@@ -5,11 +5,18 @@
 //  Created by Jean-Pierre Simard on 8/22/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 
+// TODO: Improve layout logic to allow arbitrary sizes
+// TODO: Correct center offset to allow map resizing
+// TODO: Set width based on size of name string
+// TODO: Make appropriate data accessible (img, name, distance, ID, etc.)
+// TODO: Fix tapping disclosure button also passes touch underneath
+
+// TODO: Improve the way the disclosure button becomes tappable: enlarging the view isn't ideal
+// TODO: Improve the way large bubble is rendered: expandoffset isn't optimal
+
 #import "SOLocationView.h"
 
 // CAUTION: Changing these constants may break visuals
-// TODO: Improve layout logic to allow arbitrary sizes
-
 #define AnnotationViewStandardWidth 75.0f
 #define AnnotationViewStandardHeight 87.0f
 #define AnnotationViewExpandOffset 200.0f
@@ -37,7 +44,6 @@
     self.canShowCallout = NO;
     self.frame = CGRectMake(0, 0, AnnotationViewStandardWidth, AnnotationViewStandardHeight);
     self.backgroundColor = [UIColor clearColor];
-//    TODO: Find correct center offset
 //    self.centerOffset = CGPointMake(-AnnotationViewStandardWidth/2, AnnotationViewStandardHeight);
     
 //    Avatar
@@ -56,6 +62,17 @@
     nameLabel.text = @"Mo Mozafarian";
     nameLabel.alpha = 0;
     [self addSubview:nameLabel];
+    
+//    Distance Label
+    distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(-36, 36, 170, 20)];
+    distanceLabel.backgroundColor = [UIColor clearColor];
+    distanceLabel.textColor = [UIColor whiteColor];
+    distanceLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    distanceLabel.shadowOffset = CGSizeMake(0, -1);
+    distanceLabel.font = [UIFont systemFontOfSize:12];
+    distanceLabel.text = @"200m";
+    distanceLabel.alpha = 0;
+    [self addSubview:distanceLabel];
     
 //    Disclosure button
     disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -153,12 +170,12 @@
 }
 
 - (void)expand {
-    
     [self animateBubbleWithDirection:SOLocationViewAnimationDirectionGrow];
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+AnnotationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:AnimationDuration/2 delay:AnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 1;
         nameLabel.alpha = 1;
+        distanceLabel.alpha = 1;
     } completion:^(BOOL finished) {
         NSLog(@"Animations completed");
     }];
@@ -169,6 +186,7 @@
     [UIView animateWithDuration:AnimationDuration/2 delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 0;
         nameLabel.alpha = 0;
+        distanceLabel.alpha = 0;
     } completion:^(BOOL finished) {
         [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
         NSLog(@"Animations completed");
