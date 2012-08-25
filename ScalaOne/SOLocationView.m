@@ -43,9 +43,16 @@
     
     disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     disclosureButton.frame = CGRectMake(AnnotationViewExpandOffset/2 + self.frame.size.width/2 - 4.0f, 21, disclosureButton.frame.size.width, disclosureButton.frame.size.height);
+    
+    [disclosureButton addTarget:self action:@selector(didTapDisclosureButton:) forControlEvents:UIControlEventTouchUpInside];
     disclosureButton.alpha = 0;
     [self addSubview:disclosureButton];
+    [self setLayerProperties];
     return self;
+}
+
+- (void)didTapDisclosureButton:(id)sender {
+    NSLog(@"didTapDisclosureButton");
 }
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
@@ -58,10 +65,6 @@
 {
     NSLog(@"didDeselectAnnotationViewInMap");
     [self shrink];
-}
-
-- (void)layoutSubviews {
-    [self setLayerProperties];
 }
 
 - (void)setLayerProperties {
@@ -134,6 +137,7 @@
 - (void)expand {
     
     [self animateBubbleWithDirection:SOLocationViewAnimationDirectionGrow];
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+AnnotationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:AnimationDuration delay:AnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 1;
     } completion:^(BOOL finished) {
@@ -142,6 +146,7 @@
 }
 
 - (void)shrink {
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width-AnnotationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:AnimationDuration delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 0;
     } completion:^(BOOL finished) {
