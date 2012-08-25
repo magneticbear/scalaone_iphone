@@ -13,6 +13,7 @@
 @end
 
 @implementation SOAboutViewController
+@synthesize webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +33,7 @@
 
 - (void)viewDidUnload
 {
+    [self setWebView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
