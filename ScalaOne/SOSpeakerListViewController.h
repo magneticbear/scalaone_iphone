@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SOSpeakerListViewController : UIViewController
+@interface SOSpeakerListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
