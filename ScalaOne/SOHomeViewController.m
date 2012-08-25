@@ -8,9 +8,7 @@
 
 #import "SOHomeViewController.h"
 #import "SOEventListViewController.h"
-#import "SOSessionViewController.h"
 #import "SOSpeakerListViewController.h"
-#import "SOSpeakerViewController.h"
 #import "SOFavoritesViewController.h"
 #import "SOProfileViewController.h"
 #import "SOChatViewController.h"

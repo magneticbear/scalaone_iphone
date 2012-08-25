@@ -1,5 +1,5 @@
 //
-//  SOSessionListViewController.m
+//  SOEventListViewController.m
 //  ScalaOne
 //
 //  Created by Jean-Pierre Simard on 8/22/12.
@@ -7,6 +7,7 @@
 //
 
 #import "SOEventListViewController.h"
+#import "SOEventViewController.h"
 
 @interface SOEventListViewController ()
     @property (nonatomic, strong) NSArray *events;
@@ -71,9 +72,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"selected %@",[_events objectAtIndex:indexPath.row]);
-//    ProfileViewController *profile = [[ProfileViewController alloc] initWithNibName:kVCProfile bundle:nil];
-//    profile.title = [_people objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:profile animated:YES];
+    SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil];
+    [self.navigationController pushViewController:eventVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

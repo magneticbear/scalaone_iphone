@@ -1,18 +1,18 @@
 //
-//  SOSessionViewController.m
+//  SOEventViewController.m
 //  ScalaOne
 //
 //  Created by Jean-Pierre Simard on 8/22/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-#import "SOSessionViewController.h"
+#import "SOEventViewController.h"
 
-@interface SOSessionViewController ()
+@interface SOEventViewController ()
 
 @end
 
-@implementation SOSessionViewController
+@implementation SOEventViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Session";
+    self.title = @"Event";
 }
 
 - (void)viewDidUnload

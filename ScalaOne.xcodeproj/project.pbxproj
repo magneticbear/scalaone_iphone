@@ -48,8 +48,8 @@
 		E865EED315E48B920063007F /* sessions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EEB715E48B920063007F /* sessions@2x.png */; };
 		E865EED415E48B920063007F /* speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EEB815E48B920063007F /* speaker@2x.png */; };
 		E865EED515E48B920063007F /* speakers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EEB915E48B920063007F /* speakers@2x.png */; };
-		E865EEE615E492C10063007F /* SOSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE415E492C10063007F /* SOSessionViewController.m */; };
-		E865EEE715E492C10063007F /* SOSessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEE515E492C10063007F /* SOSessionViewController.xib */; };
+		E865EEE615E492C10063007F /* SOEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE415E492C10063007F /* SOEventViewController.m */; };
+		E865EEE715E492C10063007F /* SOEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEE515E492C10063007F /* SOEventViewController.xib */; };
 		E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE915E492D70063007F /* SOEventListViewController.m */; };
 		E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEA15E492D70063007F /* SOEventListViewController.xib */; };
 		E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */; };
@@ -235,9 +235,9 @@
 		E865EEB715E48B920063007F /* sessions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sessions@2x.png"; sourceTree = "<group>"; };
 		E865EEB815E48B920063007F /* speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker@2x.png"; sourceTree = "<group>"; };
 		E865EEB915E48B920063007F /* speakers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speakers@2x.png"; sourceTree = "<group>"; };
-		E865EEE315E492C10063007F /* SOSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSessionViewController.h; sourceTree = "<group>"; };
-		E865EEE415E492C10063007F /* SOSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSessionViewController.m; sourceTree = "<group>"; };
-		E865EEE515E492C10063007F /* SOSessionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSessionViewController.xib; sourceTree = "<group>"; };
+		E865EEE315E492C10063007F /* SOEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEventViewController.h; sourceTree = "<group>"; };
+		E865EEE415E492C10063007F /* SOEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventViewController.m; sourceTree = "<group>"; };
+		E865EEE515E492C10063007F /* SOEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOEventViewController.xib; sourceTree = "<group>"; };
 		E865EEE815E492D70063007F /* SOEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEventListViewController.h; sourceTree = "<group>"; };
 		E865EEE915E492D70063007F /* SOEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventListViewController.m; sourceTree = "<group>"; };
 		E865EEEA15E492D70063007F /* SOEventListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOEventListViewController.xib; sourceTree = "<group>"; };
@@ -581,7 +581,7 @@
 				E8E4623E15E6E58300908C6A /* SOChatCell */,
 				E865EED715E48D0B0063007F /* SOHomeViewController */,
 				E865EEDB15E491DA0063007F /* SOSessionListViewController */,
-				E865EEDE15E491FB0063007F /* SOSessionViewController */,
+				E865EEDE15E491FB0063007F /* SOEventViewController */,
 				E865EEDC15E491EB0063007F /* SOSpeakerListViewController */,
 				E865EEDD15E491F40063007F /* SOSpeakerViewController */,
 				E865EEE115E4921F0063007F /* SOFavoritesViewController */,
@@ -634,14 +634,14 @@
 			name = SOSpeakerViewController;
 			sourceTree = "<group>";
 		};
-		E865EEDE15E491FB0063007F /* SOSessionViewController */ = {
+		E865EEDE15E491FB0063007F /* SOEventViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E865EEE315E492C10063007F /* SOSessionViewController.h */,
-				E865EEE415E492C10063007F /* SOSessionViewController.m */,
-				E865EEE515E492C10063007F /* SOSessionViewController.xib */,
+				E865EEE315E492C10063007F /* SOEventViewController.h */,
+				E865EEE415E492C10063007F /* SOEventViewController.m */,
+				E865EEE515E492C10063007F /* SOEventViewController.xib */,
 			);
-			name = SOSessionViewController;
+			name = SOEventViewController;
 			sourceTree = "<group>";
 		};
 		E865EEDF15E492040063007F /* SOChatViewController */ = {
@@ -961,7 +961,7 @@
 				E865EED315E48B920063007F /* sessions@2x.png in Resources */,
 				E865EED415E48B920063007F /* speaker@2x.png in Resources */,
 				E865EED515E48B920063007F /* speakers@2x.png in Resources */,
-				E865EEE715E492C10063007F /* SOSessionViewController.xib in Resources */,
+				E865EEE715E492C10063007F /* SOEventViewController.xib in Resources */,
 				E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */,
 				E865EEF115E492E10063007F /* SOSpeakerListViewController.xib in Resources */,
 				E865EEF615E492E80063007F /* SOSpeakerViewController.xib in Resources */,
@@ -1122,7 +1122,7 @@
 				E8A4FFC615E4377F00D10907 /* main.m in Sources */,
 				E8A4FFCA15E4377F00D10907 /* SOAppDelegate.m in Sources */,
 				E8A4FFCD15E4377F00D10907 /* SOHomeViewController.m in Sources */,
-				E865EEE615E492C10063007F /* SOSessionViewController.m in Sources */,
+				E865EEE615E492C10063007F /* SOEventViewController.m in Sources */,
 				E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */,
 				E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */,
 				E865EEF515E492E80063007F /* SOSpeakerViewController.m in Sources */,

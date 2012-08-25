@@ -1,5 +1,5 @@
 //
-//  SOSessionViewController.h
+//  SOEventViewController.h
 //  ScalaOne
 //
 //  Created by Jean-Pierre Simard on 8/22/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SOSessionViewController : UIViewController
+@interface SOEventViewController : UIViewController
 
 @end
