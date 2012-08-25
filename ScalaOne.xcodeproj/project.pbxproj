@@ -158,6 +158,8 @@
 		E86606A315E86B9B00945242 /* visitor-default.png in Resources */ = {isa = PBXBuildFile; fileRef = E866069F15E86B9B00945242 /* visitor-default.png */; };
 		E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86606BC15E8876F00945242 /* SOAboutViewController.m */; };
 		E86606BF15E8876F00945242 /* SOAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86606BD15E8876F00945242 /* SOAboutViewController.xib */; };
+		E86606C115E90C9E00945242 /* segment_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C015E90C9A00945242 /* segment_bg.png */; };
+		E86606C315E90CAD00945242 /* segment_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C215E90CAD00945242 /* segment_bg@2x.png */; };
 		E877A21E15E7CF9D00AB243A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E877A21D15E7CF9D00AB243A /* QuartzCore.framework */; };
 		E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037BC15E7277C00B591CC /* MapKit.framework */; };
 		E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037D715E7400400B591CC /* CoreLocation.framework */; };
@@ -355,6 +357,8 @@
 		E86606BB15E8876F00945242 /* SOAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOAboutViewController.h; sourceTree = "<group>"; };
 		E86606BC15E8876F00945242 /* SOAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOAboutViewController.m; sourceTree = "<group>"; };
 		E86606BD15E8876F00945242 /* SOAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOAboutViewController.xib; sourceTree = "<group>"; };
+		E86606C015E90C9A00945242 /* segment_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segment_bg.png; sourceTree = "<group>"; };
+		E86606C215E90CAD00945242 /* segment_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment_bg@2x.png"; sourceTree = "<group>"; };
 		E877A21D15E7CF9D00AB243A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E88037BC15E7277C00B591CC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E88037D715E7400400B591CC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -466,6 +470,7 @@
 		E865EE9C15E48B920063007F /* elements@1x */ = {
 			isa = PBXGroup;
 			children = (
+				E86606C015E90C9A00945242 /* segment_bg.png */,
 				E86605FE15E86B8300945242 /* home-play-icon.png */,
 				E86605FF15E86B8300945242 /* home-favourites-icon.png */,
 				E866060015E86B8300945242 /* home-map-icon.png */,
@@ -517,6 +522,7 @@
 		E865EEAB15E48B920063007F /* elements@2x */ = {
 			isa = PBXGroup;
 			children = (
+				E86606C215E90CAD00945242 /* segment_bg@2x.png */,
 				E866064D15E86B9100945242 /* home-favourites-icon@2x.png */,
 				E866064E15E86B9100945242 /* home-play-icon@2x.png */,
 				E866064F15E86B9100945242 /* typesafe-logo@2x.png */,
@@ -1071,6 +1077,8 @@
 				E86606A215E86B9B00945242 /* speaker-default.png in Resources */,
 				E86606A315E86B9B00945242 /* visitor-default.png in Resources */,
 				E86606BF15E8876F00945242 /* SOAboutViewController.xib in Resources */,
+				E86606C115E90C9E00945242 /* segment_bg.png in Resources */,
+				E86606C315E90CAD00945242 /* segment_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

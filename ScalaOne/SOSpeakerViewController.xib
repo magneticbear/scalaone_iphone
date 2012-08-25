@@ -35,7 +35,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIWebView" id="460800229">
+					<object class="IBUIWebView" id="433927928">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{320, 416}</string>
@@ -92,7 +92,7 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="460800229"/>
+							<reference ref="433927928"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -109,7 +109,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">7</int>
-						<reference key="object" ref="460800229"/>
+						<reference key="object" ref="433927928"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>

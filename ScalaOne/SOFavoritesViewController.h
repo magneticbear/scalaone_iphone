@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SOFavoritesViewController : UIViewController
+typedef enum {
+    SOFavoritesSegmentTypeEvents = 0,
+    SOFavoritesSegmentTypeSpeakers = 1,
+} SOFavoritesSegmentType;
+
+@interface SOFavoritesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    SOFavoritesSegmentType currentSegment;
+}
+
+@property (weak, nonatomic) IBOutlet UIView *segmentView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
