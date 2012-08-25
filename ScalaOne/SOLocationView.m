@@ -7,6 +7,9 @@
 
 #import "SOLocationView.h"
 
+// CAUTION: Changing these constants may break visuals
+// TODO: Improve layout logic to allow arbitrary sizes
+
 #define AnnotationViewStandardWidth 75.0f
 #define AnnotationViewStandardHeight 87.0f
 #define AnnotationViewExpandOffset 200.0f
@@ -34,19 +37,34 @@
     self.canShowCallout = NO;
     self.frame = CGRectMake(0, 0, AnnotationViewStandardWidth, AnnotationViewStandardHeight);
     self.backgroundColor = [UIColor clearColor];
+//    TODO: Find correct center offset
 //    self.centerOffset = CGPointMake(-AnnotationViewStandardWidth/2, AnnotationViewStandardHeight);
     
+//    Avatar
     avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
     avatarImg.frame = CGRectMake(13, 12, avatarImg.frame.size.width, avatarImg.frame.size.height);
     [self addSubview:avatarImg];
     self.layer.masksToBounds = NO;
     
+//    Name Label
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(-36, 20, 170, 20)];
+    nameLabel.backgroundColor = [UIColor clearColor];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    nameLabel.shadowOffset = CGSizeMake(0, -1);
+    nameLabel.font = [UIFont boldSystemFontOfSize:17];
+    nameLabel.text = @"Mo Mozafarian";
+    nameLabel.alpha = 0;
+    [self addSubview:nameLabel];
+    
+//    Disclosure button
     disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     disclosureButton.frame = CGRectMake(AnnotationViewExpandOffset/2 + self.frame.size.width/2 - 4.0f, 21, disclosureButton.frame.size.width, disclosureButton.frame.size.height);
     
     [disclosureButton addTarget:self action:@selector(didTapDisclosureButton:) forControlEvents:UIControlEventTouchUpInside];
     disclosureButton.alpha = 0;
     [self addSubview:disclosureButton];
+    
     [self setLayerProperties];
     return self;
 }
@@ -138,8 +156,9 @@
     
     [self animateBubbleWithDirection:SOLocationViewAnimationDirectionGrow];
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+AnnotationViewExpandOffset, self.frame.size.height);
-    [UIView animateWithDuration:AnimationDuration delay:AnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
+    [UIView animateWithDuration:AnimationDuration/2 delay:AnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 1;
+        nameLabel.alpha = 1;
     } completion:^(BOOL finished) {
         NSLog(@"Animations completed");
     }];
@@ -147,8 +166,9 @@
 
 - (void)shrink {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width-AnnotationViewExpandOffset, self.frame.size.height);
-    [UIView animateWithDuration:AnimationDuration delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
+    [UIView animateWithDuration:AnimationDuration/2 delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 0;
+        nameLabel.alpha = 0;
     } completion:^(BOOL finished) {
         [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
         NSLog(@"Animations completed");

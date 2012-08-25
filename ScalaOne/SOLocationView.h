@@ -21,6 +21,8 @@ typedef enum {
     CAShapeLayer *strokeAndShadowLayer;
     UIImageView *avatarImg;
     UIButton *disclosureButton;
+    UILabel *nameLabel;
+    UILabel *distanceLabel;
 }
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation;
