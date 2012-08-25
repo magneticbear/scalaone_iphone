@@ -10,6 +10,4 @@
 
 @interface SOPlaygroundViewController : UIViewController
 
-- (IBAction)backOne:(id)sender;
-
 @end

@@ -156,6 +156,8 @@
 		E86606A115E86B9B00945242 /* Mo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E866069D15E86B9B00945242 /* Mo.jpeg */; };
 		E86606A215E86B9B00945242 /* speaker-default.png in Resources */ = {isa = PBXBuildFile; fileRef = E866069E15E86B9B00945242 /* speaker-default.png */; };
 		E86606A315E86B9B00945242 /* visitor-default.png in Resources */ = {isa = PBXBuildFile; fileRef = E866069F15E86B9B00945242 /* visitor-default.png */; };
+		E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86606BC15E8876F00945242 /* SOAboutViewController.m */; };
+		E86606BF15E8876F00945242 /* SOAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86606BD15E8876F00945242 /* SOAboutViewController.xib */; };
 		E877A21E15E7CF9D00AB243A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E877A21D15E7CF9D00AB243A /* QuartzCore.framework */; };
 		E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037BC15E7277C00B591CC /* MapKit.framework */; };
 		E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037D715E7400400B591CC /* CoreLocation.framework */; };
@@ -350,6 +352,9 @@
 		E866069D15E86B9B00945242 /* Mo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Mo.jpeg; sourceTree = "<group>"; };
 		E866069E15E86B9B00945242 /* speaker-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker-default.png"; sourceTree = "<group>"; };
 		E866069F15E86B9B00945242 /* visitor-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "visitor-default.png"; sourceTree = "<group>"; };
+		E86606BB15E8876F00945242 /* SOAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOAboutViewController.h; sourceTree = "<group>"; };
+		E86606BC15E8876F00945242 /* SOAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOAboutViewController.m; sourceTree = "<group>"; };
+		E86606BD15E8876F00945242 /* SOAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOAboutViewController.xib; sourceTree = "<group>"; };
 		E877A21D15E7CF9D00AB243A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E88037BC15E7277C00B591CC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E88037D715E7400400B591CC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -584,6 +589,7 @@
 				E865EEDF15E492040063007F /* SOChatViewController */,
 				E865EEE015E492130063007F /* SOMapViewController */,
 				E865EED915E48D730063007F /* SOPlaygroundViewController */,
+				E86606BA15E8873C00945242 /* SOAboutViewController */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -687,6 +693,16 @@
 				E866069F15E86B9B00945242 /* visitor-default.png */,
 			);
 			path = avatars;
+			sourceTree = "<group>";
+		};
+		E86606BA15E8873C00945242 /* SOAboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E86606BB15E8876F00945242 /* SOAboutViewController.h */,
+				E86606BC15E8876F00945242 /* SOAboutViewController.m */,
+				E86606BD15E8876F00945242 /* SOAboutViewController.xib */,
+			);
+			name = SOAboutViewController;
 			sourceTree = "<group>";
 		};
 		E877A21B15E7CAF800AB243A /* reference@1x */ = {
@@ -1054,6 +1070,7 @@
 				E86606A115E86B9B00945242 /* Mo.jpeg in Resources */,
 				E86606A215E86B9B00945242 /* speaker-default.png in Resources */,
 				E86606A315E86B9B00945242 /* visitor-default.png in Resources */,
+				E86606BF15E8876F00945242 /* SOAboutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,6 +1137,7 @@
 				E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */,
 				E880382D15E7BB8800B591CC /* SOLocationAnnotation.m in Sources */,
 				E880382E15E7BB8800B591CC /* SOLocationView.m in Sources */,
+				E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,18 @@
 //
-//  SOProfileViewController.m
+//  SOAboutViewController.m
 //  ScalaOne
 //
-//  Created by Jean-Pierre Simard on 8/22/12.
+//  Created by Jean-Pierre Simard on 8/25/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-#import "SOProfileViewController.h"
+#import "SOAboutViewController.h"
 
-@interface SOProfileViewController ()
+@interface SOAboutViewController ()
 
 @end
 
-@implementation SOProfileViewController
+@implementation SOAboutViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Profile";
+    self.title = @"About ScalaOne";
 }
 
 - (void)viewDidUnload

@@ -10,6 +10,4 @@
 
 @interface SOFavoritesViewController : UIViewController
 
-- (IBAction)backOne:(id)sender;
-
 @end

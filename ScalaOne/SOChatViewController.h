@@ -20,6 +20,4 @@
 @property (nonatomic, retain) BLYChannel *chatChannel;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 
-- (IBAction)backOne:(id)sender;
-
 @end

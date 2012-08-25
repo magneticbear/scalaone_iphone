@@ -13,6 +13,4 @@
 
 @property (nonatomic, retain) IBOutlet MKMapView* mapView;
 
-- (IBAction)backOne:(id)sender;
-
 @end
