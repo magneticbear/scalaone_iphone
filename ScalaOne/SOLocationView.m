@@ -5,7 +5,6 @@
 //  Created by Jean-Pierre Simard on 8/22/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 
-// TODO: Make appropriate data accessible (img, name, distance, ID, etc.)
 // TODO: Fix tapping disclosure button also passes touch underneath
 
 // TODO (Optional): Reposition map to display full expanded view on tap
@@ -36,6 +35,10 @@
 @end
 
 @implementation SOLocationView
+@synthesize avatarImg = _avatarImg;
+@synthesize nameLabel = _nameLabel;
+@synthesize distanceLabel = _distanceLabel;
+@synthesize profileID = _profileID;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation
 {
@@ -48,32 +51,32 @@
     self.centerOffset = CGPointMake(0, -SOLocationViewVerticalOffset);
     
 //    Avatar
-    avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
-    avatarImg.frame = CGRectMake(13, 12, avatarImg.frame.size.width, avatarImg.frame.size.height);
-    [self addSubview:avatarImg];
+    _avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
+    _avatarImg.frame = CGRectMake(13, 12, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
+    [self addSubview:_avatarImg];
     self.layer.masksToBounds = NO;
     
 //    Name Label
-    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 20, 170, 20)];
-    nameLabel.backgroundColor = [UIColor clearColor];
-    nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
-    nameLabel.shadowOffset = CGSizeMake(0, -1);
-    nameLabel.font = [UIFont boldSystemFontOfSize:17];
-    nameLabel.text = @"Mo Mozafarian";
-    nameLabel.alpha = 0;
-    [self addSubview:nameLabel];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 20, 170, 20)];
+    _nameLabel.backgroundColor = [UIColor clearColor];
+    _nameLabel.textColor = [UIColor whiteColor];
+    _nameLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    _nameLabel.shadowOffset = CGSizeMake(0, -1);
+    _nameLabel.font = [UIFont boldSystemFontOfSize:17];
+    _nameLabel.text = @"Mo Mozafarian";
+    _nameLabel.alpha = 0;
+    [self addSubview:_nameLabel];
     
 //    Distance Label
-    distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 36, 170, 20)];
-    distanceLabel.backgroundColor = [UIColor clearColor];
-    distanceLabel.textColor = [UIColor whiteColor];
-    distanceLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
-    distanceLabel.shadowOffset = CGSizeMake(0, -1);
-    distanceLabel.font = [UIFont systemFontOfSize:12];
-    distanceLabel.text = @"200m";
-    distanceLabel.alpha = 0;
-    [self addSubview:distanceLabel];
+    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 36, 170, 20)];
+    _distanceLabel.backgroundColor = [UIColor clearColor];
+    _distanceLabel.textColor = [UIColor whiteColor];
+    _distanceLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5];
+    _distanceLabel.shadowOffset = CGSizeMake(0, -1);
+    _distanceLabel.font = [UIFont systemFontOfSize:12];
+    _distanceLabel.text = @"200m";
+    _distanceLabel.alpha = 0;
+    [self addSubview:_distanceLabel];
     
 //    Disclosure button
     disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -88,7 +91,7 @@
 }
 
 - (void)didTapDisclosureButton:(id)sender {
-    NSLog(@"didTapDisclosureButton");
+    NSLog(@"didTapDisclosureButton with profileID %d",_profileID);
 }
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
@@ -176,8 +179,8 @@
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+SOLocationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:SOLocationViewAnimationDuration/2 delay:SOLocationViewAnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 1;
-        nameLabel.alpha = 1;
-        distanceLabel.alpha = 1;
+        _nameLabel.alpha = 1;
+        _distanceLabel.alpha = 1;
     } completion:^(BOOL finished) {
         NSLog(@"Animations completed");
     }];
@@ -188,8 +191,8 @@
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width-SOLocationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:SOLocationViewAnimationDuration/2 delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 0;
-        nameLabel.alpha = 0;
-        distanceLabel.alpha = 0;
+        _nameLabel.alpha = 0;
+        _distanceLabel.alpha = 0;
     } completion:^(BOOL finished) {
         [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
         NSLog(@"Animations completed");
@@ -200,9 +203,9 @@
 //    Avatar
     [UIView animateWithDuration:SOLocationViewAnimationDuration animations:^{
         if (animationDirection == SOLocationViewAnimationDirectionGrow) {
-            avatarImg.frame = CGRectMake(avatarImg.frame.origin.x-SOLocationViewExpandOffset/2, avatarImg.frame.origin.y, avatarImg.frame.size.width, avatarImg.frame.size.height);
+            _avatarImg.frame = CGRectMake(_avatarImg.frame.origin.x-SOLocationViewExpandOffset/2, _avatarImg.frame.origin.y, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
         } else if (animationDirection == SOLocationViewAnimationDirectionShrink) {
-            avatarImg.frame = CGRectMake(avatarImg.frame.origin.x+SOLocationViewExpandOffset/2, avatarImg.frame.origin.y, avatarImg.frame.size.width, avatarImg.frame.size.height);
+            _avatarImg.frame = CGRectMake(_avatarImg.frame.origin.x+SOLocationViewExpandOffset/2, _avatarImg.frame.origin.y, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
         }
     }];
     

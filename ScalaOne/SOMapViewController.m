@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import <MapKit/MapKit.h>
-#import "SOLocationProtocols.h"
+#import "SOLocationAnnotation.h"
 
 @interface SOMapViewController ()
 
@@ -36,11 +36,19 @@
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
     
-    SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f];
+    SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f name:@"Mo Mozafarian" distance:@"1.2km"];
     [self.mapView addAnnotation:locationAnnotation];
     locationAnnotation.mapView = self.mapView;
     
     [self.mapView setRegion:MKCoordinateRegionMake(locationAnnotation.coordinate, MKCoordinateSpanMake(0.03, 0.03)) animated:YES];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [locationAnnotation updateAvatar:@"map_avatar_jp"];
+        [locationAnnotation updateName:@"JP Simard"];
+        [locationAnnotation updateDistance:@"200m"];
+        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.71f, -90.71f) animated:YES];
+        [locationAnnotation updateProfileID:123];
+    });
     
     [super viewDidLoad];
 }

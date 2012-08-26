@@ -8,11 +8,13 @@
 #import "SOLocationAnnotation.h"
 
 @implementation SOLocationAnnotation
-@synthesize coordinate, mapView;
+@synthesize coordinate, mapView, locationView, nameString = _nameString, distanceString = _distanceString, profileID = _profileID, avatarImgName = _avatarImgName;
 
-- (id) initWithLat:(CGFloat)latitute lon:(CGFloat)longitude;
+- (id) initWithLat:(CGFloat)latitute lon:(CGFloat)longitude name:(NSString*)name distance:(NSString *)distance
 {
     _coordinate = CLLocationCoordinate2DMake(latitute, longitude);
+    _nameString = name;
+    _distanceString = distance;
     return self;
 }
 
@@ -25,13 +27,13 @@
     } else {
         locationView.annotation = self;
     }
-    
+    locationView.nameLabel.text = _nameString;
+    locationView.distanceLabel.text = _distanceString;
     return locationView;
 }
 
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
-    NSLog(@"\nOld: %f %f New: %f %f", _coordinate.latitude, _coordinate.longitude, newCoordinate.latitude, newCoordinate.longitude);
     _coordinate = newCoordinate;
     [self.mapView addAnnotation:self];
     if(locationView) {
@@ -44,5 +46,35 @@
     return _coordinate;
 }
 
+- (void)updateCoordinate:(CLLocationCoordinate2D)newCoordinate animated:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:0.33f animations:^{
+            self.coordinate = newCoordinate;
+        }];
+    } else {
+        self.coordinate = newCoordinate;
+    }
+}
+
+- (void)updateAvatar:(NSString *)avatar {
+    _avatarImgName = avatar;
+    NSLog(@"avatar: %@",_avatarImgName);
+    locationView.avatarImg.image = [UIImage imageNamed:_avatarImgName];
+}
+
+- (void)updateName:(NSString *)name {
+    _nameString = name;
+    locationView.nameLabel.text = _nameString;
+}
+
+- (void)updateDistance:(NSString *)distance {
+    _distanceString = distance;
+    locationView.distanceLabel.text = _distanceString;
+}
+
+- (void)updateProfileID:(NSInteger)aProfileID {
+    _profileID = aProfileID;
+    locationView.profileID = _profileID;
+}
 
 @end

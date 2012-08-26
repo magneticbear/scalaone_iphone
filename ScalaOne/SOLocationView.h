@@ -23,7 +23,13 @@ typedef enum {
     UIButton *disclosureButton;
     UILabel *nameLabel;
     UILabel *distanceLabel;
+    NSInteger profileID;
 }
+
+@property (nonatomic, retain) UIImageView *avatarImg;
+@property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, retain) UILabel *distanceLabel;
+@property (atomic) NSInteger profileID;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation;
 
