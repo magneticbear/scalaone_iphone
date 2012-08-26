@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 
 // TODO: Improve layout logic to allow arbitrary sizes
-// TODO: Correct center offset to allow map resizing
 // TODO: Set width based on size of name string
 // TODO: Make appropriate data accessible (img, name, distance, ID, etc.)
 // TODO: Fix tapping disclosure button also passes touch underneath
@@ -20,6 +19,7 @@
 #define AnnotationViewStandardWidth 75.0f
 #define AnnotationViewStandardHeight 87.0f
 #define AnnotationViewExpandOffset 200.0f
+#define AnnotationViewVerticalOffset 34.0f
 #define AnimationDuration 0.33f
 
 @interface ShadowShapeLayer : CAShapeLayer
@@ -44,7 +44,7 @@
     self.canShowCallout = NO;
     self.frame = CGRectMake(0, 0, AnnotationViewStandardWidth, AnnotationViewStandardHeight);
     self.backgroundColor = [UIColor clearColor];
-//    self.centerOffset = CGPointMake(-AnnotationViewStandardWidth/2, AnnotationViewStandardHeight);
+    self.centerOffset = CGPointMake(0, -AnnotationViewVerticalOffset);
     
 //    Avatar
     avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
@@ -170,6 +170,7 @@
 }
 
 - (void)expand {
+    self.centerOffset = CGPointMake(AnnotationViewExpandOffset/2, -AnnotationViewVerticalOffset);
     [self animateBubbleWithDirection:SOLocationViewAnimationDirectionGrow];
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+AnnotationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:AnimationDuration/2 delay:AnimationDuration options:UIViewAnimationCurveEaseInOut animations:^{
@@ -182,6 +183,7 @@
 }
 
 - (void)shrink {
+    self.centerOffset = CGPointMake(0, -AnnotationViewVerticalOffset);
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width-AnnotationViewExpandOffset, self.frame.size.height);
     [UIView animateWithDuration:AnimationDuration/2 delay:0.0f options:UIViewAnimationCurveEaseInOut animations:^{
         disclosureButton.alpha = 0;
