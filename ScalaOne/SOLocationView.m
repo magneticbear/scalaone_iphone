@@ -7,7 +7,6 @@
 
 // TODO: Fix tapping disclosure button also passes touch underneath
 
-// TODO (Optional): Reposition map to display full expanded view on tap
 // TODO (Optional): Improve layout logic to allow arbitrary sizes
 // TODO (Optional): Set width based on size of name string
 // TODO (Optional): Improve the way the disclosure button becomes tappable: enlarging the view isn't ideal
@@ -39,6 +38,7 @@
 @synthesize nameLabel = _nameLabel;
 @synthesize distanceLabel = _distanceLabel;
 @synthesize profileID = _profileID;
+@synthesize coordinate = _coordinate;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation
 {
@@ -96,6 +96,7 @@
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
 {
+    [mapView setCenterCoordinate:_coordinate animated:YES];
     NSLog(@"didSelectAnnotationViewInMap");
     [self expand];
 }

@@ -27,6 +27,7 @@
     } else {
         locationView.annotation = self;
     }
+    locationView.coordinate = _coordinate;
     locationView.nameLabel.text = _nameString;
     locationView.distanceLabel.text = _distanceString;
     return locationView;
@@ -37,6 +38,7 @@
     _coordinate = newCoordinate;
     [self.mapView addAnnotation:self];
     if(locationView) {
+        locationView.coordinate = newCoordinate;
         [locationView setAnnotation:self];
     }
 }

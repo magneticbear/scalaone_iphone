@@ -50,6 +50,22 @@
         [locationAnnotation updateProfileID:123];
     });
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.711f, -90.709f) animated:YES];
+    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 4 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.714f, -90.71f) animated:YES];
+    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.713f, -90.704f) animated:YES];
+    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 6 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.71f, -90.71f) animated:YES];
+    });
+    
     [super viewDidLoad];
 }
 

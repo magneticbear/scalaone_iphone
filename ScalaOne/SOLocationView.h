@@ -16,6 +16,7 @@ typedef enum {
 } SOLocationViewAnimationDirection;
 
 @interface SOLocationView : MKAnnotationView <SOAnnotationViewProtocol> {
+    CLLocationCoordinate2D coordinate;
     CGFloat _yShadowOffset;
     CAShapeLayer *shapeLayer;
     CAShapeLayer *strokeAndShadowLayer;
@@ -26,6 +27,7 @@ typedef enum {
     NSInteger profileID;
 }
 
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) UIImageView *avatarImg;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *distanceLabel;
