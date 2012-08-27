@@ -80,7 +80,6 @@
         _messageMetaLabel.frame = CGRectMake(10, 54, 246, 10);
     }
     
-    
 //    Insets
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageTextView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
