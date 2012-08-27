@@ -18,7 +18,7 @@
 @implementation SOChatViewController
 @synthesize client;
 @synthesize chatChannel;
-@synthesize chatTableView;
+@synthesize chatTableView = _chatTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Chat";
+    _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 #if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
     chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
