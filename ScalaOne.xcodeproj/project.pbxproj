@@ -9,7 +9,10 @@
 /* Begin PBXBuildFile section */
 		A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25864A143C1F40E4BEDB06B2 /* libPods.a */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
-		E80A0A4D15EBCF68005E637D /* SOChatInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4C15EBCF68005E637D /* SOChatInputField.m */; };
+		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
+		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
+		E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A5715EBDF13005E637D /* SOChatInputField.m */; };
+		E80A0A5C15EBE08A005E637D /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A5B15EBE08A005E637D /* InputTextField.m */; };
 		E82EF79115E4A23400FA7E78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78715E4A23400FA7E78 /* Icon-72.png */; };
 		E82EF79215E4A23400FA7E78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */; };
 		E82EF79315E4A23400FA7E78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */; };
@@ -207,8 +210,12 @@
 		2F4E18102E17471FBED4DC43 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
-		E80A0A4B15EBCF68005E637D /* SOChatInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatInputField.h; sourceTree = "<group>"; };
-		E80A0A4C15EBCF68005E637D /* SOChatInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatInputField.m; sourceTree = "<group>"; };
+		E80A0A4F15EBDB71005E637D /* chat-input-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field.png"; sourceTree = "<group>"; };
+		E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field@2x.png"; sourceTree = "<group>"; };
+		E80A0A5615EBDF13005E637D /* SOChatInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatInputField.h; sourceTree = "<group>"; };
+		E80A0A5715EBDF13005E637D /* SOChatInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatInputField.m; sourceTree = "<group>"; };
+		E80A0A5A15EBE08A005E637D /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
+		E80A0A5B15EBE08A005E637D /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		E82EF78715E4A23400FA7E78 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -452,13 +459,22 @@
 			name = Vendor;
 			sourceTree = "<group>";
 		};
-		E80A0A4E15EBCF6B005E637D /* SOChatInputField */ = {
+		E80A0A5515EBDF00005E637D /* SOChatInputField */ = {
 			isa = PBXGroup;
 			children = (
-				E80A0A4B15EBCF68005E637D /* SOChatInputField.h */,
-				E80A0A4C15EBCF68005E637D /* SOChatInputField.m */,
+				E80A0A5615EBDF13005E637D /* SOChatInputField.h */,
+				E80A0A5715EBDF13005E637D /* SOChatInputField.m */,
 			);
 			name = SOChatInputField;
+			sourceTree = "<group>";
+		};
+		E80A0A5915EBE067005E637D /* InputTextField */ = {
+			isa = PBXGroup;
+			children = (
+				E80A0A5A15EBE08A005E637D /* InputTextField.h */,
+				E80A0A5B15EBE08A005E637D /* InputTextField.m */,
+			);
+			name = InputTextField;
 			sourceTree = "<group>";
 		};
 		E82EF78615E4A23400FA7E78 /* App Icon */ = {
@@ -541,6 +557,7 @@
 		E865EE9C15E48B920063007F /* elements@1x */ = {
 			isa = PBXGroup;
 			children = (
+				E80A0A4F15EBDB71005E637D /* chat-input-field.png */,
 				E855B2CA15EB298100574B9C /* chat-avatar-jp.png */,
 				E855B2CB15EB298100574B9C /* chat-avatar-mo.png */,
 				E86606C415E91EE800945242 /* back-btn-down.png */,
@@ -621,6 +638,8 @@
 		E865EED815E48D610063007F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E80A0A5915EBE067005E637D /* InputTextField */,
+				E80A0A5515EBDF00005E637D /* SOChatInputField */,
 				E855B2C415EB166900574B9C /* SOViewController */,
 				E8E4623E15E6E58300908C6A /* SOChatCell */,
 				E865EED715E48D0B0063007F /* SOHomeViewController */,
@@ -634,7 +653,6 @@
 				E865EEE015E492130063007F /* SOMapViewController */,
 				E865EED915E48D730063007F /* SOPlaygroundViewController */,
 				E86606BA15E8873C00945242 /* SOAboutViewController */,
-				E80A0A4E15EBCF6B005E637D /* SOChatInputField */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -771,6 +789,7 @@
 		E86606D115E948D600945242 /* chat */ = {
 			isa = PBXGroup;
 			children = (
+				E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */,
 				E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */,
 				E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */,
 				E866065815E86B9100945242 /* chat-speech-blue-right@2x.png */,
@@ -1202,6 +1221,8 @@
 				E855B2CD15EB298100574B9C /* chat-avatar-mo.png in Resources */,
 				E855B2D015EB299200574B9C /* chat-avatar-jp@2x.png in Resources */,
 				E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */,
+				E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */,
+				E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1271,7 +1292,8 @@
 				E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */,
 				E855B2C815EB167700574B9C /* SOViewController.m in Sources */,
 				E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */,
-				E80A0A4D15EBCF68005E637D /* SOChatInputField.m in Sources */,
+				E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */,
+				E80A0A5C15EBE08A005E637D /* InputTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

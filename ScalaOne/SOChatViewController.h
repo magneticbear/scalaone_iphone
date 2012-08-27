@@ -10,16 +10,19 @@
 #import <Bully/Bully.h>
 #import "SOViewController.h"
 #import "DAKeyboardControl.h"
+#import "SOChatInputField.h"
 
 @class BLYClient;
 
 @interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     BLYClient *client;
     BLYChannel *chatChannel;
+    SOChatInputField *chatInputField;
 }
 
 @property (nonatomic, retain) BLYClient *client;
 @property (nonatomic, retain) BLYChannel *chatChannel;
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
+@property (nonatomic, retain) SOChatInputField *chatInputField;
 
 @end

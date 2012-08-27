@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Adjust table view frame when keyboard is up
-
 // TODO (Optional): Animate input field up with keyboard will show
 // TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard
 
@@ -15,31 +13,15 @@
 #import "SOHTTPClient.h"
 #import "SOChatMessage.h"
 #import "SOChatCell.h"
-#import "SOChatInputField.h"
-
-@interface InputTextField : UITextField
-@property (nonatomic,assign) UIEdgeInsets insets;
-@end
-
-@implementation InputTextField
-@synthesize insets;
-- (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectMake(bounds.origin.x + insets.left, bounds.origin.y + insets.top, bounds.size.width - (insets.left+insets.right), bounds.size.height - (insets.top+insets.bottom));
-}
-- (CGRect)editingRectForBounds:(CGRect)bounds {
-    return [self textRectForBounds:bounds];
-}
-@end
 
 @interface SOChatViewController ()
-    @property (nonatomic) InputTextField *inputField;
 @end
 
 @implementation SOChatViewController
 @synthesize client;
 @synthesize chatChannel;
 @synthesize chatTableView = _chatTableView;
-@synthesize inputField = _inputField;
+@synthesize chatInputField = _chatInputField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,57 +43,24 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
-    SOChatInputField *toolBar = [[SOChatInputField alloc] initWithFrame:CGRectMake(0.0f,
-                                                               self.view.bounds.size.height - 49.0f,
+    _chatInputField = [[SOChatInputField alloc] initWithFrame:CGRectMake(0.0f,
+                                                               self.view.bounds.size.height - 45.0f,
                                                                self.view.bounds.size.width,
-                                                               49.0f)];
-    toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    toolBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
-    [self.view addSubview:toolBar];
-    
-    _inputField = [[InputTextField alloc] initWithFrame:CGRectMake(10.0f,
-                                                                   9.0f,
-                                                                   toolBar.bounds.size.width - 20.0f - 68.0f,
-                                                                   30.0f)];
-    
-//    UIImage *fieldImg = [[UIImage imageNamed:@"input_field"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
-//    _inputField.background = fieldImg;
-//    _inputField.borderStyle = UITextBorderStyleNone;
-    _inputField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _inputField.autocorrectionType = UITextAutocorrectionTypeNo;
-    _inputField.insets = UIEdgeInsetsMake(4, 10, 0, 10);
-    _inputField.returnKeyType = UIReturnKeySend;
-    _inputField.delegate = self;
-    _inputField.placeholder = @"Send a chat";
-    [toolBar addSubview:_inputField];
-    
-//    UIButton *postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    postButton.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
-//    postButton.titleLabel.shadowColor = [UIColor colorWithWhite:0.5 alpha:1.0];
-//    postButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
-//    postButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-//    UIImage *postBtnImg = [[UIImage imageNamed:@"post_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
-//    [postButton setBackgroundImage:postBtnImg forState:UIControlStateNormal];
-//    UIImage *postBtnImgDown = [[UIImage imageNamed:@"post_btn_down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
-//    [postButton setBackgroundImage:postBtnImgDown forState:UIControlStateHighlighted];
-//    [postButton setTitle:@"Send" forState:UIControlStateNormal];
-//    postButton.frame = CGRectMake(toolBar.bounds.size.width - 71.0f,
-//                                  (toolBar.bounds.size.height - 31.0f)/2,
-//                                  61.0f,
-//                                  31.0f);
-//    [postButton addTarget:self action:@selector(didPressPost:) forControlEvents:UIControlEventTouchUpInside];
-//    [toolBar addSubview:postButton];
-    
-    self.view.keyboardTriggerOffset = toolBar.bounds.size.height;
+                                                               45.0f)];
+    _chatInputField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    _chatInputField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
+    [self.view addSubview:_chatInputField];
+        
+    self.view.keyboardTriggerOffset = _chatInputField.bounds.size.height;
     
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-        CGRect toolBarFrame = toolBar.frame;
-        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
-        toolBar.frame = toolBarFrame;
+        CGRect chatInputFieldFrame = _chatInputField.frame;
+        chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
+        _chatInputField.frame = chatInputFieldFrame;
         
 //        Update tableView frame
         CGRect tableViewRect = _chatTableView.frame;
-        tableViewRect.size.height = toolBarFrame.origin.y;
+        tableViewRect.size.height = chatInputFieldFrame.origin.y;
         _chatTableView.frame = tableViewRect;
     }];
     
@@ -146,22 +95,6 @@
         }];
     });
 #endif
-}
-
-#pragma mark - UITextField/DAKeyboardControl
-
-- (void)didPressPost:(id)sender {
-    if (_inputField.text.length) {
-        _inputField.text = @"";
-        [_inputField resignFirstResponder];
-    } else {
-        [_inputField becomeFirstResponder];
-    }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self didPressPost:self];
-    return YES;
 }
 
 - (void)viewDidUnload
