@@ -99,7 +99,8 @@
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
 {
-    [mapView setCenterCoordinate:_coordinate animated:YES];
+//    Center map at annotation point
+//    [mapView setCenterCoordinate:_coordinate animated:YES];
     NSLog(@"didSelectAnnotationViewInMap");
     [self expand];
 }

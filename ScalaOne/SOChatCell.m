@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Autofit bubbles to their text
+// TODO: Allow delegate that catches user icon taps
+
 #import "SOChatCell.h"
 
 // Stop UITextView's from being selected

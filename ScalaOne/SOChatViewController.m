@@ -6,6 +6,11 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Adjust table view frame when keyboard is up
+
+// TODO (Optional): Animate input field up with keyboard will show
+// TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard
+
 #import "SOChatViewController.h"
 #import "SOHTTPClient.h"
 #import "SOChatMessage.h"
@@ -51,6 +56,7 @@
     self.title = @"Chat";
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+//    Keyboard show/hide notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -66,6 +72,7 @@
                                                                    9.0f,
                                                                    toolBar.bounds.size.width - 20.0f - 68.0f,
                                                                    30.0f)];
+    
 //    UIImage *fieldImg = [[UIImage imageNamed:@"input_field"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
 //    _inputField.background = fieldImg;
 //    _inputField.borderStyle = UITextBorderStyleNone;
@@ -74,7 +81,7 @@
     _inputField.insets = UIEdgeInsetsMake(4, 10, 0, 10);
     _inputField.returnKeyType = UIReturnKeySend;
     _inputField.delegate = self;
-    _inputField.placeholder = @"Comment";
+    _inputField.placeholder = @"Send a chat";
     [toolBar addSubview:_inputField];
     
 //    UIButton *postButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -107,8 +114,17 @@
         CGRect toolBarFrame = toolBar.frame;
         toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
         toolBar.frame = toolBarFrame;
+        
+//        Move navBar (doesn't work)
+//        CGRect navBarFrame = self.navigationController.navigationBar.frame;
+//        navBarFrame.origin.y = navBarFrame.origin.y - keyboardFrameInView.origin.y;
+//        self.navigationController.navigationBar.frame = navBarFrame;
+        
+//        Update tableView frame
+        CGRect tableViewRect = _chatTableView.frame;
+        tableViewRect.size.height = toolBarFrame.origin.y;
+        _chatTableView.frame = tableViewRect;
     }];
-
     
 #if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
@@ -177,12 +193,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)keyboardWillHide:(id)sender {
+- (void)keyboardWillHide:(NSNotification *)notification {
 //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)keyboardWillShow:(id)sender {
+- (void)keyboardWillShow:(NSNotification *)notification {
 //    Hide navBar
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
