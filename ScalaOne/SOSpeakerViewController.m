@@ -13,6 +13,7 @@
 @end
 
 @implementation SOSpeakerViewController
+@synthesize webView = _webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,10 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Speaker";
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/speaker.jpg"]]];
+    _webView.scalesPageToFit = YES;
 }
 
 - (void)viewDidUnload
 {
+    [self setWebView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

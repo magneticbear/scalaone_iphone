@@ -10,4 +10,5 @@
 
 @interface SOSpeakerViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
