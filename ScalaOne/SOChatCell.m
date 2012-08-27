@@ -69,12 +69,12 @@
     
 //    Frames
     if (_cellAlignment == SOChatCellAlignmentLeft) {
-        _avatarImg.frame = CGRectMake(10, 10, 44, 44);
+        _avatarImg.frame = CGRectMake(10, 10, 49, 49);
         _messageBG.frame = CGRectMake(64, 10, 246, 44);
         _messageTextView.frame = CGRectMake(69, 15, 236, 34);
         _messageMetaLabel.frame = CGRectMake(64, 54, 246, 10);
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
-        _avatarImg.frame = CGRectMake(266, 10, 44, 44);
+        _avatarImg.frame = CGRectMake(266, 10, 49, 49);
         _messageBG.frame = CGRectMake(10, 10, 246, 44);
         _messageTextView.frame = CGRectMake(15, 15, 236, 34);
         _messageMetaLabel.frame = CGRectMake(10, 54, 246, 10);
@@ -85,14 +85,16 @@
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageTextView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
-        
+        _messageTextView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
     }
     
 //    Content
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-gray"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 20, 16, 13)];
+        _avatarImg.image = [UIImage imageNamed:@"chat-avatar-mo"];
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-blue-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 13, 16, 20)];
+        _avatarImg.image = [UIImage imageNamed:@"chat-avatar-jp"];
     }
 }
 

@@ -22,6 +22,10 @@
 		E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CC1B15E6876B00B40B33 /* SODefines.m */; };
 		E855B2C815EB167700574B9C /* SOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E855B2C615EB167700574B9C /* SOViewController.m */; };
 		E855B2C915EB167700574B9C /* SOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E855B2C715EB167700574B9C /* SOViewController.xib */; };
+		E855B2CC15EB298100574B9C /* chat-avatar-jp.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CA15EB298100574B9C /* chat-avatar-jp.png */; };
+		E855B2CD15EB298100574B9C /* chat-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CB15EB298100574B9C /* chat-avatar-mo.png */; };
+		E855B2D015EB299200574B9C /* chat-avatar-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */; };
+		E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */; };
 		E865EEBA15E48B920063007F /* favourites.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EE9D15E48B920063007F /* favourites.png */; };
 		E865EEBB15E48B920063007F /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EE9E15E48B920063007F /* home.png */; };
 		E865EEBC15E48B920063007F /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = E865EE9F15E48B920063007F /* map.png */; };
@@ -216,6 +220,10 @@
 		E855B2C515EB167700574B9C /* SOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOViewController.h; sourceTree = "<group>"; };
 		E855B2C615EB167700574B9C /* SOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOViewController.m; sourceTree = "<group>"; };
 		E855B2C715EB167700574B9C /* SOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOViewController.xib; sourceTree = "<group>"; };
+		E855B2CA15EB298100574B9C /* chat-avatar-jp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-jp.png"; sourceTree = "<group>"; };
+		E855B2CB15EB298100574B9C /* chat-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-mo.png"; sourceTree = "<group>"; };
+		E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-jp@2x.png"; sourceTree = "<group>"; };
+		E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-mo@2x.png"; sourceTree = "<group>"; };
 		E865EE9D15E48B920063007F /* favourites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favourites.png; sourceTree = "<group>"; };
 		E865EE9E15E48B920063007F /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		E865EE9F15E48B920063007F /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
@@ -509,6 +517,8 @@
 		E865EE9C15E48B920063007F /* elements@1x */ = {
 			isa = PBXGroup;
 			children = (
+				E855B2CA15EB298100574B9C /* chat-avatar-jp.png */,
+				E855B2CB15EB298100574B9C /* chat-avatar-mo.png */,
 				E86606C415E91EE800945242 /* back-btn-down.png */,
 				E86606C015E90C9A00945242 /* segment_bg.png */,
 				E86605FE15E86B8300945242 /* home-play-icon.png */,
@@ -736,6 +746,8 @@
 		E86606D115E948D600945242 /* chat */ = {
 			isa = PBXGroup;
 			children = (
+				E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */,
+				E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */,
 				E866065815E86B9100945242 /* chat-speech-blue-right@2x.png */,
 				E866065915E86B9100945242 /* chat-speech-blue@2x.png */,
 				E866065C15E86B9100945242 /* chat-speech-gray-right@2x.png */,
@@ -1160,6 +1172,10 @@
 				E86606C515E91EEC00945242 /* back-btn-down.png in Resources */,
 				E86606C715E91EFA00945242 /* back-btn-down@2x.png in Resources */,
 				E855B2C915EB167700574B9C /* SOViewController.xib in Resources */,
+				E855B2CC15EB298100574B9C /* chat-avatar-jp.png in Resources */,
+				E855B2CD15EB298100574B9C /* chat-avatar-mo.png in Resources */,
+				E855B2D015EB299200574B9C /* chat-avatar-jp@2x.png in Resources */,
+				E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
