@@ -35,15 +35,12 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Chat";
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    });
-//    [UIView animateWithDuration:0.33f delay:2.0f options:UIViewAnimationCurveEaseInOut animations:^{
-//        self.navigationController.navigationBar.frame = CGRectMake(self.navigationController.navigationBar.frame.origin.x, self.navigationController.navigationBar.frame.origin.y-44, self.navigationController.navigationBar.frame.size.width, self.navigationController.navigationBar.frame.size.height);
-//        self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-44, self.view.frame.size.width, self.view.frame.size.height);
-//    } completion:^(BOOL finished) {
-//        NSLog(@"navBar animation finished");
-//    }];
+    
+////    Hide navBar
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    });
+    
 #if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
     chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
