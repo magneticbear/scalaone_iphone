@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Improve custom back button: currently shifts back button title to infinity and has a very padded image
-
 #import "SOAppDelegate.h"
 
 #import "SOHomeViewController.h"
