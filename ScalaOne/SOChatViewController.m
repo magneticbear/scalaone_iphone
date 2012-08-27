@@ -15,6 +15,7 @@
 #import "SOHTTPClient.h"
 #import "SOChatMessage.h"
 #import "SOChatCell.h"
+#import "SOChatInputField.h"
 
 @interface InputTextField : UITextField
 @property (nonatomic,assign) UIEdgeInsets insets;
@@ -60,7 +61,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
-    UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
+    SOChatInputField *toolBar = [[SOChatInputField alloc] initWithFrame:CGRectMake(0.0f,
                                                                self.view.bounds.size.height - 49.0f,
                                                                self.view.bounds.size.width,
                                                                49.0f)];
@@ -104,21 +105,9 @@
     self.view.keyboardTriggerOffset = toolBar.bounds.size.height;
     
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-        /*
-         Try not to call "self" inside this block (retain cycle).
-         But if you do, make sure to remove DAKeyboardControl
-         when you are done with the view controller by calling:
-         [self.view removeKeyboardControl];
-         */
-        
         CGRect toolBarFrame = toolBar.frame;
         toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
         toolBar.frame = toolBarFrame;
-        
-//        Move navBar (doesn't work)
-//        CGRect navBarFrame = self.navigationController.navigationBar.frame;
-//        navBarFrame.origin.y = navBarFrame.origin.y - keyboardFrameInView.origin.y;
-//        self.navigationController.navigationBar.frame = navBarFrame;
         
 //        Update tableView frame
         CGRect tableViewRect = _chatTableView.frame;
