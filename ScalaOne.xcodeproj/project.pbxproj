@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25864A143C1F40E4BEDB06B2 /* libPods.a */; };
+		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
 		E82EF79115E4A23400FA7E78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78715E4A23400FA7E78 /* Icon-72.png */; };
 		E82EF79215E4A23400FA7E78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */; };
 		E82EF79315E4A23400FA7E78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */; };
@@ -203,6 +204,8 @@
 /* Begin PBXFileReference section */
 		25864A143C1F40E4BEDB06B2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F4E18102E17471FBED4DC43 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
+		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		E82EF78715E4A23400FA7E78 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -437,6 +440,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */,
+				E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		E82EF78615E4A23400FA7E78 /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -893,6 +905,7 @@
 		E8A4FFBF15E4377F00D10907 /* ScalaOne */ = {
 			isa = PBXGroup;
 			children = (
+				E80A0A3E15EB8EA1005E637D /* Vendor */,
 				E88037C415E73DE400B591CC /* SOLocation */,
 				E865EE9B15E48B920063007F /* images */,
 				E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */,
@@ -1244,6 +1257,7 @@
 				E880382E15E7BB8800B591CC /* SOLocationView.m in Sources */,
 				E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */,
 				E855B2C815EB167700574B9C /* SOViewController.m in Sources */,
+				E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,14 +11,29 @@
 #import "SOChatMessage.h"
 #import "SOChatCell.h"
 
-@interface SOChatViewController ()
+@interface InputTextField : UITextField
+@property (nonatomic,assign) UIEdgeInsets insets;
+@end
 
+@implementation InputTextField
+@synthesize insets;
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return CGRectMake(bounds.origin.x + insets.left, bounds.origin.y + insets.top, bounds.size.width - (insets.left+insets.right), bounds.size.height - (insets.top+insets.bottom));
+}
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return [self textRectForBounds:bounds];
+}
+@end
+
+@interface SOChatViewController ()
+    @property (nonatomic) InputTextField *inputField;
 @end
 
 @implementation SOChatViewController
 @synthesize client;
 @synthesize chatChannel;
 @synthesize chatTableView = _chatTableView;
+@synthesize inputField = _inputField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,10 +51,64 @@
     self.title = @"Chat";
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-////    Hide navBar
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//    });
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
+                                                               self.view.bounds.size.height - 49.0f,
+                                                               self.view.bounds.size.width,
+                                                               49.0f)];
+    toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    toolBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
+    [self.view addSubview:toolBar];
+    
+    _inputField = [[InputTextField alloc] initWithFrame:CGRectMake(10.0f,
+                                                                   9.0f,
+                                                                   toolBar.bounds.size.width - 20.0f - 68.0f,
+                                                                   30.0f)];
+//    UIImage *fieldImg = [[UIImage imageNamed:@"input_field"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
+//    _inputField.background = fieldImg;
+//    _inputField.borderStyle = UITextBorderStyleNone;
+    _inputField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _inputField.autocorrectionType = UITextAutocorrectionTypeNo;
+    _inputField.insets = UIEdgeInsetsMake(4, 10, 0, 10);
+    _inputField.returnKeyType = UIReturnKeySend;
+    _inputField.delegate = self;
+    _inputField.placeholder = @"Comment";
+    [toolBar addSubview:_inputField];
+    
+//    UIButton *postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    postButton.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+//    postButton.titleLabel.shadowColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+//    postButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+//    postButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//    UIImage *postBtnImg = [[UIImage imageNamed:@"post_btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+//    [postButton setBackgroundImage:postBtnImg forState:UIControlStateNormal];
+//    UIImage *postBtnImgDown = [[UIImage imageNamed:@"post_btn_down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+//    [postButton setBackgroundImage:postBtnImgDown forState:UIControlStateHighlighted];
+//    [postButton setTitle:@"Send" forState:UIControlStateNormal];
+//    postButton.frame = CGRectMake(toolBar.bounds.size.width - 71.0f,
+//                                  (toolBar.bounds.size.height - 31.0f)/2,
+//                                  61.0f,
+//                                  31.0f);
+//    [postButton addTarget:self action:@selector(didPressPost:) forControlEvents:UIControlEventTouchUpInside];
+//    [toolBar addSubview:postButton];
+    
+    self.view.keyboardTriggerOffset = toolBar.bounds.size.height;
+    
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        /*
+         Try not to call "self" inside this block (retain cycle).
+         But if you do, make sure to remove DAKeyboardControl
+         when you are done with the view controller by calling:
+         [self.view removeKeyboardControl];
+         */
+        
+        CGRect toolBarFrame = toolBar.frame;
+        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
+        toolBar.frame = toolBarFrame;
+    }];
+
     
 #if !DEMO
     client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
@@ -74,17 +143,48 @@
 #endif
 }
 
+#pragma mark - UITextField/DAKeyboardControl
+
+- (void)didPressPost:(id)sender {
+    if (_inputField.text.length) {
+        _inputField.text = @"";
+        [_inputField resignFirstResponder];
+    } else {
+        [_inputField becomeFirstResponder];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self didPressPost:self];
+    return YES;
+}
+
 - (void)viewDidUnload
 {
     [self setChatTableView:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.view removeKeyboardControl];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)keyboardWillHide:(id)sender {
+//    Show navBar
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)keyboardWillShow:(id)sender {
+//    Hide navBar
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - UITableViewDataSource

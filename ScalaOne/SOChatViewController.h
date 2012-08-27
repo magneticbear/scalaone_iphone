@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Bully/Bully.h>
 #import "SOViewController.h"
+#import "DAKeyboardControl.h"
 
 @class BLYClient;
 
-@interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     BLYClient *client;
     BLYChannel *chatChannel;
 }
