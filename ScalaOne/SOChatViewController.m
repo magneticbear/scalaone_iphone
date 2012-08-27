@@ -125,13 +125,14 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
 //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
 //    Hide navBar
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.33f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
         [self.navigationController setNavigationBarHidden:YES animated:YES];
-        NSLog(@"_chatInputField.frame.size.height: %.2f",_chatInputField.frame.size.height);
+        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
     });
 }
 

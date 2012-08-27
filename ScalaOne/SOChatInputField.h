@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "InputTextField.h"
+#import "SOInputTextView.h"
 
-@interface SOChatInputField : UIView <UITextFieldDelegate> {
-    InputTextField *inputField;
+@interface SOChatInputField : UIView <UITextFieldDelegate, UITextViewDelegate> {
+    SOInputTextView *inputField;
+    UIImageView *inputBG;
     UIButton *facebookButton;
     UIButton *twitterButton;
     UIButton *sendButton;
@@ -18,7 +19,8 @@
     BOOL shouldSendToTwitter;
 }
 
-@property (nonatomic) InputTextField *inputField;
+@property (nonatomic) SOInputTextView *inputField;
+@property (nonatomic, retain) UIImageView *inputBG;
 @property (nonatomic, retain) UIButton *facebookButton;
 @property (nonatomic, retain) UIButton *twitterButton;
 @property (nonatomic, retain) UIButton *sendButton;

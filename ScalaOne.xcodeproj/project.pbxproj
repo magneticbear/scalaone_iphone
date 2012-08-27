@@ -12,7 +12,7 @@
 		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
 		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
 		E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A5715EBDF13005E637D /* SOChatInputField.m */; };
-		E80A0A5C15EBE08A005E637D /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A5B15EBE08A005E637D /* InputTextField.m */; };
+		E80A0A6E15EC0CA6005E637D /* SOInputTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A6D15EC0CA6005E637D /* SOInputTextView.m */; };
 		E82EF79115E4A23400FA7E78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78715E4A23400FA7E78 /* Icon-72.png */; };
 		E82EF79215E4A23400FA7E78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */; };
 		E82EF79315E4A23400FA7E78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */; };
@@ -214,8 +214,8 @@
 		E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field@2x.png"; sourceTree = "<group>"; };
 		E80A0A5615EBDF13005E637D /* SOChatInputField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatInputField.h; sourceTree = "<group>"; };
 		E80A0A5715EBDF13005E637D /* SOChatInputField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatInputField.m; sourceTree = "<group>"; };
-		E80A0A5A15EBE08A005E637D /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
-		E80A0A5B15EBE08A005E637D /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
+		E80A0A6C15EC0CA6005E637D /* SOInputTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOInputTextView.h; sourceTree = "<group>"; };
+		E80A0A6D15EC0CA6005E637D /* SOInputTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOInputTextView.m; sourceTree = "<group>"; };
 		E82EF78715E4A23400FA7E78 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -468,13 +468,13 @@
 			name = SOChatInputField;
 			sourceTree = "<group>";
 		};
-		E80A0A5915EBE067005E637D /* InputTextField */ = {
+		E80A0A6B15EC0C99005E637D /* SOInputTextView */ = {
 			isa = PBXGroup;
 			children = (
-				E80A0A5A15EBE08A005E637D /* InputTextField.h */,
-				E80A0A5B15EBE08A005E637D /* InputTextField.m */,
+				E80A0A6C15EC0CA6005E637D /* SOInputTextView.h */,
+				E80A0A6D15EC0CA6005E637D /* SOInputTextView.m */,
 			);
-			name = InputTextField;
+			name = SOInputTextView;
 			sourceTree = "<group>";
 		};
 		E82EF78615E4A23400FA7E78 /* App Icon */ = {
@@ -638,7 +638,7 @@
 		E865EED815E48D610063007F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E80A0A5915EBE067005E637D /* InputTextField */,
+				E80A0A6B15EC0C99005E637D /* SOInputTextView */,
 				E80A0A5515EBDF00005E637D /* SOChatInputField */,
 				E855B2C415EB166900574B9C /* SOViewController */,
 				E8E4623E15E6E58300908C6A /* SOChatCell */,
@@ -1293,7 +1293,7 @@
 				E855B2C815EB167700574B9C /* SOViewController.m in Sources */,
 				E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */,
 				E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */,
-				E80A0A5C15EBE08A005E637D /* InputTextField.m in Sources */,
+				E80A0A6E15EC0CA6005E637D /* SOInputTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 
 @implementation SOChatInputField
 @synthesize inputField = _inputField;
+@synthesize inputBG = _inputBG;
 @synthesize facebookButton = _facebookButton;
 @synthesize twitterButton = _twitterButton;
 @synthesize sendButton = _sendButton;
@@ -26,16 +27,20 @@
         _shouldSendToTwitter = NO;
         
 //        Input field
-        _inputField = [[InputTextField alloc] initWithFrame:CGRectMake(4.0f, 8.0f, self.frame.size.width - 8.0f, 30.0f)];
-        
-        _inputField.background = [[UIImage imageNamed:@"chat-input-field"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
+        _inputField = [[SOInputTextView alloc] initWithFrame:CGRectMake(6.0f, 8.0f, self.frame.size.width - 12.0f, 30.0f)];
+        _inputField.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
         _inputField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _inputField.autocorrectionType = UITextAutocorrectionTypeNo;
-        _inputField.insets = UIEdgeInsetsMake(4, 10, 0, 10);
+        _inputField.contentInset = UIEdgeInsetsMake(-2, 0, 0, 0);
         _inputField.returnKeyType = UIReturnKeySend;
         _inputField.delegate = self;
         _inputField.placeholder = @"Send a chat";
         [self addSubview:_inputField];
+        
+//        Input BG
+        _inputBG = [[UIImageView alloc] initWithFrame:_inputField.frame];
+        _inputBG.image = [[UIImage imageNamed:@"chat-input-field"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
+        [self insertSubview:_inputBG belowSubview:_inputField];
         
 //        Facebook button
         _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 45, 52, 32)];
@@ -117,7 +122,6 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"textFieldShouldReturn");
     [self didPressSend:self];
     return YES;
 }
