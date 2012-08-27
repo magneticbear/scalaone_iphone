@@ -34,7 +34,7 @@
         _inputField.contentInset = UIEdgeInsetsMake(-2, 0, 0, 0);
         _inputField.returnKeyType = UIReturnKeySend;
         _inputField.delegate = self;
-        _inputField.placeholder = @"Send a chat";
+        _inputField.placeholder = @"Chat Message";
         [self addSubview:_inputField];
         
 //        Input BG
@@ -113,17 +113,57 @@
 }
 
 - (void)didPressSend:(id)sender {
-    if (_inputField.text.length) {
-        _inputField.text = @"";
-        [_inputField resignFirstResponder];
-    } else {
-        [_inputField becomeFirstResponder];
-    }
+    _inputField.text = @"";
+    [self textViewDidChange:_inputField];
+    [_inputField resignFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self didPressSend:self];
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//    Send on return
+    if ([text isEqualToString:@"\n"]) {
+        if ([textView.text length]) {
+            [self didPressSend:self];
+        }
+        return NO;
+    }
+//    Limit size of textview
+    if ((textView.contentSize.height >= 196.0f || [textView.text length] >= 300) && [text length]) {
+        return NO;
+    }
     return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    CGRect selfFrame = self.frame;
+    CGRect inputFrame = _inputField.frame;
+    CGRect facebookFrame = _facebookButton.frame;
+    CGRect twitterFrame = _twitterButton.frame;
+    CGRect sendFrame = _sendButton.frame;
+    
+    selfFrame.size.height -= inputFrame.size.height;
+    selfFrame.origin.y += inputFrame.size.height;
+    inputFrame.size.height = textView.contentSize.height-4.0f;
+    
+    selfFrame.size.height += inputFrame.size.height;
+    selfFrame.origin.y -= inputFrame.size.height;
+    
+    if (selfFrame.size.height >= 82.0f) {
+        facebookFrame.origin.y = selfFrame.size.height-37;
+        twitterFrame.origin.y = selfFrame.size.height-37;
+        sendFrame.origin.y = selfFrame.size.height-37;
+    } else {
+        facebookFrame.origin.y = 45.0f;
+        twitterFrame.origin.y = 45.0f;
+        sendFrame.origin.y = 45.0f;
+    }
+    
+    _inputField.frame = inputFrame;
+    _inputBG.frame = inputFrame;
+    self.frame = selfFrame;
+    
+    _facebookButton.frame = facebookFrame;
+    _twitterButton.frame = twitterFrame;
+    _sendButton.frame = sendFrame;
 }
 
 - (void)didPressFacebook:(id)sender {

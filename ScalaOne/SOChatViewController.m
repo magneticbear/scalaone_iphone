@@ -58,6 +58,7 @@
     self.view.keyboardTriggerOffset = SOChatInputFieldExpandedHeight;
     
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        _chatInputField.inputField.text = @"";
 //        Update input field frame
         CGRect chatInputFieldFrame = _chatInputField.frame;
         CGFloat inputFramePanConstant = (SOChatInputFieldExpandedHeight - SOChatInputFieldStandardHeight)/216.0f;
