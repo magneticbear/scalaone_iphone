@@ -11,8 +11,7 @@
 
 #import "SOChatCell.h"
 
-// Stop UITextView's from being selected
-@implementation UITextView (DisableCopyPaste)
+@implementation SOChatTextView
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -33,11 +32,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
 //        Initializers
         _avatarImg = [[UIImageView alloc] init];
         _messageBG = [[UIImageView alloc] init];
-        _messageTextView = [[UITextView alloc] init];
+        _messageTextView = [[SOChatTextView alloc] init];
         _messageMetaLabel = [[UILabel alloc] init];
         
 //        Clear background colors

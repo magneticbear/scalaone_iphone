@@ -13,17 +13,22 @@ typedef enum {
     SOChatCellAlignmentRight   = 1
 } SOChatCellAlignment;
 
+// Stop UITextView's from being selected
+@interface SOChatTextView : UITextView
+
+@end
+
 @interface SOChatCell : UITableViewCell {
     UIImageView *avatarImg;
     UIImageView *messageBG;
-    UITextView *messageTextView;
+    SOChatTextView *messageTextView;
     UILabel *messageMetaLabel;
     SOChatCellAlignment cellAlignment;
 }
 
 @property (nonatomic, retain) UIImageView *avatarImg;
 @property (nonatomic, retain) UIImageView *messageBG;
-@property (nonatomic, retain) UITextView *messageTextView;
+@property (nonatomic, retain) SOChatTextView *messageTextView;
 @property (nonatomic, retain) UILabel *messageMetaLabel;
 @property (nonatomic) SOChatCellAlignment cellAlignment;
 
