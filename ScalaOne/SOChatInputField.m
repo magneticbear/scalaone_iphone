@@ -10,22 +10,58 @@
 
 @implementation SOChatInputField
 @synthesize inputField = _inputField;
+@synthesize facebookButton = _facebookButton;
+@synthesize twitterButton = _twitterButton;
+@synthesize sendButton = _sendButton;
+@synthesize shouldSendToFacebook = _shouldSendToFacebook;
+@synthesize shouldSendToTwitter = _shouldSendToTwitter;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _inputField = [[InputTextField alloc] initWithFrame:CGRectMake(10.0f, 8.0f, self.frame.size.width - 20.0f, 30.0f)];
+        
+        _shouldSendToFacebook = NO;
+        _shouldSendToTwitter = NO;
+        
+//        Input field
+        _inputField = [[InputTextField alloc] initWithFrame:CGRectMake(4.0f, 8.0f, self.frame.size.width - 8.0f, 30.0f)];
         
         _inputField.background = [[UIImage imageNamed:@"chat-input-field"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
         _inputField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _inputField.autocorrectionType = UITextAutocorrectionTypeNo;
-        _inputField.insets = UIEdgeInsetsMake(4, 8, 0, 8);
+        _inputField.insets = UIEdgeInsetsMake(4, 10, 0, 10);
         _inputField.returnKeyType = UIReturnKeySend;
         _inputField.delegate = self;
         _inputField.placeholder = @"Send a chat";
         [self addSubview:_inputField];
+        
+//        Facebook button
+        _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 45, 52, 32)];
+        [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn"] forState:UIControlStateNormal];
+        [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn-checked"] forState:UIControlStateHighlighted];
+        [_facebookButton addTarget:self action:@selector(didPressFacebook:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_facebookButton];
+        
+//        Twitter button
+        _twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(62, 45, 52, 32)];
+        [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn"] forState:UIControlStateNormal];
+        [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn-checked"] forState:UIControlStateHighlighted];
+        [_twitterButton addTarget:self action:@selector(didPressTwitter:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_twitterButton];
+        
+//        Send button
+        _sendButton = [[UIButton alloc] initWithFrame:CGRectMake(253, 45, 62, 32)];
+        [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn"] forState:UIControlStateNormal];
+        [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn-down"] forState:UIControlStateHighlighted];
+        [_sendButton addTarget:self action:@selector(didPressSend:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_sendButton setTitleShadowColor:[UIColor colorWithRed:0.059 green:0.486 blue:0.612 alpha:1] forState:UIControlStateNormal];
+        _sendButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
+        _sendButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        [_sendButton setTitle:@"Send" forState:UIControlStateNormal];
+        [self addSubview:_sendButton];
     }
     return self;
 }
@@ -71,7 +107,7 @@
     CGColorSpaceRelease(colorSpace);
 }
 
-- (void)didPressPost:(id)sender {
+- (void)didPressSend:(id)sender {
     if (_inputField.text.length) {
         _inputField.text = @"";
         [_inputField resignFirstResponder];
@@ -82,8 +118,24 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSLog(@"textFieldShouldReturn");
-    [self didPressPost:self];
+    [self didPressSend:self];
     return YES;
+}
+
+- (void)didPressFacebook:(id)sender {
+    _shouldSendToFacebook = !_shouldSendToFacebook;
+    if (_shouldSendToFacebook)
+        [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
+}
+
+- (void)didPressTwitter:(id)sender {
+    _shouldSendToTwitter = !_shouldSendToTwitter;
+    if (_shouldSendToTwitter)
+        [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
+}
+
+- (void)doHighlight:(UIButton*)b {
+    [b setHighlighted:YES];
 }
 
 @end

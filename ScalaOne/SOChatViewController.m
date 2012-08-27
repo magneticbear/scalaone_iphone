@@ -14,6 +14,9 @@
 #import "SOChatMessage.h"
 #import "SOChatCell.h"
 
+#define SOChatInputFieldStandardHeight  45.0f
+#define SOChatInputFieldExpandedHeight  82.0f
+
 @interface SOChatViewController ()
 @end
 
@@ -38,23 +41,27 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Chat";
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
 //    Keyboard show/hide notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     _chatInputField = [[SOChatInputField alloc] initWithFrame:CGRectMake(0.0f,
-                                                               self.view.bounds.size.height - 45.0f,
+                                                               self.view.bounds.size.height - SOChatInputFieldStandardHeight,
                                                                self.view.bounds.size.width,
-                                                               45.0f)];
+                                                               SOChatInputFieldStandardHeight)];
     _chatInputField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _chatInputField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
     [self.view addSubview:_chatInputField];
         
-    self.view.keyboardTriggerOffset = _chatInputField.bounds.size.height;
+    self.view.keyboardTriggerOffset = SOChatInputFieldExpandedHeight;
     
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+//        Update input field frame
         CGRect chatInputFieldFrame = _chatInputField.frame;
+        CGFloat inputFramePanConstant = (SOChatInputFieldExpandedHeight - SOChatInputFieldStandardHeight)/216.0f;
+        chatInputFieldFrame.size.height = SOChatInputFieldStandardHeight + (self.view.frame.size.height - keyboardFrameInView.origin.y)*inputFramePanConstant;
         chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
         _chatInputField.frame = chatInputFieldFrame;
         
@@ -122,7 +129,10 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification {
 //    Hide navBar
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        NSLog(@"_chatInputField.frame.size.height: %.2f",_chatInputField.frame.size.height);
+    });
 }
 
 #pragma mark - UITableViewDataSource
