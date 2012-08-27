@@ -42,29 +42,45 @@
     
     [self.mapView setRegion:MKCoordinateRegionMake(locationAnnotation.coordinate, MKCoordinateSpanMake(0.03, 0.03)) animated:YES];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        [locationAnnotation updateAvatar:@"map_avatar_jp"];
-        [locationAnnotation updateName:@"JP Simard"];
-        [locationAnnotation updateDistance:@"200m"];
-        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.71f, -90.71f) animated:YES];
-        [locationAnnotation updateProfileID:123];
-    });
+    {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.715f lon:-90.71f name:@"Mo Mozafarian" distance:@"1.2km"];
+        [self.mapView addAnnotation:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
+    {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.685f lon:-90.71f name:@"Mo Mozafarian" distance:@"1.2km"];
+        [self.mapView addAnnotation:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
+    {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.715f lon:-90.69f name:@"Mo Mozafarian" distance:@"1.2km"];
+        [self.mapView addAnnotation:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.711f, -90.709f) animated:YES];
-    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 4 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.714f, -90.71f) animated:YES];
-    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.713f, -90.704f) animated:YES];
-    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 6 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.71f, -90.71f) animated:YES];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//        [locationAnnotation updateAvatar:@"map_avatar_jp"];
+//        [locationAnnotation updateName:@"JP Simard"];
+//        [locationAnnotation updateDistance:@"200m"];
+//        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.71f, -90.71f) animated:YES];
+//        [locationAnnotation updateProfileID:123];
+//    });
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.711f, -90.709f) animated:YES];
+//    });
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 4 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.714f, -90.71f) animated:YES];
+//    });
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.713f, -90.704f) animated:YES];
+//    });
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 6 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//        [locationAnnotation updateCoordinate:CLLocationCoordinate2DMake(38.71f, -90.71f) animated:YES];
+//    });
     
     [super viewDidLoad];
 }
@@ -106,7 +122,7 @@
     for (MKAnnotationView *aV in views) {
         CGRect endFrame = aV.frame;
         
-        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-230.0, aV.frame.size.width, aV.frame.size.height);
+        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin .y-230.0, aV.frame.size.width, aV.frame.size.height);
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.45];
@@ -118,6 +134,14 @@
 
 - (void)didPressLocateMe:(id)sender {
     NSLog(@"didPressLocateMe");
+}
+
+- (void)didSelectAnnotationViewInMap:(MKMapView *)mapView {
+    NSLog(@"INMAPVIEW: didSelectAnnotationViewInMap");
+}
+
+- (void)didDeselectAnnotationViewInMap:(MKMapView*) mapView {
+    NSLog(@"INMAPVIEW: didDeselectAnnotationViewInMap");
 }
 
 @end

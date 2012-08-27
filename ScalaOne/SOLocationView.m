@@ -5,8 +5,6 @@
 //  Created by Jean-Pierre Simard on 8/22/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 
-// TODO: Fix tapping disclosure button also passes touch underneath
-
 // TODO (Optional): Improve layout logic to allow arbitrary sizes
 // TODO (Optional): Set width based on size of name string
 // TODO (Optional): Improve the way the disclosure button becomes tappable: enlarging the view isn't ideal
@@ -45,6 +43,8 @@
     if(!(self = [super initWithAnnotation:annotation reuseIdentifier:@"SOLocationView"]))
         return nil;
     
+    appDel = (SOAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     self.canShowCallout = NO;
     self.frame = CGRectMake(0, 0, SOLocationViewStandardWidth, SOLocationViewStandardHeight);
     self.backgroundColor = [UIColor clearColor];
@@ -82,9 +82,11 @@
     disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     disclosureButton.frame = CGRectMake(SOLocationViewExpandOffset/2 + self.frame.size.width/2 - 4.0f, 21, disclosureButton.frame.size.width, disclosureButton.frame.size.height);
     
-    [disclosureButton addTarget:self action:@selector(didTapDisclosureButton:) forControlEvents:UIControlEventTouchUpInside];
+    [disclosureButton addTarget:self action:@selector(didTapDisclosureButton:) forControlEvents:UIControlEventTouchDown];
     disclosureButton.alpha = 0;
     [self addSubview:disclosureButton];
+    
+    _profileID = 0;
     
     [self setLayerProperties];
     return self;
@@ -92,6 +94,7 @@
 
 - (void)didTapDisclosureButton:(id)sender {
     NSLog(@"didTapDisclosureButton with profileID %d",_profileID);
+    [appDel showProfile:_profileID];
 }
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;

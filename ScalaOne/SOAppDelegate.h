@@ -10,10 +10,12 @@
 
 @class SOHomeViewController;
 
-@interface SOAppDelegate : UIResponder <UIApplicationDelegate>
+@interface SOAppDelegate : UIResponder <UIApplicationDelegate> {
+    UINavigationController *navController;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) SOHomeViewController *viewController;
+- (void)showProfile:(NSInteger)profileID;
 
 @end

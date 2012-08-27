@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 #import "SOLocationProtocols.h"
+#import "SOAppDelegate.h"
 
 typedef enum {
     SOLocationViewAnimationDirectionGrow   = 0,
@@ -25,6 +26,7 @@ typedef enum {
     UILabel *nameLabel;
     UILabel *distanceLabel;
     NSInteger profileID;
+    SOAppDelegate *appDel;
 }
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
