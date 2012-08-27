@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOViewController.h"
 
-@interface SOProfileViewController : UIViewController
+@interface SOProfileViewController : SOViewController
 
 @end

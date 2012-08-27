@@ -36,8 +36,6 @@
     UIImage *backBtnDown = [[UIImage imageNamed:@"back-btn-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(HUGE_VALF, HUGE_VALF) forBarMetrics:UIBarMetricsDefault];
-    
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return YES;

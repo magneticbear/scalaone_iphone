@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SOLocationProtocols.h"
 #import "SOLocationAnnotation.h"
+#import "SOViewController.h"
 
-@interface SOMapViewController : UIViewController <MKMapViewDelegate, SOAnnotationViewProtocol>
+@interface SOMapViewController : SOViewController <MKMapViewDelegate, SOAnnotationViewProtocol>
 
 @property (nonatomic, retain) IBOutlet MKMapView* mapView;
 

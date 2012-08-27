@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOViewController.h"
 
-@interface SOEventListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface SOEventListViewController : SOViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;

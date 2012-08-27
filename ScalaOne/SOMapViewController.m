@@ -122,7 +122,7 @@
     for (MKAnnotationView *aV in views) {
         CGRect endFrame = aV.frame;
         
-        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin .y-230.0, aV.frame.size.width, aV.frame.size.height);
+        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-230.0, aV.frame.size.width, aV.frame.size.height);
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.45];

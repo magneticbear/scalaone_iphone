@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOViewController.h"
 
-@interface SOAboutViewController : UIViewController
+@interface SOAboutViewController : SOViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

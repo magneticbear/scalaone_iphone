@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOViewController.h"
 
-@interface SOHomeViewController : UIViewController
+@interface SOHomeViewController : SOViewController
 
 - (IBAction)pushEventListVC:(id)sender;
 - (IBAction)pushSpeakerListVC:(id)sender;

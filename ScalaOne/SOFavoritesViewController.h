@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOViewController.h"
 
 typedef enum {
     SOFavoritesSegmentTypeEvents = 0,
     SOFavoritesSegmentTypeSpeakers = 1,
 } SOFavoritesSegmentType;
 
-@interface SOFavoritesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface SOFavoritesViewController : SOViewController <UITableViewDelegate, UITableViewDataSource> {
     SOFavoritesSegmentType currentSegment;
 }
 
