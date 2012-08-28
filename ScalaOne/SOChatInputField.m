@@ -32,7 +32,6 @@
         _inputField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _inputField.autocorrectionType = UITextAutocorrectionTypeNo;
         _inputField.contentInset = UIEdgeInsetsMake(-2, 0, 0, 0);
-        _inputField.returnKeyType = UIReturnKeySend;
         _inputField.delegate = self;
         _inputField.placeholder = @"Chat Message";
         [self addSubview:_inputField];
@@ -119,13 +118,6 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//    Send on return
-    if ([text isEqualToString:@"\n"]) {
-        if ([textView.text length]) {
-            [self didPressSend:self];
-        }
-        return NO;
-    }
 //    Limit size of textview
     if ((textView.contentSize.height >= 196.0f || [textView.text length] >= 300) && [text length]) {
         return NO;
