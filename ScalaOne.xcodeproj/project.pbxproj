@@ -23,6 +23,8 @@
 		E82EF79815E4A23400FA7E78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78E15E4A23400FA7E78 /* Icon@2x.png */; };
 		E82EF79915E4A23400FA7E78 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF78F15E4A23400FA7E78 /* iTunesArtwork.png */; };
 		E82EF79A15E4A23400FA7E78 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */; };
+		E833EC0D15ED024E007C1DB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E833EC0B15ED024E007C1DB5 /* Default@2x.png */; };
+		E833EC0E15ED024E007C1DB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E833EC0C15ED024E007C1DB5 /* Default.png */; };
 		E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */; };
 		E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CC1B15E6876B00B40B33 /* SODefines.m */; };
 		E855B2C815EB167700574B9C /* SOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E855B2C615EB167700574B9C /* SOViewController.m */; };
@@ -226,6 +228,8 @@
 		E82EF78E15E4A23400FA7E78 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E82EF78F15E4A23400FA7E78 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		E833EC0B15ED024E007C1DB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E833EC0C15ED024E007C1DB5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOHTTPClient.h; sourceTree = "<group>"; };
 		E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOHTTPClient.m; sourceTree = "<group>"; };
 		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
@@ -479,6 +483,8 @@
 		E82EF78615E4A23400FA7E78 /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
+				E833EC0B15ED024E007C1DB5 /* Default@2x.png */,
+				E833EC0C15ED024E007C1DB5 /* Default.png */,
 				E82EF78715E4A23400FA7E78 /* Icon-72.png */,
 				E82EF78815E4A23400FA7E78 /* Icon-72@2x.png */,
 				E82EF78915E4A23400FA7E78 /* Icon-Small-50.png */,
@@ -1231,6 +1237,8 @@
 				E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */,
 				E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */,
 				E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */,
+				E833EC0D15ED024E007C1DB5 /* Default@2x.png in Resources */,
+				E833EC0E15ED024E007C1DB5 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
