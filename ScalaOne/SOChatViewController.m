@@ -109,6 +109,9 @@
 {
     [self setChatTableView:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [chatChannel unbindEvent:@"new_message"];
+    [chatChannel unsubscribe];
+    client = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -126,14 +129,14 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
 //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
+//    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
 //    Hide navBar
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.33f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
         [self.navigationController setNavigationBarHidden:YES animated:YES];
-        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
+//        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
     });
 }
 

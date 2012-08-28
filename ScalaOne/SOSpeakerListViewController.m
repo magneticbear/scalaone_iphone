@@ -64,6 +64,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        UIView *bgColorView = [[UIView alloc] init];
+        [bgColorView setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
+        [cell setSelectedBackgroundView:bgColorView];
     }
     cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"list-star-%@",indexPath.row%2 ? @"on" : @"off"]];
