@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO (Optional): Animate input field up with keyboard will show
+// TODO: Add empty last cell
+
+// TODO (Optional): Remove new cell animation on keyboard dismiss
 // TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard
 
 #import "SOChatViewController.h"
@@ -53,23 +55,14 @@
                                                                SOChatInputFieldStandardHeight)];
     _chatInputField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _chatInputField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
+    _chatInputField.delegate = self;
     [self.view addSubview:_chatInputField];
         
     self.view.keyboardTriggerOffset = SOChatInputFieldExpandedHeight;
     
+    __weak SOChatViewController *ref = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-        _chatInputField.inputField.text = @"";
-//        Update input field frame
-        CGRect chatInputFieldFrame = _chatInputField.frame;
-        CGFloat inputFramePanConstant = (SOChatInputFieldExpandedHeight - SOChatInputFieldStandardHeight)/216.0f;
-        chatInputFieldFrame.size.height = SOChatInputFieldStandardHeight + (self.view.frame.size.height - keyboardFrameInView.origin.y)*inputFramePanConstant;
-        chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
-        _chatInputField.frame = chatInputFieldFrame;
-        
-//        Update tableView frame
-        CGRect tableViewRect = _chatTableView.frame;
-        tableViewRect.size.height = chatInputFieldFrame.origin.y;
-        _chatTableView.frame = tableViewRect;
+        [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
     }];
     
 #if !DEMO
@@ -105,6 +98,24 @@
 #endif
 }
 
+- (void)updateLayoutWithKeyboardRect:(CGRect)keyboardFrameInView onlyTable:(BOOL)onlyTable {
+//    Update input field frame
+    CGRect chatInputFieldFrame = _chatInputField.frame;
+    if (!onlyTable) {
+        CGFloat inputFramePanConstant = (SOChatInputFieldExpandedHeight - SOChatInputFieldStandardHeight)/216.0f;
+        
+        chatInputFieldFrame.size.height = SOChatInputFieldStandardHeight + _chatInputField.inputField.frame.size.height - 30.0f + (self.view.frame.size.height - keyboardFrameInView.origin.y)*inputFramePanConstant;
+        
+        chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
+        _chatInputField.frame = chatInputFieldFrame;
+    }
+    
+//    Update tableView frame
+    CGRect tableViewRect = _chatTableView.frame;
+    tableViewRect.size.height = chatInputFieldFrame.origin.y;
+    _chatTableView.frame = tableViewRect;
+}
+
 - (void)viewDidUnload
 {
     [self setChatTableView:nil];
@@ -129,14 +140,14 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
 //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-//    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
+    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
 //    Hide navBar
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.33f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
         [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:YES];
+//        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
     });
 }
 
@@ -167,6 +178,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"selected cell: %d",indexPath.row);
+}
+
+#pragma mark - SOChatInputFieldDelegate
+
+- (void)didChangeSOInputChatFieldSize:(CGSize)size {
+    [self updateLayoutWithKeyboardRect:CGRectNull onlyTable:YES];
+    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
 }
 
 @end

@@ -16,13 +16,14 @@
 @synthesize sendButton = _sendButton;
 @synthesize shouldSendToFacebook = _shouldSendToFacebook;
 @synthesize shouldSendToTwitter = _shouldSendToTwitter;
+@synthesize delegate = _delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
+        self.contentMode = UIViewContentModeRedraw;
         _shouldSendToFacebook = NO;
         _shouldSendToTwitter = NO;
         
@@ -42,21 +43,21 @@
         [self insertSubview:_inputBG belowSubview:_inputField];
         
 //        Facebook button
-        _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 45, 52, 32)];
+        _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(7, 45, 52, 32)];
         [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn"] forState:UIControlStateNormal];
         [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn-checked"] forState:UIControlStateHighlighted];
         [_facebookButton addTarget:self action:@selector(didPressFacebook:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_facebookButton];
         
 //        Twitter button
-        _twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(62, 45, 52, 32)];
+        _twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(66, 45, 52, 32)];
         [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn"] forState:UIControlStateNormal];
         [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn-checked"] forState:UIControlStateHighlighted];
         [_twitterButton addTarget:self action:@selector(didPressTwitter:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_twitterButton];
         
 //        Send button
-        _sendButton = [[UIButton alloc] initWithFrame:CGRectMake(253, 45, 62, 32)];
+        _sendButton = [[UIButton alloc] initWithFrame:CGRectMake(251, 45, 62, 32)];
         [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn"] forState:UIControlStateNormal];
         [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn-down"] forState:UIControlStateHighlighted];
         [_sendButton addTarget:self action:@selector(didPressSend:) forControlEvents:UIControlEventTouchUpInside];
@@ -156,6 +157,8 @@
     _facebookButton.frame = facebookFrame;
     _twitterButton.frame = twitterFrame;
     _sendButton.frame = sendFrame;
+    
+    [self.delegate didChangeSOInputChatFieldSize:selfFrame.size];
 }
 
 - (void)didPressFacebook:(id)sender {

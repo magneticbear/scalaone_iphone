@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SOInputTextView.h"
 
+@protocol SOInputChatFieldDelegate <NSObject>
+
+- (void)didChangeSOInputChatFieldSize:(CGSize)size;
+
+@end
+
 @interface SOChatInputField : UIView <UITextFieldDelegate, UITextViewDelegate> {
     SOInputTextView *inputField;
     UIImageView *inputBG;
@@ -17,6 +23,7 @@
     UIButton *sendButton;
     BOOL shouldSendToFacebook;
     BOOL shouldSendToTwitter;
+    id<SOInputChatFieldDelegate> delegate;
 }
 
 @property (nonatomic) SOInputTextView *inputField;
@@ -26,5 +33,6 @@
 @property (nonatomic, retain) UIButton *sendButton;
 @property (atomic) BOOL shouldSendToFacebook;
 @property (atomic) BOOL shouldSendToTwitter;
+@property (nonatomic, unsafe_unretained) id<SOInputChatFieldDelegate> delegate;
 
 @end

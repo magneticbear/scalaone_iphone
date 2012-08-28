@@ -14,7 +14,7 @@
 
 @class BLYClient;
 
-@interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate, SOInputChatFieldDelegate> {
     BLYClient *client;
     BLYChannel *chatChannel;
     SOChatInputField *chatInputField;
