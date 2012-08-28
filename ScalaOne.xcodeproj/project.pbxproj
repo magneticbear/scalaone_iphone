@@ -1473,9 +1473,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
-					"DEMO=0",
+					"DEMO=1",
 				);
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
