@@ -9,15 +9,17 @@
 // TODO (Optional): Set width based on size of name string
 // TODO (Optional): Improve the way the disclosure button becomes tappable: enlarging the view isn't ideal
 // TODO (Optional): Improve the way large bubble is rendered: expandoffset isn't optimal
+// TODO (Optional): Improve performance and re-add shadow
 
 #import "SOLocationView.h"
 
 // CAUTION: Changing these constants may break visuals
-#define SOLocationViewStandardWidth 75.0f
-#define SOLocationViewStandardHeight 87.0f
-#define SOLocationViewExpandOffset 200.0f
-#define SOLocationViewVerticalOffset 34.0f
-#define SOLocationViewAnimationDuration 0.33f
+#define SOLocationViewStandardWidth     75.0f
+#define SOLocationViewStandardHeight    87.0f
+#define SOLocationViewExpandOffset      200.0f
+#define SOLocationViewVerticalOffset    34.0f
+#define SOLocationViewAnimationDuration 0.25f
+#define SOLocationViewShadowVisible     FALSE
 
 @interface ShadowShapeLayer : CAShapeLayer
 @end
@@ -93,21 +95,18 @@
 }
 
 - (void)didTapDisclosureButton:(id)sender {
-    NSLog(@"didTapDisclosureButton with profileID %d",_profileID);
     [appDel showProfile:_profileID];
 }
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
 {
 //    Center map at annotation point
-//    [mapView setCenterCoordinate:_coordinate animated:YES];
-    NSLog(@"didSelectAnnotationViewInMap");
+    [mapView setCenterCoordinate:_coordinate animated:YES];
     [self expand];
 }
 
 - (void)didDeselectAnnotationViewInMap:(MKMapView*) mapView;
 {
-    NSLog(@"didDeselectAnnotationViewInMap");
     [self shrink];
 }
 
@@ -121,16 +120,20 @@
     strokeAndShadowLayer = [CAShapeLayer layer];
     strokeAndShadowLayer.path = [self bubbleWithRect:self.bounds];
     strokeAndShadowLayer.fillColor = [UIColor clearColor].CGColor;
-    strokeAndShadowLayer.shadowColor = [UIColor blackColor].CGColor;
-    strokeAndShadowLayer.shadowOffset = CGSizeMake (0, self.yShadowOffset);
-    strokeAndShadowLayer.shadowRadius = 5.0;
-    strokeAndShadowLayer.shadowOpacity = 1.0;
+    
+    if (SOLocationViewShadowVisible) {
+        strokeAndShadowLayer.shadowColor = [UIColor blackColor].CGColor;
+        strokeAndShadowLayer.shadowOffset = CGSizeMake (0, self.yShadowOffset);
+        strokeAndShadowLayer.shadowRadius = 5.0;
+        strokeAndShadowLayer.shadowOpacity = 1.0;
+    }
+    
     strokeAndShadowLayer.strokeColor = [UIColor colorWithWhite:0.22 alpha:1.0].CGColor;
     strokeAndShadowLayer.lineWidth = 1.0;
     
     CAGradientLayer *bubbleGradient = [CAGradientLayer layer];
     bubbleGradient.frame = CGRectMake(self.bounds.origin.x-SOLocationViewExpandOffset/2, self.bounds.origin.y, SOLocationViewExpandOffset+self.bounds.size.width, self.bounds.size.height-7);
-    bubbleGradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithWhite:0 alpha:.5].CGColor, (id)[UIColor colorWithWhite:0 alpha:.5].CGColor,(id)[UIColor colorWithWhite:0.13 alpha:.5].CGColor,(id)[UIColor colorWithWhite:0.33 alpha:.5].CGColor, nil];
+    bubbleGradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithWhite:0 alpha:.75].CGColor, (id)[UIColor colorWithWhite:0 alpha:.75].CGColor,(id)[UIColor colorWithWhite:0.13 alpha:.75].CGColor,(id)[UIColor colorWithWhite:0.33 alpha:.75].CGColor, nil];
     bubbleGradient.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:0.53],[NSNumber numberWithFloat:.54],[NSNumber numberWithFloat:1], nil];
     bubbleGradient.startPoint = CGPointMake(0.0f, 1.0f);
     bubbleGradient.endPoint = CGPointMake(0.0f, 0.0f);
@@ -187,7 +190,7 @@
         _nameLabel.alpha = 1;
         _distanceLabel.alpha = 1;
     } completion:^(BOOL finished) {
-        NSLog(@"Animations completed");
+//        NSLog(@"Animations completed");
     }];
 }
 
@@ -200,7 +203,7 @@
         _distanceLabel.alpha = 0;
     } completion:^(BOOL finished) {
         [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
-        NSLog(@"Animations completed");
+//        NSLog(@"Animations completed");
     }];
 }
 

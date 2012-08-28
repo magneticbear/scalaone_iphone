@@ -36,27 +36,7 @@
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
     
-    SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.7f lon:-90.7f name:@"Mo Mozafarian" distance:@"1.2km"];
-    [self.mapView addAnnotation:locationAnnotation];
-    locationAnnotation.mapView = self.mapView;
-    
-    [self.mapView setRegion:MKCoordinateRegionMake(locationAnnotation.coordinate, MKCoordinateSpanMake(0.03, 0.03)) animated:YES];
-    
-    {
-        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.715f lon:-90.71f name:@"Mo Mozafarian" distance:@"1.2km"];
-        [self.mapView addAnnotation:locationAnnotation];
-        locationAnnotation.mapView = self.mapView;
-    }
-    {
-        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.685f lon:-90.71f name:@"Mo Mozafarian" distance:@"1.2km"];
-        [self.mapView addAnnotation:locationAnnotation];
-        locationAnnotation.mapView = self.mapView;
-    }
-    {
-        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:38.715f lon:-90.69f name:@"Mo Mozafarian" distance:@"1.2km"];
-        [self.mapView addAnnotation:locationAnnotation];
-        locationAnnotation.mapView = self.mapView;
-    }
+    [self getMapPins];
     
     [super viewDidLoad];
 }
@@ -110,15 +90,19 @@
 
 - (void)didPressLocateMe:(id)sender {
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
-    NSLog(@"didPressLocateMe");
 }
 
-- (void)didSelectAnnotationViewInMap:(MKMapView *)mapView {
-    NSLog(@"INMAPVIEW: didSelectAnnotationViewInMap");
-}
-
-- (void)didDeselectAnnotationViewInMap:(MKMapView*) mapView {
-    NSLog(@"INMAPVIEW: didDeselectAnnotationViewInMap");
+- (void)getMapPins {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
+        [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1)) animated:YES];
+        
+        for (int i=0; i<20; i++) {
+            SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"JPS" distance:@"1.2km"];
+            [self.mapView addAnnotation:locationAnnotation];
+            locationAnnotation.mapView = self.mapView;
+        }
+    });
 }
 
 @end
