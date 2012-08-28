@@ -81,12 +81,14 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-btns-rec.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="924084335">
-							<int key="type">2</int>
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="881239339">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="31850326">
-							<string key="NSName">Helvetica-Bold</string>
+						<object class="NSFont" key="IBUIFont" id="712842690">
+							<string key="NSName">HelveticaNeue-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
@@ -128,8 +130,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="1039267080">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -162,8 +164,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="883767370">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -196,8 +198,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="773187916">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -230,8 +232,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="724669472">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -264,8 +266,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="509859465">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -298,8 +300,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="805241114">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -332,8 +334,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<reference key="IBUIFontDescription" ref="881239339"/>
+						<reference key="IBUIFont" ref="712842690"/>
 					</object>
 					<object class="IBUIButton" id="540178441">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -341,7 +343,6 @@
 						<string key="NSFrame">{{112, 371}, {99, 25}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -360,8 +361,15 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">typesafe-logo.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="924084335"/>
-						<reference key="IBUIFont" ref="31850326"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">2</int>
+							<double key="pointSize">15</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
@@ -587,7 +595,7 @@
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">SOHomeViewController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="superclassName">SOViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="pushAboutVC:">id</string>
 						<string key="pushChatVC:">id</string>
@@ -635,6 +643,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/SOHomeViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SOViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SOViewController.h</string>
 					</object>
 				</object>
 			</array>
