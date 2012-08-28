@@ -60,7 +60,6 @@
 
 - (void)updateAvatar:(NSString *)avatar {
     _avatarImgName = avatar;
-    NSLog(@"avatar: %@",_avatarImgName);
     locationView.avatarImg.image = [UIImage imageNamed:_avatarImgName];
 }
 

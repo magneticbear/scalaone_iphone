@@ -75,18 +75,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"selected %@",[_speakers objectAtIndex:indexPath.row]);
     SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil];
     [self.navigationController pushViewController:speakerVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    NSLog(@"searchBarTextDidBeginEditing");
+//    NSLog(@"searchBarTextDidBeginEditing");
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    NSLog(@"searchBarTextDidEndEditing");
+//    NSLog(@"searchBarTextDidEndEditing");
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

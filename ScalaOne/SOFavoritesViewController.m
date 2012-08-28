@@ -105,11 +105,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
-        NSLog(@"selected %@",[_events objectAtIndex:indexPath.row]);
         SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil];
         [self.navigationController pushViewController:eventVC animated:YES];
     } else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
-        NSLog(@"selected %@",[_speakers objectAtIndex:indexPath.row]);
         SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil];
         [self.navigationController pushViewController:speakerVC animated:YES];
     }
@@ -117,7 +115,6 @@
 }
 
 - (IBAction)didSelectSegment:(UIButton*)sender {
-    NSLog(@"selected %@",sender.titleLabel.text);
     if (sender == _segmentEventsBtn) {
         [_segmentSpeakersBtn setHighlighted:NO];
         currentSegment = SOFavoritesSegmentTypeEvents;

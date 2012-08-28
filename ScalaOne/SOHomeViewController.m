@@ -30,49 +30,41 @@
 }
 
 - (IBAction)pushEventListVC:(id)sender {
-    NSLog(@"pushEventListVC");
     SOEventListViewController *eventListVC = [[SOEventListViewController alloc] initWithNibName:@"SOEventListViewController" bundle:nil];
     [self.navigationController pushViewController:eventListVC animated:YES];
 }
 
 - (IBAction)pushSpeakerListVC:(id)sender {
-    NSLog(@"pushSpeakerListVC");
     SOSpeakerListViewController *speakerListVC = [[SOSpeakerListViewController alloc] initWithNibName:@"SOSpeakerListViewController" bundle:nil];
     [self.navigationController pushViewController:speakerListVC animated:YES];
 }
 
 - (IBAction)pushFavoritesVC:(id)sender {
-    NSLog(@"pushFavoritesVC");
     SOFavoritesViewController *favoritesVC = [[SOFavoritesViewController alloc] initWithNibName:@"SOFavoritesViewController" bundle:nil];
     [self.navigationController pushViewController:favoritesVC animated:YES];
 }
 
 - (IBAction)pushProfileVC:(id)sender {
-    NSLog(@"pushProfileVC");
     SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 - (IBAction)pushChatVC:(id)sender {
-    NSLog(@"pushChatVC");
     SOChatViewController *chatVC = [[SOChatViewController alloc] initWithNibName:@"SOChatViewController" bundle:nil];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (IBAction)pushMapVC:(id)sender {
-    NSLog(@"pushMapVC");
     SOMapViewController *mapVC = [[SOMapViewController alloc] initWithNibName:@"SOMapViewController" bundle:nil];
     [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 - (IBAction)pushPlaygroundVC:(id)sender {
-    NSLog(@"pushPlaygroundVC");
     SOPlaygroundViewController *playgroundVC = [[SOPlaygroundViewController alloc] initWithNibName:@"SOPlaygroundViewController" bundle:nil];
     [self.navigationController pushViewController:playgroundVC animated:YES];
 }
 
 - (IBAction)pushAboutVC:(id)sender {
-    NSLog(@"pushAboutVC");
     SOAboutViewController *aboutVC = [[SOAboutViewController alloc] initWithNibName:@"SOAboutViewController" bundle:nil];
     [self.navigationController pushViewController:aboutVC animated:YES];
 }
