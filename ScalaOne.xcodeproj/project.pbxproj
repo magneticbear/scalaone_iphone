@@ -453,8 +453,7 @@
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */,
-				E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */,
+				E833EBD815ECFA0B007C1DB5 /* DAKeyboardControl */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -512,6 +511,15 @@
 				E866066E15E86B9100945242 /* speakers-star-off@2x.png */,
 			);
 			name = speakers;
+			sourceTree = "<group>";
+		};
+		E833EBD815ECFA0B007C1DB5 /* DAKeyboardControl */ = {
+			isa = PBXGroup;
+			children = (
+				E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */,
+				E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */,
+			);
+			name = DAKeyboardControl;
 			sourceTree = "<group>";
 		};
 		E842CC1D15E6887B00B40B33 /* SODefines */ = {
