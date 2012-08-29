@@ -438,14 +438,14 @@
 			name = "Visual Classes";
 			sourceTree = "<group>";
 		};
-		E808E2CC15EE992D00B0BA69 /* Classes */ = {
+		E808E2CC15EE992D00B0BA69 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
 				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E842CC1D15E6887B00B40B33 /* SODefines */,
 				E8E4623D15E6D7F500908C6A /* SOChatMessage */,
 			);
-			name = Classes;
+			name = "Model Classes";
 			sourceTree = "<group>";
 		};
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
@@ -556,7 +556,7 @@
 			name = SOViewController;
 			sourceTree = "<group>";
 		};
-		E865EE9B15E48B920063007F /* images */ = {
+		E865EE9B15E48B920063007F /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				E866069B15E86B9B00945242 /* avatars */,
@@ -564,7 +564,7 @@
 				E865EE9C15E48B920063007F /* elements@1x */,
 				E865EEAB15E48B920063007F /* elements@2x */,
 			);
-			name = images;
+			name = Images;
 			path = elements;
 			sourceTree = "<group>";
 		};
@@ -908,14 +908,14 @@
 		E8A4FFBF15E4377F00D10907 /* ScalaOne */ = {
 			isa = PBXGroup;
 			children = (
-				E80A0A3E15EB8EA1005E637D /* Vendor */,
-				E808E2CB15EE990800B0BA69 /* Visual Classes */,
-				E865EE9B15E48B920063007F /* images */,
+				E865EE9B15E48B920063007F /* Images */,
 				E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */,
 				E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */,
-				E808E2CC15EE992D00B0BA69 /* Classes */,
+				E808E2CC15EE992D00B0BA69 /* Model Classes */,
+				E808E2CB15EE990800B0BA69 /* Visual Classes */,
 				E865EED815E48D610063007F /* View Controllers */,
 				E8A4FFC015E4377F00D10907 /* Supporting Files */,
+				E80A0A3E15EB8EA1005E637D /* Vendor */,
 			);
 			path = ScalaOne;
 			sourceTree = "<group>";
