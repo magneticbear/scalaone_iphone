@@ -64,12 +64,23 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//        Background views
         UIView *bgColorView = [[UIView alloc] init];
-        [bgColorView setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
-        [cell setSelectedBackgroundView:bgColorView];
+        [bgColorView setBackgroundColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
+        [cell setBackgroundView:bgColorView];
+        
+        UIView *bgColorViewSelected = [[UIView alloc] init];
+        [bgColorViewSelected setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
+        [cell setSelectedBackgroundView:bgColorViewSelected];
+        
+//        Text Label Setup
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
+        cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+        cell.textLabel.backgroundColor = bgColorView.backgroundColor;
     }
     cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"list-star-%@",indexPath.row%2 ? @"on" : @"off"]];
+    NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-mo",@"list-avatar-speaker",@"list-avatar-favorite"];
+    cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
     
     return cell;
 }
