@@ -8,19 +8,7 @@
 
 #import "SOEventListViewController.h"
 #import "SOEventViewController.h"
-
-@interface ListHeaderLabel : UILabel
-
-@end
-
-@implementation ListHeaderLabel
-
-- (void)drawTextInRect:(CGRect)rect {
-    UIEdgeInsets insets = {0, 10, 0, 10};
-    return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, insets)];
-}
-
-@end
+#import "SOListHeaderLabel.h"
 
 @interface SOEventListViewController ()
     @property (nonatomic, strong) NSArray *events;
@@ -73,21 +61,13 @@
     return 2;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(section == 0)
-        return @"Countries to visit";
-    else
-        return @"Countries visited";
-}
-
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *headerTitleLabel = [[ListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
+    UILabel *headerTitleLabel = [[SOListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
     headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f];
     headerTitleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.42f];
     headerTitleLabel.textColor = [UIColor whiteColor];
     headerTitleLabel.shadowOffset = CGSizeMake(0, -1);
-//    headerTitleLabel
     headerTitleLabel.text = [NSString stringWithFormat:@"Day %d",section+1];
     [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
     return headerTitleLabel;

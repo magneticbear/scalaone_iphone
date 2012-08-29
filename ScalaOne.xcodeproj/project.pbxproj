@@ -201,6 +201,7 @@
 		E8B331BF15EDD7740085F395 /* list-avatar-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BB15EDD7740085F395 /* list-avatar-jp@2x.png */; };
 		E8B331C015EDD7740085F395 /* list-avatar-speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BC15EDD7740085F395 /* list-avatar-speaker@2x.png */; };
 		E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */; };
+		E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
 		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
 /* End PBXBuildFile section */
@@ -436,6 +437,8 @@
 		E8B331BB15EDD7740085F395 /* list-avatar-jp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-jp@2x.png"; sourceTree = "<group>"; };
 		E8B331BC15EDD7740085F395 /* list-avatar-speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-speaker@2x.png"; sourceTree = "<group>"; };
 		E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite@2x.png"; sourceTree = "<group>"; };
+		E8B331C215EE41FC0085F395 /* SOListHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOListHeaderLabel.h; sourceTree = "<group>"; };
+		E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOListHeaderLabel.m; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
@@ -692,6 +695,7 @@
 				E865EEE015E492130063007F /* SOMapViewController */,
 				E865EED915E48D730063007F /* SOPlaygroundViewController */,
 				E86606BA15E8873C00945242 /* SOAboutViewController */,
+				E8B331C515EE42000085F395 /* SOListHeaderLabel */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1020,6 +1024,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E8B331C515EE42000085F395 /* SOListHeaderLabel */ = {
+			isa = PBXGroup;
+			children = (
+				E8B331C215EE41FC0085F395 /* SOListHeaderLabel.h */,
+				E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */,
+			);
+			name = SOListHeaderLabel;
+			sourceTree = "<group>";
+		};
 		E8E4623D15E6D7F500908C6A /* SOChatMessage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1343,6 +1356,7 @@
 				E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */,
 				E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */,
 				E80A0A6E15EC0CA6005E637D /* SOInputTextView.m in Sources */,
+				E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

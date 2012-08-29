@@ -8,6 +8,9 @@
 
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
+#import "SOListHeaderLabel.h"
+
+static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 @interface SOSpeakerListViewController ()
     @property (nonatomic, strong) NSArray *speakers;
@@ -58,8 +61,27 @@
     return _speakers.count;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UILabel *headerTitleLabel = [[SOListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
+    headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f];
+    headerTitleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.42f];
+    headerTitleLabel.textColor = [UIColor whiteColor];
+    headerTitleLabel.shadowOffset = CGSizeMake(0, -1);
+    headerTitleLabel.text = [NSString stringWithFormat:@"Day %d",section+1];
+    [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
+    return headerTitleLabel;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    Remove this later
+    NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-mo",@"list-avatar-speaker",@"list-avatar-favorite"];
+    
     NSString *cellIdentifier = @"SpeakerCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -78,9 +100,16 @@
         cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
         cell.textLabel.backgroundColor = bgColorView.backgroundColor;
     }
+//    Content
     cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
-    NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-mo",@"list-avatar-speaker",@"list-avatar-favorite"];
     cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
+    
+//    Make imageView tappable
+    cell.imageView.tag = indexPath.row;
+    cell.imageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAvatar:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [cell.imageView addGestureRecognizer:tapRecognizer];
     
     return cell;
 }
@@ -105,6 +134,38 @@
         return NO;
     }
     return YES;
+}
+
+- (void)didTapAvatar:(UITapGestureRecognizer *)gestureRecognizer {
+    [UIView animateWithDuration:0.33f delay:0.0
+                        options:UIViewAnimationCurveEaseIn
+                     animations:^{
+                         CATransform3D frontTransform = CATransform3DIdentity;
+                         frontTransform.m34 = 1.0 / -850.0;
+                         frontTransform = CATransform3DMakeRotation(M_PI_2,0.0,1.0,0.0); //flip halfway
+                         frontTransform = CATransform3DScale(frontTransform, 0.835, 0.835, 0.835);
+                         gestureRecognizer.view.layer.transform = frontTransform;
+                     }
+                     completion:^(BOOL finished){
+                         if (finished) {
+                             ((UIImageView*)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite"];
+                             [UIView animateWithDuration:0.33f
+                                                   delay:0.0
+                                                 options:UIViewAnimationCurveEaseOut
+                                              animations:^{
+                                                  CATransform3D backTransform = CATransform3DIdentity;
+                                                  backTransform.m34 = 0.0f;
+                                                  backTransform = CATransform3DMakeRotation(M_PI,0.0,1.0,0.0); //finish the flip
+                                                  backTransform = CATransform3DScale(backTransform, 1.0, 1.0, 1.0);
+                                                  gestureRecognizer.view.layer.transform = backTransform;
+                                              }
+                                              completion:^(BOOL finished){
+                                                  //nothing upon completion
+                                              }
+                              ];
+                         }
+                     }
+     ];
 }
 
 @end
