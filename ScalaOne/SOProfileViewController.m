@@ -28,6 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Profile";
+    UIBarButtonItem *meetupButton = [[UIBarButtonItem alloc] initWithTitle:@"Meet up" style:UIBarButtonItemStylePlain target:self action:@selector(didPressMeetup:)];
+    self.navigationItem.rightBarButtonItem = meetupButton;
 }
 
 - (void)viewDidUnload
