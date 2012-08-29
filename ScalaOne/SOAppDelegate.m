@@ -37,7 +37,7 @@
       UITextAttributeTextShadowColor,
       [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
       UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:25.0],
+      [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:20.0],
       UITextAttributeFont,
       nil]];
     

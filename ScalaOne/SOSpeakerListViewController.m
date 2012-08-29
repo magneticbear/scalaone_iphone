@@ -7,6 +7,7 @@
 //
 
 // TODO: Move all cell stuff to cell class
+// TODO: Section headers based on speaker names
 
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
@@ -24,6 +25,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 @synthesize speakers = _speakers;
 @synthesize avatarState = _avatarState;
 @synthesize currentAvatar = _currentAvatar;
+@synthesize alphabet = _alphabet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,10 +42,20 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     // Do any additional setup after loading the view from its nib.
     self.title = @"Speakers";
     _tableView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1];
-    _speakers = @[@"Speaker 1",@"Speaker 2",@"Speaker 3",@"Speaker 4",@"Speaker 5",@"Speaker 6",@"Speaker 7",@"Speaker 8",@"Speaker 9",@"Speaker 10",@"Speaker 11",@"Speaker 12"];
+//    _speakers = @[@"Speaker 1",@"Speaker 2",@"Speaker 3",@"Speaker 4",@"Speaker 5",@"Speaker 6",@"Speaker 7",@"Speaker 8",@"Speaker 9",@"Speaker 10",@"Speaker 11",@"Speaker 12"];
+    _speakers = @[@"Abraham Lincoln",@"Franklin D. Roosevelt",@"George Washington",@"Thomas Jefferson",@"Theodore Roosevelt",@"Woodrow Wilson",@"Harry S. Truman",@"Andrew Jackson",@"Dwight D. Eisenhower",@"James K. Polk",@"John F. Kennedy",@"John Adams",@"James Madison",@"James Monroe",@"Lyndon B. Johnson",@"Barack Obama",@"Ronald Reagan",@"John Quincy Adams",@"Grover Cleveland",@"William McKinley",@"Bill Clinton",@"William Howard Taft",@"George H. W. Bush"];
+    _speakers = [_speakers sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     _searchBar.placeholder = @"Find speakers";
     _avatarState = SOAvatarStateDefault;
     ((SOUniqueTouchView*)self.view).viewDelegate = self;
+    
+    NSMutableArray *preAlphabet = [[NSMutableArray alloc] initWithCapacity:26];
+    for (NSString *speaker in _speakers) {
+        if ([preAlphabet indexOfObject:[speaker substringToIndex:1].uppercaseString] == NSNotFound) {
+            [preAlphabet addObject:[speaker substringToIndex:1].uppercaseString];
+        }
+    }
+    _alphabet = [preAlphabet copy];
 }
 
 - (void)viewDidUnload
@@ -64,11 +76,31 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return _speakers.count;
+//    return [_speakers count];
+    // Return the number of rows in the section.
+    int count=0;
+    for (NSString *speaker in _speakers) {
+        if ([[speaker substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:sectionIndex]].location != NSNotFound) {
+            count++;
+        }
+    }
+    return count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return [_alphabet count];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return _alphabet;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [_alphabet objectAtIndex:section];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return [_alphabet indexOfObject:title];
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -79,7 +111,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     headerTitleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.42f];
     headerTitleLabel.textColor = [UIColor whiteColor];
     headerTitleLabel.shadowOffset = CGSizeMake(0, -1);
-    headerTitleLabel.text = [NSString stringWithFormat:@"Day %d",section+1];
+    headerTitleLabel.text = [_alphabet objectAtIndex:section];
     [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
     return headerTitleLabel;
 }
@@ -87,7 +119,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    Remove this later
-    NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-mo",@"list-avatar-speaker",@"list-avatar-favorite"];
+    NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-speaker"];
     
     NSString *cellIdentifier = @"SpeakerCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -107,8 +139,14 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
         cell.textLabel.backgroundColor = bgColorView.backgroundColor;
     }
+    NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_speakers count]];
+    for (NSString *speaker in _speakers) {
+        if ([[speaker substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:indexPath.section]].location != NSNotFound) {
+            [mSpeakers addObject:speaker];
+        }
+    }
 //    Content
-    cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
+    cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
     cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
     
 //    Make imageView tappable

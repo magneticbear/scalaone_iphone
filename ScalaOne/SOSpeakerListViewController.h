@@ -21,11 +21,13 @@ typedef enum {
 @interface SOSpeakerListViewController : SOViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SOUniqueTouchViewDelegate> {
     SOAvatarState avatarState;
     UIImageView *currentAvatar;
+    NSArray *alphabet;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic) SOAvatarState avatarState;
 @property (weak, nonatomic) UIImageView *currentAvatar;
+@property (strong, nonatomic) NSArray *alphabet;
 
 @end
