@@ -100,9 +100,6 @@
         cell.detailTextLabel.backgroundColor = bgColorView.backgroundColor;
         
 //        Detail Disclosure
-//        UIButton *disclosureButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 12, 17)];
-//        [disclosureButton setBackgroundImage:[UIImage imageNamed:@"list-arrow"] forState:UIControlStateNormal];
-//        cell.accessoryView = disclosureButton;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 //    Cell Content

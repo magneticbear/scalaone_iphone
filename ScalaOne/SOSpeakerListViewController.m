@@ -41,7 +41,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Speakers";
-    _tableView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1];
+    
+    _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
 //    Mock Speakers (sorted alphabetically)
     _speakers = @[@"Abraham Lincoln",@"Franklin D. Roosevelt",@"George Washington",@"Thomas Jefferson",@"Theodore Roosevelt",@"Woodrow Wilson",@"Harry S. Truman",@"Andrew Jackson",@"Dwight D. Eisenhower",@"James K. Polk",@"John F. Kennedy",@"John Adams",@"James Madison",@"James Monroe",@"Lyndon B. Johnson",@"Barack Obama",@"Ronald Reagan",@"John Quincy Adams",@"Grover Cleveland",@"William McKinley",@"Bill Clinton",@"William Howard Taft",@"George H. W. Bush"];
     _speakers = [_speakers sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
