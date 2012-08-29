@@ -44,4 +44,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)didPressMeetup:(id)sender {
+    NSLog(@"didPressMeetup");
+}
+
 @end

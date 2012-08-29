@@ -8,7 +8,6 @@
 
 // TODO: Allow delegate that catches user icon taps
 // TODO: Add auto-size for text bubble with max size (see PSD)
-// TODO: Text should be right justified when SOChatCellAlignmentRight
 // TODO: Fix SOChatCellAlignmentRight bubble position (should be closer to avatar)
 
 #import "SOChatCell.h"
@@ -96,9 +95,11 @@
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-gray"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 20, 16, 13)];
         _avatarImg.image = [UIImage imageNamed:@"chat-avatar-mo"];
+        _messageTextView.textAlignment = UITextAlignmentLeft;
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-blue-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 13, 16, 20)];
         _avatarImg.image = [UIImage imageNamed:@"chat-avatar-jp"];
+        _messageTextView.textAlignment = UITextAlignmentRight;
     }
 }
 
