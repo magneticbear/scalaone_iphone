@@ -37,7 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Favorites";
-    _tableView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1];
+    _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
+    
     _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];
     _speakers = @[@"Speaker 1",@"Speaker 2",@"Speaker 3",@"Speaker 4",@"Speaker 5",@"Speaker 6",@"Speaker 7",@"Speaker 8",@"Speaker 9",@"Speaker 10",@"Speaker 11",@"Speaker 12"];
     
@@ -77,26 +78,59 @@
         NSString *cellIdentifier = @"EventCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+            
+            //        Background views
             UIView *bgColorView = [[UIView alloc] init];
-            [bgColorView setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
-            [cell setSelectedBackgroundView:bgColorView];
+            [bgColorView setBackgroundColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
+            [cell setBackgroundView:bgColorView];
+            
+            UIView *bgColorViewSelected = [[UIView alloc] init];
+            [bgColorViewSelected setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
+            [cell setSelectedBackgroundView:bgColorViewSelected];
+            
+            //        Text Label Setup
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
+            cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+            cell.textLabel.backgroundColor = bgColorView.backgroundColor;
+            
+            //        Detail Text Label Setup
+            cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:12.0f];
+            cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1.0f];
+            cell.detailTextLabel.backgroundColor = bgColorView.backgroundColor;
+            
+            //        Detail Disclosure
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
+        //    Cell Content
         cell.textLabel.text = [_events objectAtIndex:indexPath.row];
-        cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"list-star-%@",indexPath.row%2 ? @"on" : @"off"]];
+        cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
         
         return cell;
     }   else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
+        NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-speaker"];
+        
         NSString *cellIdentifier = @"SpeakerCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            //        Background views
             UIView *bgColorView = [[UIView alloc] init];
-            [bgColorView setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
-            [cell setSelectedBackgroundView:bgColorView];
+            [bgColorView setBackgroundColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
+            [cell setBackgroundView:bgColorView];
+            
+            UIView *bgColorViewSelected = [[UIView alloc] init];
+            [bgColorViewSelected setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
+            [cell setSelectedBackgroundView:bgColorViewSelected];
+            
+            //        Text Label Setup
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
+            cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+            cell.textLabel.backgroundColor = bgColorView.backgroundColor;
         }
+        //    Content
         cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
-        cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"list-star-%@",indexPath.row%2 ? @"on" : @"off"]];
+        cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
         
         return cell;
     }
