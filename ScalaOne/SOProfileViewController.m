@@ -27,9 +27,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Profile";
-    UIBarButtonItem *meetupButton = [[UIBarButtonItem alloc] initWithTitle:@"Meet up" style:UIBarButtonItemStylePlain target:self action:@selector(didPressMeetup:)];
-    self.navigationItem.rightBarButtonItem = meetupButton;
+    self.title = @"My Profile";
+    NSString *rightButtonTitle = TRUE ? @"Meet up" : @"Edit";
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
+    self.navigationItem.rightBarButtonItem = rightButton;
 }
 
 - (void)viewDidUnload
@@ -44,8 +45,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)didPressMeetup:(id)sender {
-    NSLog(@"didPressMeetup");
+- (void)didPressRightButton:(id)sender {
+    NSLog(@"didPressRightButton");
 }
 
 @end

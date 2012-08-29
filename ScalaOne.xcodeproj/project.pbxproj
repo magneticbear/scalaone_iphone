@@ -12,6 +12,8 @@
 		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
 		E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */; };
 		E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */; };
+		E808E2E715EEAA3200B0BA69 /* profile-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */; };
+		E808E2E915EEAA5300B0BA69 /* profile-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
 		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
 		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
@@ -202,6 +204,8 @@
 		E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		E808E2E115EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
 		E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo.png"; sourceTree = "<group>"; };
+		E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo@2x.png"; sourceTree = "<group>"; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		E80A0A4F15EBDB71005E637D /* chat-input-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field.png"; sourceTree = "<group>"; };
@@ -465,6 +469,14 @@
 			name = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
+		E808E2EA15EEAA5800B0BA69 /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */,
+			);
+			name = profile;
+			sourceTree = "<group>";
+		};
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +601,7 @@
 		E865EE9C15E48B920063007F /* elements@1x */ = {
 			isa = PBXGroup;
 			children = (
+				E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */,
 				E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */,
 				E8B331B215EDD7690085F395 /* list-avatar-mo.png */,
 				E8B331B315EDD7690085F395 /* list-avatar-jp.png */,
@@ -649,13 +662,14 @@
 		E865EEAB15E48B920063007F /* elements@2x */ = {
 			isa = PBXGroup;
 			children = (
-				E86606D315E9492800945242 /* favorites */,
 				E86606D215E948EB00945242 /* global */,
 				E86606D015E948A600945242 /* home */,
-				E86606D115E948D600945242 /* chat */,
-				E86606D415E9499000945242 /* map */,
 				E82F4BE915E94BE700802A6D /* list */,
 				E82F4BEB15E94C3700802A6D /* speaker */,
+				E86606D315E9492800945242 /* favorites */,
+				E808E2EA15EEAA5800B0BA69 /* profile */,
+				E86606D115E948D600945242 /* chat */,
+				E86606D415E9499000945242 /* map */,
 			);
 			path = "elements@2x";
 			sourceTree = "<group>";
@@ -1212,6 +1226,8 @@
 				E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */,
 				E808E2BE15EE87BB00B0BA69 /* list-avatar-favorite-on.png in Resources */,
 				E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */,
+				E808E2E715EEAA3200B0BA69 /* profile-avatar-mo.png in Resources */,
+				E808E2E915EEAA5300B0BA69 /* profile-avatar-mo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
