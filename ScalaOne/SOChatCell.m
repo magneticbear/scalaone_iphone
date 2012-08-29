@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Autofit bubbles to their text
 // TODO: Allow delegate that catches user icon taps
+// TODO: Add auto-size for text bubble with max size (see PSD)
+// TODO: Text should be right justified when SOChatCellAlignmentRight
+// TODO: Fix SOChatCellAlignmentRight bubble position (should be closer to avatar)
 
 #import "SOChatCell.h"
 
