@@ -96,6 +96,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if ([_alphabet count] <= 4) {
+        return nil;
+    }
     return _alphabet;
 }
 
