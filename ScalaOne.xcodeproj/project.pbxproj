@@ -658,7 +658,7 @@
 				E855B2C415EB166900574B9C /* SOViewController */,
 				E8E4623E15E6E58300908C6A /* SOChatCell */,
 				E865EED715E48D0B0063007F /* SOHomeViewController */,
-				E865EEDB15E491DA0063007F /* SOSessionListViewController */,
+				E865EEDB15E491DA0063007F /* SOEventListViewController */,
 				E865EEDE15E491FB0063007F /* SOEventViewController */,
 				E865EEDC15E491EB0063007F /* SOSpeakerListViewController */,
 				E865EEDD15E491F40063007F /* SOSpeakerViewController */,
@@ -682,14 +682,14 @@
 			name = SOPlaygroundViewController;
 			sourceTree = "<group>";
 		};
-		E865EEDB15E491DA0063007F /* SOSessionListViewController */ = {
+		E865EEDB15E491DA0063007F /* SOEventListViewController */ = {
 			isa = PBXGroup;
 			children = (
 				E865EEE815E492D70063007F /* SOEventListViewController.h */,
 				E865EEE915E492D70063007F /* SOEventListViewController.m */,
 				E865EEEA15E492D70063007F /* SOEventListViewController.xib */,
 			);
-			name = SOSessionListViewController;
+			name = SOEventListViewController;
 			sourceTree = "<group>";
 		};
 		E865EEDC15E491EB0063007F /* SOSpeakerListViewController */ = {
