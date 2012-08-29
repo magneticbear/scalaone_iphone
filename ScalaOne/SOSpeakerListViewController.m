@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Move all cell stuff to cell class
+// TODO: Check all fringe cases for avatarState
+
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
 #import "SOListHeaderLabel.h"
@@ -20,6 +23,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 @synthesize tableView = _tableView;
 @synthesize searchBar = _searchBar;
 @synthesize speakers = _speakers;
+@synthesize avatarState = _avatarState;
+@synthesize currentAvatar = _currentAvatar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +43,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     _tableView.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1];
     _speakers = @[@"Speaker 1",@"Speaker 2",@"Speaker 3",@"Speaker 4",@"Speaker 5",@"Speaker 6",@"Speaker 7",@"Speaker 8",@"Speaker 9",@"Speaker 10",@"Speaker 11",@"Speaker 12"];
     _searchBar.placeholder = @"Find speakers";
+    _avatarState = SOAvatarStateDefault;
+    ((SOUniqueTouchView*)self.view).viewDelegate = self;
 }
 
 - (void)viewDidUnload
@@ -67,6 +74,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+//    Setup header label style and text
     UILabel *headerTitleLabel = [[SOListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
     headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f];
     headerTitleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.42f];
@@ -107,6 +115,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 //    Make imageView tappable
     cell.imageView.tag = indexPath.row;
     cell.imageView.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
+    longPressRecognizer.minimumPressDuration = 0.15f;
+    [cell.imageView addGestureRecognizer:longPressRecognizer];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAvatar:)];
     tapRecognizer.numberOfTapsRequired = 1;
     [cell.imageView addGestureRecognizer:tapRecognizer];
@@ -136,7 +147,14 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return YES;
 }
 
-- (void)didTapAvatar:(UITapGestureRecognizer *)gestureRecognizer {
+- (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
+    if (_avatarState == SOAvatarStateFavorite) {
+        ((UIImageView *)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite-on"];
+        [self performSelector:@selector(cancelAvatar) withObject:nil afterDelay:0.15f];
+        return;
+    }
+    _avatarState = SOAvatarStateAnimatingToFavorite;
+    _currentAvatar = nil;
     [UIView animateWithDuration:0.33f delay:0.0
                         options:UIViewAnimationCurveEaseIn
                      animations:^{
@@ -160,12 +178,63 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                                                   gestureRecognizer.view.layer.transform = backTransform;
                                               }
                                               completion:^(BOOL finished){
-                                                  //nothing upon completion
+                                                  _avatarState = SOAvatarStateFavorite;
+                                                  _currentAvatar = (UIImageView *)gestureRecognizer.view;
                                               }
                               ];
                          }
                      }
      ];
+}
+
+- (void)cancelAvatar {
+    _avatarState = SOAvatarStateAnimatingToDefault;
+    [UIView animateWithDuration:0.33f delay:0.0
+                        options:UIViewAnimationCurveEaseIn
+                     animations:^{
+                         CATransform3D frontTransform = CATransform3DIdentity;
+                         frontTransform.m34 = 1.0 / -850.0;
+                         frontTransform = CATransform3DMakeRotation(-M_PI_2,0.0,1.0,0.0); //flip halfway
+                         frontTransform = CATransform3DScale(frontTransform, 0.835, 0.835, 0.835);
+                         _currentAvatar.layer.transform = frontTransform;
+                     }
+                     completion:^(BOOL finished){
+                         if (finished) {
+                             _currentAvatar.image = [UIImage imageNamed:@"list-avatar-mo"];
+                             [UIView animateWithDuration:0.33f
+                                                   delay:0.0
+                                                 options:UIViewAnimationCurveEaseOut
+                                              animations:^{
+                                                  CATransform3D backTransform = CATransform3DIdentity;
+                                                  backTransform.m34 = 0.0f;
+                                                  backTransform = CATransform3DMakeRotation(0.0,0.0,1.0,0.0); //finish the flip
+                                                  backTransform = CATransform3DScale(backTransform, 1.0, 1.0, 1.0);
+                                                  _currentAvatar.layer.transform = backTransform;
+                                              }
+                                              completion:^(BOOL finished){
+                                                  _avatarState = SOAvatarStateDefault;
+                                                  _currentAvatar = nil;
+                                              }
+                              ];
+                         }
+                     }
+     ];
+}
+
+- (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point
+       withEvent:(UIEvent *)event hitView:(UIView *)hitView;
+{
+//    NSLog(@"_avatarState: %d\nhitView: %@",_avatarState,hitView);
+//    If the avatar is in default state, or the user is tapping the "favorite" image
+    if (_avatarState == SOAvatarStateDefault ||
+        (hitView == _currentAvatar && _avatarState == SOAvatarStateFavorite)) {
+        return hitView;
+    } else if (_avatarState == SOAvatarStateFavorite && hitView != _currentAvatar) {
+//        NSLog(@"_currentAvatar: %@",_currentAvatar);
+        [self cancelAvatar];
+    }
+    
+    return nil;
 }
 
 @end

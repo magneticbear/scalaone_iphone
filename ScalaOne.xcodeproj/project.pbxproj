@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25864A143C1F40E4BEDB06B2 /* libPods.a */; };
+		E808E2BE15EE87BB00B0BA69 /* list-avatar-favorite-on.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */; };
+		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
 		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
 		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
@@ -202,6 +204,7 @@
 		E8B331C015EDD7740085F395 /* list-avatar-speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BC15EDD7740085F395 /* list-avatar-speaker@2x.png */; };
 		E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */; };
 		E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */; };
+		E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
 		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
 /* End PBXBuildFile section */
@@ -219,6 +222,8 @@
 /* Begin PBXFileReference section */
 		25864A143C1F40E4BEDB06B2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F4E18102E17471FBED4DC43 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on.png"; sourceTree = "<group>"; };
+		E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on@2x.png"; sourceTree = "<group>"; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		E80A0A4F15EBDB71005E637D /* chat-input-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field.png"; sourceTree = "<group>"; };
@@ -439,6 +444,8 @@
 		E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite@2x.png"; sourceTree = "<group>"; };
 		E8B331C215EE41FC0085F395 /* SOListHeaderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOListHeaderLabel.h; sourceTree = "<group>"; };
 		E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOListHeaderLabel.m; sourceTree = "<group>"; };
+		E8B331D215EE7BA00085F395 /* SOUniqueTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUniqueTouchView.h; sourceTree = "<group>"; };
+		E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUniqueTouchView.m; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
@@ -530,6 +537,7 @@
 				E8B331BB15EDD7740085F395 /* list-avatar-jp@2x.png */,
 				E8B331BC15EDD7740085F395 /* list-avatar-speaker@2x.png */,
 				E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */,
+				E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */,
 			);
 			name = list;
 			sourceTree = "<group>";
@@ -595,6 +603,7 @@
 		E865EE9C15E48B920063007F /* elements@1x */ = {
 			isa = PBXGroup;
 			children = (
+				E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */,
 				E8B331B215EDD7690085F395 /* list-avatar-mo.png */,
 				E8B331B315EDD7690085F395 /* list-avatar-jp.png */,
 				E8B331B415EDD7690085F395 /* list-avatar-speaker.png */,
@@ -696,6 +705,7 @@
 				E865EED915E48D730063007F /* SOPlaygroundViewController */,
 				E86606BA15E8873C00945242 /* SOAboutViewController */,
 				E8B331C515EE42000085F395 /* SOListHeaderLabel */,
+				E8B331D515EE7BA30085F395 /* SOUniqueTouchView */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1033,6 +1043,15 @@
 			name = SOListHeaderLabel;
 			sourceTree = "<group>";
 		};
+		E8B331D515EE7BA30085F395 /* SOUniqueTouchView */ = {
+			isa = PBXGroup;
+			children = (
+				E8B331D215EE7BA00085F395 /* SOUniqueTouchView.h */,
+				E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */,
+			);
+			name = SOUniqueTouchView;
+			sourceTree = "<group>";
+		};
 		E8E4623D15E6D7F500908C6A /* SOChatMessage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1285,6 +1304,8 @@
 				E8B331BF15EDD7740085F395 /* list-avatar-jp@2x.png in Resources */,
 				E8B331C015EDD7740085F395 /* list-avatar-speaker@2x.png in Resources */,
 				E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */,
+				E808E2BE15EE87BB00B0BA69 /* list-avatar-favorite-on.png in Resources */,
+				E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,6 +1378,7 @@
 				E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */,
 				E80A0A6E15EC0CA6005E637D /* SOInputTextView.m in Sources */,
 				E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */,
+				E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
