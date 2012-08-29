@@ -10,6 +10,8 @@
 		A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25864A143C1F40E4BEDB06B2 /* libPods.a */; };
 		E808E2BE15EE87BB00B0BA69 /* list-avatar-favorite-on.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */; };
 		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
+		E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */; };
+		E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
 		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
 		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
@@ -196,6 +198,10 @@
 		2F4E18102E17471FBED4DC43 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on.png"; sourceTree = "<group>"; };
 		E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on@2x.png"; sourceTree = "<group>"; };
+		E808E2DF15EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		E808E2E115EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		E80A0A4F15EBDB71005E637D /* chat-input-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field.png"; sourceTree = "<group>"; };
@@ -448,9 +454,21 @@
 			name = "Model Classes";
 			sourceTree = "<group>";
 		};
+		E808E2E515EEA5DA00B0BA69 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				E808E2DF15EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.h */,
+				E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */,
+				E808E2E115EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.h */,
+				E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */,
+			);
+			name = TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				E808E2E515EEA5DA00B0BA69 /* TPKeyboardAvoiding */,
 				E833EBD815ECFA0B007C1DB5 /* DAKeyboardControl */,
 			);
 			name = Vendor;
@@ -1267,6 +1285,8 @@
 				E80A0A6E15EC0CA6005E637D /* SOInputTextView.m in Sources */,
 				E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */,
 				E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */,
+				E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
