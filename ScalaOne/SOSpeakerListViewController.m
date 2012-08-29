@@ -7,7 +7,6 @@
 //
 
 // TODO: Move all cell stuff to cell class
-// TODO: Check all fringe cases for avatarState
 
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
@@ -150,13 +149,13 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
     if (_avatarState == SOAvatarStateFavorite) {
         ((UIImageView *)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite-on"];
-        [self performSelector:@selector(cancelAvatar) withObject:nil afterDelay:0.15f];
+        [self performSelector:@selector(dismissAvatar) withObject:nil afterDelay:0.15f];
         return;
     }
     _avatarState = SOAvatarStateAnimatingToFavorite;
     _currentAvatar = nil;
     [UIView transitionWithView:gestureRecognizer.view
-                      duration:1.0f
+                      duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromRight
                     animations:^{
                         ((UIImageView*)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite"];
@@ -167,10 +166,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                     }];
 }
 
-- (void)cancelAvatar {
+- (void)dismissAvatar {
     _avatarState = SOAvatarStateAnimatingToDefault;
     [UIView transitionWithView:_currentAvatar
-                      duration:1.0f
+                      duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
                         _currentAvatar.image = [UIImage imageNamed:@"list-avatar-mo"];
@@ -182,12 +181,13 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {
+    
 //    If the avatar is in default state, or the user is tapping the "favorite" image
     if (_avatarState == SOAvatarStateDefault ||
         (hitView == _currentAvatar && _avatarState == SOAvatarStateFavorite)) {
         return hitView;
     } else if (_avatarState == SOAvatarStateFavorite && hitView != _currentAvatar) {
-        [self cancelAvatar];
+        [self dismissAvatar];
     }
     
     return nil;
