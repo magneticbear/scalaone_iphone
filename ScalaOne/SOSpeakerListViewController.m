@@ -155,82 +155,38 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     }
     _avatarState = SOAvatarStateAnimatingToFavorite;
     _currentAvatar = nil;
-    [UIView animateWithDuration:0.33f delay:0.0
-                        options:UIViewAnimationCurveEaseIn
-                     animations:^{
-                         CATransform3D frontTransform = CATransform3DIdentity;
-                         frontTransform.m34 = 1.0 / -850.0;
-                         frontTransform = CATransform3DMakeRotation(M_PI_2,0.0,1.0,0.0); //flip halfway
-                         frontTransform = CATransform3DScale(frontTransform, 0.835, 0.835, 0.835);
-                         gestureRecognizer.view.layer.transform = frontTransform;
-                     }
-                     completion:^(BOOL finished){
-                         if (finished) {
-                             ((UIImageView*)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite"];
-                             [UIView animateWithDuration:0.33f
-                                                   delay:0.0
-                                                 options:UIViewAnimationCurveEaseOut
-                                              animations:^{
-                                                  CATransform3D backTransform = CATransform3DIdentity;
-                                                  backTransform.m34 = 0.0f;
-                                                  backTransform = CATransform3DMakeRotation(M_PI,0.0,1.0,0.0); //finish the flip
-                                                  backTransform = CATransform3DScale(backTransform, 1.0, 1.0, 1.0);
-                                                  gestureRecognizer.view.layer.transform = backTransform;
-                                              }
-                                              completion:^(BOOL finished){
-                                                  _avatarState = SOAvatarStateFavorite;
-                                                  _currentAvatar = (UIImageView *)gestureRecognizer.view;
-                                              }
-                              ];
-                         }
-                     }
-     ];
+    [UIView transitionWithView:gestureRecognizer.view
+                      duration:1.0f
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        ((UIImageView*)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite"];
+                    }
+                    completion:^(BOOL finished){
+                        _avatarState = SOAvatarStateFavorite;
+                        _currentAvatar = (UIImageView *)gestureRecognizer.view;
+                    }];
 }
 
 - (void)cancelAvatar {
     _avatarState = SOAvatarStateAnimatingToDefault;
-    [UIView animateWithDuration:0.33f delay:0.0
-                        options:UIViewAnimationCurveEaseIn
-                     animations:^{
-                         CATransform3D frontTransform = CATransform3DIdentity;
-                         frontTransform.m34 = 1.0 / -850.0;
-                         frontTransform = CATransform3DMakeRotation(-M_PI_2,0.0,1.0,0.0); //flip halfway
-                         frontTransform = CATransform3DScale(frontTransform, 0.835, 0.835, 0.835);
-                         _currentAvatar.layer.transform = frontTransform;
-                     }
-                     completion:^(BOOL finished){
-                         if (finished) {
-                             _currentAvatar.image = [UIImage imageNamed:@"list-avatar-mo"];
-                             [UIView animateWithDuration:0.33f
-                                                   delay:0.0
-                                                 options:UIViewAnimationCurveEaseOut
-                                              animations:^{
-                                                  CATransform3D backTransform = CATransform3DIdentity;
-                                                  backTransform.m34 = 0.0f;
-                                                  backTransform = CATransform3DMakeRotation(0.0,0.0,1.0,0.0); //finish the flip
-                                                  backTransform = CATransform3DScale(backTransform, 1.0, 1.0, 1.0);
-                                                  _currentAvatar.layer.transform = backTransform;
-                                              }
-                                              completion:^(BOOL finished){
-                                                  _avatarState = SOAvatarStateDefault;
-                                                  _currentAvatar = nil;
-                                              }
-                              ];
-                         }
-                     }
-     ];
+    [UIView transitionWithView:_currentAvatar
+                      duration:1.0f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        _currentAvatar.image = [UIImage imageNamed:@"list-avatar-mo"];
+                    }
+                    completion:^(BOOL finished){
+                        _avatarState = SOAvatarStateDefault;
+                        _currentAvatar = nil;
+                    }];
 }
 
-- (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point
-       withEvent:(UIEvent *)event hitView:(UIView *)hitView;
-{
-//    NSLog(@"_avatarState: %d\nhitView: %@",_avatarState,hitView);
+- (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {
 //    If the avatar is in default state, or the user is tapping the "favorite" image
     if (_avatarState == SOAvatarStateDefault ||
         (hitView == _currentAvatar && _avatarState == SOAvatarStateFavorite)) {
         return hitView;
     } else if (_avatarState == SOAvatarStateFavorite && hitView != _currentAvatar) {
-//        NSLog(@"_currentAvatar: %@",_currentAvatar);
         [self cancelAvatar];
     }
     
