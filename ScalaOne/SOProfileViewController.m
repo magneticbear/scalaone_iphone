@@ -68,11 +68,17 @@
 
 - (void)didPressRightButton:(id)sender {
     BOOL editing = !_tableView.editing;
-    [self.navigationItem setHidesBackButton:editing animated:NO];
     
     _tableView.editing = editing;
     [_tableView reloadData];
-
+    
+    if (editing) {
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    
     self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
