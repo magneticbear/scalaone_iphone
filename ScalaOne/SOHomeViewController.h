@@ -11,6 +11,7 @@
 
 @interface SOHomeViewController : SOViewController
 
+// Grid Buttons
 - (IBAction)pushEventListVC:(id)sender;
 - (IBAction)pushSpeakerListVC:(id)sender;
 - (IBAction)pushFavoritesVC:(id)sender;
@@ -19,5 +20,8 @@
 - (IBAction)pushMapVC:(id)sender;
 - (IBAction)pushPlaygroundVC:(id)sender;
 - (IBAction)pushAboutVC:(id)sender;
+
+// TypeSafe Logo
+- (IBAction)didPressTypeSafeLogo:(id)sender;
 
 @end

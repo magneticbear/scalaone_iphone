@@ -80,4 +80,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)didPressTypeSafeLogo:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.typesafe.com"]];
+    
+}
+
 @end

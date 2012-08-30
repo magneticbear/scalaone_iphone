@@ -470,6 +470,15 @@
 					</object>
 					<int key="connectionID">31</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">didPressTypeSafeLogo:</string>
+						<reference key="source" ref="540178441"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">32</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -589,7 +598,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">31</int>
+			<int key="maxID">32</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -597,6 +606,7 @@
 					<string key="className">SOHomeViewController</string>
 					<string key="superclassName">SOViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="didPressTypeSafeLogo:">id</string>
 						<string key="pushAboutVC:">id</string>
 						<string key="pushChatVC:">id</string>
 						<string key="pushEventListVC:">id</string>
@@ -607,6 +617,10 @@
 						<string key="pushSpeakerListVC:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="didPressTypeSafeLogo:">
+							<string key="name">didPressTypeSafeLogo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="pushAboutVC:">
 							<string key="name">pushAboutVC:</string>
 							<string key="candidateClassName">id</string>
