@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Stepped delay in pin drop down animations
+
 #import "SOMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
@@ -121,12 +123,18 @@
             [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1)) animated:YES];
             
             for (int i=0; i<20; i++) {
-                SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
-                [self.mapView addAnnotation:locationAnnotation];
-                locationAnnotation.mapView = self.mapView;
+                [self addAnnotationWithUserLocation:userLocation andDelay:0.2f*i];
             }
         }
     } afterDelay:2.0f];
+}
+
+- (void)addAnnotationWithUserLocation:(CLLocationCoordinate2D)userLocation andDelay:(NSTimeInterval)delay {
+//    [self performBlock:^{
+    SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
+    [self.mapView addAnnotation:locationAnnotation];
+    locationAnnotation.mapView = self.mapView;
+//    } afterDelay:delay];
 }
 
 @end
