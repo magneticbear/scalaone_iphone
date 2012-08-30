@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Stepped delay in pin drop down animations
+// TODO: Stepped delay in pin drop down animations & add ease in/out
 
 #import "SOMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
