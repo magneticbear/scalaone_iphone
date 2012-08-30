@@ -135,6 +135,30 @@
         cell.headerLabel.text = [_profileCellHeaders objectAtIndex:indexPath.row%_profileCellHeaders.count];
         cell.contentTextField.text = [_profileCellContents objectAtIndex:indexPath.row];
         cell.contentTextField.placeholder = [_profileCellContentPlaceholders objectAtIndex:indexPath.row];
+        switch (indexPath.row) {
+            case 0:
+                cell.contentTextField.keyboardType = UIKeyboardTypeTwitter;
+                break;
+                
+            case 1:
+                cell.contentTextField.keyboardType = UIKeyboardTypeDefault;
+                break;
+                
+            case 2:
+                cell.contentTextField.keyboardType = UIKeyboardTypePhonePad;
+                break;
+                
+            case 3:
+                cell.contentTextField.keyboardType = UIKeyboardTypeEmailAddress;
+                break;
+                
+            case 4:
+                cell.contentTextField.keyboardType = UIKeyboardTypeURL;
+                break;
+                
+            default:
+                break;
+        }
         cell.contentTextField.enabled = YES;
     } else {
         cell.headerLabel.text = [self headerTextForCell:indexPath.row];
