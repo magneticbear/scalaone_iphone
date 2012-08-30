@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SOViewController.h"
 
-@interface SOProfileViewController : SOViewController
+@interface SOProfileViewController : SOViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
