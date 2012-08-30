@@ -28,19 +28,6 @@
 //    Navigation Bar
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top-bar-repeat"] forBarMetrics:UIBarMetricsDefault];
     
-//    Navigation Bar Title
-    [[UINavigationBar appearance] setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIColor colorWithRed:242.0/255.0 green:250.0/255.0 blue:252.0/255.0 alpha:1.0],
-      UITextAttributeTextColor,
-      [UIColor colorWithRed:10.0/255.0 green:137.0/255.0 blue:179.0/255.0 alpha:1.0],
-      UITextAttributeTextShadowColor,
-      [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
-      UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:20.0],
-      UITextAttributeFont,
-      nil]];
-    
 //    Bar Button
     UIImage *barBtn = [[UIImage imageNamed:@"top-bar-btn-stretch"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:barBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
