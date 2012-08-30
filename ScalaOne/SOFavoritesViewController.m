@@ -99,8 +99,11 @@
             cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1.0f];
             cell.detailTextLabel.backgroundColor = bgColorView.backgroundColor;
             
-            //        Detail Disclosure
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            //        Accessory Image
+            UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
+            UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+            [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
+            cell.accessoryView = accImageView;
         }
         //    Cell Content
         cell.textLabel.text = [_events objectAtIndex:indexPath.row];
@@ -108,7 +111,7 @@
         
         return cell;
     }   else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
-        NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-speaker"];
+        NSArray *cellAvatars = @[@"list-avatar-mo-nostar",@"list-avatar-jp-nostar",@"list-avatar-generic-nostar"];
         
         NSString *cellIdentifier = @"SpeakerCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -127,6 +130,12 @@
             cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
             cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
             cell.textLabel.backgroundColor = bgColorView.backgroundColor;
+            
+            //        Accessory Image
+            UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
+            UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+            [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
+            cell.accessoryView = accImageView;
         }
         //    Content
         cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];

@@ -95,13 +95,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return [_alphabet count];
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    if ([_alphabet count] <= 4) {
-        return nil;
-    }
-    return _alphabet;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [_alphabet objectAtIndex:section];
 }
@@ -145,6 +138,12 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
         cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
         cell.textLabel.backgroundColor = bgColorView.backgroundColor;
+        
+//        Accessory Image
+        UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
+        UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+        [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
+        cell.accessoryView = accImageView;
     }
     NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_speakers count]];
     for (NSString *speaker in _speakers) {

@@ -99,8 +99,11 @@
         cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1.0f];
         cell.detailTextLabel.backgroundColor = bgColorView.backgroundColor;
         
-//        Detail Disclosure
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        Accessory Image
+        UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
+        UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
+        [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
+        cell.accessoryView = accImageView;
     }
 //    Cell Content
     cell.textLabel.text = [_events objectAtIndex:indexPath.row];
