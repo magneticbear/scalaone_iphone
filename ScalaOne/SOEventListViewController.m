@@ -104,10 +104,19 @@
         UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
         [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
         cell.accessoryView = accImageView;
+        
+//        Make imageView tappable
+        cell.imageView.userInteractionEnabled = YES;
+        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
+        longPressRecognizer.minimumPressDuration = 0.15f;
+        [cell.imageView addGestureRecognizer:longPressRecognizer];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapStar:)];
+        tapRecognizer.numberOfTapsRequired = 1;
+        [cell.imageView addGestureRecognizer:tapRecognizer];
     }
 //    Cell Content
     cell.textLabel.text = [_events objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"list-star-%@",indexPath.row%2 ? @"on" : @"off"]];
+    cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
     cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
     
     return cell;
@@ -136,6 +145,11 @@
         return NO;
     }
     return YES;
+}
+
+- (void)didTapStar:(UITapGestureRecognizer*)g {
+    NSLog(@"didTapStar");
+    ((UIImageView *)g.view).image = [UIImage imageNamed:@"list-star-on"];
 }
 
 @end

@@ -144,6 +144,15 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
         [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
         cell.accessoryView = accImageView;
+        
+//        Make imageView tappable
+        cell.imageView.userInteractionEnabled = YES;
+        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
+        longPressRecognizer.minimumPressDuration = 0.15f;
+        [cell.imageView addGestureRecognizer:longPressRecognizer];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAvatar:)];
+        tapRecognizer.numberOfTapsRequired = 1;
+        [cell.imageView addGestureRecognizer:tapRecognizer];
     }
     NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_speakers count]];
     for (NSString *speaker in _speakers) {
@@ -154,16 +163,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 //    Content
     cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
     cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
-    
-//    Make imageView tappable
-    cell.imageView.tag = indexPath.row;
-    cell.imageView.userInteractionEnabled = YES;
-    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
-    longPressRecognizer.minimumPressDuration = 0.15f;
-    [cell.imageView addGestureRecognizer:longPressRecognizer];
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAvatar:)];
-    tapRecognizer.numberOfTapsRequired = 1;
-    [cell.imageView addGestureRecognizer:tapRecognizer];
     
     return cell;
 }
@@ -225,7 +224,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {
-    
 //    If the avatar is in default state, or the user is tapping the "favorite" image
     if (_avatarState == SOAvatarStateDefault ||
         (hitView == _currentAvatar && _avatarState == SOAvatarStateFavorite)) {
