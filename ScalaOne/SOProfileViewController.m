@@ -6,25 +6,27 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Refactor this class
-// TODO: Move cell stuff outside this class
-
-// TODO (Optional): Make table radius smaller
+// TODO (Optional): Convert name box to table
 
 #import "SOProfileViewController.h"
+#import "SOProfileInfoCell.h"
+
 #define kCellIdentifier @"infoCell"
+#define kIsMyProfile    TRUE
 
 @interface SOProfileViewController ()
-    @property (nonatomic, strong) NSArray *profileCells;
+    @property (nonatomic, strong) NSArray *profileCellHeaders;
     @property (nonatomic, strong) NSArray *profileCellContents;
+    @property (nonatomic, strong) NSArray *profileCellContentPlaceholders;
 @end
 
 @implementation SOProfileViewController
 @synthesize tableView = _tableView;
 @synthesize nameBox = _nameBox;
 @synthesize avatarEditImg = _avatarEditImg;
-@synthesize profileCells = _profileCells;
+@synthesize profileCellHeaders = _profileCellHeaders;
 @synthesize profileCellContents = _profileCellContents;
+@synthesize profileCellContentPlaceholders = _profileCellContentPlaceholders;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,13 +44,22 @@
     self.title = @"My Profile";
     
 //    Right bar button
-    NSString *rightButtonTitle = FALSE ? @"Meet up" : @"Edit";
+    NSString *rightButtonTitle = kIsMyProfile ? @"Edit" : @"Meet up";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
-//    Mock data
-    _profileCells = @[@"Twitter",@"Facebook",@"Phone",@"Email",@"Website"];
-    _profileCellContents = @[@"@simjp",@"",@"1-800-744-0098",@"",@""];
+//    Data
+    [self setCellHeadersAndPlaceholders];
+    [self setCellContents];
+}
+
+- (void)setCellHeadersAndPlaceholders {
+    _profileCellHeaders = @[@"Twitter",@"Facebook",@"Phone",@"Email",@"Website"];
+    _profileCellContentPlaceholders = @[@"@scalaone",@"facebook username",@"1-555-555-5555",@"email@example.com",@"example.com"];
+}
+
+- (void)setCellContents {
+    if (DEMO) _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
 }
 
 - (void)viewDidUnload
@@ -69,9 +80,11 @@
 - (void)didPressRightButton:(id)sender {
     BOOL editing = !_tableView.editing;
     
+//    Reload table in editing mode
     _tableView.editing = editing;
     [_tableView reloadData];
     
+//    Show/hide Cancel button
     if (editing) {
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
         self.navigationItem.leftBarButtonItem = leftButton;
@@ -80,8 +93,13 @@
     }
     
     self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
+    
+//    Show/Hide name box and avatar edit image
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
+    
+//    Dismiss keyboard on done editing
+    [self.view endEditing:!editing];
 }
 
 #pragma mark - UITableViewDataSource
@@ -89,7 +107,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
     if (_tableView.editing)
-        return _profileCells.count;
+        return _profileCellHeaders.count;
     NSInteger cellsWithDataCount = 0;
     for (NSString *cellData in _profileCellContents) {
         if ([cellData length] > 0) cellsWithDataCount++;
@@ -98,42 +116,55 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    SOProfileInfoCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    
     if (cell == nil || TRUE) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
-        cell.backgroundColor = [UIColor whiteColor];
-        
-        UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 160, 30)];
-        NSMutableArray *dataCells = [[NSMutableArray alloc] initWithCapacity:_profileCells.count];
-        //    Get non-empty data cell contents
-        [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
-            if (cellContent.length > 0) {
-                [dataCells addObject:cellContent];
-            }
-        }];
-        if (_tableView.editing) {
-            tf.text = [_profileCellContents objectAtIndex:indexPath.row];
-            tf.enabled = YES;
-        } else {
-            tf.text = [dataCells objectAtIndex:indexPath.row];
-            tf.enabled = NO;
-        }
-        [cell addSubview:tf];
+        cell = [[SOProfileInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    if (_tableView.editing)
-        cell.textLabel.text = [_profileCells objectAtIndex:indexPath.row%_profileCells.count];
-    else {
-        NSMutableArray *dataCellTitles = [[NSMutableArray alloc] initWithCapacity:_profileCells.count];
-        //    Get non-empty data cell titles
-        [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
-            if (cellContent.length) {
-                [dataCellTitles addObject:[_profileCells objectAtIndex:idx]];
-            }
-        }];
-        cell.textLabel.text = [dataCellTitles objectAtIndex:indexPath.row%dataCellTitles.count];
+    
+//    Set backgrounds for top and bottom cells (otherwise middle style is default)
+    if (indexPath.row == 0) {
+        cell.cellType = SOProfileInfoCellTypeTop;
+    } else if (indexPath.row + 1 == [self tableView:tableView numberOfRowsInSection:indexPath.section]) {
+        cell.cellType = SOProfileInfoCellTypeBottom;
+    }
+    
+//    Set cell titles, content and placeholders for edit/read modes
+    if (_tableView.editing) {
+        cell.headerLabel.text = [_profileCellHeaders objectAtIndex:indexPath.row%_profileCellHeaders.count];
+        cell.contentTextField.text = [_profileCellContents objectAtIndex:indexPath.row];
+        cell.contentTextField.placeholder = [_profileCellContentPlaceholders objectAtIndex:indexPath.row];
+        cell.contentTextField.enabled = YES;
+    } else {
+        cell.headerLabel.text = [self headerTextForCell:indexPath.row];
+        cell.contentTextField.text = [self contentTextForCell:indexPath.row];
+        cell.contentTextField.enabled = NO;
     }
     
     return cell;
+}
+
+- (NSString *)headerTextForCell:(NSInteger)row {
+    NSMutableArray *dataCellTitles = [[NSMutableArray alloc] initWithCapacity:_profileCellHeaders.count];
+    //    Get non-empty data cell titles
+    [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
+        if (cellContent.length) {
+            [dataCellTitles addObject:[_profileCellHeaders objectAtIndex:idx]];
+        }
+    }];
+    return [dataCellTitles objectAtIndex:row%dataCellTitles.count];
+}
+
+- (NSString *)contentTextForCell:(NSInteger)row {
+    NSMutableArray *dataCells = [[NSMutableArray alloc] initWithCapacity:_profileCellHeaders.count];
+    //    Get non-empty data cell contents
+    [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
+        if (cellContent.length > 0) {
+            [dataCells addObject:cellContent];
+        }
+    }];
+    return [dataCells objectAtIndex:row];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
