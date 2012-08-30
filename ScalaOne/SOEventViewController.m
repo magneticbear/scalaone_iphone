@@ -31,6 +31,15 @@
     self.title = @"Event";
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/event.jpg"]]];
     _webView.scalesPageToFit = YES;
+    
+//    Right bar button star
+    UIButton *starButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    starButton.frame = CGRectMake(0, 0, 40, 24);
+    starButton.contentMode = UIViewContentModeCenter;
+    [starButton setBackgroundImage:[UIImage imageNamed:@"topbar-star-off"] forState:UIControlStateNormal];
+    [starButton setBackgroundImage:[UIImage imageNamed:@"topbar-star-on"] forState:UIControlStateHighlighted];
+    [starButton addTarget:self action:@selector(didPressStar:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:starButton];
 }
 
 - (void)viewDidUnload
@@ -44,6 +53,10 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)didPressStar:(id)sender {
+    NSLog(@"didPressStar");
 }
 
 @end
