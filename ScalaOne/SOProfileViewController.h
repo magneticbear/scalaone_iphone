@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "SOViewController.h"
 
 @interface SOProfileViewController : SOViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *nameBox;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarEditImg;
 @end

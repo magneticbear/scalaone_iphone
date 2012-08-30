@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25864A143C1F40E4BEDB06B2 /* libPods.a */; };
+		E8002AD615EF01B0009F685C /* profile-name-box.png in Resources */ = {isa = PBXBuildFile; fileRef = E8002AD515EF01B0009F685C /* profile-name-box.png */; };
+		E8002AD915EF01BA009F685C /* profile-name-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8002AD815EF01BA009F685C /* profile-name-box@2x.png */; };
+		E8002ADB15EF0894009F685C /* profile-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = E8002ADA15EF0894009F685C /* profile-camera.png */; };
+		E8002ADD15EF08A3009F685C /* profile-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8002ADC15EF08A3009F685C /* profile-camera@2x.png */; };
 		E808E2BE15EE87BB00B0BA69 /* list-avatar-favorite-on.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */; };
 		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
 		E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */; };
@@ -198,6 +202,10 @@
 /* Begin PBXFileReference section */
 		25864A143C1F40E4BEDB06B2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F4E18102E17471FBED4DC43 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E8002AD515EF01B0009F685C /* profile-name-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-name-box.png"; sourceTree = "<group>"; };
+		E8002AD815EF01BA009F685C /* profile-name-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-name-box@2x.png"; sourceTree = "<group>"; };
+		E8002ADA15EF0894009F685C /* profile-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-camera.png"; sourceTree = "<group>"; };
+		E8002ADC15EF08A3009F685C /* profile-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-camera@2x.png"; sourceTree = "<group>"; };
 		E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on.png"; sourceTree = "<group>"; };
 		E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on@2x.png"; sourceTree = "<group>"; };
 		E808E2DF15EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
@@ -472,6 +480,8 @@
 		E808E2EA15EEAA5800B0BA69 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				E8002ADC15EF08A3009F685C /* profile-camera@2x.png */,
+				E8002AD815EF01BA009F685C /* profile-name-box@2x.png */,
 				E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */,
 			);
 			name = profile;
@@ -601,6 +611,8 @@
 		E865EE9C15E48B920063007F /* elements@1x */ = {
 			isa = PBXGroup;
 			children = (
+				E8002ADA15EF0894009F685C /* profile-camera.png */,
+				E8002AD515EF01B0009F685C /* profile-name-box.png */,
 				E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */,
 				E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */,
 				E8B331B215EDD7690085F395 /* list-avatar-mo.png */,
@@ -1228,6 +1240,10 @@
 				E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */,
 				E808E2E715EEAA3200B0BA69 /* profile-avatar-mo.png in Resources */,
 				E808E2E915EEAA5300B0BA69 /* profile-avatar-mo@2x.png in Resources */,
+				E8002AD615EF01B0009F685C /* profile-name-box.png in Resources */,
+				E8002AD915EF01BA009F685C /* profile-name-box@2x.png in Resources */,
+				E8002ADB15EF0894009F685C /* profile-camera.png in Resources */,
+				E8002ADD15EF08A3009F685C /* profile-camera@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

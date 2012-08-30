@@ -6,6 +6,11 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Refactor this class
+// TODO: Move cell stuff outside this class
+
+// TODO (Optional): Make table radius smaller
+
 #import "SOProfileViewController.h"
 #define kCellIdentifier @"infoCell"
 
@@ -16,6 +21,8 @@
 
 @implementation SOProfileViewController
 @synthesize tableView = _tableView;
+@synthesize nameBox = _nameBox;
+@synthesize avatarEditImg = _avatarEditImg;
 @synthesize profileCells = _profileCells;
 @synthesize profileCellContents = _profileCellContents;
 
@@ -33,9 +40,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"My Profile";
+    
+//    Right bar button
     NSString *rightButtonTitle = FALSE ? @"Meet up" : @"Edit";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
+    
+//    Mock data
     _profileCells = @[@"Twitter",@"Facebook",@"Phone",@"Email",@"Website"];
     _profileCellContents = @[@"@simjp",@"",@"1-800-744-0098",@"",@""];
 }
@@ -43,6 +54,8 @@
 - (void)viewDidUnload
 {
     [self setTableView:nil];
+    [self setNameBox:nil];
+    [self setAvatarEditImg:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -55,27 +68,14 @@
 
 - (void)didPressRightButton:(id)sender {
     BOOL editing = !_tableView.editing;
-    NSLog(@"didPressRightButton");
-    [self.navigationItem setHidesBackButton:editing animated:YES];
+    [self.navigationItem setHidesBackButton:editing animated:NO];
     
-//    NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:_profileCells.count];
-//    Get indices of empty array elements
-//    [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
-//        if (!cellContent.length) {
-//            [indexPaths addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
-//        }
-//    }];
-//    [_tableView beginUpdates];
-    [_tableView setEditing:editing animated:NO];
-//    if (editing) {
-//        [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//    } else {
-//        [_tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//    }
-//    [_tableView endUpdates];
+    _tableView.editing = editing;
     [_tableView reloadData];
 
     self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
+    _nameBox.hidden = !editing;
+    _avatarEditImg.hidden = !editing;
 }
 
 #pragma mark - UITableViewDataSource
@@ -95,6 +95,7 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
     if (cell == nil || TRUE) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
+        cell.backgroundColor = [UIColor whiteColor];
         
         UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 160, 30)];
         NSMutableArray *dataCells = [[NSMutableArray alloc] initWithCapacity:_profileCells.count];
@@ -136,6 +137,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"didSelectRowAtIndexPath: %d",indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)didTapAvatar:(UITapGestureRecognizer*)g {
+    NSLog(@"didTapAvatar");
 }
 
 @end
