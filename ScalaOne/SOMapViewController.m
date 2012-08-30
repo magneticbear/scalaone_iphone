@@ -12,6 +12,23 @@
 #import <MapKit/MapKit.h>
 #import "SOLocationAnnotation.h"
 
+@implementation NSObject (PerformBlockAfterDelay)
+
+- (void)performBlock:(void (^)(void))block
+          afterDelay:(NSTimeInterval)delay
+{
+    block = [block copy];
+    [self performSelector:@selector(fireBlockAfterDelay:)
+               withObject:block
+               afterDelay:delay];
+}
+
+- (void)fireBlockAfterDelay:(void (^)(void))block {
+    block();
+}
+
+@end
+
 @interface SOMapViewController ()
 
 @end
@@ -46,6 +63,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"viewWillDisappear");
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -93,16 +115,18 @@
 }
 
 - (void)getMapPins {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+    [self performBlock:^{
         CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
-        [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1)) animated:YES];
-        
-        for (int i=0; i<20; i++) {
-            SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
-            [self.mapView addAnnotation:locationAnnotation];
-            locationAnnotation.mapView = self.mapView;
+        if (userLocation.latitude != 0 && userLocation.longitude != 0) {
+            [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1)) animated:YES];
+            
+            for (int i=0; i<20; i++) {
+                SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
+                [self.mapView addAnnotation:locationAnnotation];
+                locationAnnotation.mapView = self.mapView;
+            }
         }
-    });
+    } afterDelay:2.0f];
 }
 
 @end
