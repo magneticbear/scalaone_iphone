@@ -14,14 +14,14 @@ typedef enum {
 } SOChatCellAlignment;
 
 @interface SOChatCell : UITableViewCell {
-    UIImageView *avatarImg;
+    UIButton *avatarBtn;
     UIImageView *messageBG;
     UILabel *messageTextView;
     UILabel *messageMetaLabel;
     SOChatCellAlignment cellAlignment;
 }
 
-@property (nonatomic, retain) UIImageView *avatarImg;
+@property (nonatomic, retain) UIButton *avatarBtn;
 @property (nonatomic, retain) UIImageView *messageBG;
 @property (nonatomic, retain) UILabel *messageTextView;
 @property (nonatomic, retain) UILabel *messageMetaLabel;

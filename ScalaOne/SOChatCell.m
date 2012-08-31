@@ -10,9 +10,10 @@
 // TODO: Refactor LayoutSubviews
 
 #import "SOChatCell.h"
+#import "SOProfileViewController.h"
 
 @implementation SOChatCell
-@synthesize avatarImg = _avatarImg;
+@synthesize avatarBtn = _avatarBtn;
 @synthesize messageBG = _messageBG;
 @synthesize messageTextView = _messageTextView;
 @synthesize messageMetaLabel = _messageMetaLabel;
@@ -26,13 +27,13 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
 //        Initializers
-        _avatarImg = [[UIImageView alloc] init];
+        _avatarBtn = [[UIButton alloc] init];
         _messageBG = [[UIImageView alloc] init];
         _messageTextView = [[UILabel alloc] init];
         _messageMetaLabel = [[UILabel alloc] init];
         
 //        Clear background colors
-        _avatarImg.backgroundColor = [UIColor clearColor];
+        _avatarBtn.backgroundColor = [UIColor clearColor];
         _messageBG.backgroundColor = [UIColor clearColor];
         _messageTextView.backgroundColor = [UIColor clearColor];
         _messageMetaLabel.backgroundColor = [UIColor clearColor];
@@ -44,7 +45,9 @@
         _messageTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         _messageTextView.textColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
         
-        [self addSubview:_avatarImg];
+        [_avatarBtn addTarget:self action:@selector(didPressAvatar:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addSubview:_avatarBtn];
         [self addSubview:_messageBG];
         [self addSubview:_messageTextView];
         [self addSubview:_messageMetaLabel];
@@ -63,11 +66,11 @@
     
 //    Frames
     if (_cellAlignment == SOChatCellAlignmentLeft) {
-        _avatarImg.frame = CGRectMake(10, 10, 49, 49);
+        _avatarBtn.frame = CGRectMake(10, 10, 49, 49);
         _messageTextView.frame = CGRectMake(68, 5, 200, 1000);
         _messageMetaLabel.frame = CGRectMake(64, 54, 246, 10);
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
-        _avatarImg.frame = CGRectMake(260, 10, 49, 49);
+        _avatarBtn.frame = CGRectMake(260, 10, 49, 49);
         _messageTextView.frame = CGRectMake(0, 5, 200, 1000);
         _messageMetaLabel.frame = CGRectMake(10, 54, 246, 10);
     }
@@ -75,11 +78,11 @@
 //    Content
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-gray"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 20, 16, 13)];
-        _avatarImg.image = [UIImage imageNamed:@"chat-avatar-mo"];
+        [_avatarBtn setBackgroundImage:[UIImage imageNamed:@"chat-avatar-mo"] forState:UIControlStateNormal];
         _messageTextView.textAlignment = UITextAlignmentLeft;
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-blue-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 13, 16, 20)];
-        _avatarImg.image = [UIImage imageNamed:@"chat-avatar-jp"];
+        [_avatarBtn setBackgroundImage:[UIImage imageNamed:@"chat-avatar-jp"] forState:UIControlStateNormal];
         _messageTextView.textAlignment = UITextAlignmentRight;
     }
     
@@ -108,12 +111,12 @@
     _messageBG.frame = messageBGRect;
     
 //    Adjust avatar position
-    CGRect avatarRect = _avatarImg.frame;
+    CGRect avatarRect = _avatarBtn.frame;
     avatarRect.origin.y = _messageBG.frame.origin.y+_messageBG.frame.size.height-avatarRect.size.height-3;
     if (_cellAlignment == SOChatCellAlignmentRight) {
         avatarRect.origin.y += 1;
     }
-    _avatarImg.frame = avatarRect;
+    _avatarBtn.frame = avatarRect;
     
 //    Adjust cell frame
     CGRect selfFrame = self.frame;
@@ -122,6 +125,12 @@
         selfFrame.size.height = 71;
     }
     self.frame = selfFrame;
+}
+
+- (void)didPressAvatar:(id)sender {
+    NSLog(@"push profile screen");
+//    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
+//    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end
