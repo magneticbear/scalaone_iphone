@@ -172,11 +172,11 @@
     if (!cell) {
         cell = [[SOChatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-//    cell.messageTextView.text = @"";
-//    for (int i=0; i<=indexPath.row; i++) {
-//        cell.messageTextView.text = [NSString stringWithFormat:@"%@%@",cell.messageTextView.text,@"Short message. "];
-//    }
-    cell.messageTextView.text = @"Short message.\nNot for sale.\nMaybe rent.\nPlease call.";
+    
+    NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
+    
+    cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
+//    cell.messageTextView.text = @"Short";
     cell.cellAlignment = indexPath.row % 2 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
     [cell layoutSubviews];
     return cell;
