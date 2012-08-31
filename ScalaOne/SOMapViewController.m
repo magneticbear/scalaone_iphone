@@ -116,7 +116,7 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
         if (userLocation.latitude != 0 && userLocation.longitude != 0) {
-            [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.3, 0.3)) animated:YES];
+            [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
             
             [self addAnnotationWithUserLocation:userLocation];
         }

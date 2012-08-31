@@ -81,15 +81,15 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">home-btns-rec.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="709078521">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="525895646">
 							<string key="name">HelveticaNeue-CondensedBold</string>
 							<string key="family">Helvetica Neue</string>
 							<int key="traits">2</int>
-							<double key="pointSize">18</double>
+							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="608418188">
+						<object class="NSFont" key="IBUIFont" id="550599901">
 							<string key="NSName">HelveticaNeue-Bold</string>
-							<double key="NSSize">18</double>
+							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -130,8 +130,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="1039267080">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -164,8 +164,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="883767370">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -198,8 +198,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="773187916">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -232,8 +232,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="724669472">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -266,8 +266,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="509859465">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -300,8 +300,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="805241114">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -334,8 +334,8 @@
 						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="741935497"/>
 						<reference key="IBUINormalBackgroundImage" ref="217687474"/>
-						<reference key="IBUIFontDescription" ref="709078521"/>
-						<reference key="IBUIFont" ref="608418188"/>
+						<reference key="IBUIFontDescription" ref="525895646"/>
+						<reference key="IBUIFont" ref="550599901"/>
 					</object>
 					<object class="IBUIButton" id="540178441">
 						<reference key="NSNextResponder" ref="774585933"/>
@@ -343,6 +343,7 @@
 						<string key="NSFrame">{{112, 371}, {99, 25}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

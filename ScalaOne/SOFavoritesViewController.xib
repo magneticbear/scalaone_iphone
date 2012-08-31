@@ -55,7 +55,7 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<double key="IBUITitleEdgeInsets.top">0.0</double>
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
-								<double key="IBUITitleEdgeInsets.left">11</double>
+								<double key="IBUITitleEdgeInsets.left">6</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Events</string>
@@ -347,7 +347,7 @@
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">SOFavoritesViewController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="superclassName">SOViewController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">didSelectSegment:</string>
 						<string key="NS.object.0">UIButton</string>
@@ -361,12 +361,17 @@
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="segmentEventsBtn">UIButton</string>
+						<string key="segmentSpeakersBtn">UIButton</string>
 						<string key="segmentView">UIView</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="segmentEventsBtn">
 							<string key="name">segmentEventsBtn</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="segmentSpeakersBtn">
+							<string key="name">segmentSpeakersBtn</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="segmentView">
@@ -381,6 +386,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/SOFavoritesViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SOViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SOViewController.h</string>
 					</object>
 				</object>
 			</array>
