@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO (Optional): Make input field scrollable when too large to be displayed
+
 #import "SOChatInputField.h"
 
 @implementation SOChatInputField

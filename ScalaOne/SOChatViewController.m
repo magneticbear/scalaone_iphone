@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Add empty last cell
 // TODO: Fix scroll to bottom on short tables
 
 // TODO (Optional): Remove new cell animation on keyboard dismiss
@@ -162,7 +161,11 @@
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+    SOChatCell *cell = (SOChatCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    if (indexPath.row+1 == [self tableView:tableView numberOfRowsInSection:indexPath.section]) {
+        return cell.frame.size.height + 40;
+    }
+    return cell.frame.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -176,7 +179,6 @@
     NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
     
     cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
-//    cell.messageTextView.text = @"Short";
     cell.cellAlignment = indexPath.row % 2 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
     [cell layoutSubviews];
     return cell;

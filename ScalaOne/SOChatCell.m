@@ -7,7 +7,7 @@
 //
 
 // TODO: Allow delegate that catches user icon taps
-// TODO (Optional): Make input field scrollable when too large to be displayed
+// TODO: Refactor LayoutSubviews
 
 #import "SOChatCell.h"
 
