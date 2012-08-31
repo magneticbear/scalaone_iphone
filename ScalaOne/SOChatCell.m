@@ -117,9 +117,9 @@
     
 //    Adjust cell frame
     CGRect selfFrame = self.frame;
-    selfFrame.size.height = _messageTextView.frame.size.height + 10;
-    if (selfFrame.size.height < 60) {
-        selfFrame.size.height = 60;
+    selfFrame.size.height = _messageTextView.frame.size.height + 20;
+    if (selfFrame.size.height < 65) {
+        selfFrame.size.height = 71;
     }
     self.frame = selfFrame;
 }

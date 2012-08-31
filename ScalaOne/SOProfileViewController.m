@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Convert name box to table
 
 #import "SOProfileViewController.h"
