@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Stepped delay in pin drop down animations & add ease in/out
-
 #import "SOMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
@@ -68,7 +66,6 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    NSLog(@"viewWillDisappear");
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
@@ -99,16 +96,30 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    for (MKAnnotationView *aV in views) {
+//    Animate pin drops
+    NSInteger idx = 0;
+    for (SOLocationView *aV in views) {
         CGRect endFrame = aV.frame;
         
-        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-230.0, aV.frame.size.width, aV.frame.size.height);
+//        Convert pin frame relative to mapView for intersection measurement
+        CGPoint convertedOrigin = [self.mapView convertCoordinate:aV.coordinate toPointToView:self.mapView];
+        CGRect convertedFrame = endFrame;
+        convertedFrame.origin.x = convertedOrigin.x + aV.centerOffset.x;
+        convertedFrame.origin.y = convertedOrigin.y + aV.centerOffset.y;
         
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.45];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [aV setFrame:endFrame];
-        [UIView commitAnimations];
+//        If pin is in view, animate
+        if (CGRectIntersectsRect(convertedFrame,self.mapView.frame)) {
+//            Start animation outside view
+            aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-self.mapView.frame.size.height, aV.frame.size.width, aV.frame.size.height);
+            
+            [UIView animateWithDuration:0.33f delay:idx*0.05f options:UIViewAnimationCurveEaseInOut animations:^{
+                aV.frame = endFrame;
+            } completion:^(BOOL finished) {
+//                Pin drop animation finished
+            }];
+//            Increase the next animation's delay
+            idx++;
+        }
     }
 }
 
@@ -120,21 +131,22 @@
     [self performBlock:^{
         CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
         if (userLocation.latitude != 0 && userLocation.longitude != 0) {
-            [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1)) animated:YES];
+            [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.3, 0.3)) animated:YES];
             
-            for (int i=0; i<20; i++) {
-                [self addAnnotationWithUserLocation:userLocation andDelay:0.2f*i];
-            }
+            [self addAnnotationWithUserLocation:userLocation];
         }
     } afterDelay:2.0f];
 }
 
-- (void)addAnnotationWithUserLocation:(CLLocationCoordinate2D)userLocation andDelay:(NSTimeInterval)delay {
-//    [self performBlock:^{
-    SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
-    [self.mapView addAnnotation:locationAnnotation];
-    locationAnnotation.mapView = self.mapView;
-//    } afterDelay:delay];
+- (void)addAnnotationWithUserLocation:(CLLocationCoordinate2D)userLocation {
+//    Generate 20 random SOLocationView's and add them to the map
+    NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:20];
+    for (int i=0; i<20; i++) {
+        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
+        [annotations  addObject:locationAnnotation];
+        locationAnnotation.mapView = self.mapView;
+    }
+    [self.mapView addAnnotations:annotations];
 }
 
 @end
