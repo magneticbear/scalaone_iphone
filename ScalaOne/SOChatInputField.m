@@ -17,6 +17,7 @@
 @synthesize shouldSendToFacebook = _shouldSendToFacebook;
 @synthesize shouldSendToTwitter = _shouldSendToTwitter;
 @synthesize delegate = _delegate;
+@synthesize charactersLeft = _charactersLeft;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -67,6 +68,16 @@
         _sendButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
         [_sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self addSubview:_sendButton];
+        
+//        Characters Left Label
+        _charactersLeft = [[UILabel alloc] initWithFrame:CGRectMake(215, 45, 62, 32)];
+        _charactersLeft.backgroundColor = [UIColor clearColor];
+        _charactersLeft.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
+        _charactersLeft.textColor = [UIColor colorWithWhite:0.3f alpha:1.0f];
+        _charactersLeft.shadowColor = [UIColor whiteColor];
+        _charactersLeft.shadowOffset = CGSizeMake(0, 1);
+        _charactersLeft.text = @"140";
+        [self addSubview:_charactersLeft];
     }
     return self;
 }
@@ -120,7 +131,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 //    Limit size of textview
-    if ((textView.contentSize.height >= 196.0f || [textView.text length] >= 300) && [text length]) {
+    if ((textView.contentSize.height >= 196.0f || [textView.text length] >= 140) && [text length]){
         return NO;
     }
     return YES;
@@ -132,6 +143,7 @@
     CGRect facebookFrame = _facebookButton.frame;
     CGRect twitterFrame = _twitterButton.frame;
     CGRect sendFrame = _sendButton.frame;
+    CGRect charactersFrame = _charactersLeft.frame;
     
     selfFrame.size.height -= inputFrame.size.height;
     selfFrame.origin.y += inputFrame.size.height;
@@ -144,10 +156,12 @@
         facebookFrame.origin.y = selfFrame.size.height-37;
         twitterFrame.origin.y = selfFrame.size.height-37;
         sendFrame.origin.y = selfFrame.size.height-37;
+        charactersFrame.origin.y = selfFrame.size.height-37;
     } else {
         facebookFrame.origin.y = 45.0f;
         twitterFrame.origin.y = 45.0f;
         sendFrame.origin.y = 45.0f;
+        charactersFrame.origin.y = 45.0f;
     }
     
     _inputField.frame = inputFrame;
@@ -157,8 +171,11 @@
     _facebookButton.frame = facebookFrame;
     _twitterButton.frame = twitterFrame;
     _sendButton.frame = sendFrame;
+    _charactersLeft.frame = charactersFrame;
     
     [self.delegate didChangeSOInputChatFieldSize:selfFrame.size];
+    
+    _charactersLeft.text = [NSString stringWithFormat:@"%d",140-_inputField.text.length];
 }
 
 - (void)didPressFacebook:(id)sender {

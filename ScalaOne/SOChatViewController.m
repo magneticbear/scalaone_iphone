@@ -7,6 +7,7 @@
 //
 
 // TODO: Add empty last cell
+// TODO: Fix scroll to bottom on short tables
 
 // TODO (Optional): Remove new cell animation on keyboard dismiss
 // TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard
@@ -108,6 +109,8 @@
         
         chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
         _chatInputField.frame = chatInputFieldFrame;
+        //    Deselect text
+        _chatInputField.inputField.selectedTextRange = nil;
     }
     
 //    Update tableView frame
@@ -145,9 +148,10 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification {
 //    Hide navBar
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.33f * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+    double delayInSeconds = 0.33f;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
     });
 }
 
@@ -158,7 +162,7 @@
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 64;
+    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -168,7 +172,11 @@
     if (!cell) {
         cell = [[SOChatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    cell.messageTextView.text = @"This is my pretty long chat message, hard coded into cellForRowAtIndexPath. This is my pretty long chat message, hard coded into cellForRowAtIndexPath.";
+//    cell.messageTextView.text = @"";
+//    for (int i=0; i<=indexPath.row; i++) {
+//        cell.messageTextView.text = [NSString stringWithFormat:@"%@%@",cell.messageTextView.text,@"Short message. "];
+//    }
+    cell.messageTextView.text = @"Short message.\nNot for sale.\nMaybe rent.\nPlease call.";
     cell.cellAlignment = indexPath.row % 2 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
     [cell layoutSubviews];
     return cell;

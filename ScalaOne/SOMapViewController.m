@@ -12,23 +12,6 @@
 #import <MapKit/MapKit.h>
 #import "SOLocationAnnotation.h"
 
-@implementation NSObject (PerformBlockAfterDelay)
-
-- (void)performBlock:(void (^)(void))block
-          afterDelay:(NSTimeInterval)delay
-{
-    block = [block copy];
-    [self performSelector:@selector(fireBlockAfterDelay:)
-               withObject:block
-               afterDelay:delay];
-}
-
-- (void)fireBlockAfterDelay:(void (^)(void))block {
-    block();
-}
-
-@end
-
 @interface SOMapViewController ()
 
 @end
@@ -128,14 +111,16 @@
 }
 
 - (void)getMapPins {
-    [self performBlock:^{
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
         if (userLocation.latitude != 0 && userLocation.longitude != 0) {
             [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.3, 0.3)) animated:YES];
             
             [self addAnnotationWithUserLocation:userLocation];
         }
-    } afterDelay:2.0f];
+    });
 }
 
 - (void)addAnnotationWithUserLocation:(CLLocationCoordinate2D)userLocation {

@@ -24,6 +24,7 @@
     BOOL shouldSendToFacebook;
     BOOL shouldSendToTwitter;
     id<SOInputChatFieldDelegate> delegate;
+    UILabel *charactersLeft;
 }
 
 @property (nonatomic) SOInputTextView *inputField;
@@ -34,5 +35,6 @@
 @property (atomic) BOOL shouldSendToFacebook;
 @property (atomic) BOOL shouldSendToTwitter;
 @property (nonatomic, unsafe_unretained) id<SOInputChatFieldDelegate> delegate;
+@property (nonatomic, retain) UILabel *charactersLeft;
 
 @end

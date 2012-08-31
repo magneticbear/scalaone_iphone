@@ -9,6 +9,7 @@
 // TODO: Allow delegate that catches user icon taps
 // TODO: Add auto-size for text bubble with max size (see PSD)
 // TODO: Fix SOChatCellAlignmentRight bubble position (should be closer to avatar)
+// TODO (Optional): Make input field scrollable when too large to be displayed
 
 #import "SOChatCell.h"
 
@@ -52,6 +53,7 @@
         
         _messageTextView.scrollEnabled = FALSE;
         _messageTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+        _messageTextView.textColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
         
         [self addSubview:_avatarImg];
         [self addSubview:_messageBG];
@@ -69,27 +71,22 @@
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
     
 //    Frames
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _avatarImg.frame = CGRectMake(10, 10, 49, 49);
         _messageBG.frame = CGRectMake(64, 10, 246, 44);
-        _messageTextView.frame = CGRectMake(69, 15, 236, 34);
+        _messageTextView.frame = CGRectMake(69, 5, 180, 34);
         _messageMetaLabel.frame = CGRectMake(64, 54, 246, 10);
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _avatarImg.frame = CGRectMake(266, 10, 49, 49);
         _messageBG.frame = CGRectMake(10, 10, 246, 44);
-        _messageTextView.frame = CGRectMake(15, 15, 236, 34);
+        _messageTextView.frame = CGRectMake(15, 5, 180, 34);
         _messageMetaLabel.frame = CGRectMake(10, 54, 246, 10);
     }
     
 //    Insets
-    if (_cellAlignment == SOChatCellAlignmentLeft) {
-        _messageTextView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
-    } else if (_cellAlignment == SOChatCellAlignmentRight) {
-        _messageTextView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
-    }
+//    _messageTextView.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
     
 //    Content
     if (_cellAlignment == SOChatCellAlignmentLeft) {
@@ -101,6 +98,26 @@
         _avatarImg.image = [UIImage imageNamed:@"chat-avatar-jp"];
         _messageTextView.textAlignment = UITextAlignmentRight;
     }
+    
+//    Adjust textview size
+    CGSize textSize = [_messageTextView.text sizeWithFont:_messageTextView.font constrainedToSize:_messageTextView.frame.size  lineBreakMode:UILineBreakModeWordWrap];
+    _messageTextView.frame = CGRectMake(_messageTextView.frame.origin.x, _messageTextView.frame.origin.y, textSize.width+20, textSize.height+100);
+    
+    NSLog(@"textSize.height: %.2f",textSize.height);
+    
+//    Adjust BG size
+    CGRect messageBGRect = _messageTextView.frame;
+    if (_cellAlignment == SOChatCellAlignmentLeft) {
+        messageBGRect.origin.x -= 6;
+//        messageBGRect.size.width += 6;
+    } else if (_cellAlignment == SOChatCellAlignmentRight) {
+        
+    }
+    _messageBG.frame = messageBGRect;
+
+    CGRect selfFrame = self.frame;
+    selfFrame.size.height = _messageTextView.frame.size.height + 10;
+    self.frame = selfFrame;
 }
 
 @end
