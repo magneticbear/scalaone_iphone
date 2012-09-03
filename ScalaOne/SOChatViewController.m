@@ -14,7 +14,7 @@
 #import "SOChatViewController.h"
 #import "SOHTTPClient.h"
 #import "SOChatMessage.h"
-#import "SOChatCell.h"
+#import "SOProfileViewController.h"
 
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
@@ -174,6 +174,7 @@
     SOChatCell *cell = (SOChatCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[SOChatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.delegate = self;
     }
     
     NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
@@ -195,6 +196,14 @@
 - (void)didChangeSOInputChatFieldSize:(CGSize)size {
     [self updateLayoutWithKeyboardRect:CGRectNull onlyTable:YES];
     [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+}
+
+#pragma mark - SOChatCellDelegate
+
+- (void)didSelectAvatar:(NSInteger)profileID {
+    NSLog(@"didSelectAvatar: %d",profileID);
+    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end

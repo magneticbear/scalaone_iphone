@@ -18,6 +18,7 @@
 @synthesize messageTextView = _messageTextView;
 @synthesize messageMetaLabel = _messageMetaLabel;
 @synthesize cellAlignment = _cellAlignment;
+@synthesize delegate = _delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -128,9 +129,7 @@
 }
 
 - (void)didPressAvatar:(id)sender {
-    NSLog(@"push profile screen");
-//    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
-//    [self.navigationController pushViewController:profileVC animated:YES];
+    [_delegate didSelectAvatar:123];
 }
 
 @end

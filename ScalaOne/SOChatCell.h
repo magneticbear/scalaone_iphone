@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SOChatCellDelegate <NSObject>
+
+- (void)didSelectAvatar:(NSInteger)profileID;
+
+@end
+
 typedef enum {
-    SOChatCellAlignmentLeft   = 0,
-    SOChatCellAlignmentRight   = 1
+    SOChatCellAlignmentLeft,
+    SOChatCellAlignmentRight,
 } SOChatCellAlignment;
 
 @interface SOChatCell : UITableViewCell {
@@ -19,6 +25,7 @@ typedef enum {
     UILabel *messageTextView;
     UILabel *messageMetaLabel;
     SOChatCellAlignment cellAlignment;
+    id<SOChatCellDelegate> delegate;
 }
 
 @property (nonatomic, retain) UIButton *avatarBtn;
@@ -26,5 +33,6 @@ typedef enum {
 @property (nonatomic, retain) UILabel *messageTextView;
 @property (nonatomic, retain) UILabel *messageMetaLabel;
 @property (nonatomic) SOChatCellAlignment cellAlignment;
+@property (nonatomic, retain) id<SOChatCellDelegate> delegate;
 
 @end
