@@ -35,6 +35,7 @@
 		E82EF79A15E4A23400FA7E78 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */; };
 		E833EC0D15ED024E007C1DB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E833EC0B15ED024E007C1DB5 /* Default@2x.png */; };
 		E833EC0E15ED024E007C1DB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E833EC0C15ED024E007C1DB5 /* Default.png */; };
+		E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */; };
 		E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */; };
 		E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CC1B15E6876B00B40B33 /* SODefines.m */; };
 		E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */; };
@@ -253,6 +254,7 @@
 		E82EF79015E4A23400FA7E78 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		E833EC0B15ED024E007C1DB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E833EC0C15ED024E007C1DB5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScalaOne.xcdatamodel; sourceTree = "<group>"; };
 		E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOHTTPClient.h; sourceTree = "<group>"; };
 		E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOHTTPClient.m; sourceTree = "<group>"; };
 		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 		E808E2CC15EE992D00B0BA69 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E83E7F3415F64823003E6FB4 /* Model */,
 				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E842CC1D15E6887B00B40B33 /* SODefines */,
 				E8E4623D15E6D7F500908C6A /* SOChatMessage */,
@@ -615,6 +618,14 @@
 				E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */,
 			);
 			name = DAKeyboardControl;
+			sourceTree = "<group>";
+		};
+		E83E7F3415F64823003E6FB4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		E842CC1D15E6887B00B40B33 /* SODefines */ = {
@@ -1405,6 +1416,7 @@
 				E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */,
 				E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */,
+				E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1658,6 +1670,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */,
+			);
+			currentVersion = E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */;
+			path = ScalaOne.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E8A4FFAC15E4377F00D10907 /* Project object */;
 }
