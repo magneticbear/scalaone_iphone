@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class SOEvent, SOUser;
 
 @interface SOSpeaker : NSManagedObject
 
@@ -19,7 +20,8 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * twitter;
 @property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSManagedObject *events;
-@property (nonatomic, retain) NSManagedObject *favoriteUser;
+@property (nonatomic, retain) NSString * firstInitial;
+@property (nonatomic, retain) SOEvent *events;
+@property (nonatomic, retain) SOUser *favoriteUser;
 
 @end

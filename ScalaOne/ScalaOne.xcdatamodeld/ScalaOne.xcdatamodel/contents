@@ -33,6 +33,7 @@
     <entity name="Speaker" representedClassName="SOSpeaker" syncable="YES">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstInitial" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -55,10 +56,10 @@
         <relationship name="favoriteSpeakers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Speaker" inverseName="favoriteUser" inverseEntity="Speaker" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="160" positionY="192" width="128" height="180"/>
+        <element name="Event" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Location" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Message" positionX="160" positionY="192" width="128" height="165"/>
-        <element name="Speaker" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Speaker" positionX="160" positionY="192" width="128" height="195"/>
         <element name="User" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>
