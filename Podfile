@@ -1,5 +1,5 @@
 platform :ios, '5.0'
 
-pod 'AFIncrementalStore'
+# pod 'AFIncrementalStore'
 pod 'Bully'
 pod 'AFNetworking'

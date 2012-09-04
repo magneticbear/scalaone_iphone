@@ -1,12 +1,9 @@
 PODS:
-  - AFIncrementalStore (0.1.0):
-    - AFNetworking (>= 0.9.0)
   - AFNetworking (1.0RC1)
   - Bully (0.1.0):
     - SocketRocket
   - SocketRocket (0.1)
 
 DEPENDENCIES:
-  - AFIncrementalStore
   - AFNetworking
   - Bully
