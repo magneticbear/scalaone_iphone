@@ -105,4 +105,18 @@
 	}];
 }
 
+#pragma mark - Events
+
+- (void)getEventsWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+	[self getPath:@"events" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
+}
+
 @end

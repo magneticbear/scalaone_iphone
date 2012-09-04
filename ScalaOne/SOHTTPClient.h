@@ -25,4 +25,7 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 // Speakers
 - (void)getSpeakersWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
+// Events
+- (void)getEventsWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+
 @end

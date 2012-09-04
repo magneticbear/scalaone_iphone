@@ -19,7 +19,8 @@
 @dynamic remoteID;
 @dynamic start;
 @dynamic textDescription;
-@dynamic speakers;
+@dynamic title;
 @dynamic favoriteUser;
+@dynamic speakers;
 
 @end

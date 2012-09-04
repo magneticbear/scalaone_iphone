@@ -178,14 +178,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 #if kShouldUseHeaders
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [_alphabet objectAtIndex:section];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return [_alphabet indexOfObject:title];
-}
-
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 //    Setup header label style and text
@@ -272,11 +264,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-//    NSLog(@"searchBarTextDidBeginEditing");
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-//    NSLog(@"searchBarTextDidEndEditing");
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

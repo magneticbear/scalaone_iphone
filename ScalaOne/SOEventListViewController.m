@@ -9,9 +9,17 @@
 #import "SOEventListViewController.h"
 #import "SOEventViewController.h"
 #import "SOListHeaderLabel.h"
+#import "SOHTTPClient.h"
+#import "SOEvent.h"
 
-@interface SOEventListViewController ()
-    @property (nonatomic, strong) NSArray *events;
+#define kShouldUseHeaders   FALSE
+
+@interface SOEventListViewController () <NSFetchedResultsControllerDelegate> {
+    NSFetchedResultsController *_fetchedResultsController;
+    NSManagedObjectContext *moc;
+}
+- (void)refetchData;
+@property (nonatomic, strong) NSArray *events;
 @end
 
 @implementation SOEventListViewController
@@ -35,17 +43,75 @@
     self.title = @"Events";
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
-    _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];
     _searchBar.placeholder = @"Find events";
+    
+    if (DEMO) {
+        _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];
+    } else {
+        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                    NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+                    
+                    for (NSDictionary *eventDict in events) {
+                        
+                        SOEvent* event = nil;
+                        
+                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                        
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
+                        [request setEntity:entity];
+                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
+                        [request setPredicate:searchFilter];
+                        
+                        NSArray *results = [moc executeFetchRequest:request error:nil];
+                        
+                        if (results.count > 0) {
+                            event = [results lastObject];
+                        } else {
+                            event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
+                        }
+                        
+                        event.title = [eventDict objectForKey:@"title"];
+                        event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
+                    }
+                    
+                    NSError *error = nil;
+                    if ([moc hasChanges] && ![moc save:&error]) {
+                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                }
+            });
+        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"getEvents failed");
+            });
+        }];
+        
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)]];
+        fetchRequest.returnsObjectsAsFaults = NO;
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
+        _fetchedResultsController.delegate = self;
+        [_fetchedResultsController performFetch:nil];
+    }
 }
 
 - (void)viewDidUnload
 {
-    [self setTableView:nil];
-    [self setSearchBar:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
+    moc = nil;
+    _tableView = nil;
+    _searchBar = nil;
+    _fetchedResultsController = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _fetchedResultsController.delegate = nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -54,12 +120,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return _events.count;
+    if (DEMO) return _events.count;
+    
+    return _fetchedResultsController.fetchedObjects.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (DEMO) return 2;
+    
+    return 1;
 }
+
+#if kShouldUseHeaders
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -72,6 +144,8 @@
     [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
     return headerTitleLabel;
 }
+
+#endif
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -114,10 +188,21 @@
         tapRecognizer.numberOfTapsRequired = 1;
         [cell.imageView addGestureRecognizer:tapRecognizer];
     }
+    
 //    Cell Content
-    cell.textLabel.text = [_events objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
-    cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
+    if (DEMO) {
+        cell.textLabel.text = [_events objectAtIndex:indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
+        cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
+    } else {
+        if (kShouldUseHeaders) {
+        } else {
+            SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+            cell.textLabel.text = event.title;
+            cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
+            cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
+        }
+    }
     
     return cell;
 }
@@ -150,6 +235,40 @@
 - (void)didTapStar:(UITapGestureRecognizer*)g {
     NSLog(@"didTapStar");
     ((UIImageView *)g.view).image = [UIImage imageNamed:@"list-star-on"];
+}
+
+#pragma mark - Core Data
+
+//- (SOSpeaker *)speakerForIndexPath:(NSIndexPath *)indexPath {
+//    NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_fetchedResultsController.fetchedObjects count]];
+//    for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
+//        if ([[speaker.name substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:indexPath.section]].location != NSNotFound) {
+//            [mSpeakers addObject:speaker];
+//        }
+//    }
+//    return [mSpeakers objectAtIndex:indexPath.row];
+//}
+//
+//- (void)resetAlphabet {
+//    //    Alpha list
+//    NSMutableArray *preAlphabet = [[NSMutableArray alloc] initWithCapacity:26];
+//    for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
+//        if ([preAlphabet indexOfObject:[speaker.name substringToIndex:1].uppercaseString] == NSNotFound) {
+//            [preAlphabet addObject:[speaker.name substringToIndex:1].uppercaseString];
+//        }
+//    }
+//    _alphabet = [preAlphabet copy];
+//}
+
+- (void)refetchData {
+    _fetchedResultsController.fetchRequest.resultType = NSManagedObjectResultType;
+    [_fetchedResultsController performFetch:nil];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+//    if (kShouldUseHeaders) [self resetAlphabet];
+    
+    [_tableView reloadData];
 }
 
 @end
