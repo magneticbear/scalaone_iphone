@@ -1530,7 +1530,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=0";
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1614,7 +1614,7 @@
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"DEMO=1",
+					"DEMO=0",
 				);
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
