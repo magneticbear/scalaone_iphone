@@ -2,6 +2,7 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Event" representedClassName="SOEvent" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="day" optional="YES" transient="YES" attributeType="Date" syncable="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -56,7 +57,7 @@
         <relationship name="favoriteSpeakers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Speaker" inverseName="favoriteUser" inverseEntity="Speaker" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Event" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Location" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Message" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Speaker" positionX="160" positionY="192" width="128" height="195"/>

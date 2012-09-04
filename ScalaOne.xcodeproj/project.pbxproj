@@ -209,8 +209,8 @@
 		E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */; };
 		E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */; };
 		E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */; };
-		E8CA6E7715F6B94900A29310 /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CA6E7615F6B94900A29310 /* SOEvent.m */; };
 		E8CA6E7A15F6BD7400A29310 /* SOSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CA6E7915F6BD7400A29310 /* SOSpeaker.m */; };
+		E8CA6E8515F6C38800A29310 /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CA6E8415F6C38800A29310 /* SOEvent.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
 		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
 /* End PBXBuildFile section */
@@ -462,10 +462,10 @@
 		E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOListHeaderLabel.m; sourceTree = "<group>"; };
 		E8B331D215EE7BA00085F395 /* SOUniqueTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUniqueTouchView.h; sourceTree = "<group>"; };
 		E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUniqueTouchView.m; sourceTree = "<group>"; };
-		E8CA6E7515F6B94900A29310 /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEvent.h; sourceTree = "<group>"; };
-		E8CA6E7615F6B94900A29310 /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEvent.m; sourceTree = "<group>"; };
 		E8CA6E7815F6BD7400A29310 /* SOSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeaker.h; sourceTree = "<group>"; };
 		E8CA6E7915F6BD7400A29310 /* SOSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeaker.m; sourceTree = "<group>"; };
+		E8CA6E8315F6C38800A29310 /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEvent.h; sourceTree = "<group>"; };
+		E8CA6E8415F6C38800A29310 /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEvent.m; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
@@ -642,8 +642,8 @@
 			isa = PBXGroup;
 			children = (
 				E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */,
-				E8CA6E7515F6B94900A29310 /* SOEvent.h */,
-				E8CA6E7615F6B94900A29310 /* SOEvent.m */,
+				E8CA6E8315F6C38800A29310 /* SOEvent.h */,
+				E8CA6E8415F6C38800A29310 /* SOEvent.m */,
 				E89D65FD15F6B365003DF027 /* SOLocation.h */,
 				E89D65FE15F6B365003DF027 /* SOLocation.m */,
 				E89D660015F6B36A003DF027 /* SOMessage.h */,
@@ -1449,8 +1449,8 @@
 				E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */,
 				E89D660215F6B36B003DF027 /* SOMessage.m in Sources */,
 				E89D660515F6B370003DF027 /* SOUser.m in Sources */,
-				E8CA6E7715F6B94900A29310 /* SOEvent.m in Sources */,
 				E8CA6E7A15F6BD7400A29310 /* SOSpeaker.m in Sources */,
+				E8CA6E8515F6C38800A29310 /* SOEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

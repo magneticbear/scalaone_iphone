@@ -20,6 +20,7 @@
 @dynamic start;
 @dynamic textDescription;
 @dynamic title;
+@dynamic day;
 @dynamic favoriteUser;
 @dynamic speakers;
 

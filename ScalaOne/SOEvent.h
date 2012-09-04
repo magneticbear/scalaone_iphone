@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSDate * start;
 @property (nonatomic, retain) NSString * textDescription;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSDate * day;
 @property (nonatomic, retain) SOUser *favoriteUser;
 @property (nonatomic, retain) SOSpeaker *speakers;
 
