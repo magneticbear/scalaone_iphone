@@ -60,7 +60,7 @@
 }
 
 - (void)setCellContents {
-    if (DEMO) _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
+    _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
 }
 
 - (void)viewDidUnload

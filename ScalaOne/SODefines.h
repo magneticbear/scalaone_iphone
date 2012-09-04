@@ -20,7 +20,6 @@
 
 #pragma mark - API
 
-extern NSString *const kSOAPIScheme;
 extern NSString *const kSOAPIHost;
 extern NSString *const kSOPusherAPIKey;
 

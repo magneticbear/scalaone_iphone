@@ -36,6 +36,7 @@
 		E833EC0D15ED024E007C1DB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E833EC0B15ED024E007C1DB5 /* Default@2x.png */; };
 		E833EC0E15ED024E007C1DB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E833EC0C15ED024E007C1DB5 /* Default.png */; };
 		E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */; };
+		E83E7F9515F687C7003E6FB4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83E7F9415F687C7003E6FB4 /* CoreData.framework */; };
 		E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */; };
 		E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CC1B15E6876B00B40B33 /* SODefines.m */; };
 		E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */; };
@@ -182,6 +183,11 @@
 		E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037D715E7400400B591CC /* CoreLocation.framework */; };
 		E880382D15E7BB8800B591CC /* SOLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E880382515E7BB8800B591CC /* SOLocationAnnotation.m */; };
 		E880382E15E7BB8800B591CC /* SOLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E880382715E7BB8800B591CC /* SOLocationView.m */; };
+		E89D65F915F6B32D003DF027 /* SOSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D65F815F6B32D003DF027 /* SOSpeaker.m */; };
+		E89D65FC15F6B35F003DF027 /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D65FB15F6B35F003DF027 /* SOEvent.m */; };
+		E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D65FE15F6B365003DF027 /* SOLocation.m */; };
+		E89D660215F6B36B003DF027 /* SOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D660115F6B36A003DF027 /* SOMessage.m */; };
+		E89D660515F6B370003DF027 /* SOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D660415F6B370003DF027 /* SOUser.m */; };
 		E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
 		E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
 		E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */; };
@@ -255,6 +261,7 @@
 		E833EC0B15ED024E007C1DB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E833EC0C15ED024E007C1DB5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScalaOne.xcdatamodel; sourceTree = "<group>"; };
+		E83E7F9415F687C7003E6FB4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOHTTPClient.h; sourceTree = "<group>"; };
 		E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOHTTPClient.m; sourceTree = "<group>"; };
 		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
@@ -418,6 +425,16 @@
 		E880382615E7BB8800B591CC /* SOLocationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocationView.h; sourceTree = "<group>"; };
 		E880382715E7BB8800B591CC /* SOLocationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOLocationView.m; sourceTree = "<group>"; };
 		E880382815E7BB8800B591CC /* SOLocationProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocationProtocols.h; sourceTree = "<group>"; };
+		E89D65F715F6B32D003DF027 /* SOSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeaker.h; sourceTree = "<group>"; };
+		E89D65F815F6B32D003DF027 /* SOSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeaker.m; sourceTree = "<group>"; };
+		E89D65FA15F6B35F003DF027 /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEvent.h; sourceTree = "<group>"; };
+		E89D65FB15F6B35F003DF027 /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEvent.m; sourceTree = "<group>"; };
+		E89D65FD15F6B365003DF027 /* SOLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocation.h; sourceTree = "<group>"; };
+		E89D65FE15F6B365003DF027 /* SOLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOLocation.m; sourceTree = "<group>"; };
+		E89D660015F6B36A003DF027 /* SOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMessage.h; sourceTree = "<group>"; };
+		E89D660115F6B36A003DF027 /* SOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMessage.m; sourceTree = "<group>"; };
+		E89D660315F6B370003DF027 /* SOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUser.h; sourceTree = "<group>"; };
+		E89D660415F6B370003DF027 /* SOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUser.m; sourceTree = "<group>"; };
 		E8A4FFB515E4377F00D10907 /* ScalaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScalaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A4FFB915E4377F00D10907 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E8A4FFBB15E4377F00D10907 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -460,6 +477,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E83E7F9515F687C7003E6FB4 /* CoreData.framework in Frameworks */,
 				E877A21E15E7CF9D00AB243A /* QuartzCore.framework in Frameworks */,
 				E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */,
 				E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */,
@@ -624,6 +642,16 @@
 			isa = PBXGroup;
 			children = (
 				E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */,
+				E89D65FA15F6B35F003DF027 /* SOEvent.h */,
+				E89D65FB15F6B35F003DF027 /* SOEvent.m */,
+				E89D65FD15F6B365003DF027 /* SOLocation.h */,
+				E89D65FE15F6B365003DF027 /* SOLocation.m */,
+				E89D660015F6B36A003DF027 /* SOMessage.h */,
+				E89D660115F6B36A003DF027 /* SOMessage.m */,
+				E89D65F715F6B32D003DF027 /* SOSpeaker.h */,
+				E89D65F815F6B32D003DF027 /* SOSpeaker.m */,
+				E89D660315F6B370003DF027 /* SOUser.h */,
+				E89D660415F6B370003DF027 /* SOUser.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1015,6 +1043,7 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E83E7F9415F687C7003E6FB4 /* CoreData.framework */,
 				E877A21D15E7CF9D00AB243A /* QuartzCore.framework */,
 				E88037D715E7400400B591CC /* CoreLocation.framework */,
 				E88037BC15E7277C00B591CC /* MapKit.framework */,
@@ -1417,6 +1446,11 @@
 				E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */,
 				E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */,
 				E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */,
+				E89D65F915F6B32D003DF027 /* SOSpeaker.m in Sources */,
+				E89D65FC15F6B35F003DF027 /* SOEvent.m in Sources */,
+				E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */,
+				E89D660215F6B36B003DF027 /* SOMessage.m in Sources */,
+				E89D660515F6B370003DF027 /* SOUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,17 +27,12 @@
 	return sharedClient;
 }
 
-+ (NSString *)apiVersion {
-	return @"v0.05";
-}
-
 #pragma mark - NSObject
 
 - (id)init {
-//	NSString *version = [[self class] apiVersion];
-    NSURL *base = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/", kSOAPIScheme, kSOAPIHost]];
+    NSURL *base = [NSURL URLWithString:kSOAPIHost];
 	if ((self = [super initWithBaseURL:base])) {
-		// Use JSON
+        
 		[self registerHTTPOperationClass:[AFJSONRequestOperation class]];
 		[self setDefaultHeader:@"Accept" value:@"application/json"];
         
@@ -86,6 +81,20 @@
                             message.dateSent, @"dateSent",
 							nil];
 	[self postPath:@"messages" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
+}
+
+#pragma mark - Speakers
+
+- (void)getSpeakersWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+	[self getPath:@"speakers" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}

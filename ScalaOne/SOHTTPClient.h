@@ -17,10 +17,12 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 @interface SOHTTPClient : AFHTTPClient
 
 + (SOHTTPClient *)sharedClient;
-+ (NSString *)apiVersion;
 
 // Messages
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 - (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+
+// Speakers
+- (void)getSpeakersWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 @end

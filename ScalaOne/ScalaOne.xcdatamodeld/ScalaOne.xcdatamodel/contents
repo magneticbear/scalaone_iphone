@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="11E53" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event" syncable="YES">
+    <entity name="Event" representedClassName="SOEvent" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="textDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="favoriteUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="favoriteEvents" inverseEntity="User" syncable="YES"/>
         <relationship name="speakers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Speaker" inverseName="events" inverseEntity="Speaker" syncable="YES"/>
     </entity>
-    <entity name="Location" syncable="YES">
+    <entity name="Location" representedClassName="SOLocation" syncable="YES">
         <attribute name="avatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="locationID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -18,7 +19,7 @@
         <attribute name="userID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Message" syncable="YES">
+    <entity name="Message" representedClassName="SOMessage" syncable="YES">
         <attribute name="avatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="messageID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -28,7 +29,7 @@
         <attribute name="sent" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Speaker" syncable="YES">
+    <entity name="Speaker" representedClassName="SOSpeaker" syncable="YES">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,8 +38,9 @@
         <attribute name="twitter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="events" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="speakers" inverseEntity="Event" syncable="YES"/>
+        <relationship name="favoriteUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="favoriteSpeakers" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="User" syncable="YES">
+    <entity name="User" representedClassName="SOUser" syncable="YES">
         <attribute name="avatar_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="facebook" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,12 +50,14 @@
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="twitter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="favoriteEvents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="favoriteUser" inverseEntity="Event" syncable="YES"/>
+        <relationship name="favoriteSpeakers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Speaker" inverseName="favoriteUser" inverseEntity="Speaker" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Event" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Location" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="180"/>
-        <element name="Event" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Message" positionX="160" positionY="192" width="128" height="165"/>
         <element name="Speaker" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="User" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

@@ -7,16 +7,24 @@
 //
 
 // TODO: Move all cell stuff to cell class
-// TODO (Optional): Improve way alphabet and section content is generated
+// TODO (Optional): Improve way alphabet, section content & speakerForIndexPath are generated
 
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
 #import "SOListHeaderLabel.h"
+#import "SOHTTPClient.h"
+#import "SOSpeaker.h"
+
+#define kShouldUseHeaders   TRUE
 
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
-@interface SOSpeakerListViewController ()
-    @property (nonatomic, strong) NSArray *speakers;
+@interface SOSpeakerListViewController () <NSFetchedResultsControllerDelegate> {
+    NSFetchedResultsController *_fetchedResultsController;
+    NSManagedObjectContext *moc;
+}
+- (void)refetchData;
+@property (nonatomic, strong) NSArray *speakers;
 @end
 
 @implementation SOSpeakerListViewController
@@ -43,30 +51,89 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.title = @"Speakers";
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
-//    Mock Speakers (sorted alphabetically)
-    _speakers = @[@"Abraham Lincoln",@"Franklin D. Roosevelt",@"George Washington",@"Thomas Jefferson",@"Theodore Roosevelt",@"Woodrow Wilson",@"Harry S. Truman",@"Andrew Jackson",@"Dwight D. Eisenhower",@"James K. Polk",@"John F. Kennedy",@"John Adams",@"James Madison",@"James Monroe",@"Lyndon B. Johnson",@"Barack Obama",@"Ronald Reagan",@"John Quincy Adams",@"Grover Cleveland",@"William McKinley",@"Bill Clinton",@"William Howard Taft",@"George H. W. Bush"];
-    _speakers = [_speakers sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
 //    Setup
     _searchBar.placeholder = @"Find speakers";
     _avatarState = SOAvatarStateDefault;
     ((SOUniqueTouchView*)self.view).viewDelegate = self;
     
-//    Alpha list
-    NSMutableArray *preAlphabet = [[NSMutableArray alloc] initWithCapacity:26];
-    for (NSString *speaker in _speakers) {
-        if ([preAlphabet indexOfObject:[speaker substringToIndex:1].uppercaseString] == NSNotFound) {
-            [preAlphabet addObject:[speaker substringToIndex:1].uppercaseString];
+    if (DEMO) {
+        //    Mock Speakers (sorted alphabetically)
+        _speakers = @[@"Abraham Lincoln",@"Franklin D. Roosevelt",@"George Washington",@"Thomas Jefferson",@"Theodore Roosevelt",@"Woodrow Wilson",@"Harry S. Truman",@"Andrew Jackson",@"Dwight D. Eisenhower",@"James K. Polk",@"John F. Kennedy",@"John Adams",@"James Madison",@"James Monroe",@"Lyndon B. Johnson",@"Barack Obama",@"Ronald Reagan",@"John Quincy Adams",@"Grover Cleveland",@"William McKinley",@"Bill Clinton",@"William Howard Taft",@"George H. W. Bush"];
+        _speakers = [_speakers sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
+        //        Alpha list
+        NSMutableArray *preAlphabet = [[NSMutableArray alloc] initWithCapacity:26];
+        for (NSString *speaker in _speakers) {
+            if ([preAlphabet indexOfObject:[speaker substringToIndex:1].uppercaseString] == NSNotFound) {
+                [preAlphabet addObject:[speaker substringToIndex:1].uppercaseString];
+            }
         }
+        _alphabet = [preAlphabet copy];
+    } else {
+        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        [[SOHTTPClient sharedClient] getSpeakersWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                    NSArray *speakers = [[responseDict objectForKey:@"result"] objectForKey:@"speakers"];
+                    
+                    for (NSDictionary *speakerDict in speakers) {
+                        
+                        SOSpeaker* speaker = nil;
+                        
+                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                        
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Speaker" inManagedObjectContext:moc];
+                        [request setEntity:entity];
+                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[speakerDict objectForKey:@"id"] intValue]];
+                        [request setPredicate:searchFilter];
+                        
+                        NSArray *results = [moc executeFetchRequest:request error:nil];
+                        
+                        if (results.count > 0) {
+                            speaker = [results lastObject];
+                        } else {
+                            speaker = [NSEntityDescription insertNewObjectForEntityForName:@"Speaker" inManagedObjectContext:moc];
+                        }
+                        
+                        speaker.name = [speakerDict objectForKey:@"name"];
+                        speaker.remoteID = [NSNumber numberWithInt:[[speakerDict objectForKey:@"id"] intValue]];
+                    }
+                    
+                    NSError *error = nil;
+                    if ([moc hasChanges] && ![moc save:&error]) {
+                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                }
+            });
+        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"getSpeakers failed");
+            });
+        }];
+        
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Speaker"];
+        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
+        fetchRequest.returnsObjectsAsFaults = NO;
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
+        _fetchedResultsController.delegate = self;
+        [_fetchedResultsController performFetch:nil];
     }
-    _alphabet = [preAlphabet copy];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
+    moc = nil;
+    _tableView = nil;
+    _fetchedResultsController = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _fetchedResultsController.delegate = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -78,22 +145,38 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return 58;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return [_speakers count];
-    // Return the number of rows in the section.
-    int count=0;
-    for (NSString *speaker in _speakers) {
-        if ([[speaker substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:sectionIndex]].location != NSNotFound) {
-            count++;
+    if (DEMO) {
+        int count=0;
+        for (NSString *speaker in _speakers) {
+            if ([[speaker substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:section]].location != NSNotFound) {
+                count++;
+            }
         }
+        return count;
     }
-    return count;
+    
+    if (kShouldUseHeaders) {
+        int count=0;
+        for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
+            if ([[speaker.name substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:section]].location != NSNotFound) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    return _fetchedResultsController.fetchedObjects.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_alphabet count];
+    if (kShouldUseHeaders) return [_alphabet count];
+    
+    return [[_fetchedResultsController sections] count];
 }
+
+#if kShouldUseHeaders
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [_alphabet objectAtIndex:section];
@@ -116,6 +199,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return headerTitleLabel;
 }
 
+#endif
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    Remove this later
@@ -123,6 +208,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     NSString *cellIdentifier = @"SpeakerCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 //        Background views
@@ -154,14 +240,26 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         tapRecognizer.numberOfTapsRequired = 1;
         [cell.imageView addGestureRecognizer:tapRecognizer];
     }
-    NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_speakers count]];
-    for (NSString *speaker in _speakers) {
-        if ([[speaker substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:indexPath.section]].location != NSNotFound) {
-            [mSpeakers addObject:speaker];
+    
+    if (DEMO) {
+        NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_speakers count]];
+        for (NSString *speaker in _speakers) {
+            if ([[speaker substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:indexPath.section]].location != NSNotFound) {
+                [mSpeakers addObject:speaker];
+            }
+        }
+        //    Content
+        cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
+    } else {
+        if (kShouldUseHeaders) {
+            SOSpeaker *speaker = [self speakerForIndexPath:indexPath];
+            cell.textLabel.text = speaker.name;
+        } else {
+            SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
+            cell.textLabel.text = speaker.name;
         }
     }
-//    Content
-    cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
+    
     cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
     
     return cell;
@@ -188,6 +286,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     }
     return YES;
 }
+
+#pragma mark - Avatar Methods
 
 - (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
     if (_avatarState == SOAvatarStateFavorite) {
@@ -233,6 +333,40 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     }
     
     return nil;
+}
+
+#pragma mark - Core Data
+
+- (SOSpeaker *)speakerForIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_fetchedResultsController.fetchedObjects count]];
+    for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
+        if ([[speaker.name substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:indexPath.section]].location != NSNotFound) {
+            [mSpeakers addObject:speaker];
+        }
+    }
+    return [mSpeakers objectAtIndex:indexPath.row];
+}
+
+- (void)resetAlphabet {
+    //    Alpha list
+    NSMutableArray *preAlphabet = [[NSMutableArray alloc] initWithCapacity:26];
+    for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
+        if ([preAlphabet indexOfObject:[speaker.name substringToIndex:1].uppercaseString] == NSNotFound) {
+            [preAlphabet addObject:[speaker.name substringToIndex:1].uppercaseString];
+        }
+    }
+    _alphabet = [preAlphabet copy];
+}
+
+- (void)refetchData {
+    _fetchedResultsController.fetchRequest.resultType = NSManagedObjectResultType;
+    [_fetchedResultsController performFetch:nil];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if (kShouldUseHeaders) [self resetAlphabet];
+    
+    [_tableView reloadData];
 }
 
 @end
