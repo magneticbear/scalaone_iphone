@@ -8,7 +8,6 @@
 
 #import "SOSpeakerViewController.h"
 #import "SOSpeaker.h"
-#import "SODefines.h"
 
 @interface SOSpeakerViewController ()
 

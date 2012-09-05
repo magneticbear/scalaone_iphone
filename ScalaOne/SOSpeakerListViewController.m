@@ -13,6 +13,7 @@
 #import "SOSpeaker.h"
 #import "SOSpeakerCell.h"
 #import "UIImage+SOAvatar.h"
+#import "SDWebImageManager.h"
 
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
@@ -204,9 +205,22 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     }
     
     if (DEMO) {
-        cell.imageView.image = [UIImage imageNamed:@"list-avatar-mo"];
-    } else {
         cell.imageView.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:NO];
+    } else {
+        cell.imageView.image = [UIImage avatarWithSource:nil favorite:NO];
+        
+        SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
+        
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadWithURL:
+         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,speaker.remoteID.integerValue]]
+                        delegate:self
+                         options:0
+                         success:^(UIImage *image) {
+                             cell.imageView.image = [UIImage avatarWithSource:image favorite:NO];
+        } failure:^(NSError *error) {
+//            NSLog(@"Image retrieval failed");
+        }];
     }
     
     return cell;

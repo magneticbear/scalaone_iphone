@@ -7,7 +7,6 @@
 //
 
 #import "SOHTTPClient.h"
-#import "SODefines.h"
 #import <Bully/Bully.h>
 
 @implementation SOHTTPClient {

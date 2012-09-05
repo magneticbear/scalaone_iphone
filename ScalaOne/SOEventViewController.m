@@ -8,7 +8,6 @@
 
 #import "SOEventViewController.h"
 #import "SOEvent.h"
-#import "SODefines.h"
 
 @interface SOEventViewController ()
 

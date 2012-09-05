@@ -7,7 +7,6 @@
 //
 
 #import "SOAboutViewController.h"
-#import "SODefines.h"
 
 @interface SOAboutViewController ()
 

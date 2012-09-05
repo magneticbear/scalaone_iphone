@@ -7,7 +7,6 @@
 //
 
 #import "SOPlaygroundViewController.h"
-#import "SODefines.h"
 
 @interface SOPlaygroundViewController ()
 
