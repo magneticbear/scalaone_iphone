@@ -18,6 +18,9 @@
 #import "SOEventCell.h"
 #import "SOSpeakerCell.h"
 
+#import "SDWebImageManager.h"
+#import "UIImage+SOAvatar.h"
+
 @interface SOFavoritesViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
@@ -117,7 +120,6 @@
         
         return cell;
     }   else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
-        NSArray *cellAvatars = @[@"list-avatar-mo-nostar",@"list-avatar-jp-nostar",@"list-avatar-generic-nostar"];
         
         NSString *cellIdentifier = @"SpeakerCell";
         SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -128,11 +130,22 @@
         //    Content
         if (DEMO) {
             cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
-            cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
+            cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault];
         } else {
             SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
             cell.textLabel.text = speaker.name;
-            cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
+            cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault];
+            
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadWithURL:
+             [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,speaker.remoteID.integerValue]]
+                            delegate:self
+                             options:0
+                             success:^(UIImage *image) {
+                                 cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault];
+                             } failure:^(NSError *error) {
+                                 NSLog(@"Image retrieval failed");
+                             }];
         }
         
         return cell;

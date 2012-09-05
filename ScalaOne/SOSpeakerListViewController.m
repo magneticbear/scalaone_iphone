@@ -190,6 +190,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         [cell.imageView addGestureRecognizer:tapRecognizer];
     }
     
+//    Content
     if (DEMO) {
         NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_speakers count]];
         for (NSString *speaker in _speakers) {
@@ -197,19 +198,17 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 [mSpeakers addObject:speaker];
             }
         }
-        //    Content
+//        Text
         cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
+//        Image
+        cell.imageView.image = [UIImage avatarWithSource:nil favorite:NO];
     } else {
+//        Text
         SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
         cell.textLabel.text = speaker.name;
-    }
-    
-    if (DEMO) {
-        cell.imageView.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:NO];
-    } else {
-        cell.imageView.image = [UIImage avatarWithSource:nil favorite:NO];
         
-        SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
+//        Image
+        cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeOff];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
@@ -217,10 +216,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                         delegate:self
                          options:0
                          success:^(UIImage *image) {
-                             cell.imageView.image = [UIImage avatarWithSource:image favorite:NO];
-        } failure:^(NSError *error) {
-//            NSLog(@"Image retrieval failed");
-        }];
+                             cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeOff];
+                         } failure:^(NSError *error) {
+                             NSLog(@"Image retrieval failed");
+                         }];
     }
     
     return cell;
@@ -274,7 +273,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                       duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:YES];
+                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:SOAvatarFavoriteTypeOn];
                     }
                     completion:^(BOOL finished){
                         _avatarState = SOAvatarStateDefault;
@@ -288,7 +287,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                       duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:NO];
+                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:SOAvatarFavoriteTypeOn];
                     }
                     completion:^(BOOL finished){
                         _avatarState = SOAvatarStateDefault;

@@ -10,15 +10,14 @@
 
 @implementation UIImage (SOAvatar)
 
-+ (UIImage*) avatarWithSource:(UIImage *)source favorite:(BOOL)favorite {
-    UIImage *star = [UIImage imageNamed:
-                     [NSString stringWithFormat:
-                      @"speakers-star-%@",favorite ? @"on" : @"off"]];
++ (UIImage*) avatarWithSource:(UIImage *)source favorite:(SOAvatarFavoriteType)favorite {
     
     UIImage *background = [UIImage imageNamed:@"list-avatar-generic-nostar"];
     
     CGSize contextSize = background.size;
-    contextSize.width += 2;
+    if (favorite != SOAvatarFavoriteTypeDefault) {
+        contextSize.width += 2;
+    }
     
     source = [self imageWithImage:source scaledToSize:CGSizeMake(44, 44)];
     
@@ -42,11 +41,20 @@
     [background drawInRect:CGRectMake(0, 0, background.size.width, background.size.height)];
     source = [self roundedImage:source withRadius:4.0 scale:scale];
     [source drawInRect:CGRectMake(2.5,1.5,source.size.width,source.size.height)];
-    [star drawInRect:CGRectMake(contextSize.width-star.size.width,
-                                contextSize.height-star.size.height,
-                                star.size.width,
-                                star.size.height)
-           blendMode:kCGBlendModeNormal alpha:1.0];
+    
+    if (favorite != SOAvatarFavoriteTypeDefault) {
+        BOOL starState = NO;
+        if (favorite == SOAvatarFavoriteTypeOn) starState = YES;
+        
+        UIImage *star = [UIImage imageNamed:
+                         [NSString stringWithFormat:
+                          @"speakers-star-%@",starState ? @"on" : @"off"]];
+        [star drawInRect:CGRectMake(contextSize.width-star.size.width,
+                                    contextSize.height-star.size.height,
+                                    star.size.width,
+                                    star.size.height)
+               blendMode:kCGBlendModeNormal alpha:1.0];
+    }
     
     UIImage *avatar = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
