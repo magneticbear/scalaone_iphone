@@ -79,6 +79,7 @@
                         NSDateFormatter *df = [[NSDateFormatter alloc] init];
                         [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
                         event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
+                        event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
                     }
                     
                     NSError *error = nil;
