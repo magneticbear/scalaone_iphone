@@ -179,7 +179,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier favorite:NO];
         
 //        Make imageView tappable
         cell.imageView.userInteractionEnabled = YES;

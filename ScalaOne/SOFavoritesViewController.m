@@ -122,7 +122,7 @@
         NSString *cellIdentifier = @"SpeakerCell";
         SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier favorite:YES];
         }
         
         //    Content
