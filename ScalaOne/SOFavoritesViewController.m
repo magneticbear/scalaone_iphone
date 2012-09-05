@@ -183,10 +183,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
-        SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil];
+        SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil event:[_fetchedResultsController objectAtIndexPath:indexPath]];
         [self.navigationController pushViewController:eventVC animated:YES];
     } else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
-        SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil];
+        SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil speaker:[_fetchedResultsController objectAtIndexPath:indexPath]];
         [self.navigationController pushViewController:speakerVC animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

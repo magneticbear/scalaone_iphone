@@ -10,8 +10,12 @@
 
 #pragma mark - API
 
+#if DEMO
+NSString *const kSOAPIHost = @"https://scala1.herokuapp.com/"; // development
+#else
 NSString *const kSOAPIHost = @"http://108.166.87.233:9000/"; // production
-//NSString *const kSOAPIHost = @"https://scala1.herokuapp.com/"; // development
+#endif
+
 NSString *const kSOPusherAPIKey = @"675f10a650f18b4eb0a8";
 
 #pragma mark - Misc
