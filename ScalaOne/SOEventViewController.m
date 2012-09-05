@@ -7,19 +7,23 @@
 //
 
 #import "SOEventViewController.h"
+#import "SOEvent.h"
+#import "SODefines.h"
 
 @interface SOEventViewController ()
 
 @end
 
-@implementation SOEventViewController
+@implementation SOEventViewController {
+    SOEvent *_event;
+}
 @synthesize webView = _webView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil event:(SOEvent *)event
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _event = event;
     }
     return self;
 }
@@ -28,8 +32,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Event";
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/event.jpg"]]];
+    if (DEMO) {
+        self.title = @"Event";
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/event.jpg"]]];
+    } else {
+        self.title = _event.title;
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,_event.remoteID.integerValue]]]];
+    }
     _webView.scalesPageToFit = YES;
     
 //    Right bar button star

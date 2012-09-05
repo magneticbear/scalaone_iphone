@@ -212,7 +212,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil];
+    SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil event:[_fetchedResultsController objectAtIndexPath:indexPath]];
     [self.navigationController pushViewController:eventVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

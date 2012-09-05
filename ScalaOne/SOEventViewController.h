@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SOViewController.h"
 
+@class SOEvent;
+
 @interface SOEventViewController : SOViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil event:(SOEvent *)event;
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @end
