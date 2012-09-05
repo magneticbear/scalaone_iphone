@@ -27,6 +27,16 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = @"ScalaOne";
+    
+//    Fade out splash image
+    UIImageView *splashView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default"]];
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:splashView];
+    [UIView animateWithDuration:0.66f animations:^{
+        splashView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [splashView removeFromSuperview];
+    }];
 }
 
 - (IBAction)pushEventListVC:(id)sender {
