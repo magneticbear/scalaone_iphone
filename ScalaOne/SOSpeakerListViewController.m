@@ -218,7 +218,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                          success:^(UIImage *image) {
                              cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeOff];
                          } failure:^(NSError *error) {
-                             NSLog(@"Image retrieval failed");
+//                             NSLog(@"Image retrieval failed");
                          }];
     }
     
