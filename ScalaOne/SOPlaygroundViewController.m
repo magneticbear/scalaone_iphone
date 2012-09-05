@@ -30,7 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Playground";
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    [_webView loadRequest:request];
     _webView.scalesPageToFit = YES;
 }
 

@@ -33,13 +33,25 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    NSURLRequest *request = nil;
+    
     if (DEMO) {
         self.title = @"Speaker";
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/speaker.jpg"]]];
+        request = [NSURLRequest
+                   requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/speaker.jpg"]
+                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                   timeoutInterval:10.0];
     } else {
         self.title = _speaker.name;
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,_speaker.remoteID.integerValue]]]];
+        request = [NSURLRequest
+                   requestWithURL:[NSURL URLWithString:
+                                   [NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,_speaker.remoteID.integerValue]]
+                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                   timeoutInterval:10.0];
     }
+    
+    [_webView loadRequest:request];
     _webView.scalesPageToFit = YES;
     
 //    Right bar button star

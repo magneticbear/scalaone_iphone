@@ -285,6 +285,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    _currentAvatar = nil;
+    _avatarState = SOAvatarStateDefault;
     [_tableView reloadData];
 }
 

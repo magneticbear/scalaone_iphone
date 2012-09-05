@@ -32,13 +32,25 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    NSURLRequest *request = nil;
+    
     if (DEMO) {
         self.title = @"Event";
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/event.jpg"]]];
+        request = [NSURLRequest
+                   requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/event.jpg"]
+                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                   timeoutInterval:10.0];
     } else {
         self.title = _event.title;
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,_event.remoteID.integerValue]]]];
+        request = [NSURLRequest
+                   requestWithURL:[NSURL URLWithString:
+                                   [NSString stringWithFormat:@"%@events/%d",kSOAPIHost,_event.remoteID.integerValue]]
+                   cachePolicy:NSURLRequestUseProtocolCachePolicy
+                   timeoutInterval:10.0];
     }
+    
+    [_webView loadRequest:request];
     _webView.scalesPageToFit = YES;
     
 //    Right bar button star

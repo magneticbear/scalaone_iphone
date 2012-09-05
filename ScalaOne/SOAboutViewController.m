@@ -30,7 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"About ScalaOne";
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kSOAPIHost]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kSOAPIHost] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    [_webView loadRequest:request];
     _webView.scalesPageToFit = YES;
 }
 

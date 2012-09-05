@@ -215,6 +215,7 @@
             _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
             _fetchedResultsController.delegate = self;
             [_fetchedResultsController performFetch:nil];
+            [_tableView reloadData];
         }
     } else if (sender == _segmentSpeakersBtn) {
         [_segmentEventsBtn setHighlighted:NO];
@@ -270,6 +271,7 @@
             _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
             _fetchedResultsController.delegate = self;
             [_fetchedResultsController performFetch:nil];
+            [_tableView reloadData];
         }
     }
     if (DEMO) [_tableView reloadData];
