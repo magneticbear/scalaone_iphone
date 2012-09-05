@@ -74,6 +74,8 @@
                         event.title = [eventDict objectForKey:@"title"];
                         event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
                         event.location = [eventDict objectForKey:@"location"];
+                        event.textDescription = [eventDict objectForKey:@"description"];
+                        event.code = [eventDict objectForKey:@"code"];
                         
 //                        Dates
                         NSDateFormatter *df = [[NSDateFormatter alloc] init];
