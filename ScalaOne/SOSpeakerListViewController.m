@@ -12,6 +12,7 @@
 #import "SOHTTPClient.h"
 #import "SOSpeaker.h"
 #import "SOSpeakerCell.h"
+#import "UIImage+SOAvatar.h"
 
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
@@ -172,9 +173,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    Remove this later
-    NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-speaker"];
-    
     NSString *cellIdentifier = @"SpeakerCell";
     SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -205,7 +203,11 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         cell.textLabel.text = speaker.name;
     }
     
-    cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
+    if (DEMO) {
+        cell.imageView.image = [UIImage imageNamed:@"list-avatar-mo"];
+    } else {
+        cell.imageView.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:NO];
+    }
     
     return cell;
 }
@@ -235,7 +237,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
     if (_avatarState == SOAvatarStateFavorite) {
         ((UIImageView *)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite-on"];
-        [self performSelector:@selector(dismissAvatar) withObject:nil afterDelay:0.15f];
+        [self performSelector:@selector(toggleAvatar) withObject:nil afterDelay:0.15f];
         return;
     }
     _avatarState = SOAvatarStateAnimatingToFavorite;
@@ -252,13 +254,27 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                     }];
 }
 
+- (void)toggleAvatar {
+    _avatarState = SOAvatarStateAnimatingToDefault;
+    [UIView transitionWithView:_currentAvatar
+                      duration:0.66f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:YES];
+                    }
+                    completion:^(BOOL finished){
+                        _avatarState = SOAvatarStateDefault;
+                        _currentAvatar = nil;
+                    }];
+}
+
 - (void)dismissAvatar {
     _avatarState = SOAvatarStateAnimatingToDefault;
     [UIView transitionWithView:_currentAvatar
                       duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        _currentAvatar.image = [UIImage imageNamed:@"list-avatar-mo"];
+                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:NO];
                     }
                     completion:^(BOOL finished){
                         _avatarState = SOAvatarStateDefault;

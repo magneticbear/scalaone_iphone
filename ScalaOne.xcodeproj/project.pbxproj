@@ -185,6 +185,9 @@
 		E880382E15E7BB8800B591CC /* SOLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E880382715E7BB8800B591CC /* SOLocationView.m */; };
 		E8898B1415F6E98600A1C975 /* SOEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8898B1315F6E98600A1C975 /* SOEventCell.m */; };
 		E8898B1815F6EA3900A1C975 /* SOSpeakerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8898B1715F6EA3900A1C975 /* SOSpeakerCell.m */; };
+		E8898B7315F7E01500A1C975 /* UIImage+SOAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = E8898B7215F7E01500A1C975 /* UIImage+SOAvatar.m */; };
+		E8898B7F15F7EBDA00A1C975 /* avatar-square-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8898B7E15F7EBDA00A1C975 /* avatar-square-jp@2x.png */; };
+		E8898B8115F7EBE100A1C975 /* avatar-square-jp.png in Resources */ = {isa = PBXBuildFile; fileRef = E8898B8015F7EBE000A1C975 /* avatar-square-jp.png */; };
 		E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D65FE15F6B365003DF027 /* SOLocation.m */; };
 		E89D660215F6B36B003DF027 /* SOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D660115F6B36A003DF027 /* SOMessage.m */; };
 		E89D660515F6B370003DF027 /* SOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D660415F6B370003DF027 /* SOUser.m */; };
@@ -431,6 +434,10 @@
 		E8898B1315F6E98600A1C975 /* SOEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventCell.m; sourceTree = "<group>"; };
 		E8898B1615F6EA3900A1C975 /* SOSpeakerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeakerCell.h; sourceTree = "<group>"; };
 		E8898B1715F6EA3900A1C975 /* SOSpeakerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeakerCell.m; sourceTree = "<group>"; };
+		E8898B7115F7E01500A1C975 /* UIImage+SOAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SOAvatar.h"; sourceTree = "<group>"; };
+		E8898B7215F7E01500A1C975 /* UIImage+SOAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SOAvatar.m"; sourceTree = "<group>"; };
+		E8898B7E15F7EBDA00A1C975 /* avatar-square-jp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-square-jp@2x.png"; sourceTree = "<group>"; };
+		E8898B8015F7EBE000A1C975 /* avatar-square-jp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-square-jp.png"; sourceTree = "<group>"; };
 		E89D65FD15F6B365003DF027 /* SOLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocation.h; sourceTree = "<group>"; };
 		E89D65FE15F6B365003DF027 /* SOLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOLocation.m; sourceTree = "<group>"; };
 		E89D660015F6B36A003DF027 /* SOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMessage.h; sourceTree = "<group>"; };
@@ -510,6 +517,7 @@
 		E808E2CB15EE990800B0BA69 /* Visual Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E8898B7015F7DFF200A1C975 /* SOAvatar */,
 				E8898B1515F6EA2F00A1C975 /* SOSpeakerCell */,
 				E8898B1115F6E97100A1C975 /* SOEventCell */,
 				E855B2C415EB166900574B9C /* SOViewController */,
@@ -921,6 +929,8 @@
 		E866069B15E86B9B00945242 /* avatars */ = {
 			isa = PBXGroup;
 			children = (
+				E8898B7E15F7EBDA00A1C975 /* avatar-square-jp@2x.png */,
+				E8898B8015F7EBE000A1C975 /* avatar-square-jp.png */,
 				E866069C15E86B9B00945242 /* JP.jpeg */,
 				E866069D15E86B9B00945242 /* Mo.jpeg */,
 				E866069E15E86B9B00945242 /* speaker-default.png */,
@@ -1044,6 +1054,15 @@
 				E8898B1715F6EA3900A1C975 /* SOSpeakerCell.m */,
 			);
 			name = SOSpeakerCell;
+			sourceTree = "<group>";
+		};
+		E8898B7015F7DFF200A1C975 /* SOAvatar */ = {
+			isa = PBXGroup;
+			children = (
+				E8898B7115F7E01500A1C975 /* UIImage+SOAvatar.h */,
+				E8898B7215F7E01500A1C975 /* UIImage+SOAvatar.m */,
+			);
+			name = SOAvatar;
 			sourceTree = "<group>";
 		};
 		E8A4FFAA15E4377F00D10907 = {
@@ -1395,6 +1414,8 @@
 				E852B9D215EFED6400FD919A /* list-avatar-generic-nostar@2x.png in Resources */,
 				E852B9D315EFED6400FD919A /* list-avatar-jp-nostar@2x.png in Resources */,
 				E852B9D415EFED6400FD919A /* list-avatar-mo-nostar@2x.png in Resources */,
+				E8898B7F15F7EBDA00A1C975 /* avatar-square-jp@2x.png in Resources */,
+				E8898B8115F7EBE100A1C975 /* avatar-square-jp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1479,6 +1500,7 @@
 				E8CA6E8515F6C38800A29310 /* SOEvent.m in Sources */,
 				E8898B1415F6E98600A1C975 /* SOEventCell.m in Sources */,
 				E8898B1815F6EA3900A1C975 /* SOSpeakerCell.m in Sources */,
+				E8898B7315F7E01500A1C975 /* UIImage+SOAvatar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
