@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Move all cell stuff to cell class
-
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
 #import "SOListHeaderLabel.h"
