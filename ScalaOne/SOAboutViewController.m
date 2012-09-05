@@ -7,13 +7,14 @@
 //
 
 #import "SOAboutViewController.h"
+#import "SODefines.h"
 
 @interface SOAboutViewController ()
 
 @end
 
 @implementation SOAboutViewController
-@synthesize webView;
+@synthesize webView = _webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"About ScalaOne";
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kSOAPIHost]]];
+    _webView.scalesPageToFit = YES;
 }
 
 - (void)viewDidUnload

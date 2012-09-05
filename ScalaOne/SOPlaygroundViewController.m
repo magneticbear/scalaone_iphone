@@ -7,13 +7,14 @@
 //
 
 #import "SOPlaygroundViewController.h"
+#import "SODefines.h"
 
 @interface SOPlaygroundViewController ()
 
 @end
 
 @implementation SOPlaygroundViewController
-@synthesize webView;
+@synthesize webView = _webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Playground";
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]]];
+    _webView.scalesPageToFit = YES;
 }
 
 - (void)viewDidUnload
