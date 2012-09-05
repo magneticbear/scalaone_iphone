@@ -340,7 +340,7 @@
 					<object class="IBUIButton" id="540178441">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{112, 371}, {99, 25}}</string>
+						<string key="NSFrame">{{111, 366}, {99, 38}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -689,7 +689,7 @@
 			<string key="home-play-icon.png">{96, 96}</string>
 			<string key="home-profile-icon.png">{96, 96}</string>
 			<string key="home-speakers-icon.png">{96, 96}</string>
-			<string key="typesafe-logo.png">{99, 25}</string>
+			<string key="typesafe-logo.png">{99, 38}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1498</string>
 	</data>
