@@ -165,20 +165,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//    Setup header label style and text
     UILabel *headerTitleLabel = [[SOListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
-    headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f];
-    headerTitleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.42f];
-    headerTitleLabel.textColor = [UIColor whiteColor];
-    headerTitleLabel.shadowOffset = CGSizeMake(0, -1);
+    headerTitleLabel.text = DEMO ? [_alphabet objectAtIndex:section] : [[[_fetchedResultsController sections] objectAtIndex:section] name];
     
-    if (DEMO) {
-        headerTitleLabel.text = [_alphabet objectAtIndex:section];
-    } else {
-        headerTitleLabel.text = [[[_fetchedResultsController sections] objectAtIndex:section] name];
-    }
-    
-    [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
     return headerTitleLabel;
 }
 

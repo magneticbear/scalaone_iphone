@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Allow delegate that catches user icon taps
 // TODO: Refactor LayoutSubviews
 
 #import "SOChatCell.h"

@@ -140,12 +140,8 @@
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel *headerTitleLabel = [[SOListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
-    headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f];
-    headerTitleLabel.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.42f];
-    headerTitleLabel.textColor = [UIColor whiteColor];
-    headerTitleLabel.shadowOffset = CGSizeMake(0, -1);
     headerTitleLabel.text = [NSString stringWithFormat:@"Day %d",section+1];
-    [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
+    
     return headerTitleLabel;
 }
 
