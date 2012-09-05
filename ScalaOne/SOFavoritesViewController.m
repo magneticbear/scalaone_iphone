@@ -15,6 +15,9 @@
 #import "SOEvent.h"
 #import "SOSpeaker.h"
 
+#import "SOEventCell.h"
+#import "SOSpeakerCell.h"
+
 @interface SOFavoritesViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
@@ -94,34 +97,9 @@
 {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
         NSString *cellIdentifier = @"EventCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        SOEventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-            
-            //        Background views
-            UIView *bgColorView = [[UIView alloc] init];
-            [bgColorView setBackgroundColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
-            [cell setBackgroundView:bgColorView];
-            
-            UIView *bgColorViewSelected = [[UIView alloc] init];
-            [bgColorViewSelected setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
-            [cell setSelectedBackgroundView:bgColorViewSelected];
-            
-            //        Text Label Setup
-            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
-            cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
-            cell.textLabel.backgroundColor = bgColorView.backgroundColor;
-            
-            //        Detail Text Label Setup
-            cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:12.0f];
-            cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1.0f];
-            cell.detailTextLabel.backgroundColor = bgColorView.backgroundColor;
-            
-            //        Accessory Image
-            UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
-            UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
-            [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
-            cell.accessoryView = accImageView;
+            cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier favorite:YES];
         }
         
         //    Cell Content
@@ -142,28 +120,9 @@
         NSArray *cellAvatars = @[@"list-avatar-mo-nostar",@"list-avatar-jp-nostar",@"list-avatar-generic-nostar"];
         
         NSString *cellIdentifier = @"SpeakerCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-            //        Background views
-            UIView *bgColorView = [[UIView alloc] init];
-            [bgColorView setBackgroundColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
-            [cell setBackgroundView:bgColorView];
-            
-            UIView *bgColorViewSelected = [[UIView alloc] init];
-            [bgColorViewSelected setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
-            [cell setSelectedBackgroundView:bgColorViewSelected];
-            
-            //        Text Label Setup
-            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
-            cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
-            cell.textLabel.backgroundColor = bgColorView.backgroundColor;
-            
-            //        Accessory Image
-            UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
-            UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
-            [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
-            cell.accessoryView = accImageView;
+            cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
         
         //    Content

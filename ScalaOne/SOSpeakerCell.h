@@ -1,5 +1,5 @@
 //
-//  SOEventCell.h
+//  SOSpeakerCell.h
 //  ScalaOne
 //
 //  Created by Jean-Pierre Simard on 9/4/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SOEventCell : UITableViewCell
+@interface SOSpeakerCell : UITableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier favorite:(BOOL)favorite;
 

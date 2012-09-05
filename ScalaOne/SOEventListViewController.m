@@ -151,7 +151,7 @@
     NSString *cellIdentifier = @"EventCell";
     SOEventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier favorite:NO];
         
 //        Make imageView tappable
         cell.imageView.userInteractionEnabled = YES;

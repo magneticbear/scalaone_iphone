@@ -1,14 +1,14 @@
 //
-//  SOEventCell.m
+//  SOSpeakerCell.m
 //  ScalaOne
 //
 //  Created by Jean-Pierre Simard on 9/4/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-#import "SOEventCell.h"
+#import "SOSpeakerCell.h"
 
-@implementation SOEventCell
+@implementation SOSpeakerCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier favorite:(BOOL)favorite
 {
@@ -27,11 +27,6 @@
         self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
         self.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
         self.textLabel.backgroundColor = bgColorView.backgroundColor;
-        
-        //        Detail Text Label Setup
-        self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:12.0f];
-        self.detailTextLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1.0f];
-        self.detailTextLabel.backgroundColor = bgColorView.backgroundColor;
         
         //        Accessory Image
         UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];

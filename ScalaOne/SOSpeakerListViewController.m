@@ -13,6 +13,7 @@
 #import "SOListHeaderLabel.h"
 #import "SOHTTPClient.h"
 #import "SOSpeaker.h"
+#import "SOSpeakerCell.h"
 
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
@@ -177,29 +178,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     NSArray *cellAvatars = @[@"list-avatar-mo",@"list-avatar-jp",@"list-avatar-speaker"];
     
     NSString *cellIdentifier = @"SpeakerCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-//        Background views
-        UIView *bgColorView = [[UIView alloc] init];
-        [bgColorView setBackgroundColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
-        [cell setBackgroundView:bgColorView];
-        
-        UIView *bgColorViewSelected = [[UIView alloc] init];
-        [bgColorViewSelected setBackgroundColor:[UIColor colorWithRed:0.051 green:0.643 blue:0.816 alpha:1]];
-        [cell setSelectedBackgroundView:bgColorViewSelected];
-        
-//        Text Label Setup
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
-        cell.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
-        cell.textLabel.backgroundColor = bgColorView.backgroundColor;
-        
-//        Accessory Image
-        UIImage *accessoryImage = [UIImage imageNamed:@"list-arrow"];
-        UIImageView *accImageView = [[UIImageView alloc] initWithImage:accessoryImage];
-        [accImageView setFrame:CGRectMake(0, 0, 12, 17)];
-        cell.accessoryView = accImageView;
+        cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         
 //        Make imageView tappable
         cell.imageView.userInteractionEnabled = YES;
