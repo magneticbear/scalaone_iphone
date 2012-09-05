@@ -24,4 +24,19 @@
 @dynamic favoriteUser;
 @dynamic speakers;
 
+- (NSDate *) day {
+//    Return start date without time components
+    
+    [self willAccessValueForKey:@"day"];
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [df stringFromDate:[self start]];
+    NSDate *eventDay = [df dateFromString:dateString];
+    
+    [self didAccessValueForKey:@"day"];
+    
+    return eventDay;
+}
+
 @end

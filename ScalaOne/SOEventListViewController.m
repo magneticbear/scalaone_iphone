@@ -12,8 +12,6 @@
 #import "SOHTTPClient.h"
 #import "SOEvent.h"
 
-#define kShouldUseHeaders   FALSE
-
 @interface SOEventListViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
@@ -75,6 +73,12 @@
                         
                         event.title = [eventDict objectForKey:@"title"];
                         event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
+                        event.location = [eventDict objectForKey:@"location"];
+                        
+//                        Dates
+                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                        event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
                     }
                     
                     NSError *error = nil;
@@ -90,10 +94,11 @@
         }];
         
         NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-        fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)]];
-        fetchRequest.returnsObjectsAsFaults = NO;
+        NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
         
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"day" cacheName:@"Root"];
         _fetchedResultsController.delegate = self;
         [_fetchedResultsController performFetch:nil];
     }
@@ -118,20 +123,18 @@
     return 58;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (DEMO) return _events.count;
     
-    return _fetchedResultsController.fetchedObjects.count;
+    return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (DEMO) return 2;
     
-    return 1;
+    return [[_fetchedResultsController sections] count];
 }
-
-#if kShouldUseHeaders
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -144,8 +147,6 @@
     [headerTitleLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"list-category-repeat"]]];
     return headerTitleLabel;
 }
-
-#endif
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -195,13 +196,13 @@
         cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
         cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
     } else {
-        if (kShouldUseHeaders) {
-        } else {
-            SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-            cell.textLabel.text = event.title;
-            cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
-            cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
-        }
+        SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+        cell.textLabel.text = event.title;
+        cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MMM. d 'at' h:mma"];
+        NSString *dateString = [df stringFromDate:event.start];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",dateString, event.location];
     }
     
     return cell;
@@ -239,35 +240,12 @@
 
 #pragma mark - Core Data
 
-//- (SOSpeaker *)speakerForIndexPath:(NSIndexPath *)indexPath {
-//    NSMutableArray *mSpeakers = [[NSMutableArray alloc] initWithCapacity:[_fetchedResultsController.fetchedObjects count]];
-//    for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
-//        if ([[speaker.name substringToIndex:1].uppercaseString rangeOfString:[_alphabet objectAtIndex:indexPath.section]].location != NSNotFound) {
-//            [mSpeakers addObject:speaker];
-//        }
-//    }
-//    return [mSpeakers objectAtIndex:indexPath.row];
-//}
-//
-//- (void)resetAlphabet {
-//    //    Alpha list
-//    NSMutableArray *preAlphabet = [[NSMutableArray alloc] initWithCapacity:26];
-//    for (SOSpeaker *speaker in _fetchedResultsController.fetchedObjects) {
-//        if ([preAlphabet indexOfObject:[speaker.name substringToIndex:1].uppercaseString] == NSNotFound) {
-//            [preAlphabet addObject:[speaker.name substringToIndex:1].uppercaseString];
-//        }
-//    }
-//    _alphabet = [preAlphabet copy];
-//}
-
 - (void)refetchData {
     _fetchedResultsController.fetchRequest.resultType = NSManagedObjectResultType;
     [_fetchedResultsController performFetch:nil];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//    if (kShouldUseHeaders) [self resetAlphabet];
-    
     [_tableView reloadData];
 }
 
