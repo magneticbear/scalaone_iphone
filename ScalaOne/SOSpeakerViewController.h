@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SOViewController.h"
 
+@class SOSpeaker;
+
 @interface SOSpeakerViewController : SOViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil speaker:(SOSpeaker *)speaker;
+
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @end

@@ -243,7 +243,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil];
+    SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil speaker:[_fetchedResultsController objectAtIndexPath:indexPath]];
     [self.navigationController pushViewController:speakerVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

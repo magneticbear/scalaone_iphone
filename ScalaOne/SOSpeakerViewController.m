@@ -7,19 +7,24 @@
 //
 
 #import "SOSpeakerViewController.h"
+#import "SOSpeaker.h"
+#import "SODefines.h"
 
 @interface SOSpeakerViewController ()
 
 @end
 
-@implementation SOSpeakerViewController
+@implementation SOSpeakerViewController {
+    SOSpeaker *_speaker;
+}
+
 @synthesize webView = _webView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil speaker:(SOSpeaker *)speaker
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _speaker = speaker;
     }
     return self;
 }
@@ -28,8 +33,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Speaker";
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/speaker.jpg"]]];
+    if (DEMO) {
+        self.title = @"Speaker";
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mgn.tc/scalaone/speaker.jpg"]]];
+    } else {
+        self.title = _speaker.name;
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,_speaker.remoteID.integerValue]]]];
+    }
     _webView.scalesPageToFit = YES;
     
 //    Right bar button star
