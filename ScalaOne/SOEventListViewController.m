@@ -110,10 +110,8 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
     moc = nil;
     _tableView = nil;
-    _searchBar = nil;
     _fetchedResultsController = nil;
 }
 

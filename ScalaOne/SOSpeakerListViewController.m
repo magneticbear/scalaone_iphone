@@ -123,7 +123,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
     moc = nil;
     _tableView = nil;
     _fetchedResultsController = nil;
@@ -233,8 +232,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         //    Content
         cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
     } else {
-            SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
-            cell.textLabel.text = speaker.name;
+        SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
+        cell.textLabel.text = speaker.name;
     }
     
     cell.imageView.image = [UIImage imageNamed:[cellAvatars objectAtIndex:indexPath.row%cellAvatars.count]];
