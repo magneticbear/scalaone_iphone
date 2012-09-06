@@ -37,6 +37,15 @@
     self.title = @"Find an enthusiast";
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
+    
+    if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
+        [self didPressLocateMe:nil];
+        double delayInSeconds = kMoveToLocationAnimationDuration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self getMapPins];
+        });
+    }
 }
 
 - (void)viewDidUnload
@@ -44,6 +53,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    _mapView.delegate = nil;
+    _mapView = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -105,7 +116,7 @@
 }
 
 - (void)didPressLocateMe:(id)sender {
-    [_mapView setCenterCoordinate:_mapView.userLocation.coordinate animated:YES];
+    [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
 }
 
 - (void)getMapPins {
@@ -126,12 +137,10 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-//    CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
-//    NSLog(@"accuracy: %.2f\nlocation: %.2f/%.2f",accuracy,userLocation.coordinate.latitude,userLocation.coordinate.longitude);
     if (userLocation.coordinate.latitude != 0 && userLocation.coordinate.longitude != 0) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            [_mapView setRegion:MKCoordinateRegionMake(userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+            [self didPressLocateMe:nil];
             double delayInSeconds = kMoveToLocationAnimationDuration;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
