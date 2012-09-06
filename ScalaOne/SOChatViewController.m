@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Fix scroll to bottom on short tables
-
+// TODO (Optional): Add day separators
 // TODO (Optional): Remove new cell animation on keyboard dismiss
 // TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard
 
@@ -142,7 +141,9 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
 //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
+        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+    }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -157,7 +158,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 10;
+	return 3;
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -195,7 +196,9 @@
 
 - (void)didChangeSOInputChatFieldSize:(CGSize)size {
     [self updateLayoutWithKeyboardRect:CGRectNull onlyTable:YES];
-    [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
+        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+    }
 }
 
 #pragma mark - SOChatCellDelegate
