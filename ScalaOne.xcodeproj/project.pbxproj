@@ -210,6 +210,8 @@
 		E8CA6E8515F6C38800A29310 /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CA6E8415F6C38800A29310 /* SOEvent.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
 		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
+		E8EDE2E315F9573F00AB43B0 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EDE2E215F9573E00AB43B0 /* Twitter.framework */; };
+		E8EDE2E915F957CD00AB43B0 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EDE2E815F957CD00AB43B0 /* Accounts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -462,6 +464,8 @@
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
 		E8E4624015E6E59F00908C6A /* SOChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatCell.m; sourceTree = "<group>"; };
+		E8EDE2E215F9573E00AB43B0 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		E8EDE2E815F957CD00AB43B0 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +473,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8EDE2E915F957CD00AB43B0 /* Accounts.framework in Frameworks */,
+				E8EDE2E315F9573F00AB43B0 /* Twitter.framework in Frameworks */,
 				E83E7F9515F687C7003E6FB4 /* CoreData.framework in Frameworks */,
 				E877A21E15E7CF9D00AB243A /* QuartzCore.framework in Frameworks */,
 				E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */,
@@ -1022,6 +1028,8 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E8EDE2E815F957CD00AB43B0 /* Accounts.framework */,
+				E8EDE2E215F9573E00AB43B0 /* Twitter.framework */,
 				E83E7F9415F687C7003E6FB4 /* CoreData.framework */,
 				E877A21D15E7CF9D00AB243A /* QuartzCore.framework */,
 				E88037D715E7400400B591CC /* CoreLocation.framework */,

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Bully/Bully.h>
+#import <Twitter/Twitter.h>
+#import <Accounts/Accounts.h>
 #import "SOViewController.h"
 #import "DAKeyboardControl.h"
 #import "SOChatInputField.h"

@@ -325,4 +325,54 @@
     }
 }
 
+#pragma mark - Twitter
+
+- (void)postToTwitter
+{
+    // Create an account store object.
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    
+    // Create an account type that ensures Twitter accounts are retrieved.
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    
+    // Request access from the user to use their Twitter accounts.
+    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        if(granted) {
+            // Get the list of Twitter accounts.
+            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+            
+            
+            if ([accountsArray count] > 0) {
+                // Grab the initial Twitter account to tweet from.
+                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                TWRequest *postRequest = nil;
+                
+                postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:_chatInputField.inputField.text forKey:@"status"] requestMethod:TWRequestMethodPOST];
+                
+                
+                
+                // Set the account used to post the tweet.
+                [postRequest setAccount:twitterAccount];
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+                            if ([urlResponse statusCode] == 200) {
+                                NSLog(@"Tweet Succeeded");
+                            }else {
+                                NSLog(@"Tweet Failed");
+                            }
+                        });
+                    }];
+                });
+                
+            }
+            else
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
+            }
+        }
+    }];
+}
+
 @end
