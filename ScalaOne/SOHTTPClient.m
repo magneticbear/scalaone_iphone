@@ -62,7 +62,7 @@
 #pragma mark - Messages
 
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-	[self getPath:@"messages" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+	[self getPath:@"messages/general" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}

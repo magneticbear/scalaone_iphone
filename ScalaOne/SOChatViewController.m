@@ -14,11 +14,15 @@
 #import "SOHTTPClient.h"
 #import "SOChatMessage.h"
 #import "SOProfileViewController.h"
+#import "SOMessage.h"
 
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
 
-@interface SOChatViewController ()
+@interface SOChatViewController () <NSFetchedResultsControllerDelegate> {
+    NSFetchedResultsController *_fetchedResultsController;
+    NSManagedObjectContext *moc;
+}
 @end
 
 @implementation SOChatViewController
@@ -64,37 +68,100 @@
         [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
     }];
     
-#if !DEMO
-    client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
-    chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
-    [chatChannel bindToEvent:@"new_message" block:^(id message) {
-        NSLog(@"New message: %@", message);
-    }];
-    
-    [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
-		});
-	} failure:^(AFJSONRequestOperation *operation, NSError *error) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"getMessages failed");
-		});
-	}];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-        SOChatMessage *message = [SOChatMessage messageWithText:@"Message from SOChatMessage class" senderID:123456 date:[NSDate date]];
-        
-        [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
+    if (DEMO) {
+        NSLog(@"DEMO");
+    } else {
+        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                    NSArray *messages = [[responseDict objectForKey:@"result"] objectForKey:@"messages"];
+                    
+                    for (NSDictionary *messageDict in messages) {
+                        
+                        SOMessage* message = nil;
+                        
+                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                        
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:moc];
+                        [request setEntity:entity];
+                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"messageID == %d", [[messageDict objectForKey:@"id"] intValue]];
+                        [request setPredicate:searchFilter];
+                        
+                        NSArray *results = [moc executeFetchRequest:request error:nil];
+                        
+                        if (results.count > 0) {
+                            message = [results lastObject];
+                        } else {
+                            message = [NSEntityDescription insertNewObjectForEntityForName:@"Message" inManagedObjectContext:moc];
+                        }
+                        
+                        message.senderName = [messageDict objectForKey:@"senderName"];
+                        message.senderID = [NSNumber numberWithInt:[[messageDict objectForKey:@"senderId"] intValue]];
+                        message.messageID = [NSNumber numberWithInt:[[messageDict objectForKey:@"id"] intValue]];
+                        message.text = [messageDict objectForKey:@"content"];
+                        message.messageIndex = [NSNumber numberWithInt:[[messageDict objectForKey:@"index"] intValue]];
+                        
+                        // Date
+                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                        message.sent = [df dateFromString:(NSString*)[messageDict objectForKey:@"sentTime"]];
+                        
+                        NSLog(@"message: %@",message.text);
+                    }
+                    
+                    NSError *error = nil;
+                    if ([moc hasChanges] && ![moc save:&error]) {
+                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                }
             });
         } failure:^(AFJSONRequestOperation *operation, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"postMessage failed");
+                NSLog(@"getMessages failed");
             });
         }];
-    });
-#endif
+        
+        [self resetAndFetch];
+        
+////////////////////////
+//        Pusher
+////////////////////////
+        
+//        client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
+//        chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
+//        [chatChannel bindToEvent:@"new_message" block:^(id message) {
+//            NSLog(@"New message: %@", message);
+//        }];
+        
+////////////////////////
+//        Sinatra Backend
+////////////////////////
+        
+//        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+//            });
+//        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                NSLog(@"getMessages failed");
+//            });
+//        }];
+//        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+//            SOChatMessage *message = [SOChatMessage messageWithText:@"Message from SOChatMessage class" senderID:123456 date:[NSDate date]];
+//            
+//            [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+//                });
+//            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    NSLog(@"postMessage failed");
+//                });
+//            }];
+//        });
+    }
 }
 
 - (void)updateLayoutWithKeyboardRect:(CGRect)keyboardFrameInView onlyTable:(BOOL)onlyTable {
@@ -119,17 +186,20 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
     [self setChatTableView:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [chatChannel unbindEvent:@"new_message"];
     [chatChannel unsubscribe];
     client = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    moc = nil;
+    _chatTableView = nil;
+    _fetchedResultsController = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _fetchedResultsController.delegate = nil;
     [self.view removeKeyboardControl];
 }
 
@@ -158,7 +228,8 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 3;
+	if (DEMO) return 10;
+    return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,10 +249,17 @@
         cell.delegate = self;
     }
     
-    NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
+    //    Cell Content
+    if (DEMO) {
+        NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
+        
+        cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
+    } else {
+        SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
+        cell.messageTextView.text = message.text;
+    }
     
-    cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
-    cell.cellAlignment = indexPath.row % 2 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
+    cell.cellAlignment = indexPath.row % 4 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
     [cell layoutSubviews];
     return cell;
 }
@@ -207,6 +285,31 @@
     NSLog(@"didSelectAvatar: %d",profileID);
     SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
     [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+#pragma mark - Core Data
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [_chatTableView reloadData];
+}
+
+- (void)resetAndFetch {
+    [NSFetchedResultsController deleteCacheWithName:nil];
+    _fetchedResultsController = nil;
+    _fetchedResultsController.fetchRequest.predicate = nil;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Message"];
+    NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"messageID" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"messages/general"];
+    _fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 @end

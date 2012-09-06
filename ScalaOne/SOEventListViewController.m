@@ -17,7 +17,6 @@
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
 }
-- (void)refetchData;
 @property (nonatomic, strong) NSArray *events;
 @end
 
@@ -193,14 +192,10 @@
 
 #pragma mark - Core Data
 
-- (void)refetchData {
-    _fetchedResultsController.fetchRequest.resultType = NSManagedObjectResultType;
-    [_fetchedResultsController performFetch:nil];
-}
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [_tableView reloadData];
 }
+
 - (void)resetAndFetch {
     [NSFetchedResultsController deleteCacheWithName:nil];
     _fetchedResultsController = nil;

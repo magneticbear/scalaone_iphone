@@ -15,15 +15,12 @@
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
 
-#define kShouldUseHeaders  TRUE
-
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 @interface SOSpeakerListViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
 }
-- (void)refetchData;
 @property (nonatomic, strong) NSArray *speakers;
 @end
 
@@ -159,8 +156,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return [[_fetchedResultsController sections] count];
 }
 
-#if kShouldUseHeaders
-
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel *headerTitleLabel = [[SOListHeaderLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 24)];
@@ -168,8 +163,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     return headerTitleLabel;
 }
-
-#endif
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -294,11 +287,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 #pragma mark - Core Data
 
-- (void)refetchData {
-    _fetchedResultsController.fetchRequest.resultType = NSManagedObjectResultType;
-    [_fetchedResultsController performFetch:nil];
-}
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     _currentAvatar = nil;
     _avatarState = SOAvatarStateDefault;
@@ -312,7 +300,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:kShouldUseHeaders ? @"firstInitial" : nil cacheName:@"Speaker"];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"firstInitial" cacheName:@"Speaker"];
     
     _fetchedResultsController.delegate = self;
     
