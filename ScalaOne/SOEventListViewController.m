@@ -200,12 +200,31 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [_tableView reloadData];
 }
+- (void)resetAndFetch {
+    [NSFetchedResultsController deleteCacheWithName:nil];
+    _fetchedResultsController = nil;
+    _fetchedResultsController.fetchRequest.predicate = nil;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"day" cacheName:@"Event"];
+    _fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
 
 #pragma mark - Search
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     
     if ([searchString length]) {
+        [NSFetchedResultsController deleteCacheWithName:@"Event"];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchString];
         [_fetchedResultsController.fetchRequest setPredicate:predicate];
     }
@@ -236,24 +255,6 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self resetAndFetch];
-}
-
-- (void)resetAndFetch {
-    _fetchedResultsController = nil;
-    _fetchedResultsController.fetchRequest.predicate = nil;
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
-    
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"day" cacheName:nil];
-    _fetchedResultsController.delegate = self;
-    
-    NSError *error = nil;
-    if (![_fetchedResultsController performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
 }
 
 @end

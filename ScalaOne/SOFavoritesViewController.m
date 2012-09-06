@@ -227,7 +227,7 @@
             
             [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
             
-            _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
+            _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Event"];
             _fetchedResultsController.delegate = self;
             [_fetchedResultsController performFetch:nil];
             [_tableView reloadData];
@@ -283,7 +283,7 @@
             
             [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
             
-            _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil];
+            _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Speaker"];
             _fetchedResultsController.delegate = self;
             [_fetchedResultsController performFetch:nil];
             [_tableView reloadData];
