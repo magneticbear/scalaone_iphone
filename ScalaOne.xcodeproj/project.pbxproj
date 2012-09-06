@@ -62,14 +62,10 @@
 		E855B2CD15EB298100574B9C /* chat-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CB15EB298100574B9C /* chat-avatar-mo.png */; };
 		E855B2D015EB299200574B9C /* chat-avatar-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */; };
 		E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */; };
-		E865EEE615E492C10063007F /* SOEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE415E492C10063007F /* SOEventViewController.m */; };
-		E865EEE715E492C10063007F /* SOEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEE515E492C10063007F /* SOEventViewController.xib */; };
 		E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE915E492D70063007F /* SOEventListViewController.m */; };
 		E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEA15E492D70063007F /* SOEventListViewController.xib */; };
 		E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */; };
 		E865EEF115E492E10063007F /* SOSpeakerListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEF15E492E10063007F /* SOSpeakerListViewController.xib */; };
-		E865EEF515E492E80063007F /* SOSpeakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEF315E492E80063007F /* SOSpeakerViewController.m */; };
-		E865EEF615E492E80063007F /* SOSpeakerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEF415E492E80063007F /* SOSpeakerViewController.xib */; };
 		E865EEFA15E492F10063007F /* SOFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEF815E492F10063007F /* SOFavoritesViewController.m */; };
 		E865EEFB15E492F10063007F /* SOFavoritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEF915E492F10063007F /* SOFavoritesViewController.xib */; };
 		E865EEFF15E492F70063007F /* SOProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEFD15E492F70063007F /* SOProfileViewController.m */; };
@@ -290,18 +286,12 @@
 		E855B2CB15EB298100574B9C /* chat-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-mo.png"; sourceTree = "<group>"; };
 		E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-jp@2x.png"; sourceTree = "<group>"; };
 		E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-mo@2x.png"; sourceTree = "<group>"; };
-		E865EEE315E492C10063007F /* SOEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEventViewController.h; sourceTree = "<group>"; };
-		E865EEE415E492C10063007F /* SOEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventViewController.m; sourceTree = "<group>"; };
-		E865EEE515E492C10063007F /* SOEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOEventViewController.xib; sourceTree = "<group>"; };
 		E865EEE815E492D70063007F /* SOEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEventListViewController.h; sourceTree = "<group>"; };
 		E865EEE915E492D70063007F /* SOEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventListViewController.m; sourceTree = "<group>"; };
 		E865EEEA15E492D70063007F /* SOEventListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOEventListViewController.xib; sourceTree = "<group>"; };
 		E865EEED15E492E10063007F /* SOSpeakerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeakerListViewController.h; sourceTree = "<group>"; };
 		E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeakerListViewController.m; sourceTree = "<group>"; };
 		E865EEEF15E492E10063007F /* SOSpeakerListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSpeakerListViewController.xib; sourceTree = "<group>"; };
-		E865EEF215E492E80063007F /* SOSpeakerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeakerViewController.h; sourceTree = "<group>"; };
-		E865EEF315E492E80063007F /* SOSpeakerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeakerViewController.m; sourceTree = "<group>"; };
-		E865EEF415E492E80063007F /* SOSpeakerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOSpeakerViewController.xib; sourceTree = "<group>"; };
 		E865EEF715E492F10063007F /* SOFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOFavoritesViewController.h; sourceTree = "<group>"; };
 		E865EEF815E492F10063007F /* SOFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOFavoritesViewController.m; sourceTree = "<group>"; };
 		E865EEF915E492F10063007F /* SOFavoritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOFavoritesViewController.xib; sourceTree = "<group>"; };
@@ -800,9 +790,7 @@
 			children = (
 				E865EED715E48D0B0063007F /* SOHomeViewController */,
 				E865EEDB15E491DA0063007F /* SOEventListViewController */,
-				E865EEDE15E491FB0063007F /* SOEventViewController */,
 				E865EEDC15E491EB0063007F /* SOSpeakerListViewController */,
-				E865EEDD15E491F40063007F /* SOSpeakerViewController */,
 				E865EEE115E4921F0063007F /* SOFavoritesViewController */,
 				E865EEE215E4926E0063007F /* SOProfileViewController */,
 				E865EEDF15E492040063007F /* SOChatViewController */,
@@ -840,26 +828,6 @@
 				E865EEEF15E492E10063007F /* SOSpeakerListViewController.xib */,
 			);
 			name = SOSpeakerListViewController;
-			sourceTree = "<group>";
-		};
-		E865EEDD15E491F40063007F /* SOSpeakerViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E865EEF215E492E80063007F /* SOSpeakerViewController.h */,
-				E865EEF315E492E80063007F /* SOSpeakerViewController.m */,
-				E865EEF415E492E80063007F /* SOSpeakerViewController.xib */,
-			);
-			name = SOSpeakerViewController;
-			sourceTree = "<group>";
-		};
-		E865EEDE15E491FB0063007F /* SOEventViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E865EEE315E492C10063007F /* SOEventViewController.h */,
-				E865EEE415E492C10063007F /* SOEventViewController.m */,
-				E865EEE515E492C10063007F /* SOEventViewController.xib */,
-			);
-			name = SOEventViewController;
 			sourceTree = "<group>";
 		};
 		E865EEDF15E492040063007F /* SOChatViewController */ = {
@@ -1223,10 +1191,8 @@
 			files = (
 				E8A4FFC415E4377F00D10907 /* InfoPlist.strings in Resources */,
 				E8A4FFD015E4377F00D10907 /* SOHomeViewController.xib in Resources */,
-				E865EEE715E492C10063007F /* SOEventViewController.xib in Resources */,
 				E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */,
 				E865EEF115E492E10063007F /* SOSpeakerListViewController.xib in Resources */,
-				E865EEF615E492E80063007F /* SOSpeakerViewController.xib in Resources */,
 				E865EEFB15E492F10063007F /* SOFavoritesViewController.xib in Resources */,
 				E865EF0015E492F70063007F /* SOProfileViewController.xib in Resources */,
 				E865EF0515E492FF0063007F /* SOChatViewController.xib in Resources */,
@@ -1432,10 +1398,8 @@
 				E8A4FFC615E4377F00D10907 /* main.m in Sources */,
 				E8A4FFCA15E4377F00D10907 /* SOAppDelegate.m in Sources */,
 				E8A4FFCD15E4377F00D10907 /* SOHomeViewController.m in Sources */,
-				E865EEE615E492C10063007F /* SOEventViewController.m in Sources */,
 				E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */,
 				E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */,
-				E865EEF515E492E80063007F /* SOSpeakerViewController.m in Sources */,
 				E865EEFA15E492F10063007F /* SOFavoritesViewController.m in Sources */,
 				E865EEFF15E492F70063007F /* SOProfileViewController.m in Sources */,
 				E865EF0415E492FF0063007F /* SOChatViewController.m in Sources */,

@@ -11,8 +11,7 @@
 #import "SOFavoritesViewController.h"
 #import "SOHTTPClient.h"
 
-#import "SOEventViewController.h"
-#import "SOSpeakerViewController.h"
+#import "SOWebViewController.h"
 
 #import "SOEvent.h"
 #import "SOSpeaker.h"
@@ -157,10 +156,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
-        SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil event:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+        SOWebViewController *eventVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:event.title url:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]] eventID:event.remoteID.integerValue];
         [self.navigationController pushViewController:eventVC animated:YES];
     } else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
-        SOSpeakerViewController *speakerVC = [[SOSpeakerViewController alloc] initWithNibName:@"SOSpeakerViewController" bundle:nil speaker:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
+        SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:speaker.name url:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,speaker.remoteID.integerValue]] speakerID:speaker.remoteID.integerValue];
         [self.navigationController pushViewController:speakerVC animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

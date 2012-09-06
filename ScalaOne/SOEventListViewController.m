@@ -7,7 +7,7 @@
 //
 
 #import "SOEventListViewController.h"
-#import "SOEventViewController.h"
+#import "SOWebViewController.h"
 #import "SOListHeaderLabel.h"
 #import "SOHTTPClient.h"
 #import "SOEvent.h"
@@ -175,7 +175,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SOEventViewController *eventVC = [[SOEventViewController alloc] initWithNibName:@"SOEventViewController" bundle:nil event:[_fetchedResultsController objectAtIndexPath:indexPath]];
+    SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+    SOWebViewController *eventVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:event.title url:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]] eventID:event.remoteID.integerValue];
     [self.navigationController pushViewController:eventVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

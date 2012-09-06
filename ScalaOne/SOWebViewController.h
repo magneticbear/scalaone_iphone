@@ -16,4 +16,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL eventID:(NSInteger)aEventID;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID eventID:(NSInteger)aEventID;
+
 @end
