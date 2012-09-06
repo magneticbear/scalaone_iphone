@@ -25,6 +25,7 @@
     CGSize textShadowOffset = CGSizeMake(0, -1);
     CGFloat textShadowBlurRadius = 0;
     
+    //// Leave space for shadow
     CGRect mainRect = rect;
     mainRect.size.height -= 1;
     
@@ -33,18 +34,18 @@
     [mainColor setFill];
     [mainRectPath fill];
     
-    //// bottomRect Drawing
-    UIBezierPath* bottomRectPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, rect.size.height-1, rect.size.width, 1)];
-    [bottomColor setFill];
-    [bottomRectPath fill];
-    
     //// topRect Drawing
     UIBezierPath* topRectPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, rect.size.width, 1)];
     [topColor setFill];
     [topRectPath fill];
     
+    //// bottomRect Drawing
+    UIBezierPath* bottomRectPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, rect.size.height-1, rect.size.width, 1)];
+    [bottomColor setFill];
+    [bottomRectPath fill];
+    
     //// Text Drawing
-    CGRect textRect = CGRectMake(10, 1, 21, 22);
+    CGRect textRect = CGRectMake(10, 1, 310, 22);
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, textShadowOffset, textShadowBlurRadius, textShadow.CGColor);
     [[UIColor whiteColor] setFill];
