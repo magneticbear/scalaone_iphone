@@ -78,8 +78,8 @@
 		E865EF0515E492FF0063007F /* SOChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0315E492FF0063007F /* SOChatViewController.xib */; };
 		E865EF0915E493070063007F /* SOMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0715E493070063007F /* SOMapViewController.m */; };
 		E865EF0A15E493070063007F /* SOMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0815E493070063007F /* SOMapViewController.xib */; };
-		E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */; };
-		E865EF0F15E4930E0063007F /* SOPlaygroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */; };
+		E865EF0E15E4930E0063007F /* SOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EF0C15E4930E0063007F /* SOWebViewController.m */; };
+		E865EF0F15E4930E0063007F /* SOWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EF0D15E4930E0063007F /* SOWebViewController.xib */; };
 		E86605EA15E8268200945242 /* map_avatar_mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E86605E615E8268200945242 /* map_avatar_mo.png */; };
 		E86605EB15E8268200945242 /* map_avatar_jp.png in Resources */ = {isa = PBXBuildFile; fileRef = E86605E715E8268200945242 /* map_avatar_jp.png */; };
 		E86605EC15E8268200945242 /* map_bubble_button.png in Resources */ = {isa = PBXBuildFile; fileRef = E86605E815E8268200945242 /* map_bubble_button.png */; };
@@ -170,8 +170,6 @@
 		E86606A115E86B9B00945242 /* Mo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E866069D15E86B9B00945242 /* Mo.jpeg */; };
 		E86606A215E86B9B00945242 /* speaker-default.png in Resources */ = {isa = PBXBuildFile; fileRef = E866069E15E86B9B00945242 /* speaker-default.png */; };
 		E86606A315E86B9B00945242 /* visitor-default.png in Resources */ = {isa = PBXBuildFile; fileRef = E866069F15E86B9B00945242 /* visitor-default.png */; };
-		E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86606BC15E8876F00945242 /* SOAboutViewController.m */; };
-		E86606BF15E8876F00945242 /* SOAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86606BD15E8876F00945242 /* SOAboutViewController.xib */; };
 		E86606C115E90C9E00945242 /* segment_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C015E90C9A00945242 /* segment_bg.png */; };
 		E86606C315E90CAD00945242 /* segment_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C215E90CAD00945242 /* segment_bg@2x.png */; };
 		E86606C515E91EEC00945242 /* back-btn-down.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C415E91EE800945242 /* back-btn-down.png */; };
@@ -316,9 +314,9 @@
 		E865EF0615E493070063007F /* SOMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMapViewController.h; sourceTree = "<group>"; };
 		E865EF0715E493070063007F /* SOMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMapViewController.m; sourceTree = "<group>"; };
 		E865EF0815E493070063007F /* SOMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOMapViewController.xib; sourceTree = "<group>"; };
-		E865EF0B15E4930E0063007F /* SOPlaygroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOPlaygroundViewController.h; sourceTree = "<group>"; };
-		E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOPlaygroundViewController.m; sourceTree = "<group>"; };
-		E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOPlaygroundViewController.xib; sourceTree = "<group>"; };
+		E865EF0B15E4930E0063007F /* SOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOWebViewController.h; sourceTree = "<group>"; };
+		E865EF0C15E4930E0063007F /* SOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOWebViewController.m; sourceTree = "<group>"; };
+		E865EF0D15E4930E0063007F /* SOWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOWebViewController.xib; sourceTree = "<group>"; };
 		E86605E615E8268200945242 /* map_avatar_mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_avatar_mo.png; sourceTree = "<group>"; };
 		E86605E715E8268200945242 /* map_avatar_jp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_avatar_jp.png; sourceTree = "<group>"; };
 		E86605E815E8268200945242 /* map_bubble_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_bubble_button.png; sourceTree = "<group>"; };
@@ -409,9 +407,6 @@
 		E866069D15E86B9B00945242 /* Mo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Mo.jpeg; sourceTree = "<group>"; };
 		E866069E15E86B9B00945242 /* speaker-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker-default.png"; sourceTree = "<group>"; };
 		E866069F15E86B9B00945242 /* visitor-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "visitor-default.png"; sourceTree = "<group>"; };
-		E86606BB15E8876F00945242 /* SOAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOAboutViewController.h; sourceTree = "<group>"; };
-		E86606BC15E8876F00945242 /* SOAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOAboutViewController.m; sourceTree = "<group>"; };
-		E86606BD15E8876F00945242 /* SOAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOAboutViewController.xib; sourceTree = "<group>"; };
 		E86606C015E90C9A00945242 /* segment_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segment_bg.png; sourceTree = "<group>"; };
 		E86606C215E90CAD00945242 /* segment_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment_bg@2x.png"; sourceTree = "<group>"; };
 		E86606C415E91EE800945242 /* back-btn-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-btn-down.png"; sourceTree = "<group>"; };
@@ -812,20 +807,19 @@
 				E865EEE215E4926E0063007F /* SOProfileViewController */,
 				E865EEDF15E492040063007F /* SOChatViewController */,
 				E865EEE015E492130063007F /* SOMapViewController */,
-				E865EED915E48D730063007F /* SOPlaygroundViewController */,
-				E86606BA15E8873C00945242 /* SOAboutViewController */,
+				E865EED915E48D730063007F /* SOWebViewController */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		E865EED915E48D730063007F /* SOPlaygroundViewController */ = {
+		E865EED915E48D730063007F /* SOWebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E865EF0B15E4930E0063007F /* SOPlaygroundViewController.h */,
-				E865EF0C15E4930E0063007F /* SOPlaygroundViewController.m */,
-				E865EF0D15E4930E0063007F /* SOPlaygroundViewController.xib */,
+				E865EF0B15E4930E0063007F /* SOWebViewController.h */,
+				E865EF0C15E4930E0063007F /* SOWebViewController.m */,
+				E865EF0D15E4930E0063007F /* SOWebViewController.xib */,
 			);
-			name = SOPlaygroundViewController;
+			name = SOWebViewController;
 			sourceTree = "<group>";
 		};
 		E865EEDB15E491DA0063007F /* SOEventListViewController */ = {
@@ -919,16 +913,6 @@
 				E866069F15E86B9B00945242 /* visitor-default.png */,
 			);
 			path = avatars;
-			sourceTree = "<group>";
-		};
-		E86606BA15E8873C00945242 /* SOAboutViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E86606BB15E8876F00945242 /* SOAboutViewController.h */,
-				E86606BC15E8876F00945242 /* SOAboutViewController.m */,
-				E86606BD15E8876F00945242 /* SOAboutViewController.xib */,
-			);
-			name = SOAboutViewController;
 			sourceTree = "<group>";
 		};
 		E86606D015E948A600945242 /* home */ = {
@@ -1247,7 +1231,7 @@
 				E865EF0015E492F70063007F /* SOProfileViewController.xib in Resources */,
 				E865EF0515E492FF0063007F /* SOChatViewController.xib in Resources */,
 				E865EF0A15E493070063007F /* SOMapViewController.xib in Resources */,
-				E865EF0F15E4930E0063007F /* SOPlaygroundViewController.xib in Resources */,
+				E865EF0F15E4930E0063007F /* SOWebViewController.xib in Resources */,
 				E82EF79115E4A23400FA7E78 /* Icon-72.png in Resources */,
 				E82EF79215E4A23400FA7E78 /* Icon-72@2x.png in Resources */,
 				E82EF79315E4A23400FA7E78 /* Icon-Small-50.png in Resources */,
@@ -1348,7 +1332,6 @@
 				E86606A115E86B9B00945242 /* Mo.jpeg in Resources */,
 				E86606A215E86B9B00945242 /* speaker-default.png in Resources */,
 				E86606A315E86B9B00945242 /* visitor-default.png in Resources */,
-				E86606BF15E8876F00945242 /* SOAboutViewController.xib in Resources */,
 				E86606C115E90C9E00945242 /* segment_bg.png in Resources */,
 				E86606C315E90CAD00945242 /* segment_bg@2x.png in Resources */,
 				E86606C515E91EEC00945242 /* back-btn-down.png in Resources */,
@@ -1457,14 +1440,13 @@
 				E865EEFF15E492F70063007F /* SOProfileViewController.m in Sources */,
 				E865EF0415E492FF0063007F /* SOChatViewController.m in Sources */,
 				E865EF0915E493070063007F /* SOMapViewController.m in Sources */,
-				E865EF0E15E4930E0063007F /* SOPlaygroundViewController.m in Sources */,
+				E865EF0E15E4930E0063007F /* SOWebViewController.m in Sources */,
 				E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */,
 				E842CC1C15E6876B00B40B33 /* SODefines.m in Sources */,
 				E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */,
 				E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */,
 				E880382D15E7BB8800B591CC /* SOLocationAnnotation.m in Sources */,
 				E880382E15E7BB8800B591CC /* SOLocationView.m in Sources */,
-				E86606BE15E8876F00945242 /* SOAboutViewController.m in Sources */,
 				E855B2C815EB167700574B9C /* SOViewController.m in Sources */,
 				E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */,
 				E80A0A5815EBDF13005E637D /* SOChatInputField.m in Sources */,

@@ -13,8 +13,7 @@
 #import "SOProfileViewController.h"
 #import "SOChatViewController.h"
 #import "SOMapViewController.h"
-#import "SOPlaygroundViewController.h"
-#import "SOAboutViewController.h"
+#import "SOWebViewController.h"
 
 @interface SOHomeViewController ()
 
@@ -70,12 +69,12 @@
 }
 
 - (IBAction)pushPlaygroundVC:(id)sender {
-    SOPlaygroundViewController *playgroundVC = [[SOPlaygroundViewController alloc] initWithNibName:@"SOPlaygroundViewController" bundle:nil];
+    SOWebViewController *playgroundVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:@"Playground" url:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]];
     [self.navigationController pushViewController:playgroundVC animated:YES];
 }
 
 - (IBAction)pushAboutVC:(id)sender {
-    SOAboutViewController *aboutVC = [[SOAboutViewController alloc] initWithNibName:@"SOAboutViewController" bundle:nil];
+    SOWebViewController *aboutVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:@"About Scala1" url:[NSURL URLWithString:kSOAPIHost]];
     [self.navigationController pushViewController:aboutVC animated:YES];
 }
 
