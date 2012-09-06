@@ -5,8 +5,6 @@
 //  Copyright 2011 A Tasty Pixel. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface TPKeyboardAvoidingTableView : UITableView {
     UIEdgeInsets    _priorInset;
     BOOL            _priorInsetSaved;

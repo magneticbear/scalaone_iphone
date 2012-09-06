@@ -14,8 +14,6 @@
 		E8002ADD15EF08A3009F685C /* profile-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8002ADC15EF08A3009F685C /* profile-camera@2x.png */; };
 		E808E2BE15EE87BB00B0BA69 /* list-avatar-favorite-on.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */; };
 		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
-		E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */; };
-		E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */; };
 		E808E2E715EEAA3200B0BA69 /* profile-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */; };
 		E808E2E915EEAA5300B0BA69 /* profile-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
@@ -239,10 +237,6 @@
 		E8002ADC15EF08A3009F685C /* profile-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-camera@2x.png"; sourceTree = "<group>"; };
 		E808E2BD15EE87BB00B0BA69 /* list-avatar-favorite-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on.png"; sourceTree = "<group>"; };
 		E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on@2x.png"; sourceTree = "<group>"; };
-		E808E2DF15EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
-		E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
-		E808E2E115EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
-		E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo.png"; sourceTree = "<group>"; };
 		E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo@2x.png"; sourceTree = "<group>"; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
@@ -543,17 +537,6 @@
 			name = "Model Classes";
 			sourceTree = "<group>";
 		};
-		E808E2E515EEA5DA00B0BA69 /* TPKeyboardAvoiding */ = {
-			isa = PBXGroup;
-			children = (
-				E808E2DF15EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.h */,
-				E808E2E015EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m */,
-				E808E2E115EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.h */,
-				E808E2E215EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m */,
-			);
-			name = TPKeyboardAvoiding;
-			sourceTree = "<group>";
-		};
 		E808E2EA15EEAA5800B0BA69 /* profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,7 +556,6 @@
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				E808E2E515EEA5DA00B0BA69 /* TPKeyboardAvoiding */,
 				E833EBD815ECFA0B007C1DB5 /* DAKeyboardControl */,
 			);
 			name = Vendor;
@@ -1489,8 +1471,6 @@
 				E80A0A6E15EC0CA6005E637D /* SOInputTextView.m in Sources */,
 				E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */,
 				E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */,
-				E808E2E315EEA5D400B0BA69 /* TPKeyboardAvoidingScrollView.m in Sources */,
-				E808E2E415EEA5D400B0BA69 /* TPKeyboardAvoidingTableView.m in Sources */,
 				E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */,
 				E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */,
 				E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */,
