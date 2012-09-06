@@ -7,6 +7,7 @@
 //
 
 // TODO: Add analytics framework
+// TODO: Add activity indicators to web views
 
 // TODO (Optional): Pull-to-refresh functionality throughout
 // TODO (Optional): App-level location manager and API update

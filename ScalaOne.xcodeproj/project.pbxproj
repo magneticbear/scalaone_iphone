@@ -1576,16 +1576,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tindr Solutions Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tindr Solutions Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=0";
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "3EBE5AC7-4F1E-402F-83B4-86BAE91B3639";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3EBE5AC7-4F1E-402F-83B4-86BAE91B3639";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1677,11 +1677,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=0";
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

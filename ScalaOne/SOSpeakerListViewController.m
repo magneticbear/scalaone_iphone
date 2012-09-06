@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Improve avatar generation performance
+// TODO: Improve header generation performance
 
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
@@ -17,7 +17,7 @@
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
 
-#define kShouldUserHeaders  FALSE
+#define kShouldUserHeaders  TRUE
 
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
