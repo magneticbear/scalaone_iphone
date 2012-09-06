@@ -110,14 +110,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             });
         }];
         
-        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Speaker"];
-        NSSortDescriptor *nameInitialSortOrder = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-        
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
-        
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"firstInitial" cacheName:@"Root"];
-        _fetchedResultsController.delegate = self;
-        [_fetchedResultsController performFetch:nil];
+        [self resetAndFetch];
     }
 }
 
@@ -231,20 +224,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-}
-
-- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"\n"]) {
-        [searchBar resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
-
 #pragma mark - Avatar Methods
 
 - (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
@@ -317,6 +296,57 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     _currentAvatar = nil;
     _avatarState = SOAvatarStateDefault;
     [_tableView reloadData];
+}
+
+#pragma mark - Search
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    if ([searchString length]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@", searchString];
+        [_fetchedResultsController.fetchRequest setPredicate:predicate];
+    }
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return YES;
+}
+
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [searchBar resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [self resetAndFetch];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self resetAndFetch];
+}
+
+- (void)resetAndFetch {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Speaker"];
+    NSSortDescriptor *nameInitialSortOrder = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"firstInitial" cacheName:nil];
+    _fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 @end

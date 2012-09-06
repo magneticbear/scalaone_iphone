@@ -97,14 +97,7 @@
             });
         }];
         
-        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-        NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
-        
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
-        
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"day" cacheName:@"Root"];
-        _fetchedResultsController.delegate = self;
-        [_fetchedResultsController performFetch:nil];
+        [self resetAndFetch];
     }
 }
 
@@ -192,20 +185,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-}
-
-- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"\n"]) {
-        [searchBar resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
-
 - (void)didTapStar:(UITapGestureRecognizer*)g {
     NSLog(@"didTapStar");
     ((UIImageView *)g.view).image = [UIImage imageNamed:@"list-star-on"];
@@ -220,6 +199,59 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [_tableView reloadData];
+}
+
+#pragma mark - Search
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    if ([searchString length]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchString];
+        [_fetchedResultsController.fetchRequest setPredicate:predicate];
+    }
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return YES;
+}
+
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [searchBar resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [self resetAndFetch];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self resetAndFetch];
+}
+
+- (void)resetAndFetch {
+    _fetchedResultsController = nil;
+    _fetchedResultsController.fetchRequest.predicate = nil;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"day" cacheName:nil];
+    _fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 @end
