@@ -1086,9 +1086,9 @@
 		E8A4FFBF15E4377F00D10907 /* ScalaOne */ = {
 			isa = PBXGroup;
 			children = (
-				E865EE9B15E48B920063007F /* Images */,
 				E8A4FFC815E4377F00D10907 /* SOAppDelegate.h */,
 				E8A4FFC915E4377F00D10907 /* SOAppDelegate.m */,
+				E865EE9B15E48B920063007F /* Images */,
 				E808E2CC15EE992D00B0BA69 /* Model Classes */,
 				E808E2CB15EE990800B0BA69 /* Visual Classes */,
 				E865EED815E48D610063007F /* View Controllers */,

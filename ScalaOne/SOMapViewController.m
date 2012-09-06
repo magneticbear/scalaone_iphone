@@ -131,7 +131,7 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
 //    CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
-    if (![[_mapView annotations] count]) {
+    if (([[_mapView annotations] count] <= 2) && userLocation.coordinate.latitude != 0 && userLocation.coordinate.longitude != 0) {
         double delayInSeconds = kMoveToLocationAnimationDuration;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){

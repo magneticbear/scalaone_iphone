@@ -9,6 +9,7 @@
 // TODO: Add analytics framework
 // TODO: Add activity indicators to web views
 
+// TODO (Optional): Move DAKeyboardControl to Podfile (must create a podspec first)
 // TODO (Optional): Pull-to-refresh functionality throughout
 // TODO (Optional): App-level location manager and API update
 // TODO (Optional): Generic push notification support
