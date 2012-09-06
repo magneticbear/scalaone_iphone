@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Refactor LayoutSubviews
+// TODO: Refactor LayoutSubviews (potentially move to drawRect)
 
 #import "SOChatCell.h"
 #import "SOProfileViewController.h"
@@ -78,11 +78,9 @@
 //    Content
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-gray"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 20, 16, 13)];
-        [_avatarBtn setBackgroundImage:[UIImage imageNamed:@"chat-avatar-mo"] forState:UIControlStateNormal];
         _messageTextView.textAlignment = UITextAlignmentLeft;
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-blue-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 13, 16, 20)];
-        [_avatarBtn setBackgroundImage:[UIImage imageNamed:@"chat-avatar-jp"] forState:UIControlStateNormal];
         _messageTextView.textAlignment = UITextAlignmentRight;
     }
     

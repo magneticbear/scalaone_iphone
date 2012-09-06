@@ -15,6 +15,8 @@
 #import "SOChatMessage.h"
 #import "SOProfileViewController.h"
 #import "SOMessage.h"
+#import "UIImage+SOAvatar.h"
+#import "SDWebImageManager.h"
 
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
@@ -106,8 +108,6 @@
                         NSDateFormatter *df = [[NSDateFormatter alloc] init];
                         [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
                         message.sent = [df dateFromString:(NSString*)[messageDict objectForKey:@"sentTime"]];
-                        
-                        NSLog(@"message: %@",message.text);
                     }
                     
                     NSError *error = nil;
@@ -254,9 +254,22 @@
         NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
         
         cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
+        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
     } else {
         SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
         cell.messageTextView.text = message.text;
+        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
+        
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadWithURL:
+         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
+                        delegate:self
+                         options:0
+                         success:^(UIImage *image) {
+                             [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
+                         } failure:^(NSError *error) {
+//                             NSLog(@"Image retrieval failed");
+                         }];
     }
     
     cell.cellAlignment = indexPath.row % 4 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
