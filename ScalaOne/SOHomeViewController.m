@@ -25,7 +25,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.title = @"ScalaOne";
+    self.title = @"Scala1";
     
 //    Fade out splash image
     UIImageView *splashView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default"]];
