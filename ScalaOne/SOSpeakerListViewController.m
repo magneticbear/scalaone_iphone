@@ -17,6 +17,8 @@
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
 
+#define kShouldUserHeaders  FALSE
+
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 @interface SOSpeakerListViewController () <NSFetchedResultsControllerDelegate> {
@@ -153,6 +155,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
+#if kShouldUseHeaders
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (DEMO) return [_alphabet count];
     
@@ -166,6 +170,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     return headerTitleLabel;
 }
+
+#endif
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -203,7 +209,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         cell.textLabel.text = speaker.name;
         
 //        Image
-        cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault];
+        cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeOff];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
@@ -211,7 +217,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                         delegate:self
                          options:0
                          success:^(UIImage *image) {
-                             cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault];
+                             cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeOff];
                          } failure:^(NSError *error) {
 //                             NSLog(@"Image retrieval failed");
                          }];
@@ -307,7 +313,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:@"firstInitial" cacheName:@"Speaker"];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:kShouldUserHeaders ? @"firstInitial" : nil cacheName:@"Speaker"];
     _fetchedResultsController.delegate = self;
     
     NSError *error = nil;
