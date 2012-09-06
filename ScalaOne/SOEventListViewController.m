@@ -228,7 +228,9 @@
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    [self resetAndFetch];
+    if (![searchBar.text length]) {
+        [self resetAndFetch];
+    }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

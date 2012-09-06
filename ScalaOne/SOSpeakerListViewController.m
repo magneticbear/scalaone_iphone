@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Improve avatar generation performance
+
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
 #import "SOListHeaderLabel.h"
@@ -325,7 +327,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    [self resetAndFetch];
+    if (![searchBar.text length]) {
+        [self resetAndFetch];
+    }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
