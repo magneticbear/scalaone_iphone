@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Improve header generation performance
-
 #import "SOSpeakerListViewController.h"
 #import "SOSpeakerViewController.h"
 #import "SOListHeaderLabel.h"
@@ -17,7 +15,7 @@
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
 
-#define kShouldUserHeaders  TRUE
+#define kShouldUseHeaders  TRUE
 
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
@@ -155,13 +153,13 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
-#if kShouldUseHeaders
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (DEMO) return [_alphabet count];
     
     return [[_fetchedResultsController sections] count];
 }
+
+#if kShouldUseHeaders
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -313,7 +311,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:kShouldUserHeaders ? @"firstInitial" : nil cacheName:@"Speaker"];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:kShouldUseHeaders ? @"firstInitial" : nil cacheName:@"Speaker"];
+    
     _fetchedResultsController.delegate = self;
     
     NSError *error = nil;
