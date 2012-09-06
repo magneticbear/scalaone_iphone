@@ -203,7 +203,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         cell.textLabel.text = speaker.name;
         
 //        Image
-        cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeOff];
+        cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
@@ -211,7 +211,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                         delegate:self
                          options:0
                          success:^(UIImage *image) {
-                             cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeOff];
+                             cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault];
                          } failure:^(NSError *error) {
 //                             NSLog(@"Image retrieval failed");
                          }];
