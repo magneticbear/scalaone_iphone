@@ -12,7 +12,7 @@
 #import <MapKit/MapKit.h>
 #import "SOLocationAnnotation.h"
 
-#define kMoveToLocationAnimationDuration    1.0
+#define kMoveToLocationAnimationDuration    2.0
 
 @interface SOMapViewController ()
 
@@ -93,7 +93,7 @@
 //            Start animation outside view
             aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-self.mapView.frame.size.height, aV.frame.size.width, aV.frame.size.height);
             
-            [UIView animateWithDuration:0.33f delay:idx*0.05f options:UIViewAnimationCurveEaseInOut animations:^{
+            [UIView animateWithDuration:0.5f delay:idx*0.1f options:UIViewAnimationCurveEaseOut animations:^{
                 aV.frame = endFrame;
             } completion:^(BOOL finished) {
 //                Pin drop animation finished
@@ -110,11 +110,7 @@
 
 - (void)getMapPins {
     CLLocationCoordinate2D userLocation = _mapView.userLocation.coordinate;
-    if (userLocation.latitude != 0 && userLocation.longitude != 0) {
-        [_mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
-        
-        [self addAnnotationsWithUserLocation:userLocation];
-    }
+    [self addAnnotationsWithUserLocation:userLocation];
 }
 
 - (void)addAnnotationsWithUserLocation:(CLLocationCoordinate2D)userLocation {
@@ -131,11 +127,16 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
 //    CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
-    if (([[_mapView annotations] count] <= 2) && userLocation.coordinate.latitude != 0 && userLocation.coordinate.longitude != 0) {
-        double delayInSeconds = kMoveToLocationAnimationDuration;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self getMapPins];
+//    NSLog(@"accuracy: %.2f\nlocation: %.2f/%.2f",accuracy,userLocation.coordinate.latitude,userLocation.coordinate.longitude);
+    if (userLocation.coordinate.latitude != 0 && userLocation.coordinate.longitude != 0) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [_mapView setRegion:MKCoordinateRegionMake(userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+            double delayInSeconds = kMoveToLocationAnimationDuration;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self getMapPins];
+            });
         });
     }
 }
