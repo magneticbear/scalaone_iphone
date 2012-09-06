@@ -12,12 +12,14 @@
 #import <MapKit/MapKit.h>
 #import "SOLocationAnnotation.h"
 
+#define kMoveToLocationAnimationDuration    1.0
+
 @interface SOMapViewController ()
 
 @end
 
 @implementation SOMapViewController
-@synthesize mapView;
+@synthesize mapView = _mapView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,10 +37,6 @@
     self.title = @"Find an enthusiast";
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
-    
-    [self getMapPins];
-    
-    [super viewDidLoad];
 }
 
 - (void)viewDidUnload
@@ -61,19 +59,19 @@
 
 - (void)mapView:(MKMapView *)aMapView didSelectAnnotationView:(MKAnnotationView *)view {
     if([view conformsToProtocol:@protocol(SOAnnotationViewProtocol)]) {
-        [((NSObject<SOAnnotationViewProtocol>*)view) didSelectAnnotationViewInMap:mapView];
+        [((NSObject<SOAnnotationViewProtocol>*)view) didSelectAnnotationViewInMap:aMapView];
     }
 }
 
 - (void)mapView:(MKMapView *)aMapView didDeselectAnnotationView:(MKAnnotationView *)view {
     if([view conformsToProtocol:@protocol(SOAnnotationViewProtocol)]) {
-        [((NSObject<SOAnnotationViewProtocol>*)view) didDeselectAnnotationViewInMap:mapView];
+        [((NSObject<SOAnnotationViewProtocol>*)view) didDeselectAnnotationViewInMap:aMapView];
     }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id<MKAnnotation>)annotation {
     if([annotation conformsToProtocol:@protocol(SOAnnotationProtocol)]) {
-        return [((NSObject<SOAnnotationProtocol>*)annotation) annotationViewInMap:mapView];
+        return [((NSObject<SOAnnotationProtocol>*)annotation) annotationViewInMap:aMapView];
     }
     return nil;
 }
@@ -85,7 +83,7 @@
         CGRect endFrame = aV.frame;
         
 //        Convert pin frame relative to mapView for intersection measurement
-        CGPoint convertedOrigin = [self.mapView convertCoordinate:aV.coordinate toPointToView:self.mapView];
+        CGPoint convertedOrigin = [mapView convertCoordinate:aV.coordinate toPointToView:mapView];
         CGRect convertedFrame = endFrame;
         convertedFrame.origin.x = convertedOrigin.x + aV.centerOffset.x;
         convertedFrame.origin.y = convertedOrigin.y + aV.centerOffset.y;
@@ -107,31 +105,39 @@
 }
 
 - (void)didPressLocateMe:(id)sender {
-    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
+    [_mapView setCenterCoordinate:_mapView.userLocation.coordinate animated:YES];
 }
 
 - (void)getMapPins {
-    double delayInSeconds = 2.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        CLLocationCoordinate2D userLocation = self.mapView.userLocation.coordinate;
-        if (userLocation.latitude != 0 && userLocation.longitude != 0) {
-            [self.mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
-            
-            [self addAnnotationWithUserLocation:userLocation];
-        }
-    });
+    CLLocationCoordinate2D userLocation = _mapView.userLocation.coordinate;
+    if (userLocation.latitude != 0 && userLocation.longitude != 0) {
+        [_mapView setRegion:MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+        
+        [self addAnnotationsWithUserLocation:userLocation];
+    }
 }
 
-- (void)addAnnotationWithUserLocation:(CLLocationCoordinate2D)userLocation {
+- (void)addAnnotationsWithUserLocation:(CLLocationCoordinate2D)userLocation {
 //    Generate 20 random SOLocationView's and add them to the map
-    NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:20];
-    for (int i=0; i<20; i++) {
+    NSInteger numAnnotations = 5;
+    NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:numAnnotations];
+    for (int i=0; i<numAnnotations; i++) {
         SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
         [annotations  addObject:locationAnnotation];
-        locationAnnotation.mapView = self.mapView;
+        locationAnnotation.mapView = _mapView;
     }
-    [self.mapView addAnnotations:annotations];
+    [_mapView addAnnotations:annotations];
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+//    CLLocationAccuracy accuracy = userLocation.location.horizontalAccuracy;
+    if (![[_mapView annotations] count]) {
+        double delayInSeconds = kMoveToLocationAnimationDuration;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self getMapPins];
+        });
+    }
 }
 
 @end

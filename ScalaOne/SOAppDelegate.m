@@ -6,6 +6,12 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Add analytics framework
+
+// TODO (Optional): Pull-to-refresh functionality throughout
+// TODO (Optional): App-level location manager and API update
+// TODO (Optional): Generic push notification support
+
 #import "SOAppDelegate.h"
 
 #import "SOHomeViewController.h"
@@ -114,18 +120,6 @@
     if (__persistentStoreCoordinator != nil) {
         return __persistentStoreCoordinator;
     }
-    
-//    If we end up using AFIncrementalStore
-//
-//    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-//    AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[__persistentStoreCoordinator addPersistentStoreWithType:[SongsIncrementalStore type] configuration:nil URL:nil options:nil error:nil];
-//    NSError *error = nil;
-//    if (![incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }
-//    
-//    NSLog(@"SQLite URL: %@", [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Songs.sqlite"]);
     
     NSURL *storeUrl = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"ScalaOne.sqlite"];
     
