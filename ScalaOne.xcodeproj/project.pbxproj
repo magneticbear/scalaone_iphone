@@ -170,11 +170,10 @@
 		E86606C315E90CAD00945242 /* segment_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C215E90CAD00945242 /* segment_bg@2x.png */; };
 		E86606C515E91EEC00945242 /* back-btn-down.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C415E91EE800945242 /* back-btn-down.png */; };
 		E86606C715E91EFA00945242 /* back-btn-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E86606C615E91EF900945242 /* back-btn-down@2x.png */; };
-		E86F7F9A15FA83E7007779FF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E86F7F9315FA83E7007779FF /* README.md */; };
-		E86F7F9B15FA83E7007779FF /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E86F7F9515FA83E7007779FF /* RIButtonItem.m */; };
-		E86F7F9C15FA83E7007779FF /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E86F7F9715FA83E7007779FF /* UIActionSheet+Blocks.m */; };
-		E86F7F9D15FA83E7007779FF /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E86F7F9915FA83E7007779FF /* UIAlertView+Blocks.m */; };
 		E877A21E15E7CF9D00AB243A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E877A21D15E7CF9D00AB243A /* QuartzCore.framework */; };
+		E87AD8BB15FAAB1D00096A19 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E87AD8B515FAAB1D00096A19 /* UIActionSheet+Blocks.m */; };
+		E87AD8BC15FAAB1D00096A19 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E87AD8B615FAAB1D00096A19 /* UIAlertView+Blocks.m */; };
+		E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E87AD8BA15FAAB1D00096A19 /* RIButtonItem.m */; };
 		E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037BC15E7277C00B591CC /* MapKit.framework */; };
 		E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037D715E7400400B591CC /* CoreLocation.framework */; };
 		E880382D15E7BB8800B591CC /* SOLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E880382515E7BB8800B591CC /* SOLocationAnnotation.m */; };
@@ -407,14 +406,13 @@
 		E86606C215E90CAD00945242 /* segment_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment_bg@2x.png"; sourceTree = "<group>"; };
 		E86606C415E91EE800945242 /* back-btn-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-btn-down.png"; sourceTree = "<group>"; };
 		E86606C615E91EF900945242 /* back-btn-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-btn-down@2x.png"; sourceTree = "<group>"; };
-		E86F7F9315FA83E7007779FF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		E86F7F9415FA83E7007779FF /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
-		E86F7F9515FA83E7007779FF /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
-		E86F7F9615FA83E7007779FF /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
-		E86F7F9715FA83E7007779FF /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
-		E86F7F9815FA83E7007779FF /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
-		E86F7F9915FA83E7007779FF /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		E877A21D15E7CF9D00AB243A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E87AD8B515FAAB1D00096A19 /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
+		E87AD8B615FAAB1D00096A19 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		E87AD8B715FAAB1D00096A19 /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		E87AD8B815FAAB1D00096A19 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		E87AD8B915FAAB1D00096A19 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
+		E87AD8BA15FAAB1D00096A19 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
 		E88037BC15E7277C00B591CC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E88037D715E7400400B591CC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E880382415E7BB8800B591CC /* SOLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocationAnnotation.h; sourceTree = "<group>"; };
@@ -558,7 +556,7 @@
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				E86F7F9215FA83E7007779FF /* UIAlertView-Blocks */,
+				E87AD8B415FAAB0900096A19 /* UIAlertView+Blocks */,
 				E833EBD815ECFA0B007C1DB5 /* DAKeyboardControl */,
 			);
 			name = Vendor;
@@ -978,18 +976,17 @@
 			name = map;
 			sourceTree = "<group>";
 		};
-		E86F7F9215FA83E7007779FF /* UIAlertView-Blocks */ = {
+		E87AD8B415FAAB0900096A19 /* UIAlertView+Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				E86F7F9315FA83E7007779FF /* README.md */,
-				E86F7F9415FA83E7007779FF /* RIButtonItem.h */,
-				E86F7F9515FA83E7007779FF /* RIButtonItem.m */,
-				E86F7F9615FA83E7007779FF /* UIActionSheet+Blocks.h */,
-				E86F7F9715FA83E7007779FF /* UIActionSheet+Blocks.m */,
-				E86F7F9815FA83E7007779FF /* UIAlertView+Blocks.h */,
-				E86F7F9915FA83E7007779FF /* UIAlertView+Blocks.m */,
+				E87AD8B515FAAB1D00096A19 /* UIActionSheet+Blocks.m */,
+				E87AD8B615FAAB1D00096A19 /* UIAlertView+Blocks.m */,
+				E87AD8B715FAAB1D00096A19 /* UIActionSheet+Blocks.h */,
+				E87AD8B815FAAB1D00096A19 /* UIAlertView+Blocks.h */,
+				E87AD8B915FAAB1D00096A19 /* RIButtonItem.h */,
+				E87AD8BA15FAAB1D00096A19 /* RIButtonItem.m */,
 			);
-			path = "UIAlertView-Blocks";
+			name = "UIAlertView+Blocks";
 			sourceTree = "<group>";
 		};
 		E88037C415E73DE400B591CC /* SOLocation */ = {
@@ -1381,7 +1378,6 @@
 				E852B9D415EFED6400FD919A /* list-avatar-mo-nostar@2x.png in Resources */,
 				E8898B7F15F7EBDA00A1C975 /* avatar-square-jp@2x.png in Resources */,
 				E8898B8115F7EBE100A1C975 /* avatar-square-jp.png in Resources */,
-				E86F7F9A15FA83E7007779FF /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1462,9 +1458,9 @@
 				E8898B1415F6E98600A1C975 /* SOEventCell.m in Sources */,
 				E8898B1815F6EA3900A1C975 /* SOSpeakerCell.m in Sources */,
 				E8898B7315F7E01500A1C975 /* UIImage+SOAvatar.m in Sources */,
-				E86F7F9B15FA83E7007779FF /* RIButtonItem.m in Sources */,
-				E86F7F9C15FA83E7007779FF /* UIActionSheet+Blocks.m in Sources */,
-				E86F7F9D15FA83E7007779FF /* UIAlertView+Blocks.m in Sources */,
+				E87AD8BB15FAAB1D00096A19 /* UIActionSheet+Blocks.m in Sources */,
+				E87AD8BC15FAAB1D00096A19 /* UIAlertView+Blocks.m in Sources */,
+				E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
