@@ -979,12 +979,12 @@
 		E87AD8B415FAAB0900096A19 /* UIAlertView+Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				E87AD8B515FAAB1D00096A19 /* UIActionSheet+Blocks.m */,
-				E87AD8B615FAAB1D00096A19 /* UIAlertView+Blocks.m */,
-				E87AD8B715FAAB1D00096A19 /* UIActionSheet+Blocks.h */,
-				E87AD8B815FAAB1D00096A19 /* UIAlertView+Blocks.h */,
 				E87AD8B915FAAB1D00096A19 /* RIButtonItem.h */,
 				E87AD8BA15FAAB1D00096A19 /* RIButtonItem.m */,
+				E87AD8B815FAAB1D00096A19 /* UIAlertView+Blocks.h */,
+				E87AD8B615FAAB1D00096A19 /* UIAlertView+Blocks.m */,
+				E87AD8B715FAAB1D00096A19 /* UIActionSheet+Blocks.h */,
+				E87AD8B515FAAB1D00096A19 /* UIActionSheet+Blocks.m */,
 			);
 			name = "UIAlertView+Blocks";
 			sourceTree = "<group>";
