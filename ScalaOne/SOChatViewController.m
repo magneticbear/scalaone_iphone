@@ -349,8 +349,6 @@
                 
                 postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:_chatInputField.inputField.text forKey:@"status"] requestMethod:TWRequestMethodPOST];
                 
-                
-                
                 // Set the account used to post the tweet.
                 [postRequest setAccount:twitterAccount];
                 

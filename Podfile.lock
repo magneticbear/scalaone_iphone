@@ -3,6 +3,7 @@ PODS:
   - Bully (0.1.0):
     - SocketRocket
   - SDWebImage (2.6)
+  - SVProgressHUD (0.7)
   - SocketRocket (0.2.0)
   - TPKeyboardAvoiding (0.0.1)
 
@@ -10,4 +11,5 @@ DEPENDENCIES:
   - AFNetworking
   - Bully
   - SDWebImage
+  - SVProgressHUD
   - TPKeyboardAvoiding
