@@ -17,6 +17,9 @@
 #import "SOMessage.h"
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
+#import "SVProgressHUD.h"
+#import "UIAlertView+Blocks.h"
+#import "UIActionSheet+Blocks.h"
 
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
@@ -32,6 +35,7 @@
 @synthesize chatChannel;
 @synthesize chatTableView = _chatTableView;
 @synthesize chatInputField = _chatInputField;
+@synthesize twitterAccount = _twitterAccount;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +62,7 @@
                                                                self.view.bounds.size.height - SOChatInputFieldStandardHeight,
                                                                self.view.bounds.size.width,
                                                                SOChatInputFieldStandardHeight)];
+    
     _chatInputField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _chatInputField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
     _chatInputField.delegate = self;
@@ -70,9 +75,7 @@
         [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
     }];
     
-    if (DEMO) {
-        NSLog(@"DEMO");
-    } else {
+    if (!DEMO) {
         moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
         [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -208,6 +211,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Keyboard
+
 - (void)keyboardWillHide:(NSNotification *)notification {
 //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -280,22 +285,12 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"selected cell: %d",indexPath.row);
-}
-
-#pragma mark - SOChatInputFieldDelegate
-
-- (void)didChangeSOInputChatFieldSize:(CGSize)size {
-    [self updateLayoutWithKeyboardRect:CGRectNull onlyTable:YES];
-    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
-        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
-    }
+//    NSLog(@"selected cell: %d",indexPath.row);
 }
 
 #pragma mark - SOChatCellDelegate
 
 - (void)didSelectAvatar:(NSInteger)profileID {
-    NSLog(@"didSelectAvatar: %d",profileID);
     SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
     [self.navigationController pushViewController:profileVC animated:YES];
 }
@@ -325,11 +320,28 @@
     }
 }
 
+#pragma mark - SOChatInputFieldDelegate
+
+- (void)didChangeSOInputChatFieldSize:(CGSize)size {
+    [self updateLayoutWithKeyboardRect:CGRectNull onlyTable:YES];
+    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
+        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+    }
+}
+
+- (void)didPressSendWithText:(NSString *)text facebook:(BOOL)facebook twitter:(BOOL)twitter {
+    [self postStatus:text toTwitterAccount:_twitterAccount];
+}
+
+#pragma mark - Facebook
+
+- (void)didSelectFacebook {
+//    NSLog(@"didSelectFacebook");
+}
+
 #pragma mark - Twitter
 
-- (void)postToTwitter
-{
-    // Create an account store object.
+- (void)didSelectTwitter {
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     
     // Create an account type that ensures Twitter accounts are retrieved.
@@ -337,38 +349,96 @@
     
     // Request access from the user to use their Twitter accounts.
     [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        if(granted) {
+        if (granted) {
             // Get the list of Twitter accounts.
             NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-            
-            
-            if ([accountsArray count] > 0) {
-                // Grab the initial Twitter account to tweet from.
-                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
-                TWRequest *postRequest = nil;
-                
-                postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"] parameters:[NSDictionary dictionaryWithObject:_chatInputField.inputField.text forKey:@"status"] requestMethod:TWRequestMethodPOST];
-                
-                // Set the account used to post the tweet.
-                [postRequest setAccount:twitterAccount];
-                
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                        dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            if ([urlResponse statusCode] == 200) {
-                                NSLog(@"Tweet Succeeded");
-                            }else {
-                                NSLog(@"Tweet Failed");
-                            }
-                        });
-                    }];
-                });
-                
+            if (accountsArray.count > 1) {
+                [self performSelectorOnMainThread:@selector(populateSheetAndShow:) withObject:accountsArray waitUntilDone:NO];
+            } else if (accountsArray.count == 1) {
+                _twitterAccount = (ACAccount*)[accountsArray lastObject];
+                [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Linked Scala1 app with @%@",[(ACAccount*)accountsArray.lastObject username]] duration:2.0f];
+            } else {
+                [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
             }
-            else
-            {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
-            }
+        } else {
+            [self performSelectorOnMainThread:@selector(deselectTwitter) withObject:nil waitUntilDone:NO];
+        }
+    }];
+}
+
+- (void)deselectTwitter {
+    _chatInputField.twitterButton.highlighted = NO;
+    _chatInputField.shouldSendToTwitter = NO;
+}
+
+- (void)noTwitterAccounts {
+    [self deselectTwitter];
+    
+    RIButtonItem *noItem = [RIButtonItem itemWithLabel:@"No"];
+    
+    RIButtonItem *yesItem = [RIButtonItem itemWithLabel:@"Yes"];
+    yesItem.action = ^{ [self openTwitterSettings]; };
+    
+    UIAlertView *noTwitterAlert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts"
+                                                             message:@"You do not have any Twitter accounts linked with this iPhone. Would you like to link one now?"
+                                                    cancelButtonItem:noItem
+                                                    otherButtonItems:yesItem, nil];
+    [noTwitterAlert show];
+}
+
+- (void)openTwitterSettings {
+    // This works in 5.0/5.1/5.1.1; No known work-around for iOS 6
+    // Code from http://goto11.net/programmatically-open-twitter-settings-on-ios-5-1/
+    TWTweetComposeViewController *ctrl = [[TWTweetComposeViewController alloc] init];
+    if ([ctrl respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
+        // Manually invoke the alert view button handler
+        [(id <UIAlertViewDelegate>)ctrl alertView:nil clickedButtonAtIndex:0];
+    }
+}
+
+-(void)populateSheetAndShow:(NSArray *) accountsArray {
+    NSMutableArray *buttonsArray = [NSMutableArray array];
+    [accountsArray enumerateObjectsUsingBlock:^(ACAccount *account, NSUInteger idx, BOOL *stop) {
+        RIButtonItem *item = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"@%@",account.username]];
+        item.action = ^{ _twitterAccount = account; };
+        [buttonsArray addObject:item];
+    }];
+    
+    RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
+    cancelItem.action = ^{ [self deselectTwitter]; };
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil];
+    
+    for (RIButtonItem *item in buttonsArray) {
+        [actionSheet addButtonItem:item];
+    }
+    
+    [actionSheet addButtonItem:cancelItem];
+    [actionSheet setCancelButtonIndex:buttonsArray.count];
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)postStatus:(NSString*)status toTwitterAccount:(ACAccount*)account
+{
+    // Create an account store object.
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    ACAccount *requestAccount = [accountStore accountWithIdentifier:account.identifier];
+    
+    TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
+                                                 parameters:[NSDictionary dictionaryWithObject:status forKey:@"status"]
+                                              requestMethod:TWRequestMethodPOST];
+
+    // Set the account used to post the tweet.
+    [postRequest setAccount:requestAccount];
+    
+    // Send tweet
+    [SVProgressHUD showWithStatus:@"Sending tweet..." maskType:SVProgressHUDMaskTypeClear];
+    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        if ([urlResponse statusCode] == 200) {
+            [SVProgressHUD dismissWithSuccess:@"Tweet sent!"];
+        } else {
+            [SVProgressHUD dismissWithError:@"Could not send to Twitter"];
         }
     }];
 }

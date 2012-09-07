@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// Inspired by http://stackoverflow.com/a/1704469/373262
+
 #import "SOInputTextView.h"
 
 @implementation SOInputTextView

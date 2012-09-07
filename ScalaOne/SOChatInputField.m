@@ -126,6 +126,7 @@
 }
 
 - (void)didPressSend:(id)sender {
+    [_delegate didPressSendWithText:_inputField.text facebook:_shouldSendToFacebook twitter:_shouldSendToTwitter];
     _inputField.text = @"";
     [self textViewDidChange:_inputField];
     [_inputField resignFirstResponder];
@@ -175,21 +176,27 @@
     _sendButton.frame = sendFrame;
     _charactersLeft.frame = charactersFrame;
     
-    [self.delegate didChangeSOInputChatFieldSize:selfFrame.size];
+    [_delegate didChangeSOInputChatFieldSize:selfFrame.size];
     
     _charactersLeft.text = [NSString stringWithFormat:@"%d",140-_inputField.text.length];
 }
 
 - (void)didPressFacebook:(id)sender {
     _shouldSendToFacebook = !_shouldSendToFacebook;
-    if (_shouldSendToFacebook)
-        [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
+    
+    if (_shouldSendToFacebook) {
+        [_delegate didSelectFacebook];
+        [self performSelector:@selector(doHighlight:) withObject:_facebookButton afterDelay:0];
+    }
 }
 
 - (void)didPressTwitter:(id)sender {
     _shouldSendToTwitter = !_shouldSendToTwitter;
-    if (_shouldSendToTwitter)
-        [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
+    
+    if (_shouldSendToTwitter) {
+        [_delegate didSelectTwitter];
+        [self performSelector:@selector(doHighlight:) withObject:_twitterButton afterDelay:0];
+    }
 }
 
 - (void)doHighlight:(UIButton*)b {

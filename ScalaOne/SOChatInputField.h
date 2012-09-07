@@ -12,6 +12,9 @@
 @protocol SOInputChatFieldDelegate <NSObject>
 
 - (void)didChangeSOInputChatFieldSize:(CGSize)size;
+- (void)didPressSendWithText:(NSString*)text facebook:(BOOL)facebook twitter:(BOOL)twitter;
+- (void)didSelectFacebook;
+- (void)didSelectTwitter;
 
 @end
 
