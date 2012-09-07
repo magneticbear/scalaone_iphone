@@ -330,7 +330,7 @@
 }
 
 - (void)didPressSendWithText:(NSString *)text facebook:(BOOL)facebook twitter:(BOOL)twitter {
-    [self postStatus:text toTwitterAccount:_twitterAccount];
+    if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
 }
 
 #pragma mark - Facebook
@@ -347,8 +347,9 @@
     // Create an account type that ensures Twitter accounts are retrieved.
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
-    // Request access from the user to use their Twitter accounts.
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+    // Completion Handler for requestAccessToAccounts
+    void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
+        NSLog(@"granted: %d", granted);
         if (granted) {
             // Get the list of Twitter accounts.
             NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
@@ -361,9 +362,20 @@
                 [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
             }
         } else {
+            if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"6.0")) {
+                [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
+            }
             [self performSelectorOnMainThread:@selector(deselectTwitter) withObject:nil waitUntilDone:NO];
         }
-    }];
+    };
+    
+    // Request access from the user to use their Twitter accounts.
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:accountRequestCompletionHandler];
+    } else {
+//        Must be commented for compiling with Xcode 4.4.1
+        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:accountRequestCompletionHandler];
+    }
 }
 
 - (void)deselectTwitter {
@@ -374,13 +386,19 @@
 - (void)noTwitterAccounts {
     [self deselectTwitter];
     
+    if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"6.0")) {
+        UIAlertView *ios6Alert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts" message:@"You do not have any Twitter accounts linked with this iPhone.\n\nOpen iPhone Settings to create one." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [ios6Alert show];
+        return;
+    }
+    
     RIButtonItem *noItem = [RIButtonItem itemWithLabel:@"No"];
     
     RIButtonItem *yesItem = [RIButtonItem itemWithLabel:@"Yes"];
     yesItem.action = ^{ [self openTwitterSettings]; };
     
     UIAlertView *noTwitterAlert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts"
-                                                             message:@"You do not have any Twitter accounts linked with this iPhone. Would you like to link one now?"
+                                                             message:@"You do not have any Twitter accounts linked with this iPhone. Would you like exit this app and link one now?"
                                                     cancelButtonItem:noItem
                                                     otherButtonItems:yesItem, nil];
     [noTwitterAlert show];
