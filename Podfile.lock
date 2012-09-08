@@ -2,8 +2,17 @@ PODS:
   - AFNetworking (1.0RC1)
   - Bully (0.1.0):
     - SocketRocket
+  - Facebook-iOS-SDK (1.2):
+    - SBJson (= 2.2.3)
+  - Reachability (3.0.0)
+  - SBJson (2.2.3)
   - SDWebImage (2.6)
+  - SSKeychain (0.1.4)
   - SVProgressHUD (0.7)
+  - ShareKit/Facebook (2.0):
+    - Facebook-iOS-SDK (= 1.2)
+    - Reachability
+    - SSKeychain
   - SocketRocket (0.2.0)
   - TPKeyboardAvoiding (0.0.1)
 
@@ -12,4 +21,5 @@ DEPENDENCIES:
   - Bully
   - SDWebImage
   - SVProgressHUD
+  - ShareKit/Facebook
   - TPKeyboardAvoiding
