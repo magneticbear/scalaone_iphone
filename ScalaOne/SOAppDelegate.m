@@ -17,6 +17,7 @@
 
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation SOAppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -25,6 +26,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    Analytics
+    [Crashlytics startWithAPIKey:kSOCrashlyticsToken];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     

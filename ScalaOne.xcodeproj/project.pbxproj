@@ -62,6 +62,7 @@
 		E855B2CD15EB298100574B9C /* chat-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CB15EB298100574B9C /* chat-avatar-mo.png */; };
 		E855B2D015EB299200574B9C /* chat-avatar-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */; };
 		E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */; };
+		E86273E615FABF2A00780E7F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86273E515FABF2A00780E7F /* Crashlytics.framework */; };
 		E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE915E492D70063007F /* SOEventListViewController.m */; };
 		E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEA15E492D70063007F /* SOEventListViewController.xib */; };
 		E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */; };
@@ -291,6 +292,7 @@
 		E855B2CB15EB298100574B9C /* chat-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-mo.png"; sourceTree = "<group>"; };
 		E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-jp@2x.png"; sourceTree = "<group>"; };
 		E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-avatar-mo@2x.png"; sourceTree = "<group>"; };
+		E86273E515FABF2A00780E7F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E865EEE815E492D70063007F /* SOEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEventListViewController.h; sourceTree = "<group>"; };
 		E865EEE915E492D70063007F /* SOEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventListViewController.m; sourceTree = "<group>"; };
 		E865EEEA15E492D70063007F /* SOEventListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOEventListViewController.xib; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */,
 				E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */,
 				A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */,
+				E86273E615FABF2A00780E7F /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,6 +1054,7 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E86273E515FABF2A00780E7F /* Crashlytics.framework */,
 				E8EDE2E815F957CD00AB43B0 /* Accounts.framework */,
 				E8EDE2E215F9573E00AB43B0 /* Twitter.framework */,
 				E83E7F9415F687C7003E6FB4 /* CoreData.framework */,
@@ -1158,6 +1162,7 @@
 				E8A4FFB215E4377F00D10907 /* Frameworks */,
 				E8A4FFB315E4377F00D10907 /* Resources */,
 				19C21ADB1A414769BECE6958 /* Copy Pods Resources */,
+				E86273E315FABED500780E7F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1406,6 +1411,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 		};
+		E86273E315FABED500780E7F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run a7cfe0e9f97bd952cbbb9db6d0c452a722b8c1e0";
+		};
 		E8A4FFD415E4377F00D10907 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1538,6 +1556,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tindr Solutions Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tindr Solutions Inc.";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=0";
@@ -1620,6 +1642,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1639,6 +1665,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ScalaOne/ScalaOne-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEMO=0";

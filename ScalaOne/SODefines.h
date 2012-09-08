@@ -18,6 +18,10 @@
 #define SODispatchRelease(queue) dispatch_release(queue)
 #endif
 
+#pragma mark - Analytics
+
+extern NSString *const kSOCrashlyticsToken;
+
 #pragma mark - API
 
 extern NSString *const kSOAPIHost;

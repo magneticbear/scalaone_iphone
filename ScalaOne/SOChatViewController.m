@@ -349,7 +349,6 @@
     
     // Completion Handler for requestAccessToAccounts
     void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
-        NSLog(@"granted: %d", granted);
         if (granted) {
             // Get the list of Twitter accounts.
             NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];

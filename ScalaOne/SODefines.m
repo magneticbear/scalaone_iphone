@@ -8,6 +8,10 @@
 
 #import "SODefines.h"
 
+#pragma mark - Analytics
+
+NSString *const kSOCrashlyticsToken = @"";
+
 #pragma mark - API
 
 #if DEMO
@@ -16,7 +20,7 @@ NSString *const kSOAPIHost = @"https://scala1.herokuapp.com/"; // development
 NSString *const kSOAPIHost = @"http://108.166.87.233:9000/"; // production
 #endif
 
-NSString *const kSOPusherAPIKey = @"675f10a650f18b4eb0a8";
+NSString *const kSOPusherAPIKey = @"";
 
 #pragma mark - Misc
 
