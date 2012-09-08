@@ -346,7 +346,15 @@
 #pragma mark - Facebook
 
 - (void)didSelectFacebook {
-//    NSLog(@"didSelectFacebook");
+    if (![SHKFacebook isServiceAuthorized]) {
+        [self deselectFacebook];
+        [[[SHKFacebook alloc] init] authorize];
+    }
+}
+
+- (void)deselectFacebook {
+    _chatInputField.facebookButton.highlighted = NO;
+    _chatInputField.shouldSendToFacebook = NO;
 }
 
 - (void)postStatusToFacebook:(NSString*)status {
