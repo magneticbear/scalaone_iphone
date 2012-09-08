@@ -14,10 +14,11 @@
 #import "DAKeyboardControl.h"
 #import "SOChatInputField.h"
 #import "SOChatCell.h"
+#import "SHKSharer.h"
 
 @class BLYClient;
 
-@interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate, SOInputChatFieldDelegate, SOChatCellDelegate> {
+@interface SOChatViewController : SOViewController <BLYClientDelegate, UITableViewDataSource, UITableViewDelegate, SOInputChatFieldDelegate, SOChatCellDelegate, SHKSharerDelegate> {
     BLYClient *client;
     BLYChannel *chatChannel;
     SOChatInputField *chatInputField;

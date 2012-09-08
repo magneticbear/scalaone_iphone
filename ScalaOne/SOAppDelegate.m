@@ -18,6 +18,9 @@
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
 #import <Crashlytics/Crashlytics.h>
+#import "SHKConfiguration.h"
+#import "SOShareKitConfigurator.h"
+#import "SHKFacebook.h"
 
 @implementation SOAppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -60,6 +63,11 @@
 //    Launch app
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
+    
+//    Configure ShareKit
+    DefaultSHKConfigurator *configurator = [[SOShareKitConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    
     return YES;
 }
 
@@ -144,6 +152,17 @@
 // Returns the URL to the application's Documents directory.
 - (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - Facebook
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [SHKFacebook handleOpenURL:url];
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation{
+    return [SHKFacebook handleOpenURL:url];
 }
 
 @end

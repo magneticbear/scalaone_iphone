@@ -18,21 +18,12 @@
 #define SODispatchRelease(queue) dispatch_release(queue)
 #endif
 
-#pragma mark - Analytics
-
 extern NSString *const kSOCrashlyticsToken;
 
-#pragma mark - API
-
 extern NSString *const kSOAPIHost;
+
 extern NSString *const kSOPusherAPIKey;
 
-#pragma mark - Misc
-
-extern NSString *const kSOKeychainServiceName;
-
-#pragma mark - Notifications
-
-extern NSString *const kSODidGetMessageNotificationName;
+extern NSString *const kSOFacebookAppId;
 
 #endif

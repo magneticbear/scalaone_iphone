@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Queue sending operations (Twitter, Facebook, Message)
+
+// TODO (Optional): SVProgressHUD extension to allow queuing and changing status lines
 // TODO (Optional): Add day separators
 // TODO (Optional): Remove new cell animation on keyboard dismiss
 // TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard
@@ -20,9 +23,15 @@
 #import "SVProgressHUD.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
+#import "SHKFacebook.h"
 
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
+
+@implementation SHKFacebook(Autoshare)
+- (BOOL)shouldAutoShare { return YES; }
+- (BOOL)quiet { return YES; };
+@end
 
 @interface SOChatViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
@@ -331,12 +340,54 @@
 
 - (void)didPressSendWithText:(NSString *)text facebook:(BOOL)facebook twitter:(BOOL)twitter {
     if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
+    if (facebook) [self postStatusToFacebook:text];
 }
 
 #pragma mark - Facebook
 
 - (void)didSelectFacebook {
 //    NSLog(@"didSelectFacebook");
+}
+
+- (void)postStatusToFacebook:(NSString*)status {
+    [SVProgressHUD showWithStatus:@"Sending to Facebook..."];
+    SHKSharer *sharer = [SHKFacebook shareText:@"testing app - sharing text - please ignore"];
+    sharer.shareDelegate = self;
+}
+
+- (void)sharerFinishedSending:(SHKSharer *)sharer
+{
+    [SVProgressHUD dismissWithSuccess:@"Successfully sent to Facebook!"];
+}
+
+- (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
+{
+    [SVProgressHUD dismiss];
+    
+    //if user sent the item already but needs to relogin we do not show alert
+    if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend)
+	{
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
+									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
+						   otherButtonTitles:nil] show];
+    }
+    if (shouldRelogin) {
+        [sharer promptAuthorization];
+	}
+}
+
+- (void)sharerStartedSending:(SHKSharer *)sharer {
+    NSLog(@"sharerStartedSending");
+}
+
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success {
+    NSLog(@"sharerAuthDidFinish");
+}
+
+- (void)sharerCancelledSending:(SHKSharer *)sharer {
+    NSLog(@"sharerCancelledSending");
 }
 
 #pragma mark - Twitter

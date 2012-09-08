@@ -16,6 +16,7 @@
 		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
 		E808E2E715EEAA3200B0BA69 /* profile-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */; };
 		E808E2E915EEAA5300B0BA69 /* profile-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */; };
+		E809023E15FB00E100FAFD58 /* SOShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = E809023D15FB00E100FAFD58 /* SOShareKitConfigurator.m */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
 		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
 		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
@@ -239,6 +240,8 @@
 		E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on@2x.png"; sourceTree = "<group>"; };
 		E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo.png"; sourceTree = "<group>"; };
 		E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo@2x.png"; sourceTree = "<group>"; };
+		E809023C15FB00E100FAFD58 /* SOShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOShareKitConfigurator.h; sourceTree = "<group>"; };
+		E809023D15FB00E100FAFD58 /* SOShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOShareKitConfigurator.m; sourceTree = "<group>"; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		E80A0A4F15EBDB71005E637D /* chat-input-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field.png"; sourceTree = "<group>"; };
@@ -532,6 +535,7 @@
 		E808E2CC15EE992D00B0BA69 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E809023715FB009200FAFD58 /* SOShareKitConfigurator */,
 				E83E7F3415F64823003E6FB4 /* Model */,
 				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E842CC1D15E6887B00B40B33 /* SODefines */,
@@ -554,6 +558,15 @@
 				E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */,
 			);
 			name = profile;
+			sourceTree = "<group>";
+		};
+		E809023715FB009200FAFD58 /* SOShareKitConfigurator */ = {
+			isa = PBXGroup;
+			children = (
+				E809023C15FB00E100FAFD58 /* SOShareKitConfigurator.h */,
+				E809023D15FB00E100FAFD58 /* SOShareKitConfigurator.m */,
+			);
+			name = SOShareKitConfigurator;
 			sourceTree = "<group>";
 		};
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
@@ -1479,6 +1492,7 @@
 				E87AD8BB15FAAB1D00096A19 /* UIActionSheet+Blocks.m in Sources */,
 				E87AD8BC15FAAB1D00096A19 /* UIAlertView+Blocks.m in Sources */,
 				E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */,
+				E809023E15FB00E100FAFD58 /* SOShareKitConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
