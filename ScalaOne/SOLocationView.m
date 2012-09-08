@@ -112,13 +112,19 @@
 
 - (void)setLayerProperties {
     shapeLayer = [ShadowShapeLayer layer];
-    shapeLayer.path = [self bubbleWithRect:self.bounds andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
+    CGPathRef shapeLayerPath = [self newBubbleWithRect:self.bounds andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
+    shapeLayer.path = shapeLayerPath;
+    CGPathRelease(shapeLayerPath);
     
     //Fill Callout Bubble & Add Shadow
     shapeLayer.fillColor = [[UIColor blackColor] colorWithAlphaComponent:1].CGColor;
     
     strokeAndShadowLayer = [CAShapeLayer layer];
-    strokeAndShadowLayer.path = [self bubbleWithRect:self.bounds];
+    
+    CGPathRef strokeAndShadowLayerPath = [self newBubbleWithRect:self.bounds];
+    strokeAndShadowLayer.path = strokeAndShadowLayerPath;
+    CGPathRelease(strokeAndShadowLayerPath);
+    
     strokeAndShadowLayer.fillColor = [UIColor clearColor].CGColor;
     
     if (SOLocationViewShadowVisible) {
@@ -147,7 +153,7 @@
     [self.layer insertSublayer:strokeAndShadowLayer atIndex:0];
 }
 
-- (CGPathRef)bubbleWithRect:(CGRect)rect {
+- (CGPathRef)newBubbleWithRect:(CGRect)rect {
     CGFloat stroke = 1.0;
 	CGFloat radius = 7.0;
 	CGMutablePathRef path = CGPathCreateMutable();
@@ -176,9 +182,9 @@
     return path;
 }
 
-- (CGPathRef)bubbleWithRect:(CGRect)rect andOffset:(CGSize)offset {
+- (CGPathRef)newBubbleWithRect:(CGRect)rect andOffset:(CGSize)offset {
     CGRect offsetRect = CGRectMake(rect.origin.x+offset.width, rect.origin.y+offset.height, rect.size.width, rect.size.height);
-    return [self bubbleWithRect:offsetRect];
+    return [self newBubbleWithRect:offsetRect];
 }
 
 - (void)expand {
@@ -229,19 +235,25 @@
     animation.duration = SOLocationViewAnimationDuration;
     
 //    Stroke & Shadow From/To Values
-    animation.fromValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
-    (__bridge id)[self bubbleWithRect:standardRect] : (__bridge id)[self bubbleWithRect:largeRect];
+    CGPathRef fromPath = (animationDirection == SOLocationViewAnimationDirectionGrow) ? [self newBubbleWithRect:standardRect] : [self newBubbleWithRect:largeRect];
+    animation.fromValue = (__bridge id)fromPath;
+    CGPathRelease(fromPath);
     
-    animation.toValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
-    (__bridge id)[self bubbleWithRect:largeRect] : (__bridge id)[self bubbleWithRect:standardRect];
+    CGPathRef toPath = (animationDirection == SOLocationViewAnimationDirectionGrow) ? [self newBubbleWithRect:largeRect] : [self newBubbleWithRect:standardRect];
+    animation.toValue = (__bridge id)toPath;
+    CGPathRelease(toPath);
+    
     [strokeAndShadowLayer addAnimation:animation forKey:animation.keyPath];
     
 //    ShapeLayer From/To Values
-    animation.fromValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
-    (__bridge id)[self bubbleWithRect:standardRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)] : (__bridge id)[self bubbleWithRect:largeRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
+    fromPath = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
+    [self newBubbleWithRect:standardRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)] : [self newBubbleWithRect:largeRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
+    animation.fromValue = (__bridge id)fromPath;
+    CGPathRelease(fromPath);
     
-    animation.toValue = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
-    (__bridge id)[self bubbleWithRect:largeRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)] : (__bridge id)[self bubbleWithRect:standardRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
+    toPath = (animationDirection == SOLocationViewAnimationDirectionGrow) ? [self newBubbleWithRect:largeRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)] : [self newBubbleWithRect:standardRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
+    animation.toValue = (__bridge id)toPath;
+    CGPathRelease(toPath);
     [shapeLayer addAnimation:animation forKey:animation.keyPath];
 }
 
