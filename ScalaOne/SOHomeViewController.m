@@ -39,42 +39,42 @@
 }
 
 - (IBAction)pushEventListVC:(id)sender {
-    SOEventListViewController *eventListVC = [[SOEventListViewController alloc] initWithNibName:@"SOEventListViewController" bundle:nil];
+    SOEventListViewController *eventListVC = [[SOEventListViewController alloc] init];
     [self.navigationController pushViewController:eventListVC animated:YES];
 }
 
 - (IBAction)pushSpeakerListVC:(id)sender {
-    SOSpeakerListViewController *speakerListVC = [[SOSpeakerListViewController alloc] initWithNibName:@"SOSpeakerListViewController" bundle:nil];
+    SOSpeakerListViewController *speakerListVC = [[SOSpeakerListViewController alloc] init];
     [self.navigationController pushViewController:speakerListVC animated:YES];
 }
 
 - (IBAction)pushFavoritesVC:(id)sender {
-    SOFavoritesViewController *favoritesVC = [[SOFavoritesViewController alloc] initWithNibName:@"SOFavoritesViewController" bundle:nil];
+    SOFavoritesViewController *favoritesVC = [[SOFavoritesViewController alloc] init];
     [self.navigationController pushViewController:favoritesVC animated:YES];
 }
 
 - (IBAction)pushProfileVC:(id)sender {
-    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
+    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithMe];
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 - (IBAction)pushChatVC:(id)sender {
-    SOChatViewController *chatVC = [[SOChatViewController alloc] initWithNibName:@"SOChatViewController" bundle:nil];
+    SOChatViewController *chatVC = [[SOChatViewController alloc] init];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (IBAction)pushMapVC:(id)sender {
-    SOMapViewController *mapVC = [[SOMapViewController alloc] initWithNibName:@"SOMapViewController" bundle:nil];
+    SOMapViewController *mapVC = [[SOMapViewController alloc] init];
     [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 - (IBAction)pushPlaygroundVC:(id)sender {
-    SOWebViewController *playgroundVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:@"Playground" url:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]];
+    SOWebViewController *playgroundVC = [[SOWebViewController alloc] initWithTitle:@"Playground" url:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]];
     [self.navigationController pushViewController:playgroundVC animated:YES];
 }
 
 - (IBAction)pushAboutVC:(id)sender {
-    SOWebViewController *aboutVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:@"About Scala1" url:[NSURL URLWithString:kSOAPIHost]];
+    SOWebViewController *aboutVC = [[SOWebViewController alloc] initWithTitle:@"About Scala1" url:[NSURL URLWithString:kSOAPIHost]];
     [self.navigationController pushViewController:aboutVC animated:YES];
 }
 

@@ -11,17 +11,17 @@
 
 #import "SOProfileViewController.h"
 #import "SOProfileInfoCell.h"
-
-#define kCellIdentifier @"infoCell"
-#define kIsMyProfile    TRUE
+#import "SOChatViewController.h"
 
 @interface SOProfileViewController ()
-    @property (nonatomic, strong) NSArray *profileCellHeaders;
-    @property (nonatomic, strong) NSArray *profileCellContents;
-    @property (nonatomic, strong) NSArray *profileCellContentPlaceholders;
+@property (nonatomic, strong) NSArray *profileCellHeaders;
+@property (nonatomic, strong) NSArray *profileCellContents;
+@property (nonatomic, strong) NSArray *profileCellContentPlaceholders;
 @end
 
-@implementation SOProfileViewController
+@implementation SOProfileViewController {
+    BOOL isMyProfile;
+}
 @synthesize tableView = _tableView;
 @synthesize nameBox = _nameBox;
 @synthesize avatarEditImg = _avatarEditImg;
@@ -29,11 +29,22 @@
 @synthesize profileCellContents = _profileCellContents;
 @synthesize profileCellContentPlaceholders = _profileCellContentPlaceholders;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithUser:(SOUser *)user
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.title = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
+        isMyProfile = NO;
+    }
+    return self;
+}
+
+- (id)initWithMe
+{
+    self = [super init];
+    if (self) {
+        self.title = @"My Profile";
+        isMyProfile = YES;
     }
     return self;
 }
@@ -42,10 +53,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"My Profile";
     
 //    Right bar button
-    NSString *rightButtonTitle = kIsMyProfile ? @"Edit" : @"Meet up";
+    NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Meet up";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
@@ -79,13 +89,22 @@
 }
 
 - (void)didPressRightButton:(id)sender {
+    if (isMyProfile) {
+        [self toggleEditing];
+    } else {
+        SOChatViewController *chatVC = [[SOChatViewController alloc] init];
+        [self.navigationController pushViewController:chatVC animated:YES];
+    }
+}
+
+- (void)toggleEditing {
     BOOL editing = !_tableView.editing;
     
-//    Reload table in editing mode
+    //    Reload table in editing mode
     _tableView.editing = editing;
     [_tableView reloadData];
     
-//    Show/hide Cancel button
+    //    Show/hide Cancel button
     if (editing) {
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
         self.navigationItem.leftBarButtonItem = leftButton;
@@ -95,11 +114,11 @@
     
     self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
     
-//    Show/Hide name box and avatar edit image
+    //    Show/Hide name box and avatar edit image
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
     
-//    Dismiss keyboard on done editing
+    //    Dismiss keyboard on done editing
     [self.view endEditing:!editing];
 }
 
@@ -117,10 +136,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SOProfileInfoCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    SOProfileInfoCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"infoCell"];
     
     if (cell == nil || TRUE) {
-        cell = [[SOProfileInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
+        cell = [[SOProfileInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"infoCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

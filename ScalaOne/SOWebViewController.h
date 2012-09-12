@@ -14,12 +14,12 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL;
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID;
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL eventID:(NSInteger)aEventID;
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL eventID:(NSInteger)aEventID;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID eventID:(NSInteger)aEventID;
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID eventID:(NSInteger)aEventID;
 
 @end

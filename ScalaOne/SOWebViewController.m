@@ -25,22 +25,22 @@
 
 #pragma mark - Init
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL
 {
-    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil title:aTitle url:aURL speakerID:-1 eventID:-1];
+    return [self initWithTitle:aTitle url:aURL speakerID:-1 eventID:-1];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID {
-    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil title:aTitle url:aURL speakerID:aSpeakerID eventID:-1];
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID {
+    return [self initWithTitle:aTitle url:aURL speakerID:aSpeakerID eventID:-1];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL eventID:(NSInteger)aEventID {
-    return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil title:aTitle url:aURL speakerID:-1 eventID:aEventID];
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL eventID:(NSInteger)aEventID {
+    return [self initWithTitle:aTitle url:aURL speakerID:-1 eventID:aEventID];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil title:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID eventID:(NSInteger)aEventID
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID eventID:(NSInteger)aEventID
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
         // Custom initialization
         self.title = aTitle;

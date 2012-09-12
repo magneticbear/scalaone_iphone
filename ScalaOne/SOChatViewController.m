@@ -46,15 +46,6 @@
 @synthesize chatInputField = _chatInputField;
 @synthesize twitterAccount = _twitterAccount;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -291,7 +282,11 @@
 #pragma mark - SOChatCellDelegate
 
 - (void)didSelectAvatar:(NSInteger)profileID {
-    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+    SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    user.firstName = @"John";
+    user.lastName = @"Doe";
+    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithUser:user];
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 

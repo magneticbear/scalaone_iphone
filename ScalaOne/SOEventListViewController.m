@@ -25,15 +25,6 @@
 @synthesize searchBar = _searchBar;
 @synthesize events = _events;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -175,7 +166,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-    SOWebViewController *eventVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:event.title url:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]] eventID:event.remoteID.integerValue];
+    SOWebViewController *eventVC = [[SOWebViewController alloc] initWithTitle:event.title url:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]] eventID:event.remoteID.integerValue];
     [self.navigationController pushViewController:eventVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

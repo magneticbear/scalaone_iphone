@@ -36,7 +36,7 @@
     // Override point for customization after application launch.
     
 //    Configure navigation controller
-    navController = [[UINavigationController alloc] initWithRootViewController:[[SOHomeViewController alloc] initWithNibName:@"SOHomeViewController" bundle:nil]];
+    navController = [[UINavigationController alloc] initWithRootViewController:[[SOHomeViewController alloc] init]];
     
 ////////////////////////
 //    UIAppearance
@@ -74,7 +74,7 @@
 #pragma mark - Local URLs
 
 - (void)showProfile:(NSInteger)profileID {
-    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithNibName:@"SOProfileViewController" bundle:nil];
+    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithMe];
     [navController pushViewController:profileVC animated:YES];
 }
 

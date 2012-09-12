@@ -32,15 +32,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 @synthesize currentAvatar = _currentAvatar;
 @synthesize alphabet = _alphabet;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -219,7 +210,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
-    SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithNibName:@"SOWebViewController" bundle:nil title:speaker.name url:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,speaker.remoteID.integerValue]] speakerID:speaker.remoteID.integerValue];
+    SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithTitle:speaker.name url:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,speaker.remoteID.integerValue]] speakerID:speaker.remoteID.integerValue];
     [self.navigationController pushViewController:speakerVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
