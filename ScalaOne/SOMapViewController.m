@@ -116,7 +116,9 @@
 }
 
 - (void)didPressLocateMe:(id)sender {
-    [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+    if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
+        [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+    }
 }
 
 - (void)getMapPins {

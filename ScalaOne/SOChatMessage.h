@@ -12,9 +12,9 @@
 
 @property (nonatomic, retain) NSString* text;
 @property (atomic) NSInteger senderID;
-@property (nonatomic, retain) NSDate *dateSent;
+@property (nonatomic, retain) NSString* channel;
 
-- (id)initWithText:(NSString *)aText senderID:(NSInteger)aSenderID date:(NSDate *)aDate;
-+ (SOChatMessage *)messageWithText:(NSString *)aText senderID:(NSInteger)aSenderID date:(NSDate *)aDate;
+- (id)initWithText:(NSString *)aText senderID:(NSInteger)aSenderID channel:(NSString *)aChannel;
++ (SOChatMessage *)messageWithText:(NSString *)aText senderID:(NSInteger)aSenderID channel:(NSString*)aChannel;
 
 @end

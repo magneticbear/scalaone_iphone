@@ -12,20 +12,20 @@
 
 @synthesize text = _text;
 @synthesize senderID = _senderID;
-@synthesize dateSent = _dateSent;
+@synthesize channel = _channel;
 
-- (id)initWithText:(NSString *)aText senderID:(NSInteger)aSenderID date:(NSDate *)aDate {
+- (id)initWithText:(NSString *)aText senderID:(NSInteger)aSenderID channel:(NSString *)aChannel {
     self = [super init];
     if (self) {
         _text = aText;
         _senderID = aSenderID;
-        _dateSent = aDate;
+        _channel = aChannel;
     }
     return self;
 }
 
-+ (SOChatMessage *)messageWithText:(NSString *)aText senderID:(NSInteger)aSenderID date:(NSDate *)aDate {
-    return [[self alloc] initWithText:aText senderID:aSenderID date:aDate];
++ (SOChatMessage *)messageWithText:(NSString *)aText senderID:(NSInteger)aSenderID channel:(NSString *)aChannel {
+    return [[self alloc] initWithText:aText senderID:aSenderID channel:aChannel];
 }
 
 @end

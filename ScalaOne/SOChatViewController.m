@@ -86,53 +86,7 @@
     
     if (!DEMO) {
         moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
-                    NSArray *messages = [[responseDict objectForKey:@"result"] objectForKey:@"messages"];
-                    
-                    for (NSDictionary *messageDict in messages) {
-                        
-                        SOMessage* message = nil;
-                        
-                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-                        
-                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:moc];
-                        [request setEntity:entity];
-                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"messageID == %d", [[messageDict objectForKey:@"id"] intValue]];
-                        [request setPredicate:searchFilter];
-                        
-                        NSArray *results = [moc executeFetchRequest:request error:nil];
-                        
-                        if (results.count > 0) {
-                            message = [results lastObject];
-                        } else {
-                            message = [NSEntityDescription insertNewObjectForEntityForName:@"Message" inManagedObjectContext:moc];
-                        }
-                        
-                        message.senderName = [messageDict objectForKey:@"senderName"];
-                        message.senderID = [NSNumber numberWithInt:[[messageDict objectForKey:@"senderId"] intValue]];
-                        message.messageID = [NSNumber numberWithInt:[[messageDict objectForKey:@"id"] intValue]];
-                        message.text = [messageDict objectForKey:@"content"];
-                        message.messageIndex = [NSNumber numberWithInt:[[messageDict objectForKey:@"index"] intValue]];
-                        
-                        // Date
-                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
-                        message.sent = [df dateFromString:(NSString*)[messageDict objectForKey:@"sentTime"]];
-                    }
-                    
-                    NSError *error = nil;
-                    if ([moc hasChanges] && ![moc save:&error]) {
-                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                    }
-                }
-            });
-        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"getMessages failed");
-            });
-        }];
+        [self getMessages];
         
         [self resetAndFetch];
         
@@ -160,20 +114,57 @@
 //            });
 //        }];
 //        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
-//            SOChatMessage *message = [SOChatMessage messageWithText:@"Message from SOChatMessage class" senderID:123456 date:[NSDate date]];
-//            
-//            [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
-//                });
-//            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    NSLog(@"postMessage failed");
-//                });
-//            }];
-//        });
     }
+}
+
+- (void)getMessages {
+    [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSArray *messages = [[responseDict objectForKey:@"result"] objectForKey:@"messages"];
+                
+                for (NSDictionary *messageDict in messages) {
+                    
+                    SOMessage* message = nil;
+                    
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Message" inManagedObjectContext:moc];
+                    [request setEntity:entity];
+                    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"messageID == %d", [[messageDict objectForKey:@"id"] intValue]];
+                    [request setPredicate:searchFilter];
+                    
+                    NSArray *results = [moc executeFetchRequest:request error:nil];
+                    
+                    if (results.count > 0) {
+                        message = [results lastObject];
+                    } else {
+                        message = [NSEntityDescription insertNewObjectForEntityForName:@"Message" inManagedObjectContext:moc];
+                    }
+                    
+                    message.senderName = [messageDict objectForKey:@"senderName"];
+                    message.senderID = [NSNumber numberWithInt:[[messageDict objectForKey:@"senderId"] intValue]];
+                    message.messageID = [NSNumber numberWithInt:[[messageDict objectForKey:@"id"] intValue]];
+                    message.text = [messageDict objectForKey:@"content"];
+                    message.messageIndex = [NSNumber numberWithInt:[[messageDict objectForKey:@"index"] intValue]];
+                    
+                    // Date
+                    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                    message.sent = [df dateFromString:(NSString*)[messageDict objectForKey:@"sentTime"]];
+                }
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"getMessages failed");
+        });
+    }];
 }
 
 - (void)updateLayoutWithKeyboardRect:(CGRect)keyboardFrameInView onlyTable:(BOOL)onlyTable {
@@ -339,8 +330,24 @@
 }
 
 - (void)didPressSendWithText:(NSString *)text facebook:(BOOL)facebook twitter:(BOOL)twitter {
-    if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
-    if (facebook) [self postStatusToFacebook:text];
+//    if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
+//    if (facebook) [self postStatusToFacebook:text];
+    SOChatMessage *message = [SOChatMessage messageWithText:text senderID:2 channel:@"general"];
+    
+    [SVProgressHUD showWithStatus:@"Sending message..."];
+    [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+            [SVProgressHUD dismiss];
+            [self getMessages];
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"postMessage failed");
+            [SVProgressHUD showErrorWithStatus:@"Message couldn't be sent. Please try again later."];
+            [self getMessages];
+        });
+    }];
 }
 
 #pragma mark - Facebook
@@ -432,7 +439,7 @@
         [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:accountRequestCompletionHandler];
     } else {
 //        Must be commented for compiling with Xcode 4.4.1
-        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:accountRequestCompletionHandler];
+//        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:accountRequestCompletionHandler];
     }
 }
 
