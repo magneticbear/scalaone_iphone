@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Swap SHKFacebook for iOS 6 Facebook
 // TODO: Queue sending operations (Twitter, Facebook, Message)
+// TODO: Show message when no messages are present
 
 // TODO (Optional): SVProgressHUD extension to allow queuing and changing status lines
 // TODO (Optional): Add day separators
