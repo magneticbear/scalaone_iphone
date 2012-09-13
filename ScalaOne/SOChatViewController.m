@@ -25,15 +25,11 @@
 #import "SVProgressHUD.h"
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
-#import "SHKFacebook.h"
 
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
 
-@implementation SHKFacebook(Autoshare)
-- (BOOL)shouldAutoShare { return YES; }
-- (BOOL)quiet { return YES; };
-@end
+#define kSOSimultaneousMessage          FALSE
 
 @interface SOChatViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
@@ -47,6 +43,7 @@
 @synthesize chatTableView = _chatTableView;
 @synthesize chatInputField = _chatInputField;
 @synthesize twitterAccount = _twitterAccount;
+@synthesize facebookAccount = _facebookAccount;
 
 - (void)viewDidLoad
 {
@@ -56,20 +53,20 @@
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-//    Keyboard show/hide notifications
+    //    Keyboard show/hide notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     _chatInputField = [[SOChatInputField alloc] initWithFrame:CGRectMake(0.0f,
-                                                               self.view.bounds.size.height - SOChatInputFieldStandardHeight,
-                                                               self.view.bounds.size.width,
-                                                               SOChatInputFieldStandardHeight)];
+                                                                         self.view.bounds.size.height - SOChatInputFieldStandardHeight,
+                                                                         self.view.bounds.size.width,
+                                                                         SOChatInputFieldStandardHeight)];
     
     _chatInputField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _chatInputField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
     _chatInputField.delegate = self;
     [self.view addSubview:_chatInputField];
-        
+    
     self.view.keyboardTriggerOffset = SOChatInputFieldExpandedHeight;
     
     __weak SOChatViewController *ref = self;
@@ -83,30 +80,30 @@
         
         [self resetAndFetch];
         
-////////////////////////
-//        Pusher
-////////////////////////
+        ////////////////////////
+        //        Pusher
+        ////////////////////////
         
-//        client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
-//        chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
-//        [chatChannel bindToEvent:@"new_message" block:^(id message) {
-//            NSLog(@"New message: %@", message);
-//        }];
+        //        client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
+        //        chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
+        //        [chatChannel bindToEvent:@"new_message" block:^(id message) {
+        //            NSLog(@"New message: %@", message);
+        //        }];
         
-////////////////////////
-//        Sinatra Backend
-////////////////////////
+        ////////////////////////
+        //        Sinatra Backend
+        ////////////////////////
         
-//        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
-//            });
-//        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSLog(@"getMessages failed");
-//            });
-//        }];
-//        
+        //        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        //                NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+        //            });
+        //        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        //                NSLog(@"getMessages failed");
+        //            });
+        //        }];
+        //
     }
 }
 
@@ -161,7 +158,7 @@
 }
 
 - (void)updateLayoutWithKeyboardRect:(CGRect)keyboardFrameInView onlyTable:(BOOL)onlyTable {
-//    Update input field frame
+    //    Update input field frame
     CGRect chatInputFieldFrame = _chatInputField.frame;
     if (!onlyTable) {
         CGFloat inputFramePanConstant = (SOChatInputFieldExpandedHeight - SOChatInputFieldStandardHeight)/216.0f;
@@ -174,7 +171,7 @@
         _chatInputField.inputField.selectedTextRange = nil;
     }
     
-//    Update tableView frame
+    //    Update tableView frame
     CGRect tableViewRect = _chatTableView.frame;
     tableViewRect.size.height = chatInputFieldFrame.origin.y;
     _chatTableView.frame = tableViewRect;
@@ -207,7 +204,7 @@
 #pragma mark - Keyboard
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-//    Show navBar
+    //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
         [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
@@ -215,7 +212,7 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-//    Hide navBar
+    //    Hide navBar
     double delayInSeconds = 0.33f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -240,7 +237,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *const cellIdentifier = @"cellIdentifier";
-
+    
     SOChatCell *cell = (SOChatCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[SOChatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
@@ -263,10 +260,10 @@
          [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
                         delegate:self
                          options:0
-                         success:^(UIImage *image) {
+                         success:^(UIImage *image, BOOL cached) {
                              [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
                          } failure:^(NSError *error) {
-//                             NSLog(@"Image retrieval failed");
+                             //                             NSLog(@"Image retrieval failed");
                          }];
     }
     
@@ -278,7 +275,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"selected cell: %d",indexPath.row);
+    //    NSLog(@"selected cell: %d",indexPath.row);
 }
 
 #pragma mark - SOChatCellDelegate
@@ -327,20 +324,19 @@
 }
 
 - (void)didPressSendWithText:(NSString *)text facebook:(BOOL)facebook twitter:(BOOL)twitter {
-//    if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
-//    if (facebook) [self postStatusToFacebook:text];
+    if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
+    if (facebook) [self postStatusToFacebook:text];
+    
     SOChatMessage *message = [SOChatMessage messageWithText:text senderID:2 channel:@"general"];
     
     [SVProgressHUD showWithStatus:@"Sending message..."];
     [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
-//            NSLog(@"postMessage succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
             [SVProgressHUD dismiss];
             [self getMessages];
         });
     } failure:^(AFJSONRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-//            NSLog(@"postMessage failed");
             [SVProgressHUD showErrorWithStatus:@"Message couldn't be sent. Please try again later."];
             [self getMessages];
         });
@@ -350,9 +346,33 @@
 #pragma mark - Facebook
 
 - (void)didSelectFacebook {
-    if (![SHKFacebook isServiceAuthorized]) {
-        [self deselectFacebook];
-        [[[SHKFacebook alloc] init] authorize];
+    if (kSOSimultaneousMessage) {
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        
+        // Create an account type that ensures Facebook accounts are retrieved.
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+        
+        // Completion Handler for requestAccessToAccounts
+        void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
+            if (granted) {
+                // Get the list of Facebook accounts.
+                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+                if (accountsArray.count) {
+                    for (ACAccount *account in accountsArray) {
+                        NSLog(@"account.username: %@",account.username);
+                    }
+                    _facebookAccount = (ACAccount*)[accountsArray lastObject];
+                    [SVProgressHUD showSuccessWithStatus:@"Linked Scala1 app with Facebook"];
+                }
+            } else {
+                [self performSelectorOnMainThread:@selector(noFacebookAccounts) withObject:nil waitUntilDone:NO];
+            }
+        };
+        
+        NSDictionary *facebookOptions = @{ACFacebookAppIdKey: kSOFacebookAppId,ACFacebookPermissionsKey: @[@"publish_stream"],ACFacebookAudienceKey: ACFacebookAudienceFriends};
+        
+        // Request access from the user to use their Facebook accounts.
+        [accountStore requestAccessToAccountsWithType:accountType options:facebookOptions completion:accountRequestCompletionHandler];
     }
 }
 
@@ -361,82 +381,71 @@
     _chatInputField.shouldSendToFacebook = NO;
 }
 
-- (void)postStatusToFacebook:(NSString*)status {
-    [SVProgressHUD showWithStatus:@"Sending to Facebook..."];
-    SHKSharer *sharer = [SHKFacebook shareText:@"testing app - sharing text - please ignore"];
-    sharer.shareDelegate = self;
-}
-
-- (void)sharerFinishedSending:(SHKSharer *)sharer
-{
-    [SVProgressHUD dismissWithSuccess:@"Successfully sent to Facebook!"];
-}
-
-- (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
-{
-    [SVProgressHUD dismiss];
+- (void)noFacebookAccounts {
+    [self deselectFacebook];
     
-    //if user sent the item already but needs to relogin we do not show alert
-    if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend)
-	{
-		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
-									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
-									delegate:nil
-						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] show];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+        UIAlertView *ios6Alert = [[UIAlertView alloc] initWithTitle:@"No Facebook Account" message:@"You have not yet linked a Facebook account with this iPhone.\n\nOpen iPhone Settings to do so." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [ios6Alert show];
     }
-    if (shouldRelogin) {
-        [sharer promptAuthorization];
-	}
 }
 
-- (void)sharerStartedSending:(SHKSharer *)sharer {
-    NSLog(@"sharerStartedSending");
-}
-
-- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success {
-    NSLog(@"sharerAuthDidFinish");
-}
-
-- (void)sharerCancelledSending:(SHKSharer *)sharer {
-    NSLog(@"sharerCancelledSending");
+- (void)postStatusToFacebook:(NSString *)status
+{
+    if (kSOSimultaneousMessage) {
+        NSURL *requestURL = [NSURL URLWithString:@"https://graph.facebook.com/me"];
+        SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                                requestMethod:SLRequestMethodGET
+                                                          URL:requestURL
+                                                   parameters:nil];
+        request.account = _facebookAccount;
+        // Send post
+        [SVProgressHUD showWithStatus:@"Posting to Facebook..." maskType:SVProgressHUDMaskTypeClear];
+        [request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *response, NSError *error) {
+            if ([response statusCode] == 200) {
+                [SVProgressHUD showSuccessWithStatus:@"Status posted!"];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"Could not post to Facebook"];
+            }
+        }];
+    } else {
+        [self postText:status toServiceType:SLServiceTypeFacebook];
+    }
 }
 
 #pragma mark - Twitter
 
 - (void)didSelectTwitter {
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    
-    // Create an account type that ensures Twitter accounts are retrieved.
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    // Completion Handler for requestAccessToAccounts
-    void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
-        if (granted) {
-            // Get the list of Twitter accounts.
-            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-            if (accountsArray.count > 1) {
-                [self performSelectorOnMainThread:@selector(populateSheetAndShow:) withObject:accountsArray waitUntilDone:NO];
-            } else if (accountsArray.count == 1) {
-                _twitterAccount = (ACAccount*)[accountsArray lastObject];
-                [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Linked Scala1 app with @%@",[(ACAccount*)accountsArray.lastObject username]] duration:2.0f];
+    if (kSOSimultaneousMessage) {
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        
+        // Create an account type that ensures Twitter accounts are retrieved.
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        
+        // Completion Handler for requestAccessToAccounts
+        void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
+            if (granted) {
+                // Get the list of Twitter accounts.
+                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+                if (accountsArray.count > 1) {
+                    [self performSelectorOnMainThread:@selector(populateSheetAndShow:) withObject:accountsArray waitUntilDone:NO];
+                } else if (accountsArray.count == 1) {
+                    _twitterAccount = (ACAccount*)[accountsArray lastObject];
+                    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Linked Scala1 app with @%@",[(ACAccount*)accountsArray.lastObject username]]];
+                } else {
+                    [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
+                }
             } else {
-                [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
+                if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"6.0")) {
+                    // TODO: Clarify this statement
+                    [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
+                }
+                [self performSelectorOnMainThread:@selector(deselectTwitter) withObject:nil waitUntilDone:NO];
             }
-        } else {
-            if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"6.0")) {
-                [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
-            }
-            [self performSelectorOnMainThread:@selector(deselectTwitter) withObject:nil waitUntilDone:NO];
-        }
-    };
-    
-    // Request access from the user to use their Twitter accounts.
-    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
-        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:accountRequestCompletionHandler];
-    } else {
-//        Must be commented for compiling with Xcode 4.4.1
-//        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:accountRequestCompletionHandler];
+        };
+        
+        // Request access from the user to use their Twitter accounts.
+        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:accountRequestCompletionHandler];
     }
 }
 
@@ -448,8 +457,8 @@
 - (void)noTwitterAccounts {
     [self deselectTwitter];
     
-    if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"6.0")) {
-        UIAlertView *ios6Alert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts" message:@"You do not have any Twitter accounts linked with this iPhone.\n\nOpen iPhone Settings to create one." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+        UIAlertView *ios6Alert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts" message:@"You do not have any Twitter accounts linked with this iPhone.\n\nOpen iPhone Settings to do so." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [ios6Alert show];
         return;
     }
@@ -501,26 +510,67 @@
 
 - (void)postStatus:(NSString*)status toTwitterAccount:(ACAccount*)account
 {
-    // Create an account store object.
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    ACAccount *requestAccount = [accountStore accountWithIdentifier:account.identifier];
-    
-    TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
-                                                 parameters:[NSDictionary dictionaryWithObject:status forKey:@"status"]
-                                              requestMethod:TWRequestMethodPOST];
+    if (kSOSimultaneousMessage) {
+        // Create an account store object.
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        ACAccount *requestAccount = [accountStore accountWithIdentifier:account.identifier];
+        
+        TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
+                                                     parameters:[NSDictionary dictionaryWithObject:status forKey:@"status"]
+                                                  requestMethod:TWRequestMethodPOST];
+        
+        // Set the account used to post the tweet.
+        [postRequest setAccount:requestAccount];
+        
+        // Send tweet
+        [SVProgressHUD showWithStatus:@"Sending tweet..." maskType:SVProgressHUDMaskTypeClear];
+        [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+            if ([urlResponse statusCode] == 200) {
+                [SVProgressHUD showSuccessWithStatus:@"Tweet sent!"];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"Could not send to Twitter"];
+            }
+        }];
+    } else {
+        [self postText:status toServiceType:SLServiceTypeTwitter];
+    }
+}
 
-    // Set the account used to post the tweet.
-    [postRequest setAccount:requestAccount];
+#pragma mark - Social
+
+- (void)postText:(NSString*)text toServiceType:(NSString*)serviceType {
+    SLComposeViewController *slController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
     
-    // Send tweet
-    [SVProgressHUD showWithStatus:@"Sending tweet..." maskType:SVProgressHUDMaskTypeClear];
-    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        if ([urlResponse statusCode] == 200) {
-            [SVProgressHUD dismissWithSuccess:@"Tweet sent!"];
-        } else {
-            [SVProgressHUD dismissWithError:@"Could not send to Twitter"];
-        }
-    }];
+    if([SLComposeViewController isAvailableForServiceType:serviceType])
+    {
+        SLComposeViewControllerCompletionHandler __block completionHandler = ^(SLComposeViewControllerResult result){
+            
+            if ([serviceType isEqualToString:SLServiceTypeFacebook]) {
+                [self deselectFacebook];
+            } else if ([serviceType isEqualToString:SLServiceTypeTwitter]) {
+                [self deselectTwitter];
+            }
+            
+            [slController dismissViewControllerAnimated:YES completion:nil];
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    NSLog(@"Cancelled.....");
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    NSLog(@"Posted....");
+                }
+                    break;
+            }};
+        [slController setInitialText:text];
+        [slController setCompletionHandler:completionHandler];
+        [self presentViewController:slController animated:YES completion:nil];
+    }
 }
 
 @end

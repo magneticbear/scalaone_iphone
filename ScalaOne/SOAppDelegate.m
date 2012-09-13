@@ -18,9 +18,6 @@
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
 #import <Crashlytics/Crashlytics.h>
-#import "SHKConfiguration.h"
-#import "SOShareKitConfigurator.h"
-#import "SHKFacebook.h"
 
 @implementation SOAppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -29,30 +26,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    Analytics
+    //    Analytics
     [Crashlytics startWithAPIKey:kSOCrashlyticsToken];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-//    Configure navigation controller
+    //    Configure navigation controller
     navController = [[UINavigationController alloc] initWithRootViewController:[[SOHomeViewController alloc] init]];
     
-////////////////////////
-//    UIAppearance
-////////////////////////
+    ////////////////////////
+    //    UIAppearance
+    ////////////////////////
     
-//    Navigation Bar
+    //    Navigation Bar
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top-bar-repeat"] forBarMetrics:UIBarMetricsDefault];
     
-//    Bar Button
+    //    Bar Button
     UIImage *barBtn = [[UIImage imageNamed:@"top-bar-btn-stretch"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:barBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     UIImage *barBtnDown = [[UIImage imageNamed:@"top-bar-btn-stretch-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:barBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-//    Back Button
+    //    Back Button
     UIImage *backBtn = [[UIImage imageNamed:@"back-btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -60,13 +57,9 @@
     UIImage *backBtnDown = [[UIImage imageNamed:@"back-btn-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-//    Launch app
+    //    Launch app
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
-    
-//    Configure ShareKit
-    DefaultSHKConfigurator *configurator = [[SOShareKitConfigurator alloc] init];
-    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
     
     return YES;
 }
@@ -138,9 +131,9 @@
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
-                                  initWithManagedObjectModel:[self managedObjectModel]];
+                                    initWithManagedObjectModel:[self managedObjectModel]];
     if(![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                 configuration:nil URL:storeUrl options:nil error:&error]) {
+                                                   configuration:nil URL:storeUrl options:nil error:&error]) {
         /*Error for store creation should be handled in here*/
     }
     
@@ -152,17 +145,6 @@
 // Returns the URL to the application's Documents directory.
 - (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
-#pragma mark - Facebook
-
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    return [SHKFacebook handleOpenURL:url];
-}
-
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
-        annotation:(id)annotation{
-    return [SHKFacebook handleOpenURL:url];
 }
 
 @end

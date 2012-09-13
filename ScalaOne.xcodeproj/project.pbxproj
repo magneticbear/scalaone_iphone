@@ -16,7 +16,6 @@
 		E808E2C115EE87C600B0BA69 /* list-avatar-favorite-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */; };
 		E808E2E715EEAA3200B0BA69 /* profile-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */; };
 		E808E2E915EEAA5300B0BA69 /* profile-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */; };
-		E809023E15FB00E100FAFD58 /* SOShareKitConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = E809023D15FB00E100FAFD58 /* SOShareKitConfigurator.m */; };
 		E80A0A4215EB8EAD005E637D /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */; };
 		E80A0A5015EBDB71005E637D /* chat-input-field.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A4F15EBDB71005E637D /* chat-input-field.png */; };
 		E80A0A5215EBDB7A005E637D /* chat-input-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E80A0A5115EBDB7A005E637D /* chat-input-field@2x.png */; };
@@ -64,7 +63,6 @@
 		E855B2CD15EB298100574B9C /* chat-avatar-mo.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CB15EB298100574B9C /* chat-avatar-mo.png */; };
 		E855B2D015EB299200574B9C /* chat-avatar-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CE15EB299100574B9C /* chat-avatar-jp@2x.png */; };
 		E855B2D115EB299200574B9C /* chat-avatar-mo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E855B2CF15EB299100574B9C /* chat-avatar-mo@2x.png */; };
-		E86273E615FABF2A00780E7F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86273E515FABF2A00780E7F /* Crashlytics.framework */; };
 		E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE915E492D70063007F /* SOEventListViewController.m */; };
 		E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEA15E492D70063007F /* SOEventListViewController.xib */; };
 		E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */; };
@@ -177,6 +175,7 @@
 		E87AD8BB15FAAB1D00096A19 /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E87AD8B515FAAB1D00096A19 /* UIActionSheet+Blocks.m */; };
 		E87AD8BC15FAAB1D00096A19 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = E87AD8B615FAAB1D00096A19 /* UIAlertView+Blocks.m */; };
 		E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E87AD8BA15FAAB1D00096A19 /* RIButtonItem.m */; };
+		E87C10D816016DDA00399C25 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C10D716016DDA00399C25 /* Social.framework */; };
 		E88037BD15E7277C00B591CC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037BC15E7277C00B591CC /* MapKit.framework */; };
 		E88037D815E7400400B591CC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88037D715E7400400B591CC /* CoreLocation.framework */; };
 		E880382D15E7BB8800B591CC /* SOLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E880382515E7BB8800B591CC /* SOLocationAnnotation.m */; };
@@ -242,8 +241,6 @@
 		E808E2C015EE87C600B0BA69 /* list-avatar-favorite-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-avatar-favorite-on@2x.png"; sourceTree = "<group>"; };
 		E808E2E615EEAA3200B0BA69 /* profile-avatar-mo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo.png"; sourceTree = "<group>"; };
 		E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-avatar-mo@2x.png"; sourceTree = "<group>"; };
-		E809023C15FB00E100FAFD58 /* SOShareKitConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOShareKitConfigurator.h; sourceTree = "<group>"; };
-		E809023D15FB00E100FAFD58 /* SOShareKitConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOShareKitConfigurator.m; sourceTree = "<group>"; };
 		E80A0A4015EB8EAD005E637D /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		E80A0A4115EB8EAD005E637D /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		E80A0A4F15EBDB71005E637D /* chat-input-field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-input-field.png"; sourceTree = "<group>"; };
@@ -422,6 +419,7 @@
 		E87AD8B815FAAB1D00096A19 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		E87AD8B915FAAB1D00096A19 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
 		E87AD8BA15FAAB1D00096A19 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
+		E87C10D716016DDA00399C25 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		E88037BC15E7277C00B591CC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E88037D715E7400400B591CC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E880382415E7BB8800B591CC /* SOLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocationAnnotation.h; sourceTree = "<group>"; };
@@ -492,6 +490,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E87C10D816016DDA00399C25 /* Social.framework in Frameworks */,
 				E8EDE2E915F957CD00AB43B0 /* Accounts.framework in Frameworks */,
 				E8EDE2E315F9573F00AB43B0 /* Twitter.framework in Frameworks */,
 				E83E7F9515F687C7003E6FB4 /* CoreData.framework in Frameworks */,
@@ -502,7 +501,6 @@
 				E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */,
 				E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */,
 				A5D05E1E51BB46D6999EDFA4 /* libPods.a in Frameworks */,
-				E86273E615FABF2A00780E7F /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,7 +538,6 @@
 		E808E2CC15EE992D00B0BA69 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E809023715FB009200FAFD58 /* SOShareKitConfigurator */,
 				E83E7F3415F64823003E6FB4 /* Model */,
 				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E842CC1D15E6887B00B40B33 /* SODefines */,
@@ -564,15 +561,6 @@
 				E808E2E815EEAA5300B0BA69 /* profile-avatar-mo@2x.png */,
 			);
 			name = profile;
-			sourceTree = "<group>";
-		};
-		E809023715FB009200FAFD58 /* SOShareKitConfigurator */ = {
-			isa = PBXGroup;
-			children = (
-				E809023C15FB00E100FAFD58 /* SOShareKitConfigurator.h */,
-				E809023D15FB00E100FAFD58 /* SOShareKitConfigurator.m */,
-			);
-			name = SOShareKitConfigurator;
 			sourceTree = "<group>";
 		};
 		E80A0A3E15EB8EA1005E637D /* Vendor */ = {
@@ -1083,6 +1071,7 @@
 		E8A4FFB815E4377F00D10907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E87C10D716016DDA00399C25 /* Social.framework */,
 				E86273E515FABF2A00780E7F /* Crashlytics.framework */,
 				E8EDE2E815F957CD00AB43B0 /* Accounts.framework */,
 				E8EDE2E215F9573E00AB43B0 /* Twitter.framework */,
@@ -1509,7 +1498,6 @@
 				E87AD8BB15FAAB1D00096A19 /* UIActionSheet+Blocks.m in Sources */,
 				E87AD8BC15FAAB1D00096A19 /* UIAlertView+Blocks.m in Sources */,
 				E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */,
-				E809023E15FB00E100FAFD58 /* SOShareKitConfigurator.m in Sources */,
 				E83565EE1600C3EF001A4D69 /* NSString+SOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1674,6 +1662,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1687,6 +1677,8 @@
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

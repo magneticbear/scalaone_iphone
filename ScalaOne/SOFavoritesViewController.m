@@ -133,7 +133,7 @@
              [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,speaker.remoteID.integerValue]]
                             delegate:self
                              options:0
-                             success:^(UIImage *image) {
+                             success:^(UIImage *image, BOOL cached) {
                                  cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault];
                              } failure:^(NSError *error) {
                                  NSLog(@"Image retrieval failed");

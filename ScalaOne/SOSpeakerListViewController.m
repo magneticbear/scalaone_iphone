@@ -198,7 +198,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
          [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,speaker.remoteID.integerValue]]
                         delegate:self
                          options:0
-                         success:^(UIImage *image) {
+                         success:^(UIImage *image, BOOL cached) {
                              cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeOff];
                          } failure:^(NSError *error) {
 //                             NSLog(@"Image retrieval failed");
