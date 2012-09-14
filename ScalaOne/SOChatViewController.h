@@ -15,11 +15,8 @@
 #import "SOChatCell.h"
 
 // Social
-//#if SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")
-#import <Social/Social.h>
-//#else
-#import <Twitter/Twitter.h>
-//#endif
+#import <Twitter/Twitter.h>     // iOS 5
+#import <Social/Social.h>       // iOS 6+
 
 @class BLYClient;
 

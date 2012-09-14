@@ -39,6 +39,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.title = @"Speakers";
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
+    _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     
 //    Setup
     _searchBar.placeholder = @"Find speakers";

@@ -32,6 +32,7 @@
     self.title = @"Events";
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
+    _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     _searchBar.placeholder = @"Find events";
     
     if (DEMO) {

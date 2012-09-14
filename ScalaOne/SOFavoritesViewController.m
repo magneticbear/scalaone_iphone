@@ -45,6 +45,7 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Favorites";
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
+    _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     
     if (DEMO) {
         _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];

@@ -45,19 +45,21 @@
         _inputBG.image = [[UIImage imageNamed:@"chat-input-field"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
         [self insertSubview:_inputBG belowSubview:_inputField];
         
-//        Facebook button
-        _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(7, 45, 52, 32)];
-        [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn"] forState:UIControlStateNormal];
-        [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn-checked"] forState:UIControlStateHighlighted];
-        [_facebookButton addTarget:self action:@selector(didPressFacebook:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_facebookButton];
-        
 //        Twitter button
-        _twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(66, 45, 52, 32)];
+        _twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(7, 45, 52, 32)];
         [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn"] forState:UIControlStateNormal];
         [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn-checked"] forState:UIControlStateHighlighted];
         [_twitterButton addTarget:self action:@selector(didPressTwitter:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_twitterButton];
+        
+//        Facebook button
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+            _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(66, 45, 52, 32)];
+            [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn"] forState:UIControlStateNormal];
+            [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn-checked"] forState:UIControlStateHighlighted];
+            [_facebookButton addTarget:self action:@selector(didPressFacebook:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_facebookButton];
+        }
         
 //        Send button
         _sendButton = [[UIButton alloc] initWithFrame:CGRectMake(251, 45, 62, 32)];

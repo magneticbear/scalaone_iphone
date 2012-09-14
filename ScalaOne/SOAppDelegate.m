@@ -6,9 +6,28 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Add analytics framework
-// TODO: Create podspecs for Vendor classes: https://github.com/CocoaPods/Specs#creating-specifications
+////////////////////////
+//  TODO: Add support for native URLs
+////////////////////////
 
+// scala1://home
+// scala1://events
+// scala1://events/{event_id}
+// scala1://events/{event_id}/discussion
+// scala1://speakers
+// scala1://speakers/{speaker_id}
+// scala1://map
+// scala1://favorites
+// scala1://users/{user_id}
+// scala1://my_profile
+// scala1://discussion
+
+////////////////////////
+//  Optional TODOs
+////////////////////////
+
+// TODO (Optional): Add analytics framework
+// TODO (Optional): Create podspecs for Vendor classes: https://github.com/CocoaPods/Specs#creating-specifications
 // TODO (Optional): Pull-to-refresh functionality throughout
 // TODO (Optional): App-level location manager and API update
 // TODO (Optional): Generic push notification support

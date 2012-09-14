@@ -28,8 +28,12 @@
     self.title = @"Scala1";
     
 //    Fade out splash image
-    UIImageView *splashView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default"]];
-    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    UIWindow* window = [[[UIApplication sharedApplication] windows] lastObject];
+    NSString *splashImageSuffix = @"";
+    if (window.frame.size.height == 568) {
+        splashImageSuffix = @"-568h";
+    }
+    UIImageView *splashView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"Default%@",splashImageSuffix]]];
     [window addSubview:splashView];
     [UIView animateWithDuration:0.66f animations:^{
         splashView.alpha = 0;

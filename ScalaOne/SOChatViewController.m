@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Swap SHKFacebook for iOS 6 Facebook
-// TODO: Queue sending operations (Twitter, Facebook, Message)
+// TODO: Add support for iOS 5 Twitter
 // TODO: Show message when no messages are present
 
 // TODO (Optional): SVProgressHUD extension to allow queuing and changing status lines
@@ -29,11 +28,10 @@
 #define SOChatInputFieldStandardHeight  45.0f
 #define SOChatInputFieldExpandedHeight  82.0f
 
-#define kSOSimultaneousMessage          FALSE
-
 @interface SOChatViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
+    NSMutableArray *sendingQueue;
 }
 @end
 
@@ -79,6 +77,8 @@
         [self getMessages];
         
         [self resetAndFetch];
+        
+        sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
         
         ////////////////////////
         //        Pusher
@@ -186,6 +186,7 @@
     [chatChannel unsubscribe];
     client = nil;
     moc = nil;
+    sendingQueue = nil;
     _chatTableView = nil;
     _fetchedResultsController = nil;
 }
@@ -199,6 +200,21 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma sendingQueue
+
+- (void)addAction:(void (^)(void))action toQueue:(NSMutableArray *)queue {
+    [queue addObject:[action copy]];
+}
+
+- (void)performNextQueueItem {
+    NSLog(@"sendingQueue.count %d",sendingQueue.count);
+    if (sendingQueue.count >= 1) {
+        void (^ action)() = [[sendingQueue objectAtIndex:0] copy];
+        action();
+        [sendingQueue removeObjectAtIndex:0];
+    }
 }
 
 #pragma mark - Keyboard
@@ -278,6 +294,12 @@
     //    NSLog(@"selected cell: %d",indexPath.row);
 }
 
+- (void)scrollToBottom {
+    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
+        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
+    }
+}
+
 #pragma mark - SOChatCellDelegate
 
 - (void)didSelectAvatar:(NSInteger)profileID {
@@ -293,6 +315,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [_chatTableView reloadData];
+    [self scrollToBottom];
 }
 
 - (void)resetAndFetch {
@@ -318,15 +341,38 @@
 
 - (void)didChangeSOInputChatFieldSize:(CGSize)size {
     [self updateLayoutWithKeyboardRect:CGRectNull onlyTable:YES];
-    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
-        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
-    }
+    [self scrollToBottom];
 }
 
 - (void)didPressSendWithText:(NSString *)text facebook:(BOOL)facebook twitter:(BOOL)twitter {
-    if (twitter) [self postStatus:text toTwitterAccount:_twitterAccount];
-    if (facebook) [self postStatusToFacebook:text];
+    __block SOChatViewController *safeSelf = self;
     
+    [self addAction:^{
+        [safeSelf postMessageToAPI:text];
+    } toQueue:sendingQueue];
+    
+    if (twitter) {
+        [self addAction:^{
+            if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+                [safeSelf postText:text toServiceType:@"com.apple.sharing.twitter"];
+            } else {
+                [safeSelf postText:text toServiceType:SLServiceTypeTwitter];
+            }
+        } toQueue:sendingQueue];
+    }
+    
+    if (facebook) {
+        [self addAction:^{
+            [safeSelf postText:text toServiceType:SLServiceTypeFacebook];
+        } toQueue:sendingQueue];
+    }
+    
+    [self performNextQueueItem];
+}
+
+#pragma mark - SOAPI
+
+- (void)postMessageToAPI:(NSString*)text {
     SOChatMessage *message = [SOChatMessage messageWithText:text senderID:2 channel:@"general"];
     
     [SVProgressHUD showWithStatus:@"Sending message..."];
@@ -334,242 +380,107 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD dismiss];
             [self getMessages];
+            [self performNextQueueItem];
         });
     } failure:^(AFJSONRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD showErrorWithStatus:@"Message couldn't be sent. Please try again later."];
             [self getMessages];
+            [self performNextQueueItem];
         });
     }];
 }
 
 #pragma mark - Facebook
 
-- (void)didSelectFacebook {
-    if (kSOSimultaneousMessage) {
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        
-        // Create an account type that ensures Facebook accounts are retrieved.
-        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-        
-        // Completion Handler for requestAccessToAccounts
-        void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
-            if (granted) {
-                // Get the list of Facebook accounts.
-                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-                if (accountsArray.count) {
-                    for (ACAccount *account in accountsArray) {
-                        NSLog(@"account.username: %@",account.username);
-                    }
-                    _facebookAccount = (ACAccount*)[accountsArray lastObject];
-                    [SVProgressHUD showSuccessWithStatus:@"Linked Scala1 app with Facebook"];
-                }
-            } else {
-                [self performSelectorOnMainThread:@selector(noFacebookAccounts) withObject:nil waitUntilDone:NO];
-            }
-        };
-        
-        NSDictionary *facebookOptions = @{ACFacebookAppIdKey: kSOFacebookAppId,ACFacebookPermissionsKey: @[@"publish_stream"],ACFacebookAudienceKey: ACFacebookAudienceFriends};
-        
-        // Request access from the user to use their Facebook accounts.
-        [accountStore requestAccessToAccountsWithType:accountType options:facebookOptions completion:accountRequestCompletionHandler];
-    }
-}
-
 - (void)deselectFacebook {
     _chatInputField.facebookButton.highlighted = NO;
     _chatInputField.shouldSendToFacebook = NO;
 }
 
-- (void)noFacebookAccounts {
-    [self deselectFacebook];
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
-        UIAlertView *ios6Alert = [[UIAlertView alloc] initWithTitle:@"No Facebook Account" message:@"You have not yet linked a Facebook account with this iPhone.\n\nOpen iPhone Settings to do so." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [ios6Alert show];
-    }
-}
-
-- (void)postStatusToFacebook:(NSString *)status
-{
-    if (kSOSimultaneousMessage) {
-        NSURL *requestURL = [NSURL URLWithString:@"https://graph.facebook.com/me"];
-        SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook
-                                                requestMethod:SLRequestMethodGET
-                                                          URL:requestURL
-                                                   parameters:nil];
-        request.account = _facebookAccount;
-        // Send post
-        [SVProgressHUD showWithStatus:@"Posting to Facebook..." maskType:SVProgressHUDMaskTypeClear];
-        [request performRequestWithHandler:^(NSData *data, NSHTTPURLResponse *response, NSError *error) {
-            if ([response statusCode] == 200) {
-                [SVProgressHUD showSuccessWithStatus:@"Status posted!"];
-            } else {
-                [SVProgressHUD showErrorWithStatus:@"Could not post to Facebook"];
-            }
-        }];
-    } else {
-        [self postText:status toServiceType:SLServiceTypeFacebook];
+- (void)didSelectFacebook {
+    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        [self performSelector:@selector(deselectFacebook) withObject:nil afterDelay:0.01];
+        int64_t delayInSeconds = 0.02;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kSONoFacebookAccountTitle message:kSONoFacebookAccountMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        });
     }
 }
 
 #pragma mark - Twitter
-
-- (void)didSelectTwitter {
-    if (kSOSimultaneousMessage) {
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        
-        // Create an account type that ensures Twitter accounts are retrieved.
-        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-        
-        // Completion Handler for requestAccessToAccounts
-        void (^accountRequestCompletionHandler)(BOOL, NSError *) = ^(BOOL granted, NSError *error) {
-            if (granted) {
-                // Get the list of Twitter accounts.
-                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-                if (accountsArray.count > 1) {
-                    [self performSelectorOnMainThread:@selector(populateSheetAndShow:) withObject:accountsArray waitUntilDone:NO];
-                } else if (accountsArray.count == 1) {
-                    _twitterAccount = (ACAccount*)[accountsArray lastObject];
-                    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Linked Scala1 app with @%@",[(ACAccount*)accountsArray.lastObject username]]];
-                } else {
-                    [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
-                }
-            } else {
-                if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"6.0")) {
-                    // TODO: Clarify this statement
-                    [self performSelectorOnMainThread:@selector(noTwitterAccounts) withObject:nil waitUntilDone:NO];
-                }
-                [self performSelectorOnMainThread:@selector(deselectTwitter) withObject:nil waitUntilDone:NO];
-            }
-        };
-        
-        // Request access from the user to use their Twitter accounts.
-        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:accountRequestCompletionHandler];
-    }
-}
 
 - (void)deselectTwitter {
     _chatInputField.twitterButton.highlighted = NO;
     _chatInputField.shouldSendToTwitter = NO;
 }
 
-- (void)noTwitterAccounts {
-    [self deselectTwitter];
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
-        UIAlertView *ios6Alert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts" message:@"You do not have any Twitter accounts linked with this iPhone.\n\nOpen iPhone Settings to do so." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [ios6Alert show];
-        return;
-    }
-    
-    RIButtonItem *noItem = [RIButtonItem itemWithLabel:@"No"];
-    
-    RIButtonItem *yesItem = [RIButtonItem itemWithLabel:@"Yes"];
-    yesItem.action = ^{ [self openTwitterSettings]; };
-    
-    UIAlertView *noTwitterAlert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts"
-                                                             message:@"You do not have any Twitter accounts linked with this iPhone. Would you like exit this app and link one now?"
-                                                    cancelButtonItem:noItem
-                                                    otherButtonItems:yesItem, nil];
-    [noTwitterAlert show];
-}
-
-- (void)openTwitterSettings {
-    // This works in 5.0/5.1/5.1.1; No known work-around for iOS 6
-    // Code from http://goto11.net/programmatically-open-twitter-settings-on-ios-5-1/
-    TWTweetComposeViewController *ctrl = [[TWTweetComposeViewController alloc] init];
-    if ([ctrl respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
-        // Manually invoke the alert view button handler
-        [(id <UIAlertViewDelegate>)ctrl alertView:nil clickedButtonAtIndex:0];
+- (void)didSelectTwitter {
+    if (![self globalCanSendTweet]) {
+        [self performSelector:@selector(deselectTwitter) withObject:nil afterDelay:0.01];
+        int64_t delayInSeconds = 0.02;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            UIAlertView *noTwitterAlert = [[UIAlertView alloc] initWithTitle:kSONoTwitterAccountsTitle
+                                                                     message:kSONoTwitterAccountsMessage
+                                                                    delegate:nil
+                                                           cancelButtonTitle:@"OK"
+                                                           otherButtonTitles:nil];
+            [noTwitterAlert show];
+        });
     }
 }
 
--(void)populateSheetAndShow:(NSArray *) accountsArray {
-    NSMutableArray *buttonsArray = [NSMutableArray array];
-    [accountsArray enumerateObjectsUsingBlock:^(ACAccount *account, NSUInteger idx, BOOL *stop) {
-        RIButtonItem *item = [RIButtonItem itemWithLabel:[NSString stringWithFormat:@"@%@",account.username]];
-        item.action = ^{ _twitterAccount = account; };
-        [buttonsArray addObject:item];
-    }];
-    
-    RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
-    cancelItem.action = ^{ [self deselectTwitter]; };
-    
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:nil destructiveButtonItem:nil otherButtonItems:nil];
-    
-    for (RIButtonItem *item in buttonsArray) {
-        [actionSheet addButtonItem:item];
-    }
-    
-    [actionSheet addButtonItem:cancelItem];
-    [actionSheet setCancelButtonIndex:buttonsArray.count];
-    
-    [actionSheet showInView:self.view];
-}
-
-- (void)postStatus:(NSString*)status toTwitterAccount:(ACAccount*)account
-{
-    if (kSOSimultaneousMessage) {
-        // Create an account store object.
-        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-        ACAccount *requestAccount = [accountStore accountWithIdentifier:account.identifier];
-        
-        TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
-                                                     parameters:[NSDictionary dictionaryWithObject:status forKey:@"status"]
-                                                  requestMethod:TWRequestMethodPOST];
-        
-        // Set the account used to post the tweet.
-        [postRequest setAccount:requestAccount];
-        
-        // Send tweet
-        [SVProgressHUD showWithStatus:@"Sending tweet..." maskType:SVProgressHUDMaskTypeClear];
-        [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-            if ([urlResponse statusCode] == 200) {
-                [SVProgressHUD showSuccessWithStatus:@"Tweet sent!"];
-            } else {
-                [SVProgressHUD showErrorWithStatus:@"Could not send to Twitter"];
-            }
-        }];
+- (BOOL)globalCanSendTweet {
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        return [TWTweetComposeViewController canSendTweet];
     } else {
-        [self postText:status toServiceType:SLServiceTypeTwitter];
+        return [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
     }
+    return NO;
 }
 
 #pragma mark - Social
 
 - (void)postText:(NSString*)text toServiceType:(NSString*)serviceType {
-    SLComposeViewController *slController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+    if ([serviceType isEqualToString:SLServiceTypeTwitter]) {
+        text = [NSString stringWithFormat:@"%@ #test",text];
+    }
     
-    if([SLComposeViewController isAvailableForServiceType:serviceType])
-    {
-        SLComposeViewControllerCompletionHandler __block completionHandler = ^(SLComposeViewControllerResult result){
-            
-            if ([serviceType isEqualToString:SLServiceTypeFacebook]) {
-                [self deselectFacebook];
-            } else if ([serviceType isEqualToString:SLServiceTypeTwitter]) {
-                [self deselectTwitter];
-            }
-            
-            [slController dismissViewControllerAnimated:YES completion:nil];
-            
-            switch(result){
-                case SLComposeViewControllerResultCancelled:
-                default:
-                {
-                    NSLog(@"Cancelled.....");
-                    
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
+        
+        [tweetSheet setInitialText:text];
+        
+        tweetSheet.completionHandler = ^(TWTweetComposeViewControllerResult result){
+            [self deselectTwitter];
+            [self dismissModalViewControllerAnimated:YES];
+            [self performNextQueueItem];
+        };
+        
+        [self presentModalViewController:tweetSheet animated:YES];
+    } else {
+        SLComposeViewController *slController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+        
+        if([SLComposeViewController isAvailableForServiceType:serviceType])
+        {
+            SLComposeViewControllerCompletionHandler __block completionHandler = ^(SLComposeViewControllerResult result){
+                if ([serviceType isEqualToString:SLServiceTypeFacebook]) {
+                    [self deselectFacebook];
+                } else if ([serviceType isEqualToString:SLServiceTypeTwitter]) {
+                    [self deselectTwitter];
                 }
-                    break;
-                case SLComposeViewControllerResultDone:
-                {
-                    NSLog(@"Posted....");
-                }
-                    break;
-            }};
-        [slController setInitialText:text];
-        [slController setCompletionHandler:completionHandler];
-        [self presentViewController:slController animated:YES completion:nil];
+                
+                [slController dismissViewControllerAnimated:YES completion:^{
+                    [self performNextQueueItem];
+                }];
+            };
+            [slController setInitialText:text];
+            [slController setCompletionHandler:completionHandler];
+            [self presentViewController:slController animated:NO completion:nil];
+        }
     }
 }
 

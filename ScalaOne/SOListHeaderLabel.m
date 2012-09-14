@@ -22,7 +22,7 @@
     
     //// Shadow Declarations
     UIColor* textShadow = textShadowColor;
-    CGSize textShadowOffset = CGSizeMake(0, -1);
+    CGSize textShadowOffset = CGSizeMake(0, 1);
     CGFloat textShadowBlurRadius = 0;
     
     //// Leave space for shadow

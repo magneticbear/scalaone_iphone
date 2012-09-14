@@ -8,10 +8,14 @@
 
 #import "SODefines.h"
 
+#if public
+#warning All constants here must be valid for the app to work
+#else
 NSString *const kSOCrashlyticsToken = @"";
 
-NSString *const kSOAPIHost = @"http://108.166.87.233:9000/";
+NSString *const kSOAPIHost = @"";
 
 NSString *const kSOPusherAPIKey = @"";
 
 NSString *const kSOFacebookAppId = @"";
+#endif
