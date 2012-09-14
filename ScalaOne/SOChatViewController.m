@@ -446,7 +446,7 @@
 
 - (void)postText:(NSString*)text toServiceType:(NSString*)serviceType {
     if ([serviceType isEqualToString:SLServiceTypeTwitter]) {
-        text = [NSString stringWithFormat:@"%@ #test",text];
+        text = [NSString stringWithFormat:@"%@ %@",text,kSOTwitterHashtag];
     }
     
     if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {

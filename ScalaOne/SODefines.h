@@ -30,6 +30,7 @@ extern NSString *const kSOFacebookAppId;
 
 #define kSONoTwitterAccountsTitle       @"No Twitter Accounts"
 #define kSONoTwitterAccountsMessage     @"You have not yet linked a Twitter account with this iPhone. Open iPhone Settings to link one."
+#define kSOTwitterHashtag               @"#test"
 
 #define kSONoFacebookAccountTitle       @"No Facebook Account"
 #define kSONoFacebookAccountMessage     @"You have not yet linked a Facebook account with this iPhone. Open iPhone Settings to link one."
