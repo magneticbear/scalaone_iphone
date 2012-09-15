@@ -8,6 +8,7 @@
 
 #import "AFNetworking.h"
 #import "SOChatMessage.h"
+#import "SOUser.h"
 
 typedef void (^SOHTTPClientSuccess)(AFJSONRequestOperation *operation, id responseObject);
 typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *error);
@@ -17,6 +18,9 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 @interface SOHTTPClient : AFHTTPClient
 
 + (SOHTTPClient *)sharedClient;
+
+// Users
+- (void)createUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 // Messages
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;

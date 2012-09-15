@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO (Optional): Appropriate actions for each table cell (call, open url, etc.)
 // TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Allow camera for image picking
 // TODO (Optional): Convert name box to table
@@ -16,6 +17,8 @@
 #import "SOChatViewController.h"
 #import "SDWebImageManager.h"
 #import "UIImage+SOAvatar.h"
+#import "SOHTTPClient.h"
+#import "SVProgressHUD.h"
 
 @interface SOProfileViewController () {
     NSManagedObjectContext *moc;
@@ -49,8 +52,7 @@
     return self;
 }
 
-- (id)initWithUser:(SOUser *)user
-{
+- (id)initWithUser:(SOUser *)user {
     self = [self init];
     if (self) {
         self.title = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
@@ -60,8 +62,7 @@
     return self;
 }
 
-- (id)initWithMe
-{
+- (id)initWithMe {
     self = [self init];
     if (self) {
         self.title = @"My Profile";
@@ -105,12 +106,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-//    Right bar button
+    //    Right bar button
     NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Meet up";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
-//    Data
+    //    Data
     [self setCellHeadersAndPlaceholders];
     [self setCellContents];
     
@@ -212,6 +213,28 @@
         if ([moc hasChanges] && ![moc save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
+        [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
+        if (_currentUser.remoteID.integerValue == 0) {
+            [[SOHTTPClient sharedClient] createUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
+                if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
+                    _currentUser.remoteID = [NSNumber numberWithInt:
+                                             [[[responseObject objectForKey:@"result"]
+                                               objectForKey:@"id"] intValue]];
+                    NSError *error = nil;
+                    if ([moc hasChanges] && ![moc save:&error]) {
+                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                    [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
+                }
+            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+                [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
+            }];
+        } else {
+            [SVProgressHUD dismiss];
+            NSLog(@"existing remoteID: %@",_currentUser.remoteID);
+        }
     }
     
     //    Reload table in editing mode
@@ -257,14 +280,14 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-//    Set backgrounds for top and bottom cells (otherwise middle style is default)
+    //    Set backgrounds for top and bottom cells (otherwise middle style is default)
     if (indexPath.row == 0) {
         cell.cellType = SOProfileInfoCellTypeTop;
     } else if (indexPath.row + 1 == [self tableView:tableView numberOfRowsInSection:indexPath.section]) {
         cell.cellType = SOProfileInfoCellTypeBottom;
     }
     
-//    Set cell titles, content and placeholders for edit/read modes
+    //    Set cell titles, content and placeholders for edit/read modes
     if (_tableView.editing) {
         cell.headerLabel.text = [_profileCellHeaders objectAtIndex:indexPath.row%_profileCellHeaders.count];
         cell.contentTextField.text = [_profileCellContents objectAtIndex:indexPath.row];

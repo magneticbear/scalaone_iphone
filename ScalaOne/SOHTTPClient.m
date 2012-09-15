@@ -59,6 +59,30 @@
 	[super enqueueHTTPRequestOperation:operation];
 }
 
+#pragma mark - Users
+
+- (void)createUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = @{@"id" : user.remoteID,
+    @"firstName" : user.firstName,
+    @"lastName" : user.lastName,
+    @"twitter" : user.twitter,
+    @"facebook" : user.facebook,
+    @"phone" : user.phone,
+    @"email" : user.email,
+    @"website" : user.website,
+    @"token" : kSOAPIToken};
+    
+	[self postPath:@"users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
+}
+
 #pragma mark - Messages
 
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
@@ -75,8 +99,8 @@
 
 - (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
     NSDictionary *params = @{@"content" : message.text,
-                                @"senderId" : [NSNumber numberWithInt:message.senderID],
-                                @"token" : kSOAPIToken};
+    @"senderId" : [NSNumber numberWithInt:message.senderID],
+    @"token" : kSOAPIToken};
     
 	[self postPath:[NSString stringWithFormat:@"messages/%@",message.channel] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
