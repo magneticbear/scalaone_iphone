@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Add support for iOS 5 Twitter
+// TODO: Improve performance on load
 // TODO: Show message when no messages are present
 
 // TODO (Optional): SVProgressHUD extension to allow queuing and changing status lines
@@ -205,6 +205,7 @@
 }
 
 - (void)resetLayout {
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     _chatTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-kSOChatInputFieldStandardHeight);
     _chatInputField.frame = CGRectMake(0, self.view.frame.size.height-kSOChatInputFieldStandardHeight, self.view.frame.size.width, kSOChatInputFieldStandardHeight);
     [self scrollToBottom];
@@ -270,11 +271,11 @@
         NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
         
         cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
-        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
+        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeSmall] forState:UIControlStateNormal];
     } else {
         SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
         cell.messageTextView.text = message.text;
-        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
+        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeSmall] forState:UIControlStateNormal];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
@@ -282,7 +283,7 @@
                         delegate:self
                          options:0
                          success:^(UIImage *image, BOOL cached) {
-                             [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault] forState:UIControlStateNormal];
+                             [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeSmall] forState:UIControlStateNormal];
                          } failure:^(NSError *error) {
                              //                             NSLog(@"Image retrieval failed");
                          }];
@@ -312,6 +313,7 @@
     SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
     user.firstName = @"John";
     user.lastName = @"Doe";
+    user.twitter = @"@fakeuser";
     SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithUser:user];
     [self.navigationController pushViewController:profileVC animated:YES];
 }

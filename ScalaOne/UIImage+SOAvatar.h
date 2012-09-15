@@ -9,14 +9,15 @@
 #import <QuartzCore/QuartzCore.h>
 
 typedef enum {
-    SOAvatarFavoriteTypeDefault,
-    SOAvatarFavoriteTypeOff,
-    SOAvatarFavoriteTypeOn,
-} SOAvatarFavoriteType;
+    SOAvatarTypeSmall,
+    SOAvatarTypeLarge,
+    SOAvatarTypeFavoriteOff,
+    SOAvatarTypeFavoriteOn,
+} SOAvatarType;
 
 @interface UIImage (SOAvatar)
 
-+ (UIImage*) avatarWithSource:(UIImage*)source favorite:(SOAvatarFavoriteType)favorite;
++ (UIImage*) avatarWithSource:(UIImage*)source type:(SOAvatarType)avatarType;
 
 + (UIImage*)roundedImage:(UIImage*)image withRadius:(CGFloat)radius scale:(CGFloat)scale;
 

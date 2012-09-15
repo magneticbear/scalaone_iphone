@@ -21,8 +21,9 @@ typedef enum {
     SOProfileCellTypeWebsite = 6
 } SOProfileCellType;
 
-@interface SOProfileViewController : SOViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface SOProfileViewController : SOViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
     SOUser *currentUser;
+    UIImagePickerController *imgPicker;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -32,8 +33,11 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
+@property (nonatomic, retain) UIImagePickerController *imgPicker;
 
 - (id)initWithUser:(SOUser *)user;
 - (id)initWithMe;
 
+- (IBAction)didPressAvatar:(id)sender;
 @end

@@ -7,12 +7,15 @@
 //
 
 // TODO (Optional): Better highlight feedback (too much lag)
+// TODO (Optional): Allow camera for image picking
 // TODO (Optional): Convert name box to table
 // TODO (Optional): Persistent @ symbol for twitter textfield
 
 #import "SOProfileViewController.h"
 #import "SOProfileInfoCell.h"
 #import "SOChatViewController.h"
+#import "SDWebImageManager.h"
+#import "UIImage+SOAvatar.h"
 
 @interface SOProfileViewController () {
     NSManagedObjectContext *moc;
@@ -35,6 +38,8 @@
 @synthesize firstNameField = _firstNameField;
 @synthesize lastNameField = _lastNameField;
 @synthesize nameLabel = _nameLabel;
+@synthesize avatarBtn = _avatarBtn;
+@synthesize imgPicker = _imgPicker;
 
 - (id)init {
     self = [super init];
@@ -89,6 +94,12 @@
     return self;
 }
 
+- (IBAction)didPressAvatar:(id)sender {
+    [self presentViewController:_imgPicker animated:YES completion:^{
+        
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -104,10 +115,31 @@
     [self setCellContents];
     
     if (!DEMO) {
-        _firstNameField.tag = SOProfileCellTypeFirstName;
-        _firstNameField.delegate = self;
-        _lastNameField.tag = SOProfileCellTypeLastName;
-        _lastNameField.delegate = self;
+        if (isMyProfile) {
+            _imgPicker = [[UIImagePickerController alloc] init];
+            _imgPicker.delegate = self;
+            _imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            _imgPicker.allowsEditing = YES;
+            
+            _firstNameField.tag = SOProfileCellTypeFirstName;
+            _firstNameField.delegate = self;
+            _lastNameField.tag = SOProfileCellTypeLastName;
+            _lastNameField.delegate = self;
+            
+            [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:[UIImage imageWithContentsOfFile:[self myAvatarPath]] type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+        } else {
+            [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadWithURL:
+             [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_currentUser.remoteID.integerValue]]
+                            delegate:self
+                             options:0
+                             success:^(UIImage *image, BOOL cached) {
+                                 [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+                             } failure:^(NSError *error) {
+                                 // NSLog(@"Image retrieval failed");
+                             }];
+        }
     }
 }
 
@@ -117,31 +149,19 @@
 }
 
 - (void)setCellContents {
-    if (DEMO || !isMyProfile) {
+    if (DEMO) {
         _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
         _nameLabel.text = @"Mo Mozafarian";
     } else if (_currentUser) {
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        
-        [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
-        
-        [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
-        
-        NSArray *results = [moc executeFetchRequest:request error:nil];
-        
-        if (results.count) {
-            _currentUser = [results lastObject];
-        }
-        
         _profileCellContents = @[_currentUser.twitter ? _currentUser.twitter : @"",
         _currentUser.facebook ? _currentUser.facebook : @"",
         _currentUser.phone ? _currentUser.phone : @"",
         _currentUser.email ? _currentUser.email : @"",
         _currentUser.website ? _currentUser.website : @""];
         
-        _nameLabel.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName, _currentUser.lastName];
-        _firstNameField.text = _currentUser.firstName;
-        _lastNameField.text = _currentUser.lastName;
+        _nameLabel.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName ? _currentUser.firstName : @"", _currentUser.lastName ? _currentUser.lastName : @""];
+        _firstNameField.text = _currentUser.firstName ? _currentUser.firstName : @"";
+        _lastNameField.text = _currentUser.lastName ? _currentUser.lastName : @"";
     }
 }
 
@@ -153,6 +173,7 @@
     [self setFirstNameField:nil];
     [self setLastNameField:nil];
     [self setNameLabel:nil];
+    [self setAvatarBtn:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -210,6 +231,9 @@
     //    Show/Hide name box and avatar edit image
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
+    
+    //    Enable avatar button only when editing
+    _avatarBtn.enabled = editing;
 }
 
 #pragma mark - UITableViewDataSource
@@ -312,12 +336,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"didSelectRowAtIndexPath: %d",indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)didTapAvatar:(UITapGestureRecognizer*)g {
-    NSLog(@"didTapAvatar");
 }
 
 #pragma mark - UITextFieldDelegate
@@ -356,6 +375,22 @@
             NSLog(@"default");
             break;
     }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+    
+    [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+    
+    [UIImageJPEGRepresentation(image, 1.0) writeToFile:[self myAvatarPath] atomically:YES];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (NSString*)myAvatarPath {
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/my_avatar.jpg"];
 }
 
 @end

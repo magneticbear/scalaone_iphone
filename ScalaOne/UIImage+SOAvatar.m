@@ -10,16 +10,20 @@
 
 @implementation UIImage (SOAvatar)
 
-+ (UIImage*) avatarWithSource:(UIImage *)source favorite:(SOAvatarFavoriteType)favorite {
-    
-    UIImage *background = [UIImage imageNamed:@"list-avatar-generic-nostar"];
++ (UIImage*) avatarWithSource:(UIImage *)source type:(SOAvatarType)avatarType {
+    NSString *bgImgName = (avatarType == SOAvatarTypeLarge) ? @"profile_avatar" : @"list-avatar-generic-nostar";
+    UIImage *background = [UIImage imageNamed:bgImgName];
     
     CGSize contextSize = background.size;
-    if (favorite != SOAvatarFavoriteTypeDefault) {
+    if (avatarType == SOAvatarTypeFavoriteOff || avatarType == SOAvatarTypeFavoriteOn) {
         contextSize.width += 2;
     }
     
-    source = [self imageWithImage:source scaledToSize:CGSizeMake(44, 44)];
+    if (avatarType == SOAvatarTypeLarge) {
+        source = [self imageWithImage:source scaledToSize:CGSizeMake(80, 80)];
+    } else {
+        source = [self imageWithImage:source scaledToSize:CGSizeMake(44, 44)];
+    }
     
     static CGFloat scale = -1.0;
     if (scale < 0.0) {
@@ -40,11 +44,16 @@
     
     [background drawInRect:CGRectMake(0, 0, background.size.width, background.size.height)];
     source = [self roundedImage:source withRadius:4.0 scale:scale];
-    [source drawInRect:CGRectMake(2.5,1.5,source.size.width,source.size.height)];
     
-    if (favorite != SOAvatarFavoriteTypeDefault) {
+    if (avatarType == SOAvatarTypeLarge) {
+        [source drawInRect:CGRectMake(1.5,1,source.size.width,source.size.height)];
+    } else {
+        [source drawInRect:CGRectMake(2.5,1.5,source.size.width,source.size.height)];
+    }
+    
+    if (avatarType == SOAvatarTypeFavoriteOff || avatarType == SOAvatarTypeFavoriteOn) {
         BOOL starState = NO;
-        if (favorite == SOAvatarFavoriteTypeOn) starState = YES;
+        if (avatarType == SOAvatarTypeFavoriteOn) starState = YES;
         
         UIImage *star = [UIImage imageNamed:
                          [NSString stringWithFormat:
@@ -68,7 +77,6 @@
     
     // Clip context
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:imgRect cornerRadius:radius];
-    path.lineWidth = 4.0;
     [path addClip];
     
     // Draw image & set to UIImage

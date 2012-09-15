@@ -185,14 +185,14 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 //        Text
         cell.textLabel.text = [mSpeakers objectAtIndex:indexPath.row];
 //        Image
-        cell.imageView.image = [UIImage avatarWithSource:nil favorite:NO];
+        cell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOff];
     } else {
 //        Text
         SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
         cell.textLabel.text = speaker.name;
         
 //        Image
-        cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeOff];
+        cell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOff];
         
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
@@ -200,7 +200,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                         delegate:self
                          options:0
                          success:^(UIImage *image, BOOL cached) {
-                             cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeOff];
+                             cell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOff];
                          } failure:^(NSError *error) {
 //                             NSLog(@"Image retrieval failed");
                          }];
@@ -244,7 +244,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                       duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:SOAvatarFavoriteTypeOn];
+                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] type:SOAvatarTypeFavoriteOn];
                     }
                     completion:^(BOOL finished){
                         _avatarState = SOAvatarStateDefault;
@@ -258,7 +258,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                       duration:0.66f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] favorite:SOAvatarFavoriteTypeOn];
+                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] type:SOAvatarTypeFavoriteOn];
                     }
                     completion:^(BOOL finished){
                         _avatarState = SOAvatarStateDefault;

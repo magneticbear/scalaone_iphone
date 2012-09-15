@@ -123,11 +123,11 @@
         //    Content
         if (DEMO) {
             cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
-            cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault];
+            cell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeSmall];
         } else {
             SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
             cell.textLabel.text = speaker.name;
-            cell.imageView.image = [UIImage avatarWithSource:nil favorite:SOAvatarFavoriteTypeDefault];
+            cell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeSmall];
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadWithURL:
@@ -135,7 +135,7 @@
                             delegate:self
                              options:0
                              success:^(UIImage *image, BOOL cached) {
-                                 cell.imageView.image = [UIImage avatarWithSource:image favorite:SOAvatarFavoriteTypeDefault];
+                                 cell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeSmall];
                              } failure:^(NSError *error) {
                                  NSLog(@"Image retrieval failed");
                              }];
