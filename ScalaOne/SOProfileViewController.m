@@ -8,12 +8,15 @@
 
 // TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Convert name box to table
+// TODO (Optional): Persistent @ symbol for twitter textfield
 
 #import "SOProfileViewController.h"
 #import "SOProfileInfoCell.h"
 #import "SOChatViewController.h"
 
-@interface SOProfileViewController ()
+@interface SOProfileViewController () {
+    NSManagedObjectContext *moc;
+}
 @property (nonatomic, strong) NSArray *profileCellHeaders;
 @property (nonatomic, strong) NSArray *profileCellContents;
 @property (nonatomic, strong) NSArray *profileCellContentPlaceholders;
@@ -28,23 +31,60 @@
 @synthesize profileCellHeaders = _profileCellHeaders;
 @synthesize profileCellContents = _profileCellContents;
 @synthesize profileCellContentPlaceholders = _profileCellContentPlaceholders;
+@synthesize currentUser = _currentUser;
+@synthesize firstNameField = _firstNameField;
+@synthesize lastNameField = _lastNameField;
+@synthesize nameLabel = _nameLabel;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    }
+    return self;
+}
 
 - (id)initWithUser:(SOUser *)user
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.title = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
         isMyProfile = NO;
+        _currentUser = user;
     }
     return self;
 }
 
 - (id)initWithMe
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.title = @"My Profile";
         isMyProfile = YES;
+        
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+        
+        [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
+        
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        
+        if (results.count) {
+            _currentUser = [results lastObject];
+        } else {
+            SOUser *user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+            user.isMe = @YES;
+            user.firstName = @"JP";
+            user.lastName = @"Simard";
+            user.twitter = @"@simjp";
+            user.phone = @"1-888-744-0098 x101";
+            NSError *error = nil;
+            if ([moc hasChanges] && ![moc save:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            }
+            _currentUser = user;
+        }
     }
     return self;
 }
@@ -62,6 +102,13 @@
 //    Data
     [self setCellHeadersAndPlaceholders];
     [self setCellContents];
+    
+    if (!DEMO) {
+        _firstNameField.tag = SOProfileCellTypeFirstName;
+        _firstNameField.delegate = self;
+        _lastNameField.tag = SOProfileCellTypeLastName;
+        _lastNameField.delegate = self;
+    }
 }
 
 - (void)setCellHeadersAndPlaceholders {
@@ -70,7 +117,32 @@
 }
 
 - (void)setCellContents {
-    _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
+    if (DEMO || !isMyProfile) {
+        _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
+        _nameLabel.text = @"Mo Mozafarian";
+    } else if (_currentUser) {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+        
+        [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
+        
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        
+        if (results.count) {
+            _currentUser = [results lastObject];
+        }
+        
+        _profileCellContents = @[_currentUser.twitter ? _currentUser.twitter : @"",
+        _currentUser.facebook ? _currentUser.facebook : @"",
+        _currentUser.phone ? _currentUser.phone : @"",
+        _currentUser.email ? _currentUser.email : @"",
+        _currentUser.website ? _currentUser.website : @""];
+        
+        _nameLabel.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName, _currentUser.lastName];
+        _firstNameField.text = _currentUser.firstName;
+        _lastNameField.text = _currentUser.lastName;
+    }
 }
 
 - (void)viewDidUnload
@@ -78,6 +150,9 @@
     [self setTableView:nil];
     [self setNameBox:nil];
     [self setAvatarEditImg:nil];
+    [self setFirstNameField:nil];
+    [self setLastNameField:nil];
+    [self setNameLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -88,8 +163,15 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)didPressRightButton:(id)sender {
+- (void)didPressRightButton:(UIBarButtonItem *)sender {
     if (isMyProfile) {
+        if ([sender.title isEqualToString:@"Cancel"]) {
+            //    Dismiss keyboard on done editing
+            [self.view endEditing:YES];
+            [moc reset];
+            [self setCellContents];
+        }
+        
         [self toggleEditing];
     } else {
         SOChatViewController *chatVC = [[SOChatViewController alloc] init];
@@ -99,6 +181,17 @@
 
 - (void)toggleEditing {
     BOOL editing = !_tableView.editing;
+    
+    //    Dismiss keyboard on done editing
+    [self.view endEditing:!editing];
+    
+    if (!editing) {
+        [self setCellContents];
+        NSError *error = nil;
+        if ([moc hasChanges] && ![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
     
     //    Reload table in editing mode
     _tableView.editing = editing;
@@ -117,9 +210,6 @@
     //    Show/Hide name box and avatar edit image
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
-    
-    //    Dismiss keyboard on done editing
-    [self.view endEditing:!editing];
 }
 
 #pragma mark - UITableViewDataSource
@@ -157,28 +247,34 @@
         cell.contentTextField.placeholder = [_profileCellContentPlaceholders objectAtIndex:indexPath.row];
         switch (indexPath.row) {
             case 0:
+                cell.contentTextField.tag = SOProfileCellTypeTwitter;
                 cell.contentTextField.keyboardType = UIKeyboardTypeTwitter;
                 break;
                 
             case 1:
+                cell.contentTextField.tag = SOProfileCellTypeFacebook;
                 cell.contentTextField.keyboardType = UIKeyboardTypeDefault;
                 break;
                 
             case 2:
+                cell.contentTextField.tag = SOProfileCellTypePhone;
                 cell.contentTextField.keyboardType = UIKeyboardTypePhonePad;
                 break;
                 
             case 3:
+                cell.contentTextField.tag = SOProfileCellTypeEmail;
                 cell.contentTextField.keyboardType = UIKeyboardTypeEmailAddress;
                 break;
                 
             case 4:
+                cell.contentTextField.tag = SOProfileCellTypeWebsite;
                 cell.contentTextField.keyboardType = UIKeyboardTypeURL;
                 break;
                 
             default:
                 break;
         }
+        cell.contentTextField.delegate = self;
         cell.contentTextField.enabled = YES;
     } else {
         cell.headerLabel.text = [self headerTextForCell:indexPath.row];
@@ -222,6 +318,44 @@
 
 - (void)didTapAvatar:(UITapGestureRecognizer*)g {
     NSLog(@"didTapAvatar");
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    switch (textField.tag) {
+        case SOProfileCellTypeFirstName:
+            _currentUser.firstName = textField.text;
+            break;
+            
+        case SOProfileCellTypeLastName:
+            _currentUser.lastName = textField.text;
+            break;
+            
+        case SOProfileCellTypeTwitter:
+            _currentUser.twitter = textField.text;
+            break;
+            
+        case SOProfileCellTypeFacebook:
+            _currentUser.facebook = textField.text;
+            break;
+            
+        case SOProfileCellTypePhone:
+            _currentUser.phone = textField.text;
+            break;
+            
+        case SOProfileCellTypeEmail:
+            _currentUser.email = textField.text;
+            break;
+            
+        case SOProfileCellTypeWebsite:
+            _currentUser.website = textField.text;
+            break;
+            
+        default:
+            NSLog(@"default");
+            break;
+    }
 }
 
 @end

@@ -2,7 +2,7 @@
 //  SOUser.m
 //  ScalaOne
 //
-//  Created by Jean-Pierre Simard on 9/4/12.
+//  Created by Jean-Pierre Simard on 9/14/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
@@ -22,7 +22,8 @@
 @dynamic remoteID;
 @dynamic twitter;
 @dynamic website;
-@dynamic favoriteSpeakers;
+@dynamic isMe;
 @dynamic favoriteEvents;
+@dynamic favoriteSpeakers;
 
 @end

@@ -22,20 +22,21 @@
 @property (nonatomic, retain) NSNumber * remoteID;
 @property (nonatomic, retain) NSString * twitter;
 @property (nonatomic, retain) NSString * website;
-@property (nonatomic, retain) NSSet *favoriteSpeakers;
+@property (nonatomic, retain) NSNumber * isMe;
 @property (nonatomic, retain) NSSet *favoriteEvents;
+@property (nonatomic, retain) NSSet *favoriteSpeakers;
 @end
 
 @interface SOUser (CoreDataGeneratedAccessors)
-
-- (void)addFavoriteSpeakersObject:(SOSpeaker *)value;
-- (void)removeFavoriteSpeakersObject:(SOSpeaker *)value;
-- (void)addFavoriteSpeakers:(NSSet *)values;
-- (void)removeFavoriteSpeakers:(NSSet *)values;
 
 - (void)addFavoriteEventsObject:(SOEvent *)value;
 - (void)removeFavoriteEventsObject:(SOEvent *)value;
 - (void)addFavoriteEvents:(NSSet *)values;
 - (void)removeFavoriteEvents:(NSSet *)values;
+
+- (void)addFavoriteSpeakersObject:(SOSpeaker *)value;
+- (void)removeFavoriteSpeakersObject:(SOSpeaker *)value;
+- (void)addFavoriteSpeakers:(NSSet *)values;
+- (void)removeFavoriteSpeakers:(NSSet *)values;
 
 @end
