@@ -107,6 +107,25 @@
 	}];
 }
 
+- (void)postImage:(UIImage *)image forUserID:(NSInteger)userID success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = @{@"token" : kSOAPIToken};
+    
+    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:[NSString stringWithFormat:@"users/%d/image",userID] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.7) name:@"picture" fileName:@"image.jpg" mimeType:@"image/jpeg"];
+    }];
+    
+    [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+    }];
+}
+
 #pragma mark - Messages
 
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {

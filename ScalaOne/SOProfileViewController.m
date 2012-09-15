@@ -85,10 +85,7 @@
             user.lastName = @"Simard";
             user.twitter = @"@simjp";
             user.phone = @"1-888-744-0098 x101";
-            NSError *error = nil;
-            if ([moc hasChanges] && ![moc save:&error]) {
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            }
+            [self saveContext];
             _currentUser = user;
         }
     }
@@ -209,42 +206,14 @@
     
     if (!editing) {
         [self setCellContents];
-        NSError *error = nil;
-        if ([moc hasChanges] && ![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
+        [self saveContext];
+        
         [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
+        
         if (_currentUser.remoteID.integerValue == 0) {
-            [[SOHTTPClient sharedClient] createUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
-                if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
-                    _currentUser.remoteID = [NSNumber numberWithInt:
-                                             [[[responseObject objectForKey:@"result"]
-                                               objectForKey:@"id"] intValue]];
-                    NSError *error = nil;
-                    if ([moc hasChanges] && ![moc save:&error]) {
-                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                    }
-                    [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
-                } else {
-                    [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
-                }
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
-            }];
+            [self postCurrentUserToAPI];
         } else {
-            [[SOHTTPClient sharedClient] updateUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
-                if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
-                    NSError *error = nil;
-                    if ([moc hasChanges] && ![moc save:&error]) {
-                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                    }
-                    [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
-                } else {
-                    [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
-                }
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
-            }];
+            [self putCurrentUserToAPI];
         }
     }
     
@@ -268,6 +237,51 @@
     
     //    Enable avatar button only when editing
     _avatarBtn.enabled = editing;
+}
+
+- (void)postCurrentUserToAPI {
+    [[SOHTTPClient sharedClient] createUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
+            _currentUser.remoteID = [NSNumber numberWithInt:
+                                     [[[responseObject objectForKey:@"result"]
+                                       objectForKey:@"id"] intValue]];
+            [self saveContext];
+            [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
+        }
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
+    }];
+}
+
+- (void)putCurrentUserToAPI {
+    [[SOHTTPClient sharedClient] updateUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
+            [self saveContext];
+            [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+        } else {
+            [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
+        }
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
+    }];
+}
+
+- (void)uploadImageToCurrentUser {
+    NSLog(@"uploading image...");
+    [[SOHTTPClient sharedClient] postImage:[UIImage imageNamed:@"profile_avatar"] forUserID:2 success:^(AFJSONRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
+            NSLog(@"it worked");
+            [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+        } else {
+            NSLog(@"it didn't work");
+            [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
+        }
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        NSLog(@"looks like the server's down");
+        [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -425,6 +439,15 @@
 
 - (NSString*)myAvatarPath {
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/my_avatar.jpg"];
+}
+
+#pragma mark - Core Data
+
+- (void)saveContext {
+    NSError *error = nil;
+    if ([moc hasChanges] && ![moc save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
 }
 
 @end
