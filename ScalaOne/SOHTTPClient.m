@@ -74,10 +74,10 @@
 }
 
 - (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
-							message.text, @"content",
-                            [NSNumber numberWithInt:message.senderID], @"senderId",
-							nil];
+    NSDictionary *params = @{@"content" : message.text,
+                                @"senderId" : [NSNumber numberWithInt:message.senderID],
+                                @"token" : kSOAPIToken};
+    
 	[self postPath:[NSString stringWithFormat:@"messages/%@",message.channel] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);

@@ -18,13 +18,22 @@
 #define SODispatchRelease(queue) dispatch_release(queue)
 #endif
 
-extern NSString *const kSOCrashlyticsToken;
+#pragma mark - Tokens
+#if public
+#warning All constants here must be valid for the app to work
+#else
 
-extern NSString *const kSOAPIHost;
+#define kSOCrashlyticsToken             @""
 
-extern NSString *const kSOPusherAPIKey;
+#define kSOAPIHost                      @""
 
-extern NSString *const kSOFacebookAppId;
+#define kSOAPIToken                     @""
+
+#define kSOPusherAPIKey                 @""
+
+#define kSOFacebookAppId                @""
+
+#endif
 
 #pragma mark - Strings
 

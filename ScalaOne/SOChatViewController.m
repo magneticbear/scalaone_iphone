@@ -209,7 +209,6 @@
 }
 
 - (void)performNextQueueItem {
-    NSLog(@"sendingQueue.count %d",sendingQueue.count);
     if (sendingQueue.count >= 1) {
         void (^ action)() = [[sendingQueue objectAtIndex:0] copy];
         action();
@@ -445,7 +444,7 @@
 #pragma mark - Social
 
 - (void)postText:(NSString*)text toServiceType:(NSString*)serviceType {
-    if ([serviceType isEqualToString:SLServiceTypeTwitter]) {
+    if ([serviceType isEqualToString:@"com.apple.sharing.twitter"]) {
         text = [NSString stringWithFormat:@"%@ %@",text,kSOTwitterHashtag];
     }
     
