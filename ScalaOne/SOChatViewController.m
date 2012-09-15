@@ -25,8 +25,10 @@
 #import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 
-#define SOChatInputFieldStandardHeight  45.0f
-#define SOChatInputFieldExpandedHeight  82.0f
+#define kSOChatInputFieldStandardHeight 45.0f
+#define kSOChatInputFieldExpandedHeight 82.0f
+
+#define kSOTwitterServiceType           @"com.apple.social.twitter"
 
 @interface SOChatViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
@@ -56,16 +58,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     _chatInputField = [[SOChatInputField alloc] initWithFrame:CGRectMake(0.0f,
-                                                                         self.view.bounds.size.height - SOChatInputFieldStandardHeight,
+                                                                         self.view.bounds.size.height - kSOChatInputFieldStandardHeight,
                                                                          self.view.bounds.size.width,
-                                                                         SOChatInputFieldStandardHeight)];
+                                                                         kSOChatInputFieldStandardHeight)];
     
     _chatInputField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _chatInputField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"input_bar"]];
     _chatInputField.delegate = self;
     [self.view addSubview:_chatInputField];
     
-    self.view.keyboardTriggerOffset = SOChatInputFieldExpandedHeight;
+    self.view.keyboardTriggerOffset = kSOChatInputFieldExpandedHeight;
     
     __weak SOChatViewController *ref = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
@@ -161,9 +163,9 @@
     //    Update input field frame
     CGRect chatInputFieldFrame = _chatInputField.frame;
     if (!onlyTable) {
-        CGFloat inputFramePanConstant = (SOChatInputFieldExpandedHeight - SOChatInputFieldStandardHeight)/216.0f;
+        CGFloat inputFramePanConstant = (kSOChatInputFieldExpandedHeight - kSOChatInputFieldStandardHeight)/216.0f;
         
-        chatInputFieldFrame.size.height = SOChatInputFieldStandardHeight + _chatInputField.inputField.frame.size.height - 30.0f + (self.view.frame.size.height - keyboardFrameInView.origin.y)*inputFramePanConstant;
+        chatInputFieldFrame.size.height = kSOChatInputFieldStandardHeight + _chatInputField.inputField.frame.size.height - 30.0f + (self.view.frame.size.height - keyboardFrameInView.origin.y)*inputFramePanConstant;
         
         chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
         _chatInputField.frame = chatInputFieldFrame;
@@ -202,6 +204,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)resetLayout {
+    _chatTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-kSOChatInputFieldStandardHeight);
+    _chatInputField.frame = CGRectMake(0, self.view.frame.size.height-kSOChatInputFieldStandardHeight, self.view.frame.size.width, kSOChatInputFieldStandardHeight);
+    [self scrollToBottom];
+}
+
 #pragma sendingQueue
 
 - (void)addAction:(void (^)(void))action toQueue:(NSMutableArray *)queue {
@@ -221,9 +229,7 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
     //    Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    if (_chatTableView.contentSize.height > _chatTableView.frame.size.height) {
-        [_chatTableView setContentOffset:CGPointMake(0, _chatTableView.contentSize.height-_chatTableView.frame.size.height) animated:NO];
-    }
+    [self scrollToBottom];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -353,7 +359,7 @@
     if (twitter) {
         [self addAction:^{
             if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
-                [safeSelf postText:text toServiceType:@"com.apple.sharing.twitter"];
+                [safeSelf postText:text toServiceType:kSOTwitterServiceType];
             } else {
                 [safeSelf postText:text toServiceType:SLServiceTypeTwitter];
             }
@@ -444,22 +450,24 @@
 #pragma mark - Social
 
 - (void)postText:(NSString*)text toServiceType:(NSString*)serviceType {
-    if ([serviceType isEqualToString:@"com.apple.sharing.twitter"]) {
+    if ([serviceType isEqualToString:kSOTwitterServiceType]) {
         text = [NSString stringWithFormat:@"%@ %@",text,kSOTwitterHashtag];
     }
     
     if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
         TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
         
-        [tweetSheet setInitialText:text];
-        
-        tweetSheet.completionHandler = ^(TWTweetComposeViewControllerResult result){
+        TWTweetComposeViewControllerCompletionHandler __block completionHandler = ^(SLComposeViewControllerResult result){
             [self deselectTwitter];
-            [self dismissModalViewControllerAnimated:YES];
-            [self performNextQueueItem];
+            [tweetSheet dismissViewControllerAnimated:YES completion:^{
+                [self performNextQueueItem];
+                [self resetLayout];
+            }];
         };
         
-        [self presentModalViewController:tweetSheet animated:YES];
+        [tweetSheet setInitialText:text];
+        [tweetSheet setCompletionHandler:completionHandler];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
     } else {
         SLComposeViewController *slController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         
@@ -474,11 +482,12 @@
                 
                 [slController dismissViewControllerAnimated:YES completion:^{
                     [self performNextQueueItem];
+                    [self resetLayout];
                 }];
             };
             [slController setInitialText:text];
             [slController setCompletionHandler:completionHandler];
-            [self presentViewController:slController animated:NO completion:nil];
+            [self presentViewController:slController animated:YES completion:nil];
         }
     }
 }

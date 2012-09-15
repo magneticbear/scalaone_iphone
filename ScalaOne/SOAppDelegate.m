@@ -150,11 +150,14 @@
     
     NSURL *storeUrl = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"ScalaOne.sqlite"];
     
+    // handle db upgrade
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES, NSInferMappingModelAutomaticallyOption : @YES};
+    
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
                                     initWithManagedObjectModel:[self managedObjectModel]];
     if(![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                   configuration:nil URL:storeUrl options:nil error:&error]) {
+                                                   configuration:nil URL:storeUrl options:options error:&error]) {
         /*Error for store creation should be handled in here*/
     }
     

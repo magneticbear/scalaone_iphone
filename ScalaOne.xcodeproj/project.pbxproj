@@ -272,6 +272,7 @@
 		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
 		E844BB1E16042AB2008C5B3B /* SOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUser.h; sourceTree = "<group>"; };
 		E844BB1F16042AB2008C5B3B /* SOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUser.m; sourceTree = "<group>"; };
+		E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 2.xcdatamodel"; sourceTree = "<group>"; };
 		E852B9A615EFC40D00FD919A /* SOProfileInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOProfileInfoCell.h; sourceTree = "<group>"; };
 		E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOProfileInfoCell.m; sourceTree = "<group>"; };
 		E852B9AB15EFD44F00FD919A /* profile-cell-middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-cell-middle.png"; sourceTree = "<group>"; };
@@ -1776,9 +1777,10 @@
 		E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */,
 				E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */,
 			);
-			currentVersion = E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */;
+			currentVersion = E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */;
 			path = ScalaOne.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
