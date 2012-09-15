@@ -232,8 +232,19 @@
                 [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
             }];
         } else {
-            [SVProgressHUD dismiss];
-            NSLog(@"existing remoteID: %@",_currentUser.remoteID);
+            [[SOHTTPClient sharedClient] updateUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
+                if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
+                    NSError *error = nil;
+                    if ([moc hasChanges] && ![moc save:&error]) {
+                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                    [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
+                }
+            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+                [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
+            }];
         }
     }
     

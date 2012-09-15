@@ -61,9 +61,12 @@
 
 #pragma mark - Users
 
+- (void)getUserWithID:(NSInteger)userID success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSLog(@"getUserWithID");
+}
+
 - (void)createUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSDictionary *params = @{@"id" : user.remoteID,
-    @"firstName" : user.firstName,
+    NSDictionary *params = @{@"firstName" : user.firstName,
     @"lastName" : user.lastName,
     @"twitter" : user.twitter,
     @"facebook" : user.facebook,
@@ -73,6 +76,27 @@
     @"token" : kSOAPIToken};
     
 	[self postPath:@"users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
+}
+
+- (void)updateUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = @{@"firstName" : user.firstName,
+    @"lastName" : user.lastName,
+    @"twitter" : user.twitter,
+    @"facebook" : user.facebook,
+    @"phone" : user.phone,
+    @"email" : user.email,
+    @"website" : user.website,
+    @"token" : kSOAPIToken};
+    
+	[self putPath:[NSString stringWithFormat:@"users/%d",user.remoteID.integerValue] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}

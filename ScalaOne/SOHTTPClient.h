@@ -20,7 +20,9 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 + (SOHTTPClient *)sharedClient;
 
 // Users
+- (void)getUserWithID:(NSInteger)userID success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 - (void)createUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+- (void)updateUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 // Messages
 - (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
