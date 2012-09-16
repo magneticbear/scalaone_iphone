@@ -92,10 +92,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
-        NSString *cellIdentifier = @"EventCell";
+        NSString *cellIdentifier = @"EventCellFavorite";
         SOEventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier favorite:YES];
+            if (DEMO) {
+                cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+            } else {
+                SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+                cell = [[SOEventCell alloc] initWithEvent:event favorite:YES];
+            }
         }
         
         //    Cell Content
@@ -104,11 +109,7 @@
             cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
         } else {
             SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-            cell.textLabel.text = event.title;
-            NSDateFormatter *df = [[NSDateFormatter alloc] init];
-            [df setDateFormat:@"MMM. d 'at' h:mma"];
-            NSString *dateString = [df stringFromDate:event.start];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",dateString, event.location];
+            [cell setEvent:event];
         }
         
         return cell;

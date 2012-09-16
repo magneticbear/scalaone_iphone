@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOEvent.h"
 
-@interface SOEventCell : UITableViewCell
+@interface SOEventCell : UITableViewCell {
+    SOEvent *event;
+    BOOL favorite;
+}
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier favorite:(BOOL)favorite;
+@property (nonatomic, retain) SOEvent *event;
+@property (nonatomic) BOOL favorite;
+
+- (id)initWithEvent:(SOEvent *)aEvent favorite:(BOOL)aFavorite;
 
 @end

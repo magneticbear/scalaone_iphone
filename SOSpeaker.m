@@ -20,4 +20,11 @@
 @dynamic twitter;
 @dynamic url;
 
+- (NSString *) firstInitial {
+    [self willAccessValueForKey:@"firstInitial"];
+    NSString * initial = [[self name] substringToIndex:1];
+    [self didAccessValueForKey:@"firstInitial"];
+    return initial;
+}
+
 @end

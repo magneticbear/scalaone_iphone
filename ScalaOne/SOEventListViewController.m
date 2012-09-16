@@ -17,13 +17,11 @@
     NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
 }
-@property (nonatomic, strong) NSArray *events;
 @end
 
 @implementation SOEventListViewController
 @synthesize tableView = _tableView;
 @synthesize searchBar = _searchBar;
-@synthesize events = _events;
 
 - (void)viewDidLoad
 {
@@ -35,61 +33,57 @@
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     _searchBar.placeholder = @"Find events";
     
-    if (DEMO) {
-        _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];
-    } else {
-        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
-                    NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+    moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+                
+                for (NSDictionary *eventDict in events) {
                     
-                    for (NSDictionary *eventDict in events) {
-                        
-                        SOEvent* event = nil;
-                        
-                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-                        
-                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
-                        [request setEntity:entity];
-                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
-                        [request setPredicate:searchFilter];
-                        
-                        NSArray *results = [moc executeFetchRequest:request error:nil];
-                        
-                        if (results.count > 0) {
-                            event = [results lastObject];
-                        } else {
-                            event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
-                        }
-                        
-                        event.title = [eventDict objectForKey:@"title"];
-                        event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
-                        event.location = [eventDict objectForKey:@"location"];
-                        event.textDescription = [eventDict objectForKey:@"description"];
-                        event.code = [eventDict objectForKey:@"code"];
-                        
-//                        Dates
-                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
-                        event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
-                        event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
+                    SOEvent* event = nil;
+                    
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
+                    [request setEntity:entity];
+                    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
+                    [request setPredicate:searchFilter];
+                    
+                    NSArray *results = [moc executeFetchRequest:request error:nil];
+                    
+                    if (results.count > 0) {
+                        event = [results lastObject];
+                    } else {
+                        event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
                     }
                     
-                    NSError *error = nil;
-                    if ([moc hasChanges] && ![moc save:&error]) {
-                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                    }
+                    event.title = [eventDict objectForKey:@"title"];
+                    event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
+                    event.location = [eventDict objectForKey:@"location"];
+                    event.textDescription = [eventDict objectForKey:@"description"];
+                    event.code = [eventDict objectForKey:@"code"];
+                    
+                    // Dates
+                    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                    event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
+                    event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
                 }
-            });
-        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"getEvents failed");
-            });
-        }];
-        
-        [self resetAndFetch];
-    }
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"getEvents failed");
+        });
+    }];
+    
+    [self resetAndFetch];
 }
 
 - (void)viewDidUnload
@@ -111,14 +105,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (DEMO) return _events.count;
-    
     return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (DEMO) return 2;
-    
     return [[_fetchedResultsController sections] count];
 }
 
@@ -135,32 +125,13 @@
     NSString *cellIdentifier = @"EventCell";
     SOEventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier favorite:NO];
-        
-//        Make imageView tappable
-        cell.imageView.userInteractionEnabled = YES;
-        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
-        longPressRecognizer.minimumPressDuration = 0.15f;
-        [cell.imageView addGestureRecognizer:longPressRecognizer];
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapStar:)];
-        tapRecognizer.numberOfTapsRequired = 1;
-        [cell.imageView addGestureRecognizer:tapRecognizer];
+        SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+        cell = [[SOEventCell alloc] initWithEvent:event favorite:NO];
     }
     
 //    Cell Content
-    if (DEMO) {
-        cell.textLabel.text = [_events objectAtIndex:indexPath.row];
-        cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
-        cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
-    } else {
-        SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-        cell.textLabel.text = event.title;
-        cell.imageView.image = [UIImage imageNamed:@"list-star-off"];
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"MMM. d 'at' h:mma"];
-        NSString *dateString = [df stringFromDate:event.start];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",dateString, event.location];
-    }
+    SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+    [cell setEvent:event];
     
     return cell;
 }
@@ -175,11 +146,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)didTapStar:(UITapGestureRecognizer*)g {
-    NSLog(@"didTapStar");
-    ((UIImageView *)g.view).image = [UIImage imageNamed:@"list-star-on"];
 }
 
 #pragma mark - Core Data
