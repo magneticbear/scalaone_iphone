@@ -7,6 +7,7 @@
 //
 
 #import "SOEventCell.h"
+#import "SOAppDelegate.h"
 
 @implementation SOEventCell {
     NSDateFormatter *df;
@@ -89,6 +90,8 @@
         self.imageView.image = [UIImage imageNamed:@"list-star-off"];
         _event.favorite = @NO;
     }
+    SOAppDelegate *appDel = (SOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDel saveContext];
 }
 
 - (void)didTapStar:(UITapGestureRecognizer*)g {

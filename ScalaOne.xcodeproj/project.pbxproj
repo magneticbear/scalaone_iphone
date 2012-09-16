@@ -272,10 +272,10 @@
 		E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOHTTPClient.h; sourceTree = "<group>"; };
 		E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOHTTPClient.m; sourceTree = "<group>"; };
 		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
-		E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 2.xcdatamodel"; sourceTree = "<group>"; };
+		E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ScalaOne 2.xcdatamodel"; sourceTree = "<group>"; };
 		E844BB231604FF43008C5B3B /* profile_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_avatar@2x.png"; sourceTree = "<group>"; };
 		E844BB251604FF4F008C5B3B /* profile_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_avatar.png; sourceTree = "<group>"; };
-		E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 3.xcdatamodel"; sourceTree = "<group>"; };
+		E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ScalaOne 3.xcdatamodel"; sourceTree = "<group>"; };
 		E844BB2816055D0B008C5B3B /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOEvent.h; path = ../SOEvent.h; sourceTree = "<group>"; };
 		E844BB2916055D0B008C5B3B /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOEvent.m; path = ../SOEvent.m; sourceTree = "<group>"; };
 		E844BB2B16055D1D008C5B3B /* SOLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOLocation.h; path = ../SOLocation.h; sourceTree = "<group>"; };
@@ -482,6 +482,7 @@
 		E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOListHeaderLabel.m; sourceTree = "<group>"; };
 		E8B331D215EE7BA00085F395 /* SOUniqueTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUniqueTouchView.h; sourceTree = "<group>"; };
 		E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUniqueTouchView.m; sourceTree = "<group>"; };
+		E8BEED1516066A7400CBA932 /* ScalaOne 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 4.xcdatamodel"; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
@@ -1786,11 +1787,12 @@
 		E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E8BEED1516066A7400CBA932 /* ScalaOne 4.xcdatamodel */,
 				E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */,
 				E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */,
 				E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */,
 			);
-			currentVersion = E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */;
+			currentVersion = E8BEED1516066A7400CBA932 /* ScalaOne 4.xcdatamodel */;
 			path = ScalaOne.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

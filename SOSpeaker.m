@@ -19,6 +19,7 @@
 @dynamic title;
 @dynamic twitter;
 @dynamic url;
+@dynamic favorite;
 
 - (NSString *) firstInitial {
     [self willAccessValueForKey:@"firstInitial"];

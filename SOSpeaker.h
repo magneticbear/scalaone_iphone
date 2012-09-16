@@ -20,5 +20,6 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * twitter;
 @property (nonatomic, retain) NSString * url;
+@property (nonatomic, retain) NSNumber * favorite;
 
 @end

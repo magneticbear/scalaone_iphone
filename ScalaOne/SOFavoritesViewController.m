@@ -92,54 +92,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
+        SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+        
         NSString *cellIdentifier = @"EventCellFavorite";
         SOEventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            if (DEMO) {
-                cell = [[SOEventCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-            } else {
-                SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-                cell = [[SOEventCell alloc] initWithEvent:event favorite:YES];
-            }
-        }
-        
-        //    Cell Content
-        if (DEMO) {
-            cell.textLabel.text = [_events objectAtIndex:indexPath.row];
-            cell.detailTextLabel.text = @"Today at 12:05PM, Room B202";
+            cell = [[SOEventCell alloc] initWithEvent:event favorite:YES];
         } else {
-            SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
             [cell setEvent:event];
         }
         
         return cell;
     }   else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
+        SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
         
         NSString *cellIdentifier = @"SpeakerCell";
         SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
-            cell = [[SOSpeakerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        }
-        
-        //    Content
-        if (DEMO) {
-            cell.textLabel.text = [_speakers objectAtIndex:indexPath.row];
-            cell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeSmall];
+            cell = [[SOSpeakerCell alloc] initWithSpeaker:speaker favorite:YES];
         } else {
-            SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
-            cell.textLabel.text = speaker.name;
-            cell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeSmall];
-            
-            SDWebImageManager *manager = [SDWebImageManager sharedManager];
-            [manager downloadWithURL:
-             [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,speaker.remoteID.integerValue]]
-                            delegate:self
-                             options:0
-                             success:^(UIImage *image, BOOL cached) {
-                                 cell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeSmall];
-                             } failure:^(NSError *error) {
-                                 NSLog(@"Image retrieval failed");
-                             }];
+            [cell setSpeaker:speaker];
         }
         
         return cell;
@@ -218,6 +190,8 @@
             
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
             NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
+            
+            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"favorite == YES"]];
             
             [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
             

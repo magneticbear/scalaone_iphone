@@ -48,11 +48,15 @@
 
 - (void)setSpeaker:(SOSpeaker *)aSpeaker {
     _speaker = aSpeaker;
-    //    Text
-    self.textLabel.text = _speaker.name;
     
-    //    Image
-    self.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOff];
+    SOAvatarType avatarType = _favorite ? SOAvatarTypeSmall : SOAvatarTypeFavoriteOff;
+    
+    if (!_favorite && _speaker.favorite) {
+        avatarType = SOAvatarTypeFavoriteOn;
+    }
+    
+    self.textLabel.text = _speaker.name;
+    self.imageView.image = [UIImage avatarWithSource:nil type:avatarType];
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadWithURL:
@@ -60,9 +64,9 @@
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {
-                         self.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOff];
+                         self.imageView.image = [UIImage avatarWithSource:image type:avatarType];
                      } failure:^(NSError *error) {
-                         //                         NSLog(@"Image retrieval failed");
+                         // NSLog(@"Image retrieval failed");
                      }];
 }
 

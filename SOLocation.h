@@ -19,6 +19,5 @@
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSNumber * userID;
 @property (nonatomic, retain) NSString * userName;
-@property (nonatomic, retain) NSNumber * favorite;
 
 @end

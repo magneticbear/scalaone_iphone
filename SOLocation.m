@@ -18,6 +18,5 @@
 @dynamic updated;
 @dynamic userID;
 @dynamic userName;
-@dynamic favorite;
 
 @end
