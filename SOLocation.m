@@ -2,7 +2,7 @@
 //  SOLocation.m
 //  ScalaOne
 //
-//  Created by Jean-Pierre Simard on 9/4/12.
+//  Created by Jean-Pierre Simard on 9/15/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
@@ -18,5 +18,6 @@
 @dynamic updated;
 @dynamic userID;
 @dynamic userName;
+@dynamic favorite;
 
 @end

@@ -2,7 +2,7 @@
 //  SOLocation.h
 //  ScalaOne
 //
-//  Created by Jean-Pierre Simard on 9/4/12.
+//  Created by Jean-Pierre Simard on 9/15/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
@@ -19,5 +19,6 @@
 @property (nonatomic, retain) NSDate * updated;
 @property (nonatomic, retain) NSNumber * userID;
 @property (nonatomic, retain) NSString * userName;
+@property (nonatomic, retain) NSNumber * favorite;
 
 @end

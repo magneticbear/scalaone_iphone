@@ -2,13 +2,11 @@
 //  SOUser.m
 //  ScalaOne
 //
-//  Created by Jean-Pierre Simard on 9/14/12.
+//  Created by Jean-Pierre Simard on 9/15/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
 #import "SOUser.h"
-#import "SOEvent.h"
-#import "SOSpeaker.h"
 
 
 @implementation SOUser
@@ -17,13 +15,11 @@
 @dynamic email;
 @dynamic facebook;
 @dynamic firstName;
+@dynamic isMe;
 @dynamic lastName;
 @dynamic phone;
 @dynamic remoteID;
 @dynamic twitter;
 @dynamic website;
-@dynamic isMe;
-@dynamic favoriteEvents;
-@dynamic favoriteSpeakers;
 
 @end

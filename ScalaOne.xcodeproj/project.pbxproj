@@ -39,9 +39,13 @@
 		E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */; };
 		E83E7F9515F687C7003E6FB4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E83E7F9415F687C7003E6FB4 /* CoreData.framework */; };
 		E842CBFF15E66C9600B40B33 /* SOHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */; };
-		E844BB2016042AB2008C5B3B /* SOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB1F16042AB2008C5B3B /* SOUser.m */; };
 		E844BB241604FF43008C5B3B /* profile_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E844BB231604FF43008C5B3B /* profile_avatar@2x.png */; };
 		E844BB261604FF4F008C5B3B /* profile_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E844BB251604FF4F008C5B3B /* profile_avatar.png */; };
+		E844BB2A16055D0B008C5B3B /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB2916055D0B008C5B3B /* SOEvent.m */; };
+		E844BB2D16055D1E008C5B3B /* SOLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB2C16055D1E008C5B3B /* SOLocation.m */; };
+		E844BB3016055D2B008C5B3B /* SOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB2F16055D2A008C5B3B /* SOMessage.m */; };
+		E844BB3316055D3E008C5B3B /* SOSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB3216055D3C008C5B3B /* SOSpeaker.m */; };
+		E844BB3616055D4F008C5B3B /* SOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB3516055D4D008C5B3B /* SOUser.m */; };
 		E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */; };
 		E852B9AE15EFD44F00FD919A /* profile-cell-middle.png in Resources */ = {isa = PBXBuildFile; fileRef = E852B9AB15EFD44F00FD919A /* profile-cell-middle.png */; };
 		E852B9AF15EFD44F00FD919A /* profile-cell-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = E852B9AC15EFD44F00FD919A /* profile-cell-bottom.png */; };
@@ -189,8 +193,6 @@
 		E8898B7315F7E01500A1C975 /* UIImage+SOAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = E8898B7215F7E01500A1C975 /* UIImage+SOAvatar.m */; };
 		E8898B7F15F7EBDA00A1C975 /* avatar-square-jp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8898B7E15F7EBDA00A1C975 /* avatar-square-jp@2x.png */; };
 		E8898B8115F7EBE100A1C975 /* avatar-square-jp.png in Resources */ = {isa = PBXBuildFile; fileRef = E8898B8015F7EBE000A1C975 /* avatar-square-jp.png */; };
-		E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D65FE15F6B365003DF027 /* SOLocation.m */; };
-		E89D660215F6B36B003DF027 /* SOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E89D660115F6B36A003DF027 /* SOMessage.m */; };
 		E8A4FFBA15E4377F00D10907 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFB915E4377F00D10907 /* UIKit.framework */; };
 		E8A4FFBC15E4377F00D10907 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBB15E4377F00D10907 /* Foundation.framework */; };
 		E8A4FFBE15E4377F00D10907 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A4FFBD15E4377F00D10907 /* CoreGraphics.framework */; };
@@ -214,8 +216,6 @@
 		E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */; };
 		E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */; };
 		E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */; };
-		E8CA6E7A15F6BD7400A29310 /* SOSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CA6E7915F6BD7400A29310 /* SOSpeaker.m */; };
-		E8CA6E8515F6C38800A29310 /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CA6E8415F6C38800A29310 /* SOEvent.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
 		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
 		E8EDE2E315F9573F00AB43B0 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EDE2E215F9573E00AB43B0 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -272,11 +272,20 @@
 		E842CBFD15E66C9600B40B33 /* SOHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOHTTPClient.h; sourceTree = "<group>"; };
 		E842CBFE15E66C9600B40B33 /* SOHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOHTTPClient.m; sourceTree = "<group>"; };
 		E842CC1A15E6876B00B40B33 /* SODefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODefines.h; sourceTree = "<group>"; };
-		E844BB1E16042AB2008C5B3B /* SOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUser.h; sourceTree = "<group>"; };
-		E844BB1F16042AB2008C5B3B /* SOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUser.m; sourceTree = "<group>"; };
 		E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 2.xcdatamodel"; sourceTree = "<group>"; };
 		E844BB231604FF43008C5B3B /* profile_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_avatar@2x.png"; sourceTree = "<group>"; };
 		E844BB251604FF4F008C5B3B /* profile_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_avatar.png; sourceTree = "<group>"; };
+		E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 3.xcdatamodel"; sourceTree = "<group>"; };
+		E844BB2816055D0B008C5B3B /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOEvent.h; path = ../SOEvent.h; sourceTree = "<group>"; };
+		E844BB2916055D0B008C5B3B /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOEvent.m; path = ../SOEvent.m; sourceTree = "<group>"; };
+		E844BB2B16055D1D008C5B3B /* SOLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOLocation.h; path = ../SOLocation.h; sourceTree = "<group>"; };
+		E844BB2C16055D1E008C5B3B /* SOLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOLocation.m; path = ../SOLocation.m; sourceTree = "<group>"; };
+		E844BB2E16055D2A008C5B3B /* SOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOMessage.h; path = ../SOMessage.h; sourceTree = "<group>"; };
+		E844BB2F16055D2A008C5B3B /* SOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOMessage.m; path = ../SOMessage.m; sourceTree = "<group>"; };
+		E844BB3116055D3C008C5B3B /* SOSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOSpeaker.h; path = ../SOSpeaker.h; sourceTree = "<group>"; };
+		E844BB3216055D3C008C5B3B /* SOSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOSpeaker.m; path = ../SOSpeaker.m; sourceTree = "<group>"; };
+		E844BB3416055D4C008C5B3B /* SOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOUser.h; path = ../SOUser.h; sourceTree = "<group>"; };
+		E844BB3516055D4D008C5B3B /* SOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOUser.m; path = ../SOUser.m; sourceTree = "<group>"; };
 		E852B9A615EFC40D00FD919A /* SOProfileInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOProfileInfoCell.h; sourceTree = "<group>"; };
 		E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOProfileInfoCell.m; sourceTree = "<group>"; };
 		E852B9AB15EFD44F00FD919A /* profile-cell-middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-cell-middle.png"; sourceTree = "<group>"; };
@@ -442,10 +451,6 @@
 		E8898B7215F7E01500A1C975 /* UIImage+SOAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SOAvatar.m"; sourceTree = "<group>"; };
 		E8898B7E15F7EBDA00A1C975 /* avatar-square-jp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-square-jp@2x.png"; sourceTree = "<group>"; };
 		E8898B8015F7EBE000A1C975 /* avatar-square-jp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-square-jp.png"; sourceTree = "<group>"; };
-		E89D65FD15F6B365003DF027 /* SOLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOLocation.h; sourceTree = "<group>"; };
-		E89D65FE15F6B365003DF027 /* SOLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOLocation.m; sourceTree = "<group>"; };
-		E89D660015F6B36A003DF027 /* SOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOMessage.h; sourceTree = "<group>"; };
-		E89D660115F6B36A003DF027 /* SOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOMessage.m; sourceTree = "<group>"; };
 		E8A4FFB515E4377F00D10907 /* ScalaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScalaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A4FFB915E4377F00D10907 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E8A4FFBB15E4377F00D10907 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -477,10 +482,6 @@
 		E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOListHeaderLabel.m; sourceTree = "<group>"; };
 		E8B331D215EE7BA00085F395 /* SOUniqueTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUniqueTouchView.h; sourceTree = "<group>"; };
 		E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUniqueTouchView.m; sourceTree = "<group>"; };
-		E8CA6E7815F6BD7400A29310 /* SOSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOSpeaker.h; sourceTree = "<group>"; };
-		E8CA6E7915F6BD7400A29310 /* SOSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOSpeaker.m; sourceTree = "<group>"; };
-		E8CA6E8315F6C38800A29310 /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEvent.h; sourceTree = "<group>"; };
-		E8CA6E8415F6C38800A29310 /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEvent.m; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
@@ -667,16 +668,16 @@
 			isa = PBXGroup;
 			children = (
 				E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */,
-				E8CA6E8315F6C38800A29310 /* SOEvent.h */,
-				E8CA6E8415F6C38800A29310 /* SOEvent.m */,
-				E89D65FD15F6B365003DF027 /* SOLocation.h */,
-				E89D65FE15F6B365003DF027 /* SOLocation.m */,
-				E89D660015F6B36A003DF027 /* SOMessage.h */,
-				E89D660115F6B36A003DF027 /* SOMessage.m */,
-				E8CA6E7815F6BD7400A29310 /* SOSpeaker.h */,
-				E8CA6E7915F6BD7400A29310 /* SOSpeaker.m */,
-				E844BB1E16042AB2008C5B3B /* SOUser.h */,
-				E844BB1F16042AB2008C5B3B /* SOUser.m */,
+				E844BB2816055D0B008C5B3B /* SOEvent.h */,
+				E844BB2916055D0B008C5B3B /* SOEvent.m */,
+				E844BB2B16055D1D008C5B3B /* SOLocation.h */,
+				E844BB2C16055D1E008C5B3B /* SOLocation.m */,
+				E844BB2E16055D2A008C5B3B /* SOMessage.h */,
+				E844BB2F16055D2A008C5B3B /* SOMessage.m */,
+				E844BB3116055D3C008C5B3B /* SOSpeaker.h */,
+				E844BB3216055D3C008C5B3B /* SOSpeaker.m */,
+				E844BB3416055D4C008C5B3B /* SOUser.h */,
+				E844BB3516055D4D008C5B3B /* SOUser.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1494,10 +1495,6 @@
 				E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */,
 				E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */,
 				E83E7F3815F6482F003E6FB4 /* ScalaOne.xcdatamodeld in Sources */,
-				E89D65FF15F6B365003DF027 /* SOLocation.m in Sources */,
-				E89D660215F6B36B003DF027 /* SOMessage.m in Sources */,
-				E8CA6E7A15F6BD7400A29310 /* SOSpeaker.m in Sources */,
-				E8CA6E8515F6C38800A29310 /* SOEvent.m in Sources */,
 				E8898B1415F6E98600A1C975 /* SOEventCell.m in Sources */,
 				E8898B1815F6EA3900A1C975 /* SOSpeakerCell.m in Sources */,
 				E8898B7315F7E01500A1C975 /* UIImage+SOAvatar.m in Sources */,
@@ -1505,7 +1502,11 @@
 				E87AD8BC15FAAB1D00096A19 /* UIAlertView+Blocks.m in Sources */,
 				E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */,
 				E83565EE1600C3EF001A4D69 /* NSString+SOAdditions.m in Sources */,
-				E844BB2016042AB2008C5B3B /* SOUser.m in Sources */,
+				E844BB2A16055D0B008C5B3B /* SOEvent.m in Sources */,
+				E844BB2D16055D1E008C5B3B /* SOLocation.m in Sources */,
+				E844BB3016055D2B008C5B3B /* SOMessage.m in Sources */,
+				E844BB3316055D3E008C5B3B /* SOSpeaker.m in Sources */,
+				E844BB3616055D4F008C5B3B /* SOUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,10 +1786,11 @@
 		E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */,
 				E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */,
 				E83E7F3715F6482F003E6FB4 /* ScalaOne.xcdatamodel */,
 			);
-			currentVersion = E844BB221604F97A008C5B3B /* ScalaOne 2.xcdatamodel */;
+			currentVersion = E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */;
 			path = ScalaOne.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
