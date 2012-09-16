@@ -11,10 +11,14 @@
 #import <CoreLocation/CLLocationManagerDelegate.h>
 #import <MapKit/MapKit.h>
 #import "SOLocationAnnotation.h"
+#import "SOLocation.h"
+#import "SOHTTPClient.h"
 
 #define kMoveToLocationAnimationDuration    2.0
 
-@interface SOMapViewController ()
+@interface SOMapViewController (){
+    NSManagedObjectContext *moc;
+}
 
 @end
 
@@ -29,13 +33,65 @@
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
     
-    if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
-        [self didPressLocateMe:nil];
-        double delayInSeconds = kMoveToLocationAnimationDuration;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self getMapPins];
-        });
+    if (DEMO) {
+        if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
+            [self didPressLocateMe:nil];
+            double delayInSeconds = kMoveToLocationAnimationDuration;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self getMapPins];
+            });
+        }
+    } else {
+        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+//        [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+//                    NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+//                    
+//                    for (NSDictionary *eventDict in events) {
+//                        
+//                        SOEvent* event = nil;
+//                        
+//                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//                        
+//                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
+//                        [request setEntity:entity];
+//                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
+//                        [request setPredicate:searchFilter];
+//                        
+//                        NSArray *results = [moc executeFetchRequest:request error:nil];
+//                        
+//                        if (results.count > 0) {
+//                            event = [results lastObject];
+//                        } else {
+//                            event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
+//                        }
+//                        
+//                        event.title = [eventDict objectForKey:@"title"];
+//                        event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
+//                        event.location = [eventDict objectForKey:@"location"];
+//                        event.textDescription = [eventDict objectForKey:@"description"];
+//                        event.code = [eventDict objectForKey:@"code"];
+//                        
+//                        //                        Dates
+//                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+//                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+//                        event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
+//                        event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
+//                    }
+//                    
+//                    NSError *error = nil;
+//                    if ([moc hasChanges] && ![moc save:&error]) {
+//                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//                    }
+//                }
+//            });
+//        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                NSLog(@"getEvents failed");
+//            });
+//        }];
     }
 }
 
@@ -109,6 +165,18 @@
 - (void)didPressLocateMe:(id)sender {
     if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
         [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+        if (!DEMO) {
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:moc];
+            SOLocation *location = [[SOLocation alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+            location.userID = @168;
+            location.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
+            location.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
+            [[SOHTTPClient sharedClient] updateLocation:location success:^(AFJSONRequestOperation *operation, id responseObject) {
+                NSLog(@"responseObject: %@",responseObject);
+            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+                NSLog(@"update location failed");
+            }];
+        }
     }
 }
 

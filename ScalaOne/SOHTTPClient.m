@@ -184,4 +184,36 @@
 	}];
 }
 
+#pragma mark - Locations
+
+- (void)getLocationsWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    [self getPath:@"users?location=1" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
+}
+
+- (void)updateLocation:(SOLocation *)location success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = @{@"latitude" : [NSString stringWithFormat:@"%.5f",location.latitude.floatValue],
+    @"longitude" : [NSString stringWithFormat:@"%.5f",location.longitude.floatValue],
+    @"token" : kSOAPIToken};
+    
+    NSLog(@"location: %@",params);
+    
+	[self putPath:[NSString stringWithFormat:@"users/%d/location",location.userID.integerValue] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
+}
+
 @end

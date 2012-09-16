@@ -125,6 +125,10 @@
             _lastNameField.delegate = self;
             
             [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:[UIImage imageWithContentsOfFile:[self myAvatarPath]] type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+            
+            if (_currentUser.remoteID.integerValue == 0) {
+                [self toggleEditing];
+            }
         } else {
             [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -209,7 +213,8 @@
         [self saveContext];
         
         [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
-        
+        // Upload image
+//        [self uploadImage];
         if (_currentUser.remoteID.integerValue == 0) {
             [self postCurrentUserToAPI];
         } else {
@@ -268,7 +273,7 @@
     }];
 }
 
-- (void)uploadImageToCurrentUser {
+- (void)uploadImage {
     NSLog(@"uploading image...");
     [[SOHTTPClient sharedClient] postImage:[UIImage imageNamed:@"profile_avatar"] forUserID:2 success:^(AFJSONRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
