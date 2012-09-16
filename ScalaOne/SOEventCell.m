@@ -8,10 +8,6 @@
 
 #import "SOEventCell.h"
 
-@interface SOEventCell ()
-
-@end
-
 @implementation SOEventCell {
     NSDateFormatter *df;
 }

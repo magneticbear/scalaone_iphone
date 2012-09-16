@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SOSpeaker.h"
 
-@interface SOSpeakerCell : UITableViewCell
+@interface SOSpeakerCell : UITableViewCell {
+    SOSpeaker *speaker;
+    BOOL favorite;
+}
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier favorite:(BOOL)favorite;
+@property (nonatomic, retain) SOSpeaker *speaker;
+@property (nonatomic) BOOL favorite;
+
+- (id)initWithSpeaker:(SOSpeaker *)aSpeaker favorite:(BOOL)aFavorite;
 
 @end

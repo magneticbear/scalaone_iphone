@@ -122,16 +122,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
     NSString *cellIdentifier = @"EventCell";
     SOEventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-        cell = [[SOEventCell alloc] initWithEvent:event favorite:NO];
-    }
     
-//    Cell Content
-    SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-    [cell setEvent:event];
+    if (cell == nil) {
+        cell = [[SOEventCell alloc] initWithEvent:event favorite:NO];
+    } else {
+        [cell setEvent:event];
+    }
     
     return cell;
 }
