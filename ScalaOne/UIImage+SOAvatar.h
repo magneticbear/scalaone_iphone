@@ -17,8 +17,10 @@ typedef enum {
 
 @interface UIImage (SOAvatar)
 
-+ (UIImage*) avatarWithSource:(UIImage*)source type:(SOAvatarType)avatarType;
++ (UIImage *)avatarWithSource:(UIImage *)source type:(SOAvatarType)avatarType;
 
-+ (UIImage*)roundedImage:(UIImage*)image withRadius:(CGFloat)radius scale:(CGFloat)scale;
++ (UIImage *)roundedImage:(UIImage *)image withRadius:(CGFloat)radius scale:(CGFloat)scale;
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 @end

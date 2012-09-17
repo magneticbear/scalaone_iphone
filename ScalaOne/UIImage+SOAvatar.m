@@ -10,7 +10,7 @@
 
 @implementation UIImage (SOAvatar)
 
-+ (UIImage*) avatarWithSource:(UIImage *)source type:(SOAvatarType)avatarType {
++ (UIImage *)avatarWithSource:(UIImage *)source type:(SOAvatarType)avatarType {
     NSString *bgImgName = (avatarType == SOAvatarTypeLarge) ? @"profile_avatar" : @"list-avatar-generic-nostar";
     UIImage *background = [UIImage imageNamed:bgImgName];
     
@@ -71,7 +71,7 @@
     return avatar;
 }
 
-+ (UIImage*)roundedImage:(UIImage*)image withRadius:(CGFloat)radius scale:(CGFloat)scale {
++ (UIImage *)roundedImage:(UIImage *)image withRadius:(CGFloat)radius scale:(CGFloat)scale {
     CGRect imgRect = CGRectMake(0, 0, image.size.width, image.size.height);
     UIGraphicsBeginImageContextWithOptions(image.size, NO, scale);
     

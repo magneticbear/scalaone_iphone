@@ -94,14 +94,12 @@
 }
 
 - (void)postImage:(UIImage *)image forUserID:(NSInteger)userID success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSDictionary *params = @{@"token" : kSOAPIToken};
-    
-    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:[NSString stringWithFormat:@"users/%d/image",userID] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST" path:[NSString stringWithFormat:@"users/%d/image?token=%@",userID,kSOAPIToken] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.7) name:@"picture" fileName:@"image.jpg" mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 1.0) name:@"picture" fileName:@"picture.jpg" mimeType:@"image/jpeg"];
     }];
     
-    [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}
@@ -110,6 +108,8 @@
 			failure((AFJSONRequestOperation *)operation, error);
 		}
     }];
+    
+    [operation start];
 }
 
 #pragma mark - Messages
@@ -206,7 +206,7 @@
 #pragma mark - Utitilies
 
 - (NSDictionary *)userParametersWithUser:(SOUser *)user {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:10];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     if (user.firstName.length) [params addEntriesFromDictionary:@{@"firstName" : user.firstName}];
     if (user.lastName.length) [params addEntriesFromDictionary:@{@"lastName" : user.lastName}];

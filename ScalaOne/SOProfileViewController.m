@@ -93,9 +93,7 @@
 }
 
 - (IBAction)didPressAvatar:(id)sender {
-    [self presentViewController:_imgPicker animated:YES completion:^{
-        
-    }];
+    [self presentViewController:_imgPicker animated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -223,9 +221,6 @@
         [self setCellContents];
         [self saveContext];
         
-        [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
-        // Upload image
-//        [self uploadImage];
         if (_currentUser.remoteID.integerValue == 0) {
             [self postCurrentUserToAPI];
         } else {
@@ -256,13 +251,19 @@
 }
 
 - (void)postCurrentUserToAPI {
+    [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
     [[SOHTTPClient sharedClient] createUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
             _currentUser.remoteID = [NSNumber numberWithInt:
                                      [[[responseObject objectForKey:@"result"]
                                        objectForKey:@"id"] intValue]];
             [self saveContext];
-            [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+            
+            if ([self shouldUploadAvatar]) {
+                [self uploadImage];
+            } else {
+                [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+            }
         } else {
             [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
         }
@@ -272,6 +273,7 @@
 }
 
 - (void)putCurrentUserToAPI {
+    [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
     [[SOHTTPClient sharedClient] updateUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
             [self saveContext];
@@ -285,17 +287,10 @@
 }
 
 - (void)uploadImage {
-    NSLog(@"uploading image...");
-    [[SOHTTPClient sharedClient] postImage:[UIImage imageNamed:@"profile_avatar"] forUserID:2 success:^(AFJSONRequestOperation *operation, id responseObject) {
-        if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
-            NSLog(@"it worked");
-            [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
-        } else {
-            NSLog(@"it didn't work");
-            [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
-        }
+    [SVProgressHUD showWithStatus:@"Uploading image..." maskType:SVProgressHUDMaskTypeClear];
+    [[SOHTTPClient sharedClient] postImage:[UIImage imageWithContentsOfFile:[self myAvatarPath]] forUserID:_currentUser.remoteID.integerValue success:^(AFJSONRequestOperation *operation, id responseObject) {
+        [SVProgressHUD showSuccessWithStatus:@"Image uploaded successfully."];
     } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-        NSLog(@"looks like the server's down");
         [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
     }];
 }
@@ -445,12 +440,14 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     
+    // Resize image to reduce UL/DL time
+    image = [UIImage imageWithImage:image scaledToSize:CGSizeMake(160, 160)];
+    
     [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
     
     [UIImageJPEGRepresentation(image, 1.0) writeToFile:[self myAvatarPath] atomically:YES];
     
-    [picker dismissViewControllerAnimated:YES completion:^{
-    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSString*)myAvatarPath {
@@ -473,6 +470,11 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     
     return [emailTest evaluateWithObject:candidate];
+}
+
+- (BOOL)shouldUploadAvatar {
+    // TODO (Optional): Add a check here to see if the image has changed
+    return YES;
 }
 
 @end
