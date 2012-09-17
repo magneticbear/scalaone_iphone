@@ -128,6 +128,7 @@
     }];
     
     [self resetAndFetch];
+    [self performSelector:@selector(didPressLocateMe:) withObject:nil afterDelay:1.0];
 }
 
 - (void)viewDidUnload
@@ -200,6 +201,7 @@
 - (void)didPressLocateMe:(id)sender {
     if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
         [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
+        [self mapView:_mapView didUpdateUserLocation:_mapView.userLocation];
     }
 }
 
