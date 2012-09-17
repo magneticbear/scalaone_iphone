@@ -10,11 +10,20 @@
 @implementation SOLocationAnnotation
 @synthesize coordinate, mapView, locationView, nameString = _nameString, distanceString = _distanceString, profileID = _profileID, avatarImgName = _avatarImgName;
 
-- (id) initWithLat:(CGFloat)latitute lon:(CGFloat)longitude name:(NSString*)name distance:(NSString *)distance
+- (id) initWithLat:(CGFloat)latitude lon:(CGFloat)longitude name:(NSString*)name distance:(NSString *)distance
 {
-    _coordinate = CLLocationCoordinate2DMake(latitute, longitude);
+    _coordinate = CLLocationCoordinate2DMake(latitude, longitude);
     _nameString = name;
     _distanceString = distance;
+    return self;
+}
+
+- (id)initWithUser:(SOUser *)aUser
+{
+    _coordinate = CLLocationCoordinate2DMake(aUser.latitude.floatValue, aUser.longitude.floatValue);
+    _nameString = [NSString stringWithFormat:@"%@ %@", aUser.firstName, aUser.lastName];
+    _distanceString = @"1.2km";
+    _profileID = aUser.remoteID.integerValue;
     return self;
 }
 

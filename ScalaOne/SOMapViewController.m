@@ -200,55 +200,57 @@
 - (void)didPressLocateMe:(id)sender {
     if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
         [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
-        SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
-        user.remoteID = @168;
-        user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
-        user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
-        [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
-        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-        }];
     }
 }
 
 - (void)getMapPins {
-    CLLocationCoordinate2D userLocation = _mapView.userLocation.coordinate;
-    [self addAnnotationsWithUserLocation:userLocation];
-}
-
-- (void)addAnnotationsWithUserLocation:(CLLocationCoordinate2D)userLocation {
-//    Generate 20 random SOLocationView's and add them to the map
-    NSInteger numAnnotations = 5;
-    NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:numAnnotations];
-    for (int i=0; i<numAnnotations; i++) {
-        SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithLat:userLocation.latitude+(0.1f-(arc4random()%100)/500.0f) lon:userLocation.longitude+(0.1f-(arc4random()%100)/500.0f) name:@"Mo Mozafarian" distance:@"1.2km"];
-        [annotations  addObject:locationAnnotation];
-        locationAnnotation.mapView = _mapView;
+    NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:_fetchedResultsController.fetchedObjects.count];
+    for (SOUser *user in _fetchedResultsController.fetchedObjects) {
+        BOOL annotationExists = NO;
+        for (id annotation in _mapView.annotations) {
+            if ([annotation isKindOfClass:[SOLocationAnnotation class]]) {
+                if (((SOLocationAnnotation *)annotation).profileID == user.remoteID.integerValue) {
+                    [((SOLocationAnnotation *)annotation) updateCoordinate:CLLocationCoordinate2DMake(user.latitude.floatValue, user.longitude.floatValue) animated:YES];
+                    annotationExists = YES;
+                    break;
+                }
+            }
+        }
+        if (!annotationExists && !user.isMe.boolValue) {
+            SOLocationAnnotation *locationAnnotation = [[SOLocationAnnotation alloc] initWithUser:user];
+            [annotations addObject:locationAnnotation];
+            locationAnnotation.mapView = _mapView;
+        }
     }
     [_mapView addAnnotations:annotations];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     if (userLocation.coordinate.latitude != 0 && userLocation.coordinate.longitude != 0) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            [self didPressLocateMe:nil];
-            double delayInSeconds = kMoveToLocationAnimationDuration;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self getMapPins];
-            });
-        });
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+        
+        [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES && remoteID != nil"]];
+        
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        
+        if (results.count) {
+            SOUser *user = [results lastObject];
+            user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
+            user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
+            user.locationTime = [NSDate date];
+            [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
+            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            }];
+        }
     }
 }
 
 #pragma mark - Core Data
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"refresh map pins, controllerDidChangeContent");
-//    for (SOUser *user in _fetchedResultsController.fetchedObjects) {
-//        NSLog(@"%.2f/%.2f %@ %@",user.latitude.floatValue,user.longitude.floatValue,user.locationTime,user.email);
-//    }
+    [self getMapPins];
 }
 
 - (void)resetAndFetch {

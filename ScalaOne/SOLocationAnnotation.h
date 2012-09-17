@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 #import "SOLocationProtocols.h"
 #import "SOLocationView.h"
+#import "SOUser.h"
 
 @interface SOLocationAnnotation : NSObject 
 <MKAnnotation, SOAnnotationProtocol>
@@ -31,7 +32,8 @@
 @property (nonatomic, strong) NSString *distanceString;
 @property (atomic) NSInteger profileID;
 
-- (id) initWithLat:(CGFloat)latitute lon:(CGFloat)longitude name:(NSString *)name distance:(NSString *)distance;
+- (id) initWithLat:(CGFloat)latitude lon:(CGFloat)longitude name:(NSString *)name distance:(NSString *)distance;
+- (id)initWithUser:(SOUser *)aUser;
 - (void)updateAvatar:(NSString *)avatar;
 - (void)updateName:(NSString *)name;
 - (void)updateDistance:(NSString *)distance;
