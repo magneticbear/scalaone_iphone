@@ -13,6 +13,7 @@
 @implementation SOSpeakerCell
 @synthesize speaker = _speaker;
 @synthesize favorite = _favorite;
+@synthesize delegate = _delegate;
 
 - (id)initWithSpeaker:(SOSpeaker *)aSpeaker favorite:(BOOL)aFavorite {
     _favorite = aFavorite;
@@ -42,6 +43,17 @@
         
         // Content
         [self setSpeaker:aSpeaker];
+        
+        // Make imageView tappable
+        if (!_favorite) {
+            self.imageView.userInteractionEnabled = YES;
+            UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
+            longPressRecognizer.minimumPressDuration = 0.15f;
+            [self.imageView addGestureRecognizer:longPressRecognizer];
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAvatar:)];
+            tapRecognizer.numberOfTapsRequired = 1;
+            [self.imageView addGestureRecognizer:tapRecognizer];
+        }
     }
     return self;
 }
@@ -68,6 +80,12 @@
                      } failure:^(NSError *error) {
                          // NSLog(@"Image retrieval failed");
                      }];
+}
+
+- (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
+    if (_delegate) {
+        [_delegate didPressAvatarForCell:self];
+    }
 }
 
 @end

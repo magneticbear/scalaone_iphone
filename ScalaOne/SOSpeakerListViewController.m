@@ -11,7 +11,6 @@
 #import "SOListHeaderLabel.h"
 #import "SOHTTPClient.h"
 #import "SOSpeaker.h"
-#import "SOSpeakerCell.h"
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
 
@@ -27,7 +26,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 @synthesize tableView = _tableView;
 @synthesize searchBar = _searchBar;
 @synthesize avatarState = _avatarState;
-@synthesize currentAvatar = _currentAvatar;
+@synthesize currentCell = _currentCell;
 
 - (void)viewDidLoad
 {
@@ -134,17 +133,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
         cell = [[SOSpeakerCell alloc] initWithSpeaker:speaker favorite:NO];
-        
-//        Make imageView tappable
-        cell.imageView.userInteractionEnabled = YES;
-        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
-        longPressRecognizer.minimumPressDuration = 0.15f;
-        [cell.imageView addGestureRecognizer:longPressRecognizer];
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAvatar:)];
-        tapRecognizer.numberOfTapsRequired = 1;
-        [cell.imageView addGestureRecognizer:tapRecognizer];
+        cell.delegate = self;
     } else {
         [cell setSpeaker:speaker];
     }
@@ -159,73 +149,13 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - Avatar Methods
-
-- (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {
-    if (_avatarState == SOAvatarStateFavorite) {
-        ((UIImageView *)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite-on"];
-        [self performSelector:@selector(toggleAvatar) withObject:nil afterDelay:0.15f];
-        return;
-    }
-    _avatarState = SOAvatarStateAnimatingToFavorite;
-    _currentAvatar = nil;
-    [UIView transitionWithView:gestureRecognizer.view
-                      duration:0.66f
-                       options:UIViewAnimationOptionTransitionFlipFromRight
-                    animations:^{
-                        ((UIImageView*)gestureRecognizer.view).image = [UIImage imageNamed:@"list-avatar-favorite"];
-                    }
-                    completion:^(BOOL finished){
-                        _avatarState = SOAvatarStateFavorite;
-                        _currentAvatar = (UIImageView *)gestureRecognizer.view;
-                    }];
-}
-
-- (void)toggleAvatar {
-    _avatarState = SOAvatarStateAnimatingToDefault;
-    [UIView transitionWithView:_currentAvatar
-                      duration:0.66f
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{
-                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] type:SOAvatarTypeFavoriteOn];
-                    }
-                    completion:^(BOOL finished){
-                        _avatarState = SOAvatarStateDefault;
-                        _currentAvatar = nil;
-                    }];
-}
-
-- (void)dismissAvatar {
-    _avatarState = SOAvatarStateAnimatingToDefault;
-    [UIView transitionWithView:_currentAvatar
-                      duration:0.66f
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{
-                        _currentAvatar.image = [UIImage avatarWithSource:[UIImage imageNamed:@"jp.jpeg"] type:SOAvatarTypeFavoriteOn];
-                    }
-                    completion:^(BOOL finished){
-                        _avatarState = SOAvatarStateDefault;
-                        _currentAvatar = nil;
-                    }];
-}
-
-- (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {
-//    If the avatar is in default state, or the user is tapping the "favorite" image
-    if (_avatarState == SOAvatarStateDefault || (hitView == _currentAvatar && _avatarState == SOAvatarStateFavorite)) {
-        return hitView;
-    } else if (_avatarState == SOAvatarStateFavorite && hitView != _currentAvatar) {
-        [self dismissAvatar];
-    }
-    
-    return nil;
-}
-
 #pragma mark - Core Data
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    _currentAvatar = nil;
-    _avatarState = SOAvatarStateDefault;
-    [_tableView reloadData];
+    if (_avatarState == SOAvatarStateDefault) {
+        _currentCell = nil;
+        [_tableView reloadData];
+    }
 }
 
 - (void)resetAndFetch {
@@ -282,6 +212,94 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self resetAndFetch];
+}
+
+#pragma mark - SOSpeakerCellDelegate & Avatar Methods
+
+- (void)didPressAvatarForCell:(SOSpeakerCell *)speakerCell {
+    if (_avatarState == SOAvatarStateFavorite) {
+        if (_currentCell.speaker.favorite.boolValue) {
+            speakerCell.imageView.image = [UIImage imageNamed:@"list-avatar-favorite"];
+        } else {
+            speakerCell.imageView.image = [UIImage imageNamed:@"list-avatar-favorite-on"];
+        }
+        _currentCell.speaker.favorite = [NSNumber numberWithBool:!_currentCell.speaker.favorite.boolValue];
+        NSError *error = nil;
+        if ([moc hasChanges] && ![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+        [self performSelector:@selector(dismissAvatar) withObject:nil afterDelay:0.15f];
+        return;
+    }
+    _avatarState = SOAvatarStateAnimatingToFavorite;
+    _currentCell = speakerCell;
+    [UIView transitionWithView:speakerCell.imageView
+                      duration:0.66f
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        if (_currentCell.speaker.favorite.boolValue) {
+                            speakerCell.imageView.image = [UIImage imageNamed:@"list-avatar-favorite-on"];
+                        } else {
+                            speakerCell.imageView.image = [UIImage imageNamed:@"list-avatar-favorite"];
+                        }
+                    }
+                    completion:^(BOOL finished){
+                        _avatarState = SOAvatarStateFavorite;
+                    }];
+}
+
+- (void)dismissAvatar {
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:
+     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_currentCell.speaker.remoteID.integerValue]]
+                    delegate:self
+                     options:0
+                     success:^(UIImage *image, BOOL cached) {
+                         _avatarState = SOAvatarStateAnimatingToDefault;
+                         [UIView transitionWithView:_currentCell.imageView
+                                           duration:0.66f
+                                            options:UIViewAnimationOptionTransitionFlipFromLeft
+                                         animations:^{
+                                             if (_currentCell.speaker.favorite.boolValue) {
+                                                 _currentCell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOn];
+                                             } else {
+                                                 _currentCell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOff];
+                                             }
+                                         }
+                                         completion:^(BOOL finished){
+                                             _avatarState = SOAvatarStateDefault;
+                                             _currentCell = nil;
+                                             [_tableView reloadData];
+                                         }];
+                     } failure:^(NSError *error) {
+                         _avatarState = SOAvatarStateAnimatingToDefault;
+                         [UIView transitionWithView:_currentCell.imageView
+                                           duration:0.66f
+                                            options:UIViewAnimationOptionTransitionFlipFromLeft
+                                         animations:^{
+                                             if (_currentCell.speaker.favorite.boolValue) {
+                                                 _currentCell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOn];
+                                             } else {
+                                                 _currentCell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOff];
+                                             }
+                                         }
+                                         completion:^(BOOL finished){
+                                             _avatarState = SOAvatarStateDefault;
+                                             _currentCell = nil;
+                                             [_tableView reloadData];
+                                         }];
+                     }];
+}
+
+- (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {
+    //    If the avatar is in default state, or the user is tapping the "favorite" image
+    if (_avatarState == SOAvatarStateDefault || (hitView == _currentCell.imageView && _avatarState == SOAvatarStateFavorite)) {
+        return hitView;
+    } else if (_avatarState == SOAvatarStateFavorite && hitView != _currentCell.imageView) {
+        [self dismissAvatar];
+    }
+    
+    return nil;
 }
 
 @end

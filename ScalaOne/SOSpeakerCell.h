@@ -9,13 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "SOSpeaker.h"
 
+@class SOSpeakerCell;
+
+@protocol SOSpeakerCellDelegate <NSObject>
+
+- (void)didPressAvatarForCell:(SOSpeakerCell *)speakerCell;
+
+@end
+
 @interface SOSpeakerCell : UITableViewCell {
     SOSpeaker *speaker;
     BOOL favorite;
+    id<SOSpeakerCellDelegate> delegate;
 }
 
 @property (nonatomic, retain) SOSpeaker *speaker;
 @property (nonatomic) BOOL favorite;
+@property (nonatomic, unsafe_unretained) id<SOSpeakerCellDelegate> delegate;
 
 - (id)initWithSpeaker:(SOSpeaker *)aSpeaker favorite:(BOOL)aFavorite;
 

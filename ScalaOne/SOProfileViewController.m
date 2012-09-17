@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO (Optional): Add a check in shouldUploadAvatar to see if the image has changed
+// TODO (Optional): Fix imgPicker nav back button
 // TODO (Optional): Appropriate actions for each table cell (call, open url, etc.)
 // TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Allow camera for image picking
@@ -473,7 +475,6 @@
 }
 
 - (BOOL)shouldUploadAvatar {
-    // TODO (Optional): Add a check here to see if the image has changed
     return YES;
 }
 

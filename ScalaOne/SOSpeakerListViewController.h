@@ -10,6 +10,7 @@
 #import "SOViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SOUniqueTouchView.h"
+#import "SOSpeakerCell.h"
 
 typedef enum {
     SOAvatarStateDefault,
@@ -18,14 +19,14 @@ typedef enum {
     SOAvatarStateAnimatingToFavorite,
 } SOAvatarState;
 
-@interface SOSpeakerListViewController : SOViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SOUniqueTouchViewDelegate> {
+@interface SOSpeakerListViewController : SOViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, SOUniqueTouchViewDelegate, SOSpeakerCellDelegate> {
     SOAvatarState avatarState;
-    UIImageView *currentAvatar;
+    SOSpeakerCell *currentCell;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic) SOAvatarState avatarState;
-@property (weak, nonatomic) UIImageView *currentAvatar;
+@property (weak, nonatomic) SOSpeakerCell *currentCell;
 
 @end

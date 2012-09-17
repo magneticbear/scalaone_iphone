@@ -249,6 +249,8 @@
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Speaker"];
             NSSortDescriptor *nameInitialSortOrder = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
             
+            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"favorite == YES"]];
+            
             [fetchRequest setSortDescriptors:[NSArray arrayWithObject:nameInitialSortOrder]];
             
             _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Speaker"];
