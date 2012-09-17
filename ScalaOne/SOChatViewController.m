@@ -81,6 +81,19 @@
     
     sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
     
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
+    
+    NSArray *results = [moc executeFetchRequest:request error:nil];
+    
+    if (!results.count) {
+        _chatInputField.inputField.placeholder = @"Please create your profile to chat";
+        _chatInputField.inputField.userInteractionEnabled = NO;
+    }
+    
     ////////////////////////
     //        Pusher
     ////////////////////////

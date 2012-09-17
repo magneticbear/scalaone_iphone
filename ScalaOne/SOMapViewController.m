@@ -42,7 +42,35 @@
     client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
     locationChannel = [client subscribeToChannelWithName:@"locations"];
     [locationChannel bindToEvent:@"newLocation" block:^(id location) {
-//        NSLog(@"New location: %@", location);
+        SOUser* user = nil;
+        
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+        [request setEntity:entity];
+        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[location objectForKey:@"userId"] intValue]];
+        [request setPredicate:searchFilter];
+        
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        
+        if (results.count > 0) {
+            user = [results lastObject];
+        } else {
+            user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+        }
+        
+//        // User components
+        user.remoteID = [NSNumber numberWithInt:[[location objectForKey:@"userId"] intValue]];
+        
+        // Location components
+        user.latitude = [NSNumber numberWithFloat:[[location objectForKey:@"latitude"] floatValue]];
+        user.longitude = [NSNumber numberWithFloat:[[location objectForKey:@"longitude"] floatValue]];
+        user.locationTime = [NSDate date];
+     
+        NSError *error = nil;
+        if ([moc hasChanges] && ![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
     }];
     
     [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
@@ -217,7 +245,7 @@
 #pragma mark - Core Data
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//    NSLog(@"refresh map pins, controllerDidChangeContent");
+    NSLog(@"refresh map pins, controllerDidChangeContent");
 //    for (SOUser *user in _fetchedResultsController.fetchedObjects) {
 //        NSLog(@"%.2f/%.2f %@ %@",user.latitude.floatValue,user.longitude.floatValue,user.locationTime,user.email);
 //    }

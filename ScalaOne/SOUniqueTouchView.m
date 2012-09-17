@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Span area to entire UIWindow: http://stackoverflow.com/questions/1532778/how-to-respond-to-touch-events-in-uiwindow
+
 #import "SOUniqueTouchView.h"
 
 @implementation SOUniqueTouchView
