@@ -37,76 +37,65 @@
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
     
-    if (DEMO) {
-        if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
-            [self didPressLocateMe:nil];
-            double delayInSeconds = kMoveToLocationAnimationDuration;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self getMapPins];
-            });
-        }
-    } else {
-        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
-        locationChannel = [client subscribeToChannelWithName:@"locations"];
-        [locationChannel bindToEvent:@"newLocation" block:^(id location) {
-            NSLog(@"New location: %@", location);
-        }];
-        [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
-                    NSArray *users = [[responseDict objectForKey:@"result"] objectForKey:@"users"];
+    moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
+    locationChannel = [client subscribeToChannelWithName:@"locations"];
+    [locationChannel bindToEvent:@"newLocation" block:^(id location) {
+        NSLog(@"New location: %@", location);
+    }];
+    [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSArray *users = [[responseDict objectForKey:@"result"] objectForKey:@"users"];
+                
+                for (NSDictionary *userDict in users) {
                     
-                    for (NSDictionary *userDict in users) {
-                        
-                        SOUser* user = nil;
-                        
-                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-                        
-                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
-                        [request setEntity:entity];
-                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[userDict objectForKey:@"id"] intValue]];
-                        [request setPredicate:searchFilter];
-                        
-                        NSArray *results = [moc executeFetchRequest:request error:nil];
-                        
-                        if (results.count > 0) {
-                            user = [results lastObject];
-                        } else {
-                            user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
-                        }
-                        
-                        // User components
-                        user.firstName = [userDict objectForKey:@"firstName"];
-                        user.lastName = [userDict objectForKey:@"lastName"];
-                        user.remoteID = [NSNumber numberWithInt:[[userDict objectForKey:@"id"] intValue]];
-                        user.twitter = [userDict objectForKey:@"twitter"];
-                        user.facebook = [userDict objectForKey:@"facebook"];
-                        user.phone = [userDict objectForKey:@"phone"];
-                        user.email = [userDict objectForKey:@"email"];
-                        user.website = [userDict objectForKey:@"website"];
-                        
-                        // Location components
-                        user.latitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"latitude"] floatValue]];
-                        user.longitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"longitude"] floatValue]];
-                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
-                        user.locationTime = [df dateFromString:[userDict objectForKey:@"locationTime"]];
+                    SOUser* user = nil;
+                    
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+                    [request setEntity:entity];
+                    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[userDict objectForKey:@"id"] intValue]];
+                    [request setPredicate:searchFilter];
+                    
+                    NSArray *results = [moc executeFetchRequest:request error:nil];
+                    
+                    if (results.count > 0) {
+                        user = [results lastObject];
+                    } else {
+                        user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
                     }
                     
-                    NSError *error = nil;
-                    if ([moc hasChanges] && ![moc save:&error]) {
-                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                    }
+                    // User components
+                    user.firstName = [userDict objectForKey:@"firstName"];
+                    user.lastName = [userDict objectForKey:@"lastName"];
+                    user.remoteID = [NSNumber numberWithInt:[[userDict objectForKey:@"id"] intValue]];
+                    user.twitter = [userDict objectForKey:@"twitter"];
+                    user.facebook = [userDict objectForKey:@"facebook"];
+                    user.phone = [userDict objectForKey:@"phone"];
+                    user.email = [userDict objectForKey:@"email"];
+                    user.website = [userDict objectForKey:@"website"];
+                    
+                    // Location components
+                    user.latitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"latitude"] floatValue]];
+                    user.longitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"longitude"] floatValue]];
+                    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                    user.locationTime = [df dateFromString:[userDict objectForKey:@"locationTime"]];
                 }
-            });
-        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"getLocations failed");
-            });
-        }];
-    }
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"getLocations failed");
+        });
+    }];
 }
 
 - (void)viewDidUnload
@@ -179,18 +168,16 @@
 - (void)didPressLocateMe:(id)sender {
     if (_mapView.userLocation.coordinate.latitude != 0 && _mapView.userLocation.coordinate.longitude != 0) {
         [_mapView setRegion:MKCoordinateRegionMake(_mapView.userLocation.coordinate, MKCoordinateSpanMake(0.2, 0.2)) animated:YES];
-        if (!DEMO) {
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
-            SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
-            user.remoteID = @168;
-            user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
-            user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
-            [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
-                NSLog(@"updateLocation responseObject: %@",responseObject);
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                NSLog(@"update location failed");
-            }];
-        }
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+        SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+        user.remoteID = @168;
+        user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
+        user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
+        [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
+            NSLog(@"updateLocation responseObject: %@",responseObject);
+        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            NSLog(@"update location failed");
+        }];
     }
 }
 

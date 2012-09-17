@@ -107,36 +107,34 @@
     [self setCellHeadersAndPlaceholders];
     [self setCellContents];
     
-    if (!DEMO) {
-        if (isMyProfile) {
-            _imgPicker = [[UIImagePickerController alloc] init];
-            _imgPicker.delegate = self;
-            _imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            _imgPicker.allowsEditing = YES;
-            
-            _firstNameField.tag = SOProfileCellTypeFirstName;
-            _firstNameField.delegate = self;
-            _lastNameField.tag = SOProfileCellTypeLastName;
-            _lastNameField.delegate = self;
-            
-            [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:[UIImage imageWithContentsOfFile:[self myAvatarPath]] type:SOAvatarTypeLarge] forState:UIControlStateNormal];
-            
-            if (_currentUser.remoteID.integerValue == 0) {
-                [self toggleEditing];
-            }
-        } else {
-            [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
-            SDWebImageManager *manager = [SDWebImageManager sharedManager];
-            [manager downloadWithURL:
-             [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_currentUser.remoteID.integerValue]]
-                            delegate:self
-                             options:0
-                             success:^(UIImage *image, BOOL cached) {
-                                 [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
-                             } failure:^(NSError *error) {
-                                 // NSLog(@"Image retrieval failed");
-                             }];
+    if (isMyProfile) {
+        _imgPicker = [[UIImagePickerController alloc] init];
+        _imgPicker.delegate = self;
+        _imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        _imgPicker.allowsEditing = YES;
+        
+        _firstNameField.tag = SOProfileCellTypeFirstName;
+        _firstNameField.delegate = self;
+        _lastNameField.tag = SOProfileCellTypeLastName;
+        _lastNameField.delegate = self;
+        
+        [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:[UIImage imageWithContentsOfFile:[self myAvatarPath]] type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+        
+        if (_currentUser.remoteID.integerValue == 0) {
+            [self toggleEditing];
         }
+    } else {
+        [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadWithURL:
+         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_currentUser.remoteID.integerValue]]
+                        delegate:self
+                         options:0
+                         success:^(UIImage *image, BOOL cached) {
+                             [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+                         } failure:^(NSError *error) {
+                             // NSLog(@"Image retrieval failed");
+                         }];
     }
 }
 
@@ -146,20 +144,15 @@
 }
 
 - (void)setCellContents {
-    if (DEMO) {
-        _profileCellContents = @[@"@simjp",@"SimardJP",@"",@"jp@magneticbear.com",@""];
-        _nameLabel.text = @"Mo Mozafarian";
-    } else if (_currentUser) {
-        _profileCellContents = @[_currentUser.twitter ? _currentUser.twitter : @"",
-        _currentUser.facebook ? _currentUser.facebook : @"",
-        _currentUser.phone ? _currentUser.phone : @"",
-        _currentUser.email ? _currentUser.email : @"",
-        _currentUser.website ? _currentUser.website : @""];
-        
-        _nameLabel.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName ? _currentUser.firstName : @"", _currentUser.lastName ? _currentUser.lastName : @""];
-        _firstNameField.text = _currentUser.firstName ? _currentUser.firstName : @"";
-        _lastNameField.text = _currentUser.lastName ? _currentUser.lastName : @"";
-    }
+    _profileCellContents = @[_currentUser.twitter ? _currentUser.twitter : @"",
+    _currentUser.facebook ? _currentUser.facebook : @"",
+    _currentUser.phone ? _currentUser.phone : @"",
+    _currentUser.email ? _currentUser.email : @"",
+    _currentUser.website ? _currentUser.website : @""];
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@ %@",_currentUser.firstName ? _currentUser.firstName : @"", _currentUser.lastName ? _currentUser.lastName : @""];
+    _firstNameField.text = _currentUser.firstName ? _currentUser.firstName : @"";
+    _lastNameField.text = _currentUser.lastName ? _currentUser.lastName : @"";
 }
 
 - (void)viewDidUnload

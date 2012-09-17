@@ -74,39 +74,37 @@
         [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
     }];
     
-    if (!DEMO) {
-        moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        [self getMessages];
-        
-        [self resetAndFetch];
-        
-        sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
-        
-        ////////////////////////
-        //        Pusher
-        ////////////////////////
-        
-        //        client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
-        //        chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
-        //        [chatChannel bindToEvent:@"new_message" block:^(id message) {
-        //            NSLog(@"New message: %@", message);
-        //        }];
-        
-        ////////////////////////
-        //        Sinatra Backend
-        ////////////////////////
-        
-        //        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
-        //            dispatch_async(dispatch_get_main_queue(), ^{
-        //                NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
-        //            });
-        //        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-        //            dispatch_async(dispatch_get_main_queue(), ^{
-        //                NSLog(@"getMessages failed");
-        //            });
-        //        }];
-        //
-    }
+    moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    [self getMessages];
+    
+    [self resetAndFetch];
+    
+    sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
+    
+    ////////////////////////
+    //        Pusher
+    ////////////////////////
+    
+    //        client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
+    //        chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
+    //        [chatChannel bindToEvent:@"new_message" block:^(id message) {
+    //            NSLog(@"New message: %@", message);
+    //        }];
+    
+    ////////////////////////
+    //        Sinatra Backend
+    ////////////////////////
+    
+    //        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
+    //            });
+    //        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                NSLog(@"getMessages failed");
+    //            });
+    //        }];
+    //
 }
 
 - (void)getMessages {
@@ -245,7 +243,6 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (DEMO) return 10;
     return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
@@ -267,27 +264,20 @@
     }
     
     //    Cell Content
-    if (DEMO) {
-        NSArray *loremArray = @[@"Lorem ipsum dolor sit amet",@"Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut",@"Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",@"Ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", @"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."];
-        
-        cell.messageTextView.text = [loremArray objectAtIndex:indexPath.row%loremArray.count];
-        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeSmall] forState:UIControlStateNormal];
-    } else {
-        SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
-        cell.messageTextView.text = message.text;
-        [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeSmall] forState:UIControlStateNormal];
-        
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        [manager downloadWithURL:
-         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
-                        delegate:self
-                         options:0
-                         success:^(UIImage *image, BOOL cached) {
-                             [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeSmall] forState:UIControlStateNormal];
-                         } failure:^(NSError *error) {
-                             //                             NSLog(@"Image retrieval failed");
-                         }];
-    }
+    SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
+    cell.messageTextView.text = message.text;
+    [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeSmall] forState:UIControlStateNormal];
+    
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:
+     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
+                    delegate:self
+                     options:0
+                     success:^(UIImage *image, BOOL cached) {
+                         [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeSmall] forState:UIControlStateNormal];
+                     } failure:^(NSError *error) {
+                         //                             NSLog(@"Image retrieval failed");
+                     }];
     
     cell.cellAlignment = indexPath.row % 4 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
     [cell layoutSubviews];

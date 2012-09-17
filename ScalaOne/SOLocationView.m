@@ -53,7 +53,7 @@
     self.centerOffset = CGPointMake(0, -SOLocationViewVerticalOffset);
     
 //    Avatar
-    _avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_mo"]];
+    _avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_generic"]];
     _avatarImg.frame = CGRectMake(13, 12, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
     [self addSubview:_avatarImg];
     self.layer.masksToBounds = NO;

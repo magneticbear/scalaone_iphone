@@ -27,8 +27,6 @@
     NSManagedObjectContext *moc;
 }
 - (void)refetchData;
-@property (nonatomic, strong) NSArray *events;
-@property (nonatomic, strong) NSArray *speakers;
 @end
 
 @implementation SOFavoritesViewController
@@ -36,8 +34,6 @@
 @synthesize tableView = _tableView;
 @synthesize segmentEventsBtn = _segmentEventsBtn;
 @synthesize segmentSpeakersBtn = _segmentSpeakersBtn;
-@synthesize events = _events;
-@synthesize speakers = _speakers;
 
 - (void)viewDidLoad
 {
@@ -47,13 +43,9 @@
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     
-    if (DEMO) {
-        _events = @[@"Talk 1",@"Talk 2",@"Talk 3",@"Talk 4",@"Talk 5",@"Talk 6",@"Talk 7",@"Talk 8",@"Talk 9",@"Talk 10",@"Talk 11",@"Talk 12"];
-        _speakers = @[@"Speaker 1",@"Speaker 2",@"Speaker 3",@"Speaker 4",@"Speaker 5",@"Speaker 6",@"Speaker 7",@"Speaker 8",@"Speaker 9",@"Speaker 10",@"Speaker 11",@"Speaker 12"];
-    }
-    
     _segmentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"segment_bg"]];
     
+    moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
     [self didSelectSegment:_segmentEventsBtn];
 }
 
@@ -94,8 +86,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (DEMO) return (currentSegment == SOFavoritesSegmentTypeEvents) ? _events.count : _speakers.count;
-    
     return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
@@ -147,75 +137,70 @@
         [_segmentSpeakersBtn setHighlighted:NO];
         currentSegment = SOFavoritesSegmentTypeEvents;
         
-        if (!DEMO) {
-            moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
-            [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
-                        NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+        [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                    NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+                    
+                    for (NSDictionary *eventDict in events) {
                         
-                        for (NSDictionary *eventDict in events) {
-                            
-                            SOEvent* event = nil;
-                            
-                            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-                            
-                            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
-                            [request setEntity:entity];
-                            NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
-                            [request setPredicate:searchFilter];
-                            
-                            NSArray *results = [moc executeFetchRequest:request error:nil];
-                            
-                            if (results.count > 0) {
-                                event = [results lastObject];
-                            } else {
-                                event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
-                            }
-                            
-                            event.title = [eventDict objectForKey:@"title"];
-                            event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
-                            event.location = [eventDict objectForKey:@"location"];
-                            event.textDescription = [eventDict objectForKey:@"description"];
-                            event.code = [eventDict objectForKey:@"code"];
-                            
-                            //                        Dates
-                            NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                            [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
-                            event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
-                            event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
+                        SOEvent* event = nil;
+                        
+                        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                        
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
+                        [request setEntity:entity];
+                        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
+                        [request setPredicate:searchFilter];
+                        
+                        NSArray *results = [moc executeFetchRequest:request error:nil];
+                        
+                        if (results.count > 0) {
+                            event = [results lastObject];
+                        } else {
+                            event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
                         }
                         
-                        NSError *error = nil;
-                        if ([moc hasChanges] && ![moc save:&error]) {
-                            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                        }
+                        event.title = [eventDict objectForKey:@"title"];
+                        event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
+                        event.location = [eventDict objectForKey:@"location"];
+                        event.textDescription = [eventDict objectForKey:@"description"];
+                        event.code = [eventDict objectForKey:@"code"];
+                        
+                        //                        Dates
+                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                        event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
+                        event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
                     }
-                });
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"getEvents failed");
-                });
-            }];
-            
-            NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-            NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
-            
-            [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"favorite == YES"]];
-            
-            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
-            
-            _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Event"];
-            _fetchedResultsController.delegate = self;
-            [_fetchedResultsController performFetch:nil];
-            [_tableView reloadData];
-        }
+                    
+                    NSError *error = nil;
+                    if ([moc hasChanges] && ![moc save:&error]) {
+                        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                }
+            });
+        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"getEvents failed");
+            });
+        }];
+        
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+        NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:YES];
+        
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"favorite == YES"]];
+        
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
+        
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Event"];
+        _fetchedResultsController.delegate = self;
+        [_fetchedResultsController performFetch:nil];
+        [_tableView reloadData];
     } else if (sender == _segmentSpeakersBtn) {
         [_segmentEventsBtn setHighlighted:NO];
         currentSegment = SOFavoritesSegmentTypeSpeakers;
         
-        if (!DEMO) {
-            moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
             [[SOHTTPClient sharedClient] getSpeakersWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
@@ -268,8 +253,6 @@
             [_fetchedResultsController performFetch:nil];
             [_tableView reloadData];
         }
-    }
-    if (DEMO) [_tableView reloadData];
     [_tableView setContentOffset:CGPointMake(0, 0)];
     [self performSelector:@selector(doHighlight:) withObject:sender afterDelay:0];
 }
