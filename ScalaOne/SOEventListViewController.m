@@ -138,7 +138,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-    SOWebViewController *eventVC = [[SOWebViewController alloc] initWithTitle:event.title url:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]] eventID:event.remoteID.integerValue];
+    SOWebViewController *eventVC = [[SOWebViewController alloc] initWithEvent:event];
     [self.navigationController pushViewController:eventVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

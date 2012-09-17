@@ -6,47 +6,48 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: There must be a better way to have multiple init functions
-
 #import "SOWebViewController.h"
+#import "SOAppDelegate.h"
 
 @interface SOWebViewController ()
 @property (nonatomic, strong) NSURLRequest *urlRequest;
-@property (nonatomic, assign) NSInteger speakerID;
-@property (nonatomic, assign) NSInteger eventID;
+@property (nonatomic, assign) SOEvent *event;
+@property (nonatomic, assign) SOSpeaker *speaker;
+@property (nonatomic, retain) UIButton *starBtn;
 @end
 
 @implementation SOWebViewController
 @synthesize webView = _webView;
 @synthesize activityIndicator = _activityIndicator;
 @synthesize urlRequest = _urlRequest;
-@synthesize speakerID = _speakerID;
-@synthesize eventID = _eventID;
+@synthesize speaker = _speaker;
+@synthesize event = _event;
+@synthesize starBtn = _starBtn;
 
 #pragma mark - Init
 
 - (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL
 {
-    return [self initWithTitle:aTitle url:aURL speakerID:-1 eventID:-1];
+    return [self initWithTitle:aTitle url:aURL speaker:nil event:nil];
 }
 
-- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID {
-    return [self initWithTitle:aTitle url:aURL speakerID:aSpeakerID eventID:-1];
+- (id)initWithEvent:(SOEvent *)event {
+    return [self initWithTitle:event.title url:[self urlForEvent:event] speaker:nil event:event];
 }
 
-- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL eventID:(NSInteger)aEventID {
-    return [self initWithTitle:aTitle url:aURL speakerID:-1 eventID:aEventID];
+- (id)initWithSpeaker:(SOSpeaker *)speaker {
+    return [self initWithTitle:speaker.name url:[self urlForSpeaker:speaker] speaker:speaker event:nil];
 }
 
-- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speakerID:(NSInteger)aSpeakerID eventID:(NSInteger)aEventID
+- (id)initWithTitle:(NSString*)aTitle url:(NSURL*)aURL speaker:(SOSpeaker *)aSpeaker event:(SOEvent *)aEvent
 {
     self = [super init];
     if (self) {
         // Custom initialization
         self.title = aTitle;
         _urlRequest = [NSURLRequest requestWithURL:aURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
-        _speakerID = aSpeakerID;
-        _eventID = aEventID;
+        _speaker = aSpeaker;
+        _event = aEvent;
     }
     return self;
 }
@@ -63,15 +64,19 @@
     }
     [_webView loadRequest:_urlRequest];
     _webView.scalesPageToFit = YES;
-    if (_speakerID != -1 || _eventID != -1) {
+    if (_event || _speaker) {
         //    Right bar button star
-        UIButton *starButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        starButton.frame = CGRectMake(0, 0, 40, 24);
-        starButton.contentMode = UIViewContentModeCenter;
-        [starButton setBackgroundImage:[UIImage imageNamed:@"topbar-star-off"] forState:UIControlStateNormal];
-        [starButton setBackgroundImage:[UIImage imageNamed:@"topbar-star-on"] forState:UIControlStateHighlighted];
-        [starButton addTarget:self action:@selector(didPressStar:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:starButton];
+        _starBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _starBtn.frame = CGRectMake(0, 0, 40, 24);
+        _starBtn.contentMode = UIViewContentModeCenter;
+        
+        UIImage *starImg = [UIImage imageNamed:@"topbar-star-off"];
+        if ((_event && _event.favorite.boolValue) || (_speaker && _speaker.favorite.boolValue)) {
+            starImg = [UIImage imageNamed:@"topbar-star-on"];
+        }
+        [_starBtn setBackgroundImage:starImg forState:UIControlStateNormal];
+        [_starBtn addTarget:self action:@selector(didPressStar:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_starBtn];
     }
 }
 
@@ -102,7 +107,32 @@
 #pragma mark - Favorite
 
 - (void)didPressStar:(id)sender {
-    NSLog(@"didPressStar");
+    UIImage *starImg = [UIImage imageNamed:@"topbar-star-off"];
+    if (_event) {
+        _event.favorite = [NSNumber numberWithBool:!_event.favorite.boolValue];
+        starImg = _event.favorite.boolValue ? [UIImage imageNamed:@"topbar-star-on"] : [UIImage imageNamed:@"topbar-star-off"];
+    } else if (_speaker) {
+        _speaker.favorite = [NSNumber numberWithBool:!_speaker.favorite.boolValue];
+        starImg = _speaker.favorite.boolValue ? [UIImage imageNamed:@"topbar-star-on"] : [UIImage imageNamed:@"topbar-star-off"];
+    }
+    
+    [_starBtn setBackgroundImage:starImg forState:UIControlStateNormal];
+    [self saveContext];
+}
+
+#pragma mark - Utitilies
+
+- (NSURL *)urlForEvent:(SOEvent *)event {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]];
+}
+
+- (NSURL *)urlForSpeaker:(SOSpeaker *)speaker {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,speaker.remoteID.integerValue]];
+}
+
+- (void)saveContext {
+    SOAppDelegate *appDel = (SOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDel saveContext];
 }
 
 @end

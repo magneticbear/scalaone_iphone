@@ -122,11 +122,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (currentSegment == SOFavoritesSegmentTypeEvents) {
         SOEvent *event = [_fetchedResultsController objectAtIndexPath:indexPath];
-        SOWebViewController *eventVC = [[SOWebViewController alloc] initWithTitle:event.title url:[NSURL URLWithString:[NSString stringWithFormat:@"%@events/%d",kSOAPIHost,event.remoteID.integerValue]] eventID:event.remoteID.integerValue];
+        SOWebViewController *eventVC = [[SOWebViewController alloc] initWithEvent:event];
         [self.navigationController pushViewController:eventVC animated:YES];
     } else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
         SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
-        SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithTitle:speaker.name url:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,speaker.remoteID.integerValue]] speakerID:speaker.remoteID.integerValue];
+        SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithSpeaker:speaker];
         [self.navigationController pushViewController:speakerVC animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

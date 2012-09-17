@@ -144,7 +144,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
-    SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithTitle:speaker.name url:[NSURL URLWithString:[NSString stringWithFormat:@"%@speakers/%d",kSOAPIHost,speaker.remoteID.integerValue]] speakerID:speaker.remoteID.integerValue];
+    SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithSpeaker:speaker];
     [self.navigationController pushViewController:speakerVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

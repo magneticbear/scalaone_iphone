@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Change all hard-coded strings for constants
+// TODO: Change all hard-coded strings & colors for constants
 
 ////////////////////////
 //  TODO: Add support for native URLs
