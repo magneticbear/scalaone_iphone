@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO (Optional): Add a check in shouldUploadAvatar to see if the image has changed
 // TODO (Optional): Appropriate actions for each table cell (call, open url, etc.)
 // TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Allow camera for image picking
@@ -169,6 +168,12 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
+    [moc reset];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -179,6 +184,7 @@
         if ([sender.title isEqualToString:@"Cancel"]) {
             //    Dismiss keyboard on done editing
             [self.view endEditing:YES];
+            [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
             [moc reset];
             [self setCellContents];
         }
@@ -279,6 +285,7 @@
 - (void)uploadImage {
     [SVProgressHUD showWithStatus:@"Uploading image..." maskType:SVProgressHUDMaskTypeClear];
     [[SOHTTPClient sharedClient] postImage:[UIImage imageWithContentsOfFile:[self myAvatarPath]] forUserID:_currentUser.remoteID.integerValue success:^(AFJSONRequestOperation *operation, id responseObject) {
+        [[NSFileManager defaultManager] moveItemAtPath:[self myNewAvatarPath] toPath:[self myAvatarPath] error:nil];
         [SVProgressHUD showSuccessWithStatus:@"Image uploaded successfully."];
     } failure:^(AFJSONRequestOperation *operation, NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"Server could not be reached."];
@@ -435,13 +442,17 @@
     
     [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
     
-    [UIImageJPEGRepresentation(image, 1.0) writeToFile:[self myAvatarPath] atomically:YES];
+    [UIImageJPEGRepresentation(image, 1.0) writeToFile:[self myNewAvatarPath] atomically:YES];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSString*)myAvatarPath {
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/my_avatar.jpg"];
+}
+
+- (NSString*)myNewAvatarPath {
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/my_avatar_new.jpg"];
 }
 
 #pragma mark - Core Data
@@ -463,7 +474,7 @@
 }
 
 - (BOOL)shouldUploadAvatar {
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self myAvatarPath]];
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self myNewAvatarPath]];
 }
 
 @end
