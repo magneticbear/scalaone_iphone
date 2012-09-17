@@ -57,6 +57,16 @@
     [self didSelectSegment:_segmentEventsBtn];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (currentSegment == SOFavoritesSegmentTypeEvents) {
+        [self didSelectSegment:_segmentEventsBtn];
+    } else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
+        [self didSelectSegment:_segmentSpeakersBtn];
+    }
+    
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

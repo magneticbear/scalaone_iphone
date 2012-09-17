@@ -86,6 +86,11 @@
     [self resetAndFetch];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_tableView reloadData];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

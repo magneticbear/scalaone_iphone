@@ -86,6 +86,11 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [self resetAndFetch];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_tableView reloadData];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
