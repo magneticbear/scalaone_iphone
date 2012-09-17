@@ -60,17 +60,17 @@
     //    UIAppearance
     ////////////////////////
     
-    //    Navigation Bar
+    // Navigation Bar
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"top-bar-repeat"] forBarMetrics:UIBarMetricsDefault];
     
-    //    Bar Button
+    // Bar Button
     UIImage *barBtn = [[UIImage imageNamed:@"top-bar-btn-stretch"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:barBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     UIImage *barBtnDown = [[UIImage imageNamed:@"top-bar-btn-stretch-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:barBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    //    Back Button
+    // Back Button
     UIImage *backBtn = [[UIImage imageNamed:@"back-btn"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtn forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -78,7 +78,14 @@
     UIImage *backBtnDown = [[UIImage imageNamed:@"back-btn-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    //    Launch app
+    // Reset back button when in image picker since we can't remove its text
+    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setTintColor:[UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f]];
+    
+    // Launch app
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     

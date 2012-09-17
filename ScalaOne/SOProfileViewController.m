@@ -7,7 +7,6 @@
 //
 
 // TODO (Optional): Add a check in shouldUploadAvatar to see if the image has changed
-// TODO (Optional): Fix imgPicker nav back button
 // TODO (Optional): Appropriate actions for each table cell (call, open url, etc.)
 // TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Allow camera for image picking
@@ -83,10 +82,6 @@
         } else {
             SOUser *user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
             user.isMe = @YES;
-            user.firstName = @"JP";
-            user.lastName = @"Simard";
-            user.twitter = @"@simjp";
-            user.phone = @"1-888-744-0098 x101";
             [self saveContext];
             _currentUser = user;
         }
@@ -235,7 +230,7 @@
     [_tableView reloadData];
     
     //    Show/hide Cancel button
-    if (editing) {
+    if (editing && _currentUser.remoteID.boolValue) {
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
         self.navigationItem.leftBarButtonItem = leftButton;
     } else {
@@ -475,7 +470,7 @@
 }
 
 - (BOOL)shouldUploadAvatar {
-    return YES;
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self myAvatarPath]];
 }
 
 @end
