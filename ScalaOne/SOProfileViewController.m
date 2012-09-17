@@ -99,7 +99,7 @@
     // Do any additional setup after loading the view from its nib.
     
     //    Right bar button
-    NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Meet up";
+    NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Chat";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     

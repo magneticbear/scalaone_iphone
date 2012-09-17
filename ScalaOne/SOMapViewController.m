@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: User a fetch results controller to update map pins
+// TODO: Use a fetch results controller to update map pins
 
 #import "SOMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
@@ -18,10 +18,10 @@
 
 #define kMoveToLocationAnimationDuration    2.0
 
-@interface SOMapViewController (){
+@interface SOMapViewController () <NSFetchedResultsControllerDelegate> {
+    NSFetchedResultsController *_fetchedResultsController;
     NSManagedObjectContext *moc;
 }
-
 @end
 
 @implementation SOMapViewController
@@ -38,11 +38,13 @@
     self.navigationItem.rightBarButtonItem = locateMeBtn;
     
     moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    
     client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
     locationChannel = [client subscribeToChannelWithName:@"locations"];
     [locationChannel bindToEvent:@"newLocation" block:^(id location) {
-        NSLog(@"New location: %@", location);
+//        NSLog(@"New location: %@", location);
     }];
+    
     [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
@@ -96,6 +98,8 @@
             NSLog(@"getLocations failed");
         });
     }];
+    
+    [self resetAndFetch];
 }
 
 - (void)viewDidUnload
@@ -174,9 +178,7 @@
         user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
         user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
         [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
-            NSLog(@"updateLocation responseObject: %@",responseObject);
         } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-            NSLog(@"update location failed");
         }];
     }
 }
@@ -209,6 +211,34 @@
                 [self getMapPins];
             });
         });
+    }
+}
+
+#pragma mark - Core Data
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+//    NSLog(@"refresh map pins, controllerDidChangeContent");
+//    for (SOUser *user in _fetchedResultsController.fetchedObjects) {
+//        NSLog(@"%.2f/%.2f %@ %@",user.latitude.floatValue,user.longitude.floatValue,user.locationTime,user.email);
+//    }
+}
+
+- (void)resetAndFetch {
+    _fetchedResultsController = nil;
+    _fetchedResultsController.fetchRequest.predicate = nil;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"latitude" ascending:YES];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"latitude != nil"]];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"Locations"];
+    _fetchedResultsController.delegate = self;
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
     }
 }
 

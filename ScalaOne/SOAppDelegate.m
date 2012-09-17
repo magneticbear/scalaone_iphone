@@ -14,10 +14,10 @@
 
 // scala1://home
 // scala1://events
-// scala1://events/{event_id}
-// scala1://events/{event_id}/discussion
+// * scala1://events/{event_id}
+// * scala1://events/{event_id}/discussion
 // scala1://speakers
-// scala1://speakers/{speaker_id}
+// * scala1://speakers/{speaker_id}
 // scala1://map
 // scala1://favorites
 // scala1://users/{user_id}
