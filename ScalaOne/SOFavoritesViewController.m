@@ -106,7 +106,7 @@
     }   else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
         SOSpeaker *speaker = [_fetchedResultsController objectAtIndexPath:indexPath];
         
-        NSString *cellIdentifier = @"SpeakerCell";
+        NSString *cellIdentifier = @"SpeakerCellFavorite";
         SOSpeakerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[SOSpeakerCell alloc] initWithSpeaker:speaker favorite:YES];

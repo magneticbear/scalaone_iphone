@@ -9,7 +9,6 @@
 #import "AFNetworking.h"
 #import "SOChatMessage.h"
 #import "SOUser.h"
-#import "SOLocation.h"
 
 typedef void (^SOHTTPClientSuccess)(AFJSONRequestOperation *operation, id responseObject);
 typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *error);
@@ -38,6 +37,6 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 
 // Locations
 - (void)getLocationsWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
-- (void)updateLocation:(SOLocation *)location success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+- (void)updateLocationForUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 @end

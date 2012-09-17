@@ -16,7 +16,7 @@
 
 - (id)initWithSpeaker:(SOSpeaker *)aSpeaker favorite:(BOOL)aFavorite {
     _favorite = aFavorite;
-    NSString *reuseIdentifier = _favorite ? @"EventCellFavorite" : @"EventCell";
+    NSString *reuseIdentifier = _favorite ? @"SpeakerCellFavorite" : @"SpeakerCell";
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     
     if (self) {
@@ -51,7 +51,7 @@
     
     SOAvatarType avatarType = _favorite ? SOAvatarTypeSmall : SOAvatarTypeFavoriteOff;
     
-    if (!_favorite && _speaker.favorite) {
+    if (!_favorite && _speaker.favorite.boolValue) {
         avatarType = SOAvatarTypeFavoriteOn;
     }
     

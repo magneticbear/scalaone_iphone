@@ -66,14 +66,7 @@
 }
 
 - (void)createUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSDictionary *params = @{@"firstName" : user.firstName,
-    @"lastName" : user.lastName,
-    @"twitter" : user.twitter,
-    @"facebook" : user.facebook,
-    @"phone" : user.phone,
-    @"email" : user.email,
-    @"website" : user.website,
-    @"token" : kSOAPIToken};
+    NSDictionary *params = [self userParametersWithUser:user];
     
 	[self postPath:@"users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
@@ -87,14 +80,7 @@
 }
 
 - (void)updateUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSDictionary *params = @{@"firstName" : user.firstName,
-    @"lastName" : user.lastName,
-    @"twitter" : user.twitter,
-    @"facebook" : user.facebook,
-    @"phone" : user.phone,
-    @"email" : user.email,
-    @"website" : user.website,
-    @"token" : kSOAPIToken};
+    NSDictionary *params = [self userParametersWithUser:user];
     
 	[self putPath:[NSString stringWithFormat:@"users/%d",user.remoteID.integerValue] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
@@ -187,7 +173,10 @@
 #pragma mark - Locations
 
 - (void)getLocationsWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    [self getPath:@"users?location=1" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *params = @{@"location" : @1,
+    @"token" : kSOAPIToken};
+    
+    [self getPath:@"users" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}
@@ -198,14 +187,12 @@
 	}];
 }
 
-- (void)updateLocation:(SOLocation *)location success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSDictionary *params = @{@"latitude" : [NSString stringWithFormat:@"%.5f",location.latitude.floatValue],
-    @"longitude" : [NSString stringWithFormat:@"%.5f",location.longitude.floatValue],
+- (void)updateLocationForUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = @{@"latitude" : [NSString stringWithFormat:@"%.5f",user.latitude.floatValue],
+    @"longitude" : [NSString stringWithFormat:@"%.5f",user.longitude.floatValue],
     @"token" : kSOAPIToken};
     
-    NSLog(@"location: %@",params);
-    
-	[self putPath:[NSString stringWithFormat:@"users/%d/location",location.userID.integerValue] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+	[self putPath:[NSString stringWithFormat:@"users/%d/location",user.remoteID.integerValue] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}
@@ -214,6 +201,25 @@
 			failure((AFJSONRequestOperation *)operation, error);
 		}
 	}];
+}
+
+#pragma mark - Utitilies
+
+- (NSDictionary *)userParametersWithUser:(SOUser *)user {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:10];
+    
+    if (user.firstName.length) [params addEntriesFromDictionary:@{@"firstName" : user.firstName}];
+    if (user.lastName.length) [params addEntriesFromDictionary:@{@"lastName" : user.lastName}];
+    if (user.twitter.length) [params addEntriesFromDictionary:@{@"twitter" : user.twitter}];
+    if (user.facebook.length) [params addEntriesFromDictionary:@{@"facebook" : user.facebook}];
+    if (user.phone.length) [params addEntriesFromDictionary:@{@"phone" : user.phone}];
+    if (user.email.length) [params addEntriesFromDictionary:@{@"email" : user.email}];
+    if (user.website.length) [params addEntriesFromDictionary:@{@"website" : user.website}];
+    if (user.latitude.floatValue != 0) [params addEntriesFromDictionary:@{@"latitude" : [NSString stringWithFormat:@"%.5f",user.latitude.floatValue]}];
+    if (user.longitude.floatValue != 0) [params addEntriesFromDictionary:@{@"longitude" : [NSString stringWithFormat:@"%.5f",user.longitude.floatValue]}];
+    [params addEntriesFromDictionary:@{@"token" : kSOAPIToken}];
+    
+    return [NSDictionary dictionaryWithDictionary:params];
 }
 
 @end

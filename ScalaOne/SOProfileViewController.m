@@ -209,6 +209,17 @@
     [self.view endEditing:!editing];
     
     if (!editing) {
+        // Check if first name is missing or if email is invalid
+        if (!_currentUser.email.length || !_currentUser.firstName.length) {
+            UIAlertView *missingFieldAlert = [[UIAlertView alloc] initWithTitle:@"Missing field" message:@"Your profile must contain at least a first name and a valid email." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [missingFieldAlert show];
+            return;
+        } else if (_currentUser.email.length && ![self validateEmail:_currentUser.email]) {
+            UIAlertView *invalidEmailAlert = [[UIAlertView alloc] initWithTitle:@"Email invalid" message:@"Please enter a valid email address to save your profile." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [invalidEmailAlert show];
+            return;
+        }
+        
         [self setCellContents];
         [self saveContext];
         
@@ -453,6 +464,15 @@
     if ([moc hasChanges] && ![moc save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
+}
+
+#pragma mark - Utitilies
+
+- (BOOL)validateEmail:(NSString *)candidate {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    return [emailTest evaluateWithObject:candidate];
 }
 
 @end

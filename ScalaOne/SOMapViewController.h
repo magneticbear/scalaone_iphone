@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Bully/Bully.h>
 #import "SOLocationAnnotation.h"
 #import "SOViewController.h"
 
-@interface SOMapViewController : SOViewController <MKMapViewDelegate>
+@interface SOMapViewController : SOViewController <BLYClientDelegate, MKMapViewDelegate> {
+    BLYClient *client;
+    BLYChannel *locationChannel;
+}
 
+@property (nonatomic, retain) BLYClient *client;
+@property (nonatomic, retain) BLYChannel *locationChannel;
 @property (nonatomic, retain) IBOutlet MKMapView* mapView;
 
 @end

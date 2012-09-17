@@ -42,10 +42,8 @@
 		E844BB241604FF43008C5B3B /* profile_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E844BB231604FF43008C5B3B /* profile_avatar@2x.png */; };
 		E844BB261604FF4F008C5B3B /* profile_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E844BB251604FF4F008C5B3B /* profile_avatar.png */; };
 		E844BB2A16055D0B008C5B3B /* SOEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB2916055D0B008C5B3B /* SOEvent.m */; };
-		E844BB2D16055D1E008C5B3B /* SOLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB2C16055D1E008C5B3B /* SOLocation.m */; };
 		E844BB3016055D2B008C5B3B /* SOMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB2F16055D2A008C5B3B /* SOMessage.m */; };
 		E844BB3316055D3E008C5B3B /* SOSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB3216055D3C008C5B3B /* SOSpeaker.m */; };
-		E844BB3616055D4F008C5B3B /* SOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E844BB3516055D4D008C5B3B /* SOUser.m */; };
 		E852B9A815EFC40D00FD919A /* SOProfileInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */; };
 		E852B9AE15EFD44F00FD919A /* profile-cell-middle.png in Resources */ = {isa = PBXBuildFile; fileRef = E852B9AB15EFD44F00FD919A /* profile-cell-middle.png */; };
 		E852B9AF15EFD44F00FD919A /* profile-cell-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = E852B9AC15EFD44F00FD919A /* profile-cell-bottom.png */; };
@@ -216,6 +214,7 @@
 		E8B331C115EDD7740085F395 /* list-avatar-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8B331BD15EDD7740085F395 /* list-avatar-favorite@2x.png */; };
 		E8B331C415EE41FC0085F395 /* SOListHeaderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331C315EE41FC0085F395 /* SOListHeaderLabel.m */; };
 		E8B331D415EE7BA00085F395 /* SOUniqueTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */; };
+		E8BEED1C16069B7500CBA932 /* SOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E8BEED1B16069B7400CBA932 /* SOUser.m */; };
 		E8E4623B15E6D7F100908C6A /* SOChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4623A15E6D7F100908C6A /* SOChatMessage.m */; };
 		E8E4624115E6E59F00908C6A /* SOChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4624015E6E59F00908C6A /* SOChatCell.m */; };
 		E8EDE2E315F9573F00AB43B0 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EDE2E215F9573E00AB43B0 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -278,14 +277,10 @@
 		E844BB2716055C90008C5B3B /* ScalaOne 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ScalaOne 3.xcdatamodel"; sourceTree = "<group>"; };
 		E844BB2816055D0B008C5B3B /* SOEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOEvent.h; path = ../SOEvent.h; sourceTree = "<group>"; };
 		E844BB2916055D0B008C5B3B /* SOEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOEvent.m; path = ../SOEvent.m; sourceTree = "<group>"; };
-		E844BB2B16055D1D008C5B3B /* SOLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOLocation.h; path = ../SOLocation.h; sourceTree = "<group>"; };
-		E844BB2C16055D1E008C5B3B /* SOLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOLocation.m; path = ../SOLocation.m; sourceTree = "<group>"; };
 		E844BB2E16055D2A008C5B3B /* SOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOMessage.h; path = ../SOMessage.h; sourceTree = "<group>"; };
 		E844BB2F16055D2A008C5B3B /* SOMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOMessage.m; path = ../SOMessage.m; sourceTree = "<group>"; };
 		E844BB3116055D3C008C5B3B /* SOSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOSpeaker.h; path = ../SOSpeaker.h; sourceTree = "<group>"; };
 		E844BB3216055D3C008C5B3B /* SOSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOSpeaker.m; path = ../SOSpeaker.m; sourceTree = "<group>"; };
-		E844BB3416055D4C008C5B3B /* SOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOUser.h; path = ../SOUser.h; sourceTree = "<group>"; };
-		E844BB3516055D4D008C5B3B /* SOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOUser.m; path = ../SOUser.m; sourceTree = "<group>"; };
 		E852B9A615EFC40D00FD919A /* SOProfileInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOProfileInfoCell.h; sourceTree = "<group>"; };
 		E852B9A715EFC40D00FD919A /* SOProfileInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOProfileInfoCell.m; sourceTree = "<group>"; };
 		E852B9AB15EFD44F00FD919A /* profile-cell-middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-cell-middle.png"; sourceTree = "<group>"; };
@@ -483,6 +478,8 @@
 		E8B331D215EE7BA00085F395 /* SOUniqueTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUniqueTouchView.h; sourceTree = "<group>"; };
 		E8B331D315EE7BA00085F395 /* SOUniqueTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUniqueTouchView.m; sourceTree = "<group>"; };
 		E8BEED1516066A7400CBA932 /* ScalaOne 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ScalaOne 4.xcdatamodel"; sourceTree = "<group>"; };
+		E8BEED1A16069B7400CBA932 /* SOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOUser.h; sourceTree = "<group>"; };
+		E8BEED1B16069B7400CBA932 /* SOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOUser.m; sourceTree = "<group>"; };
 		E8E4623915E6D7F100908C6A /* SOChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatMessage.h; sourceTree = "<group>"; };
 		E8E4623A15E6D7F100908C6A /* SOChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOChatMessage.m; sourceTree = "<group>"; };
 		E8E4623F15E6E59F00908C6A /* SOChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOChatCell.h; sourceTree = "<group>"; };
@@ -671,14 +668,12 @@
 				E83E7F3615F6482F003E6FB4 /* ScalaOne.xcdatamodeld */,
 				E844BB2816055D0B008C5B3B /* SOEvent.h */,
 				E844BB2916055D0B008C5B3B /* SOEvent.m */,
-				E844BB2B16055D1D008C5B3B /* SOLocation.h */,
-				E844BB2C16055D1E008C5B3B /* SOLocation.m */,
 				E844BB2E16055D2A008C5B3B /* SOMessage.h */,
 				E844BB2F16055D2A008C5B3B /* SOMessage.m */,
 				E844BB3116055D3C008C5B3B /* SOSpeaker.h */,
 				E844BB3216055D3C008C5B3B /* SOSpeaker.m */,
-				E844BB3416055D4C008C5B3B /* SOUser.h */,
-				E844BB3516055D4D008C5B3B /* SOUser.m */,
+				E8BEED1A16069B7400CBA932 /* SOUser.h */,
+				E8BEED1B16069B7400CBA932 /* SOUser.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1504,10 +1499,9 @@
 				E87AD8BD15FAAB1D00096A19 /* RIButtonItem.m in Sources */,
 				E83565EE1600C3EF001A4D69 /* NSString+SOAdditions.m in Sources */,
 				E844BB2A16055D0B008C5B3B /* SOEvent.m in Sources */,
-				E844BB2D16055D1E008C5B3B /* SOLocation.m in Sources */,
 				E844BB3016055D2B008C5B3B /* SOMessage.m in Sources */,
 				E844BB3316055D3E008C5B3B /* SOSpeaker.m in Sources */,
-				E844BB3616055D4F008C5B3B /* SOUser.m in Sources */,
+				E8BEED1C16069B7500CBA932 /* SOUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
