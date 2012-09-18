@@ -22,13 +22,9 @@
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
 #import "SVProgressHUD.h"
-#import "UIAlertView+Blocks.h"
-#import "UIActionSheet+Blocks.h"
 
 #define kSOChatInputFieldStandardHeight 45.0f
 #define kSOChatInputFieldExpandedHeight 82.0f
-
-#define kSOTwitterServiceType           @"com.apple.social.twitter"
 
 @interface SOChatViewController () <NSFetchedResultsControllerDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
@@ -45,12 +41,30 @@
 @synthesize twitterAccount = _twitterAccount;
 @synthesize facebookAccount = _facebookAccount;
 @synthesize myUserID = _myUserID;
+@synthesize chatURL = _chatURL;
+@synthesize pusherChannelName = _pusherChannelName;
+
+- (id)initWithChatURL:(NSString *)aChatURL andPusherChannel:(NSString *)pusherChannel {
+    self = [super init];
+    if (self) {
+        _chatURL = aChatURL;
+        _pusherChannelName = pusherChannel;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Discuss";
+    if ([_chatURL rangeOfString:@"general"].location != NSNotFound) {
+        self.title = @"Discuss";
+    } else if ([_chatURL rangeOfString:@"private"].location != NSNotFound) {
+        self.title = @"Private Chat";
+    } else if ([_chatURL rangeOfString:@"event"].location != NSNotFound) {
+        self.title = @"Event Chat";
+    }
+    
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -91,7 +105,7 @@
     }
     
     client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
-    chatChannel = [client subscribeToChannelWithName:@"general"];
+    chatChannel = [client subscribeToChannelWithName:_pusherChannelName];
     [chatChannel bindToEvent:@"newMessage" block:^(NSDictionary *message) {
         [self getMessages];
     }];
@@ -113,7 +127,7 @@
 }
 
 - (void)getMessages {
-    [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+    [[SOHTTPClient sharedClient] getMessagesAtPath:_chatURL withSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
                 NSArray *messages = [[responseDict objectForKey:@"result"] objectForKey:@"messages"];
@@ -142,6 +156,7 @@
                     message.messageID = [NSNumber numberWithInt:[[messageDict objectForKey:@"id"] intValue]];
                     message.text = [messageDict objectForKey:@"content"];
                     message.messageIndex = [NSNumber numberWithInt:[[messageDict objectForKey:@"index"] intValue]];
+                    message.channel = _pusherChannelName;
                     
                     // Date
                     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -412,6 +427,7 @@
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Message"];
     NSSortDescriptor *sortOrder = [[NSSortDescriptor alloc] initWithKey:@"messageID" ascending:YES];
     
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"channel ==[c] %@",_pusherChannelName]];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortOrder]];
     
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:moc sectionNameKeyPath:nil cacheName:@"messages/general"];
@@ -461,10 +477,10 @@
 
 - (void)postMessageToAPI:(NSString*)text {
     if (_myUserID) {
-        SOChatMessage *message = [SOChatMessage messageWithText:text senderID:_myUserID channel:@"general"];
+        SOChatMessage *message = [SOChatMessage messageWithText:text senderID:_myUserID channel:_pusherChannelName];
         
         [SVProgressHUD showWithStatus:@"Sending message..."];
-        [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
+        [[SOHTTPClient sharedClient] postMessage:message toPath:_chatURL success:^(AFJSONRequestOperation *operation, id responseObject) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
                 [self performNextQueueItem];

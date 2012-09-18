@@ -85,6 +85,55 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         });
     }];
     
+    [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSArray *events = [[responseDict objectForKey:@"result"] objectForKey:@"events"];
+                
+                for (NSDictionary *eventDict in events) {
+                    
+                    SOEvent* event = nil;
+                    
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
+                    [request setEntity:entity];
+                    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[eventDict objectForKey:@"id"] intValue]];
+                    [request setPredicate:searchFilter];
+                    
+                    NSArray *results = [moc executeFetchRequest:request error:nil];
+                    
+                    if (results.count > 0) {
+                        event = [results lastObject];
+                    } else {
+                        event = [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:moc];
+                    }
+                    
+                    event.title = [eventDict objectForKey:@"title"];
+                    event.remoteID = [NSNumber numberWithInt:[[eventDict objectForKey:@"id"] intValue]];
+                    event.location = [eventDict objectForKey:@"location"];
+                    event.textDescription = [eventDict objectForKey:@"description"];
+                    event.code = [eventDict objectForKey:@"code"];
+                    
+                    // Dates
+                    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                    event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
+                    event.end = [df dateFromString:(NSString*)[eventDict objectForKey:@"end"]];
+                }
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"getEvents failed");
+        });
+    }];
+    
     [self resetAndFetch];
 }
 

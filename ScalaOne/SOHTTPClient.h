@@ -26,8 +26,8 @@ typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *
 - (void)postImage:(UIImage *)image forUserID:(NSInteger)userID success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 // Messages
-- (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
-- (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+- (void)getMessagesAtPath:(NSString *)path withSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
+- (void)postMessage:(SOChatMessage *)message toPath:(NSString *)path success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;
 
 // Speakers
 - (void)getSpeakersWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure;

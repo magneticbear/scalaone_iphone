@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// View Controllers
 #import "SOHomeViewController.h"
 #import "SOEventListViewController.h"
 #import "SOSpeakerListViewController.h"
@@ -14,6 +15,9 @@
 #import "SOChatViewController.h"
 #import "SOMapViewController.h"
 #import "SOWebViewController.h"
+
+// Utilities
+#import "NSString+SOAdditions.h"
 
 @interface SOHomeViewController ()
 
@@ -63,7 +67,7 @@
 }
 
 - (IBAction)pushChatVC:(id)sender {
-    SOChatViewController *chatVC = [[SOChatViewController alloc] init];
+    SOChatViewController *chatVC = [[SOChatViewController alloc] initWithChatURL:[NSString generalChatURL] andPusherChannel:[NSString generalChannelName]];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 

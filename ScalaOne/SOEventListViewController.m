@@ -85,6 +85,46 @@
         });
     }];
     
+    [[SOHTTPClient sharedClient] getSpeakersWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSArray *speakers = [[responseDict objectForKey:@"result"] objectForKey:@"speakers"];
+                
+                for (NSDictionary *speakerDict in speakers) {
+                    
+                    SOSpeaker* speaker = nil;
+                    
+                    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                    
+                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Speaker" inManagedObjectContext:moc];
+                    [request setEntity:entity];
+                    NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[speakerDict objectForKey:@"id"] intValue]];
+                    [request setPredicate:searchFilter];
+                    
+                    NSArray *results = [moc executeFetchRequest:request error:nil];
+                    
+                    if (results.count > 0) {
+                        speaker = [results lastObject];
+                    } else {
+                        speaker = [NSEntityDescription insertNewObjectForEntityForName:@"Speaker" inManagedObjectContext:moc];
+                    }
+                    
+                    speaker.name = [speakerDict objectForKey:@"name"];
+                    speaker.remoteID = [NSNumber numberWithInt:[[speakerDict objectForKey:@"id"] intValue]];
+                }
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //                    NSLog(@"getSpeakers failed");
+        });
+    }];
+    
     [self resetAndFetch];
 }
 

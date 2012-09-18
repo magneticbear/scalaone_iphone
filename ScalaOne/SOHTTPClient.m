@@ -123,8 +123,9 @@
 
 #pragma mark - Messages
 
-- (void)getMessagesWithSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-	[self getPath:@"messages/general" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)getMessagesAtPath:(NSString *)path withSuccess:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+    NSDictionary *params = @{@"token" : kSOAPIToken};
+	[self getPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}
@@ -135,12 +136,12 @@
 	}];
 }
 
-- (void)postMessage:(SOChatMessage *)message success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
+- (void)postMessage:(SOChatMessage *)message toPath:(NSString *)path success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
     NSDictionary *params = @{@"content" : message.text,
     @"senderId" : [NSNumber numberWithInt:message.senderID],
     @"token" : kSOAPIToken};
     
-	[self postPath:[NSString stringWithFormat:@"messages/%@",message.channel] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+	[self postPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if (success) {
 			success((AFJSONRequestOperation *)operation, responseObject);
 		}

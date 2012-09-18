@@ -27,6 +27,8 @@
     ACAccount *twitterAccount;
     ACAccount *facebookAccount;
     NSInteger myUserID;
+    NSString *chatURL;
+    NSString *pusherChannelName;
 }
 
 @property (nonatomic, retain) BLYClient *client;
@@ -36,5 +38,9 @@
 @property (nonatomic, retain) ACAccount *twitterAccount;
 @property (nonatomic, retain) ACAccount *facebookAccount;
 @property (nonatomic) NSInteger myUserID;
+@property (nonatomic, retain) NSString *chatURL;
+@property (nonatomic, retain) NSString *pusherChannelName;
+
+- (id)initWithChatURL:(NSString *)aChatURL andPusherChannel:(NSString *)pusherChannel;
 
 @end

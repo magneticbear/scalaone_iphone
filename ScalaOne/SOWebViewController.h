@@ -11,6 +11,10 @@
 #import "SOEvent.h"
 #import "SOSpeaker.h"
 
+// Social
+#import <Twitter/Twitter.h>     // iOS 5
+#import <Social/Social.h>       // iOS 6+
+
 @interface SOWebViewController : SOViewController <UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

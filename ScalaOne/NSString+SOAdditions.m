@@ -15,25 +15,25 @@
 }
 
 + (NSString *)eventChannelNameWithEventID:(NSInteger)eventID {
-    return [self stringWithFormat:@"event/%d", eventID];
-}
-
-+ (NSString *)privateChannelNameWithSenderID:(NSInteger)senderID targetID:(NSInteger)targetID {
-    return [self stringWithFormat:@"private/%d/%d", senderID, targetID];
-}
-
-+ (NSString *)generalChatURL {
-    return @"general";
-}
-
-+ (NSString *)eventChatURLWithEventID:(NSInteger)eventID {
     return [self stringWithFormat:@"event-%d", eventID];
 }
 
-+ (NSString *)privateChatURLWithSenderID:(NSInteger)senderID targetID:(NSInteger)targetID {
++ (NSString *)privateChannelNameWithSenderID:(NSInteger)senderID targetID:(NSInteger)targetID {
     NSInteger lowID = MIN(senderID, targetID);
     NSInteger highID = MAX(senderID, targetID);
     return [self stringWithFormat:@"private-%d-%d", lowID, highID];
+}
+
++ (NSString *)generalChatURL {
+    return @"messages/general";
+}
+
++ (NSString *)eventChatURLWithEventID:(NSInteger)eventID {
+    return [self stringWithFormat:@"messages/event/%d", eventID];
+}
+
++ (NSString *)privateChatURLWithSenderID:(NSInteger)senderID targetID:(NSInteger)targetID {
+    return [self stringWithFormat:@"messages/private/%d/%d", senderID, targetID];
 }
 
 @end

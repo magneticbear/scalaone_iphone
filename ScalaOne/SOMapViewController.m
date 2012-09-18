@@ -59,20 +59,23 @@
             user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
         }
         
-//        // User components
-        user.remoteID = [NSNumber numberWithInt:[[location objectForKey:@"userId"] intValue]];
-        
-        // Location components
-        user.latitude = [NSNumber numberWithFloat:[[location objectForKey:@"latitude"] floatValue]];
-        user.longitude = [NSNumber numberWithFloat:[[location objectForKey:@"longitude"] floatValue]];
-        user.locationTime = [NSDate date];
-     
-        NSError *error = nil;
-        if ([moc hasChanges] && ![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        // Don't update my own location
+        if (!user.isMe.boolValue) {
+            // User components
+            user.remoteID = [NSNumber numberWithInt:[[location objectForKey:@"userId"] intValue]];
+            
+            // Location components
+            user.latitude = [NSNumber numberWithFloat:[[location objectForKey:@"latitude"] floatValue]];
+            user.longitude = [NSNumber numberWithFloat:[[location objectForKey:@"longitude"] floatValue]];
+            user.locationTime = [NSDate date];
+            
+            NSError *error = nil;
+            if ([moc hasChanges] && ![moc save:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            }
+            
+            [self fetchUserWithID:user.remoteID.integerValue];
         }
-        
-        [self fetchUserWithID:user.remoteID.integerValue];
     }];
     
     [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
@@ -99,22 +102,25 @@
                         user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
                     }
                     
-                    // User components
-                    user.firstName = [userDict objectForKey:@"firstName"];
-                    user.lastName = [userDict objectForKey:@"lastName"];
-                    user.remoteID = [NSNumber numberWithInt:[[userDict objectForKey:@"id"] intValue]];
-                    user.twitter = [userDict objectForKey:@"twitter"];
-                    user.facebook = [userDict objectForKey:@"facebook"];
-                    user.phone = [userDict objectForKey:@"phone"];
-                    user.email = [userDict objectForKey:@"email"];
-                    user.website = [userDict objectForKey:@"website"];
-                    
-                    // Location components
-                    user.latitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"latitude"] floatValue]];
-                    user.longitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"longitude"] floatValue]];
-                    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
-                    user.locationTime = [df dateFromString:[userDict objectForKey:@"locationTime"]];
+                    // Don't update my own location
+                    if (!user.isMe.boolValue) {
+                        // User components
+                        user.firstName = [userDict objectForKey:@"firstName"];
+                        user.lastName = [userDict objectForKey:@"lastName"];
+                        user.remoteID = [NSNumber numberWithInt:[[userDict objectForKey:@"id"] intValue]];
+                        user.twitter = [userDict objectForKey:@"twitter"];
+                        user.facebook = [userDict objectForKey:@"facebook"];
+                        user.phone = [userDict objectForKey:@"phone"];
+                        user.email = [userDict objectForKey:@"email"];
+                        user.website = [userDict objectForKey:@"website"];
+                        
+                        // Location components
+                        user.latitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"latitude"] floatValue]];
+                        user.longitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"longitude"] floatValue]];
+                        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                        [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                        user.locationTime = [df dateFromString:[userDict objectForKey:@"locationTime"]];
+                    }
                 }
                 
                 NSError *error = nil;
@@ -294,11 +300,16 @@
         
         if (results.count) {
             SOUser *user = [results lastObject];
-            // Only update location at most every 5s
-            if (!user.locationTime || ([user.locationTime timeIntervalSinceNow] < -5)) {
+            // Only update location at most every 10s
+            if (!user.locationTime || ([user.locationTime timeIntervalSinceNow] < -10)) {
                 user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
                 user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
                 user.locationTime = [NSDate date];
+                NSError *error = nil;
+                if (![_fetchedResultsController performFetch:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    abort();
+                }
                 [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
                 } failure:^(AFJSONRequestOperation *operation, NSError *error) {
                 }];

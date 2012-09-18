@@ -8,6 +8,9 @@
 
 #import "SOWebViewController.h"
 #import "SOAppDelegate.h"
+#import "SOChatViewController.h"
+#import "NSString+SOAdditions.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface SOWebViewController ()
 @property (nonatomic, strong) NSURLRequest *urlRequest;
@@ -64,7 +67,9 @@
     }
     [_webView loadRequest:_urlRequest];
     _webView.scalesPageToFit = YES;
-    if (_event || _speaker) {
+    
+    // Bug when favoriting something with 4+ VCs in the nav stack
+    if ((_event || _speaker) && self.navigationController.viewControllers.count <= 3) {
         //    Right bar button star
         _starBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _starBtn.frame = CGRectMake(0, 0, 40, 24);
@@ -104,6 +109,63 @@
     [_activityIndicator stopAnimating];
 }
 
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+    if ([request.URL.absoluteString rangeOfString:@"share"].location != NSNotFound) {
+        if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+            [self postText:self.title toServiceType:kSOTwitterServiceType];
+        } else {
+            RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:@"Cancel"];
+            RIButtonItem *fbItem = [RIButtonItem itemWithLabel:@"Facebook"];
+            fbItem.action = ^{ [self postText:self.title toServiceType:SLServiceTypeFacebook]; };
+            RIButtonItem *twItem = [RIButtonItem itemWithLabel:@"Twitter"];
+            twItem.action = ^{ [self postText:self.title toServiceType:SLServiceTypeTwitter]; };
+            UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Select a sharing service" cancelButtonItem:cancelItem destructiveButtonItem:nil otherButtonItems:fbItem, twItem, nil];
+            [sheet showInView:self.view];
+        }
+        return NO;
+    } else if ([request.URL.absoluteString rangeOfString:@"discussion"].location != NSNotFound) {
+        SOChatViewController *chatVC = [[SOChatViewController alloc] initWithChatURL:[NSString eventChatURLWithEventID:_event.remoteID.integerValue] andPusherChannel:[NSString eventChannelNameWithEventID:_event.remoteID.integerValue]];
+        [self.navigationController pushViewController:chatVC animated:YES];
+        return NO;
+    } else if ([request.URL.absoluteString rangeOfString:@"scala1://events/"].location != NSNotFound) {
+        NSManagedObjectContext *moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+                        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:moc];
+        [fetchRequest setEntity:entity];
+        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", request.URL.lastPathComponent.integerValue];
+        [fetchRequest setPredicate:searchFilter];
+        
+        NSArray *results = [moc executeFetchRequest:fetchRequest error:nil];
+        
+        if (results.count > 0) {
+            SOEvent* event = [results lastObject];
+            SOWebViewController *eventVC = [[SOWebViewController alloc] initWithEvent:event];
+            [self.navigationController pushViewController:eventVC animated:YES];
+        }
+        return NO;
+    } else if ([request.URL.absoluteString rangeOfString:@"scala1://speakers/"].location != NSNotFound) {
+        NSManagedObjectContext *moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Speaker" inManagedObjectContext:moc];
+        [fetchRequest setEntity:entity];
+        NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", request.URL.lastPathComponent.integerValue];
+        [fetchRequest setPredicate:searchFilter];
+        
+        NSArray *results = [moc executeFetchRequest:fetchRequest error:nil];
+        
+        if (results.count > 0) {
+            SOSpeaker *speaker = [results lastObject];
+            SOWebViewController *speakerVC = [[SOWebViewController alloc] initWithSpeaker:speaker];
+            [self.navigationController pushViewController:speakerVC animated:YES];
+        }
+        return NO;
+    }
+	return YES;
+}
+
 #pragma mark - Favorite
 
 - (void)didPressStar:(id)sender {
@@ -133,6 +195,38 @@
 - (void)saveContext {
     SOAppDelegate *appDel = (SOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDel saveContext];
+}
+
+#pragma mark - Social
+
+- (void)postText:(NSString*)text toServiceType:(NSString*)serviceType {
+    if ([serviceType isEqualToString:kSOTwitterServiceType]) {
+        text = [NSString stringWithFormat:@"%@ %@",text,kSOTwitterHashtag];
+    }
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
+        TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
+        
+        TWTweetComposeViewControllerCompletionHandler __block completionHandler = ^(SLComposeViewControllerResult result){
+            [tweetSheet dismissViewControllerAnimated:YES completion:nil];
+        };
+        
+        [tweetSheet setInitialText:text];
+        [tweetSheet setCompletionHandler:completionHandler];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+    } else {
+        SLComposeViewController *slController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+        
+        if([SLComposeViewController isAvailableForServiceType:serviceType])
+        {
+            SLComposeViewControllerCompletionHandler __block completionHandler = ^(SLComposeViewControllerResult result){
+                [slController dismissViewControllerAnimated:YES completion:nil];
+            };
+            [slController setInitialText:text];
+            [slController setCompletionHandler:completionHandler];
+            [self presentViewController:slController animated:YES completion:nil];
+        }
+    }
 }
 
 @end

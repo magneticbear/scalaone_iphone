@@ -19,6 +19,7 @@
 #import "UIImage+SOAvatar.h"
 #import "SOHTTPClient.h"
 #import "SVProgressHUD.h"
+#import "NSString+SOAdditions.h"
 
 @interface SOProfileViewController () {
     NSManagedObjectContext *moc;
@@ -53,6 +54,9 @@
 }
 
 - (id)initWithUser:(SOUser *)user {
+    if (user.isMe.boolValue) {
+        return [self initWithMe];
+    }
     self = [self init];
     if (self) {
         self.title = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
@@ -184,19 +188,60 @@
 
 - (void)didPressRightButton:(UIBarButtonItem *)sender {
     if (isMyProfile) {
-        if ([sender.title isEqualToString:@"Cancel"]) {
-            //    Dismiss keyboard on done editing
-            [self.view endEditing:YES];
-            [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
-            [moc reset];
-            [self setCellContents];
-        }
-        
         [self toggleEditing];
     } else {
-        SOChatViewController *chatVC = [[SOChatViewController alloc] init];
-        [self.navigationController pushViewController:chatVC animated:YES];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+        
+        [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES && remoteID != nil"]];
+        
+        NSArray *results = [moc executeFetchRequest:request error:nil];
+        
+        if (results.count) {
+            SOUser *me = [results lastObject];
+            SOChatViewController *chatVC = [[SOChatViewController alloc]
+                                            initWithChatURL:[NSString privateChatURLWithSenderID:me.remoteID.integerValue
+                                                                                        targetID:_currentUser.remoteID.integerValue]
+                                            andPusherChannel:[NSString privateChannelNameWithSenderID:me.remoteID.integerValue
+                                                              targetID:_currentUser.remoteID.integerValue]];
+            [self.navigationController pushViewController:chatVC animated:YES];
+        } else {
+            UIAlertView *noProfileAlert = [[UIAlertView alloc] initWithTitle:@"No Profile" message:@"Please create a Scala1 profile to enable chat." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+            [noProfileAlert show];
+        }
     }
+}
+
+- (void)didCancelEditing {
+    // Dismiss keyboard on done editing
+    [self.view endEditing:YES];
+    [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
+    [moc rollback];
+    [self setCellContents];
+    
+    BOOL editing = NO;
+    
+    //    Reload table in editing mode
+    _tableView.editing = editing;
+    [_tableView reloadData];
+    
+    //    Show/hide Cancel button
+    if (editing && _currentUser.remoteID.boolValue) {
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    
+    self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
+    
+    //    Show/Hide name box and avatar edit image
+    _nameBox.hidden = !editing;
+    _avatarEditImg.hidden = !editing;
+    
+    //    Enable avatar button only when editing
+    _avatarBtn.enabled = editing;
 }
 
 - (void)toggleEditing {
@@ -233,7 +278,7 @@
     
     //    Show/hide Cancel button
     if (editing && _currentUser.remoteID.boolValue) {
-        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didCancelEditing)];
         self.navigationItem.leftBarButtonItem = leftButton;
     } else {
         self.navigationItem.leftBarButtonItem = nil;
