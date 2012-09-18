@@ -18,6 +18,7 @@
 @synthesize messageMetaLabel = _messageMetaLabel;
 @synthesize cellAlignment = _cellAlignment;
 @synthesize delegate = _delegate;
+@synthesize userID = _userID;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -53,13 +54,6 @@
         [self addSubview:_messageMetaLabel];
     }
     return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)layoutSubviews {
@@ -126,7 +120,7 @@
 }
 
 - (void)didPressAvatar:(id)sender {
-    [_delegate didSelectAvatar:123];
+    [_delegate didSelectAvatar:_userID];
 }
 
 @end

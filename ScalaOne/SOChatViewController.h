@@ -26,6 +26,7 @@
     SOChatInputField *chatInputField;
     ACAccount *twitterAccount;
     ACAccount *facebookAccount;
+    NSInteger myUserID;
 }
 
 @property (nonatomic, retain) BLYClient *client;
@@ -34,5 +35,6 @@
 @property (nonatomic, retain) SOChatInputField *chatInputField;
 @property (nonatomic, retain) ACAccount *twitterAccount;
 @property (nonatomic, retain) ACAccount *facebookAccount;
+@property (nonatomic) NSInteger myUserID;
 
 @end

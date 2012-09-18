@@ -7,7 +7,7 @@
 //
 
 // TODO: Improve performance on load
-// TODO: Show message when no messages are present
+// TODO: Show name of sender, and message sent date
 
 // TODO (Optional): SVProgressHUD extension to allow queuing and changing status lines
 // TODO (Optional): Add day separators
@@ -44,6 +44,7 @@
 @synthesize chatInputField = _chatInputField;
 @synthesize twitterAccount = _twitterAccount;
 @synthesize facebookAccount = _facebookAccount;
+@synthesize myUserID = _myUserID;
 
 - (void)viewDidLoad
 {
@@ -75,21 +76,16 @@
     }];
     
     moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    
+    [self setMyID];
+    
     [self getMessages];
     
     [self resetAndFetch];
     
     sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
-    
-    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
-    
-    NSArray *results = [moc executeFetchRequest:request error:nil];
-    
-    if (!results.count) {
+    if (!_myUserID) {
         _chatInputField.inputField.placeholder = @"Please create your profile to chat";
         _chatInputField.inputField.userInteractionEnabled = NO;
     }
@@ -99,6 +95,21 @@
     [chatChannel bindToEvent:@"newMessage" block:^(NSDictionary *message) {
         [self getMessages];
     }];
+}
+
+- (void)setMyID {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES && remoteID != nil"]];
+    
+    NSArray *results = [moc executeFetchRequest:request error:nil];
+    
+    if (results.count) {
+        SOUser *me = [results lastObject];
+        _myUserID = me.remoteID.integerValue;
+    }
 }
 
 - (void)getMessages {
@@ -334,6 +345,7 @@
     //    Cell Content
     SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.messageTextView.text = message.text;
+    cell.userID = message.senderID.integerValue;
     [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -344,17 +356,10 @@
                      success:^(UIImage *image, BOOL cached) {
                          [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeUser] forState:UIControlStateNormal];
                      } failure:^(NSError *error) {
-                         //                             NSLog(@"Image retrieval failed");
+                         // NSLog(@"Image retrieval failed");
                      }];
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
-    
-    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
-    
-    NSArray *results = [moc executeFetchRequest:request error:nil];
-    if (results.count && message.senderID.integerValue == ((SOUser *)[results lastObject]).remoteID.integerValue) {
+    if (message.senderID.integerValue == _myUserID) {
         cell.cellAlignment = SOChatCellAlignmentRight;
     } else {
         cell.cellAlignment = SOChatCellAlignmentLeft;
@@ -379,13 +384,18 @@
 
 - (void)didSelectAvatar:(NSInteger)profileID {
     [self.view endEditing:YES];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
-    SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
-    user.firstName = @"John";
-    user.lastName = @"Doe";
-    user.twitter = @"@fakeuser";
-    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithUser:user];
-    [self.navigationController pushViewController:profileVC animated:YES];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"remoteID == %d",profileID]];
+    
+    NSArray *results = [moc executeFetchRequest:request error:nil];
+    
+    if (results.count) {
+        SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithUser:[results lastObject]];
+        [self.navigationController pushViewController:profileVC animated:YES];
+    }
 }
 
 #pragma mark - Core Data
@@ -450,17 +460,8 @@
 #pragma mark - SOAPI
 
 - (void)postMessageToAPI:(NSString*)text {
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
-    
-    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES && remoteID != nil"]];
-    
-    NSArray *results = [moc executeFetchRequest:request error:nil];
-    
-    if (results.count) {
-        SOUser *user = [results lastObject];
-        SOChatMessage *message = [SOChatMessage messageWithText:text senderID:user.remoteID.integerValue channel:@"general"];
+    if (_myUserID) {
+        SOChatMessage *message = [SOChatMessage messageWithText:text senderID:_myUserID channel:@"general"];
         
         [SVProgressHUD showWithStatus:@"Sending message..."];
         [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {

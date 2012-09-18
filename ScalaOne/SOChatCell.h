@@ -26,6 +26,7 @@ typedef enum {
     UILabel *messageMetaLabel;
     SOChatCellAlignment cellAlignment;
     id<SOChatCellDelegate> delegate;
+    NSInteger userID;
 }
 
 @property (nonatomic, retain) UIButton *avatarBtn;
@@ -34,5 +35,6 @@ typedef enum {
 @property (nonatomic, retain) UILabel *messageMetaLabel;
 @property (nonatomic) SOChatCellAlignment cellAlignment;
 @property (nonatomic, retain) id<SOChatCellDelegate> delegate;
+@property (nonatomic) NSInteger userID;
 
 @end
