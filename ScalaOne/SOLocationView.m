@@ -12,6 +12,7 @@
 // TODO (Optional): Improve performance and re-add shadow
 
 #import "SOLocationView.h"
+#import "UIImage+SOAvatar.h"
 
 // CAUTION: Changing these constants may break visuals
 #define SOLocationViewStandardWidth     75.0f
@@ -53,7 +54,7 @@
     self.centerOffset = CGPointMake(0, -SOLocationViewVerticalOffset);
     
 //    Avatar
-    _avatarImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"map_avatar_generic"]];
+    _avatarImg = [[UIImageView alloc] initWithImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser]];
     _avatarImg.frame = CGRectMake(13, 12, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
     [self addSubview:_avatarImg];
     self.layer.masksToBounds = NO;
@@ -87,8 +88,6 @@
     [disclosureButton addTarget:self action:@selector(didTapDisclosureButton:) forControlEvents:UIControlEventTouchDown];
     disclosureButton.alpha = 0;
     [self addSubview:disclosureButton];
-    
-    _profileID = 0;
     
     [self setLayerProperties];
     return self;

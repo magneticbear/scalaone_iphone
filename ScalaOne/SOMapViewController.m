@@ -71,6 +71,8 @@
         if ([moc hasChanges] && ![moc save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
+        
+        [self fetchUserWithID:user.remoteID.integerValue];
     }];
     
     [[SOHTTPClient sharedClient] getLocationsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
@@ -129,6 +131,59 @@
     
     [self resetAndFetch];
     [self performSelector:@selector(didPressLocateMe:) withObject:nil afterDelay:1.0];
+}
+
+- (void)fetchUserWithID:(NSInteger)userID {
+    [[SOHTTPClient sharedClient] getUserWithID:userID success:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSDictionary *userDict = [responseDict objectForKey:@"result"];
+                
+                SOUser* user = nil;
+                    
+                NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+                [request setEntity:entity];
+                NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[userDict objectForKey:@"id"] intValue]];
+                [request setPredicate:searchFilter];
+                
+                NSArray *results = [moc executeFetchRequest:request error:nil];
+                
+                if (results.count > 0) {
+                    user = [results lastObject];
+                } else {
+                    user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+                }
+                
+                // User components
+                user.firstName = [userDict objectForKey:@"firstName"];
+                user.lastName = [userDict objectForKey:@"lastName"];
+                user.remoteID = [NSNumber numberWithInt:[[userDict objectForKey:@"id"] intValue]];
+                user.twitter = [userDict objectForKey:@"twitter"];
+                user.facebook = [userDict objectForKey:@"facebook"];
+                user.phone = [userDict objectForKey:@"phone"];
+                user.email = [userDict objectForKey:@"email"];
+                user.website = [userDict objectForKey:@"website"];
+                
+                // Location components
+                user.latitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"latitude"] floatValue]];
+                user.longitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"longitude"] floatValue]];
+                NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                user.locationTime = [df dateFromString:[userDict objectForKey:@"locationTime"]];
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"getUserWithID failed");
+        });
+    }];
 }
 
 - (void)viewDidUnload
@@ -212,7 +267,7 @@
         for (id annotation in _mapView.annotations) {
             if ([annotation isKindOfClass:[SOLocationAnnotation class]]) {
                 if (((SOLocationAnnotation *)annotation).profileID == user.remoteID.integerValue) {
-                    [((SOLocationAnnotation *)annotation) updateCoordinate:CLLocationCoordinate2DMake(user.latitude.floatValue, user.longitude.floatValue) animated:YES];
+                    [((SOLocationAnnotation *)annotation) updateUser:user animated:YES];
                     annotationExists = YES;
                     break;
                 }
@@ -239,12 +294,15 @@
         
         if (results.count) {
             SOUser *user = [results lastObject];
-            user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
-            user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
-            user.locationTime = [NSDate date];
-            [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-            }];
+            // Only update location at most every 5s
+            if (!user.locationTime || ([user.locationTime timeIntervalSinceNow] < -5)) {
+                user.latitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.latitude];
+                user.longitude = [NSNumber numberWithFloat:_mapView.userLocation.location.coordinate.longitude];
+                user.locationTime = [NSDate date];
+                [[SOHTTPClient sharedClient] updateLocationForUser:user success:^(AFJSONRequestOperation *operation, id responseObject) {
+                } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+                }];
+            }
         }
     }
 }

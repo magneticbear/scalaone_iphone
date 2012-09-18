@@ -94,30 +94,11 @@
         _chatInputField.inputField.userInteractionEnabled = NO;
     }
     
-    ////////////////////////
-    //        Pusher
-    ////////////////////////
-    
-    //        client = [[BLYClient alloc] initWithAppKey:@"28f1d32eb7a1f83880af" delegate:self];
-    //        chatChannel = [client subscribeToChannelWithName:@"ScalaOne"];
-    //        [chatChannel bindToEvent:@"new_message" block:^(id message) {
-    //            NSLog(@"New message: %@", message);
-    //        }];
-    
-    ////////////////////////
-    //        Sinatra Backend
-    ////////////////////////
-    
-    //        [[SOHTTPClient sharedClient] getMessagesWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
-    //            dispatch_async(dispatch_get_main_queue(), ^{
-    //                NSLog(@"getMessages succeeded\nresponseObject: %@",(NSDictionary*)responseObject);
-    //            });
-    //        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-    //            dispatch_async(dispatch_get_main_queue(), ^{
-    //                NSLog(@"getMessages failed");
-    //            });
-    //        }];
-    //
+    client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
+    chatChannel = [client subscribeToChannelWithName:@"general"];
+    [chatChannel bindToEvent:@"newMessage" block:^(NSDictionary *message) {
+        [self getMessages];
+    }];
 }
 
 - (void)getMessages {
@@ -155,6 +136,8 @@
                     NSDateFormatter *df = [[NSDateFormatter alloc] init];
                     [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
                     message.sent = [df dateFromString:(NSString*)[messageDict objectForKey:@"sentTime"]];
+                    
+                    [self fetchUserWithID:message.senderID.integerValue];
                 }
                 
                 NSError *error = nil;
@@ -168,6 +151,73 @@
             NSLog(@"getMessages failed");
         });
     }];
+}
+
+- (void)fetchUserWithID:(NSInteger)userID {
+    [[SOHTTPClient sharedClient] getUserWithID:userID success:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[responseDict objectForKey:@"status"] isEqualToString:@"OK"]) {
+                NSDictionary *userDict = [responseDict objectForKey:@"result"];
+                
+                SOUser* user = nil;
+                
+                NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+                [request setEntity:entity];
+                NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"remoteID == %d", [[userDict objectForKey:@"id"] intValue]];
+                [request setPredicate:searchFilter];
+                
+                NSArray *results = [moc executeFetchRequest:request error:nil];
+                
+                if (results.count > 0) {
+                    user = [results lastObject];
+                } else {
+                    user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+                }
+                
+                // User components
+                user.firstName = [userDict objectForKey:@"firstName"];
+                user.lastName = [userDict objectForKey:@"lastName"];
+                user.remoteID = [NSNumber numberWithInt:[[userDict objectForKey:@"id"] intValue]];
+                user.twitter = [userDict objectForKey:@"twitter"];
+                user.facebook = [userDict objectForKey:@"facebook"];
+                user.phone = [userDict objectForKey:@"phone"];
+                user.email = [userDict objectForKey:@"email"];
+                user.website = [userDict objectForKey:@"website"];
+                
+                // Location components
+                user.latitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"latitude"] floatValue]];
+                user.longitude = [NSNumber numberWithFloat:[[userDict objectForKey:@"longitude"] floatValue]];
+                NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
+                user.locationTime = [df dateFromString:[userDict objectForKey:@"locationTime"]];
+                
+                NSError *error = nil;
+                if ([moc hasChanges] && ![moc save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                }
+            }
+        });
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"getUserWithID failed");
+        });
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //    Keyboard show/hide notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    __weak SOChatViewController *ref = self;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
+    }];
+    
+    [self resetAndFetch];
 }
 
 - (void)updateLayoutWithKeyboardRect:(CGRect)keyboardFrameInView onlyTable:(BOOL)onlyTable {
@@ -256,6 +306,11 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (!_fetchedResultsController.fetchedObjects.count) {
+        [self.view sendSubviewToBack:_chatTableView];
+    } else {
+        [self.view bringSubviewToFront:_chatTableView];
+    }
     return [[[_fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
@@ -279,20 +334,31 @@
     //    Cell Content
     SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.messageTextView.text = message.text;
-    [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeSmall] forState:UIControlStateNormal];
+    [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
+     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {
-                         [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeSmall] forState:UIControlStateNormal];
+                         [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeUser] forState:UIControlStateNormal];
                      } failure:^(NSError *error) {
                          //                             NSLog(@"Image retrieval failed");
                      }];
     
-    cell.cellAlignment = indexPath.row % 4 ? SOChatCellAlignmentLeft : SOChatCellAlignmentRight;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES"]];
+    
+    NSArray *results = [moc executeFetchRequest:request error:nil];
+    if (results.count && message.senderID.integerValue == ((SOUser *)[results lastObject]).remoteID.integerValue) {
+        cell.cellAlignment = SOChatCellAlignmentRight;
+    } else {
+        cell.cellAlignment = SOChatCellAlignmentLeft;
+    }
     [cell layoutSubviews];
     return cell;
 }
@@ -312,6 +378,7 @@
 #pragma mark - SOChatCellDelegate
 
 - (void)didSelectAvatar:(NSInteger)profileID {
+    [self.view endEditing:YES];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
     SOUser *user = [[SOUser alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
     user.firstName = @"John";
@@ -383,22 +450,31 @@
 #pragma mark - SOAPI
 
 - (void)postMessageToAPI:(NSString*)text {
-    SOChatMessage *message = [SOChatMessage messageWithText:text senderID:2 channel:@"general"];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
-    [SVProgressHUD showWithStatus:@"Sending message..."];
-    [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            [self getMessages];
-            [self performNextQueueItem];
-        });
-    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showErrorWithStatus:@"Message couldn't be sent. Please try again later."];
-            [self getMessages];
-            [self performNextQueueItem];
-        });
-    }];
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:moc]];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"isMe == YES && remoteID != nil"]];
+    
+    NSArray *results = [moc executeFetchRequest:request error:nil];
+    
+    if (results.count) {
+        SOUser *user = [results lastObject];
+        SOChatMessage *message = [SOChatMessage messageWithText:text senderID:user.remoteID.integerValue channel:@"general"];
+        
+        [SVProgressHUD showWithStatus:@"Sending message..."];
+        [[SOHTTPClient sharedClient] postMessage:message success:^(AFJSONRequestOperation *operation, id responseObject) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                [self performNextQueueItem];
+            });
+        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showErrorWithStatus:@"Message couldn't be sent. Please try again later."];
+                [self performNextQueueItem];
+            });
+        }];
+    }
 }
 
 #pragma mark - Facebook

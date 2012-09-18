@@ -126,7 +126,7 @@
         [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
-         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_currentUser.remoteID.integerValue]]
+         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,_currentUser.remoteID.integerValue]]
                         delegate:self
                          options:0
                          success:^(UIImage *image, BOOL cached) {
@@ -170,8 +170,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
-    [moc reset];
+    // Don't reset data if displaying imgPicker
+    if (!self.modalViewController) {
+        [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
+        [moc reset];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -271,9 +274,13 @@
 - (void)putCurrentUserToAPI {
     [SVProgressHUD showWithStatus:@"Saving changes..." maskType:SVProgressHUDMaskTypeClear];
     [[SOHTTPClient sharedClient] updateUser:_currentUser success:^(AFJSONRequestOperation *operation, id responseObject) {
-        if ([[responseObject objectForKey:@"message"] isEqualToString:@"success"]) {
+        if ([[responseObject objectForKey:@"result"] isEqualToString:@"Success"]) {
             [self saveContext];
-            [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+            if ([self shouldUploadAvatar]) {
+                [self uploadImage];
+            } else {
+                [SVProgressHUD showSuccessWithStatus:@"Changes saved successfully."];
+            }
         } else {
             [SVProgressHUD showErrorWithStatus:[responseObject objectForKey:@"message"]];
         }
@@ -284,7 +291,7 @@
 
 - (void)uploadImage {
     [SVProgressHUD showWithStatus:@"Uploading image..." maskType:SVProgressHUDMaskTypeClear];
-    [[SOHTTPClient sharedClient] postImage:[UIImage imageWithContentsOfFile:[self myAvatarPath]] forUserID:_currentUser.remoteID.integerValue success:^(AFJSONRequestOperation *operation, id responseObject) {
+    [[SOHTTPClient sharedClient] postImage:[UIImage imageWithContentsOfFile:[self myNewAvatarPath]] forUserID:_currentUser.remoteID.integerValue success:^(AFJSONRequestOperation *operation, id responseObject) {
         [[NSFileManager defaultManager] moveItemAtPath:[self myNewAvatarPath] toPath:[self myAvatarPath] error:nil];
         [SVProgressHUD showSuccessWithStatus:@"Image uploaded successfully."];
     } failure:^(AFJSONRequestOperation *operation, NSError *error) {
@@ -354,6 +361,8 @@
             default:
                 break;
         }
+        cell.contentTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        cell.contentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         cell.contentTextField.delegate = self;
         cell.contentTextField.enabled = YES;
     } else {
@@ -436,7 +445,6 @@
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
-    
     // Resize image to reduce UL/DL time
     image = [UIImage imageWithImage:image scaledToSize:CGSizeMake(160, 160)];
     

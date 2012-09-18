@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
+// TODO: Fix bug where if searching for something and user performs an action (favorite or tap cell), dismissing search won't bring back all events
+
 #import "SOEventListViewController.h"
 #import "SOWebViewController.h"
 #import "SOListHeaderLabel.h"

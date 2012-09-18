@@ -95,8 +95,18 @@
 #pragma mark - Local URLs
 
 - (void)showProfile:(NSInteger)profileID {
-    SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithMe];
-    [navController pushViewController:profileVC animated:YES];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext]];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"remoteID == %d",profileID]];
+    
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:nil];
+    
+    if (results.count) {
+        SOProfileViewController *profileVC = [[SOProfileViewController alloc] initWithUser:[results lastObject]];
+        [navController pushViewController:profileVC animated:YES];
+    }
 }
 
 #pragma mark - Core Data

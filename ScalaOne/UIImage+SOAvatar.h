@@ -11,6 +11,7 @@
 typedef enum {
     SOAvatarTypeSmall,
     SOAvatarTypeLarge,
+    SOAvatarTypeUser,
     SOAvatarTypeFavoriteOff,
     SOAvatarTypeFavoriteOn,
 } SOAvatarType;

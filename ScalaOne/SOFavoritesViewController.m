@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Don't duplicate the efforts of SOEventViewController and SOSpeakerViewController
-
 #import "SOFavoritesViewController.h"
 #import "SOHTTPClient.h"
 
@@ -56,7 +54,6 @@
     } else if (currentSegment == SOFavoritesSegmentTypeSpeakers) {
         [self didSelectSegment:_segmentSpeakersBtn];
     }
-    
 }
 
 - (void)viewDidUnload

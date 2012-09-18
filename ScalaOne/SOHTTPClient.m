@@ -62,7 +62,16 @@
 #pragma mark - Users
 
 - (void)getUserWithID:(NSInteger)userID success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {
-    NSLog(@"getUserWithID");
+    NSDictionary *params = @{@"token" : kSOAPIToken};
+    [self getPath:[NSString stringWithFormat:@"users/%d",userID] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (success) {
+			success((AFJSONRequestOperation *)operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (failure) {
+			failure((AFJSONRequestOperation *)operation, error);
+		}
+	}];
 }
 
 - (void)createUser:(SOUser *)user success:(SOHTTPClientSuccess)success failure:(SOHTTPClientFailure)failure {

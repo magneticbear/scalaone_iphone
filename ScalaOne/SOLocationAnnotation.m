@@ -6,24 +6,25 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 
 #import "SOLocationAnnotation.h"
+#import "SDWebImageManager.h"
+#import "UIImage+SOAvatar.h"
 
 @implementation SOLocationAnnotation
 @synthesize coordinate, mapView, locationView, nameString = _nameString, distanceString = _distanceString, profileID = _profileID, avatarImgName = _avatarImgName;
 
-- (id) initWithLat:(CGFloat)latitude lon:(CGFloat)longitude name:(NSString*)name distance:(NSString *)distance
-{
-    _coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    _nameString = name;
-    _distanceString = distance;
-    return self;
-}
-
 - (id)initWithUser:(SOUser *)aUser
 {
-    _coordinate = CLLocationCoordinate2DMake(aUser.latitude.floatValue, aUser.longitude.floatValue);
-    _nameString = [NSString stringWithFormat:@"%@ %@", aUser.firstName, aUser.lastName];
-    _distanceString = @"1.2km";
-    _profileID = aUser.remoteID.integerValue;
+    self = [super init];
+    if (self) {
+        _coordinate = CLLocationCoordinate2DMake(aUser.latitude.floatValue, aUser.longitude.floatValue);
+        _nameString = [NSString stringWithFormat:@"%@ %@", aUser.firstName, aUser.lastName];
+        
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MMM. d 'at' h:mma"];
+        _distanceString = [df stringFromDate:aUser.locationTime];
+        _profileID = aUser.remoteID.integerValue;
+    }
+    
     return self;
 }
 
@@ -39,6 +40,17 @@
     locationView.coordinate = _coordinate;
     locationView.nameLabel.text = _nameString;
     locationView.distanceLabel.text = _distanceString;
+    locationView.profileID = _profileID;
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:
+     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,_profileID]]
+                    delegate:self
+                     options:0
+                     success:^(UIImage *image, BOOL cached) {
+                         locationView.avatarImg.image = [UIImage avatarWithSource:image type:SOAvatarTypeUser];
+                     } failure:^(NSError *error) {
+                         // NSLog(@"Image retrieval failed");
+                     }];
     return locationView;
 }
 
@@ -57,7 +69,8 @@
     return _coordinate;
 }
 
-- (void)updateCoordinate:(CLLocationCoordinate2D)newCoordinate animated:(BOOL)animated {
+- (void)updateUser:(SOUser *)aUser animated:(BOOL)animated {
+    CLLocationCoordinate2D newCoordinate = CLLocationCoordinate2DMake(aUser.latitude.floatValue, aUser.longitude.floatValue);
     if (animated) {
         [UIView animateWithDuration:0.33f animations:^{
             self.coordinate = newCoordinate;
@@ -65,26 +78,30 @@
     } else {
         self.coordinate = newCoordinate;
     }
-}
-
-- (void)updateAvatar:(NSString *)avatar {
-    _avatarImgName = avatar;
-    locationView.avatarImg.image = [UIImage imageNamed:_avatarImgName];
-}
-
-- (void)updateName:(NSString *)name {
-    _nameString = name;
-    locationView.nameLabel.text = _nameString;
-}
-
-- (void)updateDistance:(NSString *)distance {
-    _distanceString = distance;
-    locationView.distanceLabel.text = _distanceString;
-}
-
-- (void)updateProfileID:(NSInteger)aProfileID {
-    _profileID = aProfileID;
-    locationView.profileID = _profileID;
+    
+    _nameString = [NSString stringWithFormat:@"%@ %@", aUser.firstName, aUser.lastName];
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"MMM. d 'at' h:mma"];
+    _distanceString = [df stringFromDate:aUser.locationTime];
+    _profileID = aUser.remoteID.integerValue;
+    
+    if (locationView) {
+        locationView.coordinate = _coordinate;
+        locationView.nameLabel.text = _nameString;
+        locationView.distanceLabel.text = _distanceString;
+        locationView.profileID = _profileID;
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager downloadWithURL:
+         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,_profileID]]
+                        delegate:self
+                         options:0
+                         success:^(UIImage *image, BOOL cached) {
+                             locationView.avatarImg.image = [UIImage avatarWithSource:image type:SOAvatarTypeUser];
+                         } failure:^(NSError *error) {
+                             // NSLog(@"Image retrieval failed");
+                         }];
+    }
 }
 
 @end

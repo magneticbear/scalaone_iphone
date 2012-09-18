@@ -11,7 +11,21 @@
 @implementation UIImage (SOAvatar)
 
 + (UIImage *)avatarWithSource:(UIImage *)source type:(SOAvatarType)avatarType {
-    NSString *bgImgName = (avatarType == SOAvatarTypeLarge) ? @"profile_avatar" : @"list-avatar-generic-nostar";
+    NSString *bgImgName = nil;
+    
+    switch (avatarType) {
+        case SOAvatarTypeLarge:
+            bgImgName = @"profile_avatar";
+            break;
+            
+        case SOAvatarTypeUser:
+            bgImgName = @"map_avatar_generic";
+            break;
+            
+        default:
+            bgImgName = @"list-avatar-generic-nostar";
+            break;
+    }
     UIImage *background = [UIImage imageNamed:bgImgName];
     
     CGSize contextSize = background.size;

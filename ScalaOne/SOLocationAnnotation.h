@@ -32,12 +32,7 @@
 @property (nonatomic, strong) NSString *distanceString;
 @property (atomic) NSInteger profileID;
 
-- (id) initWithLat:(CGFloat)latitude lon:(CGFloat)longitude name:(NSString *)name distance:(NSString *)distance;
 - (id)initWithUser:(SOUser *)aUser;
-- (void)updateAvatar:(NSString *)avatar;
-- (void)updateName:(NSString *)name;
-- (void)updateDistance:(NSString *)distance;
-- (void)updateCoordinate:(CLLocationCoordinate2D)newCoordinate animated:(BOOL)animated;
-- (void)updateProfileID:(NSInteger)aProfileID;
+- (void)updateUser:(SOUser *)aUser animated:(BOOL)animated;
 
 @end
