@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Use a fetch results controller to update map pins
-
 #import "SOMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>

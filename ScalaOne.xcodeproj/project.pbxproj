@@ -1615,8 +1615,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tindr Solutions Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tindr Solutions Inc.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1627,8 +1627,8 @@
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "863EC583-ED89-4EC7-A883-7C64CB7E9084";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "863EC583-ED89-4EC7-A883-7C64CB7E9084";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
