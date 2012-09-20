@@ -9,7 +9,6 @@
 // TODO: Improve performance on load
 // TODO: Show name of sender, and message sent date
 
-// TODO (Optional): SVProgressHUD extension to allow queuing and changing status lines
 // TODO (Optional): Add day separators
 // TODO (Optional): Remove new cell animation on keyboard dismiss
 // TODO (Optional): Add navBar to DAKeyboardControl to have it pan with the keyboard

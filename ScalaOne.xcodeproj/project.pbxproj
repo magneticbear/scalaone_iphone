@@ -1517,8 +1517,8 @@
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3EBE5AC7-4F1E-402F-83B4-86BAE91B3639";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3EBE5AC7-4F1E-402F-83B4-86BAE91B3639";
+				PROVISIONING_PROFILE = "DA97F014-7B44-4A34-B93F-D6BC1908D382";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DA97F014-7B44-4A34-B93F-D6BC1908D382";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1593,8 +1593,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Pierre Simard (F5JU2BQATH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Pierre Simard (F5JU2BQATH)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1605,8 +1605,8 @@
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
+				PROVISIONING_PROFILE = "3DA5E754-8234-4E42-B12E-69EEDA514625";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DA5E754-8234-4E42-B12E-69EEDA514625";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

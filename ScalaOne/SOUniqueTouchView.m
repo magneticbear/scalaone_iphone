@@ -7,6 +7,7 @@
 //
 
 // TODO: Span area to entire UIWindow: http://stackoverflow.com/questions/1532778/how-to-respond-to-touch-events-in-uiwindow
+// http://www.james-vandyne.com/creating-universal-overlays-using-uiviews-on-ios/
 
 #import "SOUniqueTouchView.h"
 
