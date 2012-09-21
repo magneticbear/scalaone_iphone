@@ -69,7 +69,7 @@
 - (id)initWithMe {
     self = [self init];
     if (self) {
-        self.title = @"My Profile";
+        self.title = kSOScreenTitleMyProfile;
         isMyProfile = YES;
         
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -130,7 +130,7 @@
         [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
-         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,_currentUser.remoteID.integerValue]]
+         [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_currentUser.remoteID.integerValue]]
                         delegate:self
                          options:0
                          success:^(UIImage *image, BOOL cached) {

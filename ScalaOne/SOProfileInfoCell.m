@@ -7,6 +7,7 @@
 //
 
 #import "SOProfileInfoCell.h"
+#import "UIColor+SOAdditions.h"
 
 #define kCellWidth  282.0f
 
@@ -39,7 +40,7 @@
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 9, 68, 28)];
         _headerLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
         _headerLabel.textAlignment = UITextAlignmentRight;
-        _headerLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+        _headerLabel.textColor = [UIColor lightBlue];
         _headerLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_headerLabel];
         
@@ -60,7 +61,7 @@
         _headerLabel.textColor = [UIColor whiteColor];
         _contentTextField.textColor = [UIColor whiteColor];
     } else {
-        _headerLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+        _headerLabel.textColor = [UIColor lightBlue];
         _contentTextField.textColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
     }
     

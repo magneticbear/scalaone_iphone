@@ -59,6 +59,7 @@
 		E852B9D215EFED6400FD919A /* list-avatar-generic-nostar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E852B9CF15EFED6400FD919A /* list-avatar-generic-nostar@2x.png */; };
 		E855B2C815EB167700574B9C /* SOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E855B2C615EB167700574B9C /* SOViewController.m */; };
 		E855B2C915EB167700574B9C /* SOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E855B2C715EB167700574B9C /* SOViewController.xib */; };
+		E8604A29160CF89000F91C82 /* UIColor+SOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E8604A28160CF89000F91C82 /* UIColor+SOAdditions.m */; };
 		E865EEEB15E492D70063007F /* SOEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEE915E492D70063007F /* SOEventListViewController.m */; };
 		E865EEEC15E492D70063007F /* SOEventListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E865EEEA15E492D70063007F /* SOEventListViewController.xib */; };
 		E865EEF015E492E10063007F /* SOSpeakerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E865EEEE15E492E10063007F /* SOSpeakerListViewController.m */; };
@@ -266,6 +267,8 @@
 		E855B2C515EB167700574B9C /* SOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOViewController.h; sourceTree = "<group>"; };
 		E855B2C615EB167700574B9C /* SOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOViewController.m; sourceTree = "<group>"; };
 		E855B2C715EB167700574B9C /* SOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOViewController.xib; sourceTree = "<group>"; };
+		E8604A27160CF89000F91C82 /* UIColor+SOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SOAdditions.h"; sourceTree = "<group>"; };
+		E8604A28160CF89000F91C82 /* UIColor+SOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SOAdditions.m"; sourceTree = "<group>"; };
 		E865EEE815E492D70063007F /* SOEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEventListViewController.h; sourceTree = "<group>"; };
 		E865EEE915E492D70063007F /* SOEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEventListViewController.m; sourceTree = "<group>"; };
 		E865EEEA15E492D70063007F /* SOEventListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SOEventListViewController.xib; sourceTree = "<group>"; };
@@ -478,6 +481,7 @@
 		E808E2CC15EE992D00B0BA69 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E8604A25160CF87B00F91C82 /* UIColor+SOAdditions */,
 				E83E7F3415F64823003E6FB4 /* Model */,
 				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E842CC1D15E6887B00B40B33 /* SODefines */,
@@ -641,6 +645,15 @@
 				E855B2C715EB167700574B9C /* SOViewController.xib */,
 			);
 			name = SOViewController;
+			sourceTree = "<group>";
+		};
+		E8604A25160CF87B00F91C82 /* UIColor+SOAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				E8604A27160CF89000F91C82 /* UIColor+SOAdditions.h */,
+				E8604A28160CF89000F91C82 /* UIColor+SOAdditions.m */,
+			);
+			name = "UIColor+SOAdditions";
 			sourceTree = "<group>";
 		};
 		E865EE9B15E48B920063007F /* Images */ = {
@@ -1430,6 +1443,7 @@
 				E844BB3016055D2B008C5B3B /* SOMessage.m in Sources */,
 				E844BB3316055D3E008C5B3B /* SOSpeaker.m in Sources */,
 				E8BEED1C16069B7500CBA932 /* SOUser.m in Sources */,
+				E8604A29160CF89000F91C82 /* UIColor+SOAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import "SOEventCell.h"
 #import "SOAppDelegate.h"
+#import "UIColor+SOAdditions.h"
 
 @implementation SOEventCell {
     NSDateFormatter *df;
@@ -32,7 +33,7 @@
         
         // Text Label Setup
         self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
-        self.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+        self.textLabel.textColor = [UIColor lightBlue];
         self.textLabel.backgroundColor = bgColorView.backgroundColor;
         
         // Detail Text Label Setup

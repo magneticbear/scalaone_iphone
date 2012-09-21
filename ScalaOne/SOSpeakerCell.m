@@ -9,6 +9,7 @@
 #import "SOSpeakerCell.h"
 #import "UIImage+SOAvatar.h"
 #import "SDWebImageManager.h"
+#import "UIColor+SOAdditions.h"
 
 @implementation SOSpeakerCell
 @synthesize speaker = _speaker;
@@ -32,7 +33,7 @@
         
         // Text Label Setup
         self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19.0f];
-        self.textLabel.textColor = [UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
+        self.textLabel.textColor = [UIColor lightBlue];
         self.textLabel.backgroundColor = bgColorView.backgroundColor;
         
         // Accessory Image
@@ -72,7 +73,7 @@
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_speaker.remoteID.integerValue]]
+     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForSpeaker,kSOAPIHost,_speaker.remoteID.integerValue]]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {

@@ -34,7 +34,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Speakers";
+    self.title = kSOScreenTitleSpeakers;
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
@@ -307,7 +307,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)dismissAvatar {
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/profile/%d.jpg",kSOAPIHost,_currentCell.speaker.remoteID.integerValue]]
+     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForSpeaker,kSOAPIHost,_currentCell.speaker.remoteID.integerValue]]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {

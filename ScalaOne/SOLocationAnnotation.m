@@ -43,7 +43,7 @@
     locationView.profileID = _profileID;
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,_profileID]]
+     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_profileID]]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {
@@ -93,7 +93,7 @@
         locationView.profileID = _profileID;
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         [manager downloadWithURL:
-         [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,_profileID]]
+         [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_profileID]]
                         delegate:self
                          options:0
                          success:^(UIImage *image, BOOL cached) {

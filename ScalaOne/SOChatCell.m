@@ -10,6 +10,7 @@
 
 #import "SOChatCell.h"
 #import "SOProfileViewController.h"
+#import "UIColor+SOAdditions.h"
 
 @implementation SOChatCell
 @synthesize avatarBtn = _avatarBtn;
@@ -44,7 +45,7 @@
         
         _messageTextView.numberOfLines = 0;
         _messageTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-        _messageTextView.textColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
+        _messageTextView.textColor = [UIColor lightGray];
         
         [_avatarBtn addTarget:self action:@selector(didPressAvatar:) forControlEvents:UIControlEventTouchUpInside];
         

@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.title = @"Scala1";
+    self.title = kSOScreenTitleHome;
     
 //    Fade out splash image
     UIWindow* window = [[[UIApplication sharedApplication] windows] lastObject];
@@ -77,12 +77,12 @@
 }
 
 - (IBAction)pushPlaygroundVC:(id)sender {
-    SOWebViewController *playgroundVC = [[SOWebViewController alloc] initWithTitle:@"Playground" url:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]];
+    SOWebViewController *playgroundVC = [[SOWebViewController alloc] initWithTitle:kSOScreenTitlePlayground url:[NSURL URLWithString:[NSString stringWithFormat:@"%@playground",kSOAPIHost]]];
     [self.navigationController pushViewController:playgroundVC animated:YES];
 }
 
 - (IBAction)pushAboutVC:(id)sender {
-    SOWebViewController *aboutVC = [[SOWebViewController alloc] initWithTitle:@"About Scala1" url:[NSURL URLWithString:kSOAPIHost]];
+    SOWebViewController *aboutVC = [[SOWebViewController alloc] initWithTitle:kSOScreenTitleAbout url:[NSURL URLWithString:kSOAPIHost]];
     [self.navigationController pushViewController:aboutVC animated:YES];
 }
 

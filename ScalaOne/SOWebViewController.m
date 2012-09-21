@@ -110,6 +110,9 @@
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+    // Catch web URLs
+    
+    // Sharing
     if ([request.URL.absoluteString rangeOfString:@"share"].location != NSNotFound) {
         if (SYSTEM_VERSION_LESS_THAN(@"6.0")) {
             [self postText:self.title toServiceType:kSOTwitterServiceType];
@@ -123,11 +126,15 @@
             [sheet showInView:self.view];
         }
         return NO;
+        
+    // Chat
     } else if ([request.URL.absoluteString rangeOfString:@"discussion"].location != NSNotFound) {
         SOChatViewController *chatVC = [[SOChatViewController alloc] initWithChatURL:[NSString eventChatURLWithEventID:_event.remoteID.integerValue] andPusherChannel:[NSString eventChannelNameWithEventID:_event.remoteID.integerValue]];
         [self.navigationController pushViewController:chatVC animated:YES];
         return NO;
-    } else if ([request.URL.absoluteString rangeOfString:@"scala1://events/"].location != NSNotFound) {
+        
+    // Event
+    } else if ([request.URL.absoluteString rangeOfString:[NSString stringWithFormat:@"%@://events/",kSOScala1Scheme]].location != NSNotFound) {
         NSManagedObjectContext *moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
                         
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -145,7 +152,9 @@
             [self.navigationController pushViewController:eventVC animated:YES];
         }
         return NO;
-    } else if ([request.URL.absoluteString rangeOfString:@"scala1://speakers/"].location != NSNotFound) {
+        
+    // Speaker
+    } else if ([request.URL.absoluteString rangeOfString:[NSString stringWithFormat:@"%@://speakers/",kSOScala1Scheme]].location != NSNotFound) {
         NSManagedObjectContext *moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
@@ -162,17 +171,21 @@
             [self.navigationController pushViewController:speakerVC animated:YES];
         }
         return NO;
-    } else if ([request.URL.absoluteString rangeOfString:@"scala1.tindr.co"].location == NSNotFound) {
+        
+    // Non-scala1 URLs
+    } else if ([request.URL.absoluteString rangeOfString:kSOAPIHost].location == NSNotFound) {
         if ([[UIApplication sharedApplication] canOpenURL:
-             [NSURL URLWithString:@"googlechrome://"]]) {
+             [NSURL URLWithString:[NSString stringWithFormat:@"%@://",kSOGoogleChromeScheme]]]) {
             NSString *scheme = request.URL.scheme;
             
             // Replace the URL Scheme with the Chrome equivalent.
             NSString *chromeScheme = nil;
-            if ([scheme isEqualToString:@"http"]) {
-                chromeScheme = @"googlechrome";
-            } else if ([scheme isEqualToString:@"https"]) {
-                chromeScheme = @"googlechromes";
+            if ([scheme isEqualToString:kSOHTTPScheme]) {
+                chromeScheme = kSOGoogleChromeScheme;
+            } else if ([scheme isEqualToString:kSOHTTPSchemeSecure]) {
+                chromeScheme = kSOGoogleChromeSchemeSecure;
+            } else {
+                [[UIApplication sharedApplication] openURL:request.URL];
             }
             
             // Proceed only if a valid Google Chrome URI Scheme is available.
@@ -188,6 +201,8 @@
                 // Open the URL with Chrome.
                 [[UIApplication sharedApplication] openURL:chromeURL];
             }
+            
+        // Everything else
         } else {
             [[UIApplication sharedApplication] openURL:request.URL];
         }

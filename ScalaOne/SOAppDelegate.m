@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO: Change all hard-coded strings & colors for constants
-
 ////////////////////////
 //  TODO: Add support for native URLs
 ////////////////////////
@@ -34,11 +32,11 @@
 // TODO (Optional): App-level location manager and API update
 // TODO (Optional): Generic push notification support
 
+#import <Crashlytics/Crashlytics.h>
 #import "SOAppDelegate.h"
-
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
-#import <Crashlytics/Crashlytics.h>
+#import "UIColor+SOAdditions.h"
 
 @implementation SOAppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -83,7 +81,7 @@
     
     [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
-    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setTintColor:[UIColor colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setTintColor:[UIColor lightBlue]];
     
     // Launch app
     self.window.rootViewController = navController;

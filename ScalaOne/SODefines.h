@@ -45,4 +45,31 @@
 #define kSONoFacebookAccountTitle       @"No Facebook Account"
 #define kSONoFacebookAccountMessage     @"You have not yet linked a Facebook account with this iPhone. Open iPhone Settings to link one."
 
+#pragma mark - URL schemes
+
+#define kSOGoogleChromeScheme           @"googlechrome"
+#define kSOGoogleChromeSchemeSecure     @"googlechromes"
+#define kSOHTTPScheme                   @"http"
+#define kSOHTTPSchemeSecure             @"https"
+#define kSOScala1Scheme                 @"scala1"
+
+#pragma mark - Screen Titles
+
+#define kSOScreenTitleHome              @"Scala1"
+#define kSOScreenTitleEvents            @"Events"
+#define kSOScreenTitleSpeakers          @"Speakers"
+#define kSOScreenTitleFavorites         @"Favorites"
+#define kSOScreenTitleMyProfile         @"My Profile"
+#define kSOScreenTitleChatGeneral       @"Discussion"
+#define kSOScreenTitleChatPrivate       @"Private chat"
+#define kSOScreenTitleChatEvent         @"Event chat"
+#define kSOScreenTitleMap               @"Find an enthusiast"
+#define kSOScreenTitleAbout             @"About Scala1"
+#define kSOScreenTitlePlayground        @"Playground"
+
+#pragma mark - Image URL Formats
+
+#define kSOImageURLFormatForUser        @"%@assets/img/user/%d.jpg"
+#define kSOImageURLFormatForSpeaker     @"%@assets/img/profile/%d.jpg"
+
 #endif

@@ -58,11 +58,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     if ([_chatURL rangeOfString:@"general"].location != NSNotFound) {
-        self.title = @"Discuss";
+        self.title = kSOScreenTitleChatGeneral;
     } else if ([_chatURL rangeOfString:@"private"].location != NSNotFound) {
-        self.title = @"Private Chat";
+        self.title = kSOScreenTitleChatPrivate;
     } else if ([_chatURL rangeOfString:@"event"].location != NSNotFound) {
-        self.title = @"Event Chat";
+        self.title = kSOScreenTitleChatEvent;
     }
     
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -370,7 +370,7 @@
     [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
     
     [_manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
+     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,message.senderID.integerValue]]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {

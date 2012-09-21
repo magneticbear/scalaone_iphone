@@ -9,6 +9,7 @@
 // TODO (Optional): Make input field scrollable when too large to be displayed
 
 #import "SOChatInputField.h"
+#import "UIColor+SOAdditions.h"
 
 @implementation SOChatInputField
 @synthesize inputField = _inputField;
@@ -67,7 +68,7 @@
         [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn-down"] forState:UIControlStateHighlighted];
         [_sendButton addTarget:self action:@selector(didPressSend:) forControlEvents:UIControlEventTouchUpInside];
         
-        [_sendButton setTitleShadowColor:[UIColor colorWithRed:0.059 green:0.486 blue:0.612 alpha:1] forState:UIControlStateNormal];
+        [_sendButton setTitleShadowColor:[UIColor darkBlue] forState:UIControlStateNormal];
         _sendButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
         _sendButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
         [_sendButton setTitle:@"Send" forState:UIControlStateNormal];
@@ -77,7 +78,7 @@
         _charactersLeft = [[UILabel alloc] initWithFrame:CGRectMake(215, 45, 62, 32)];
         _charactersLeft.backgroundColor = [UIColor clearColor];
         _charactersLeft.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
-        _charactersLeft.textColor = [UIColor colorWithWhite:0.3f alpha:1.0f];
+        _charactersLeft.textColor = [UIColor mediumGray];
         _charactersLeft.shadowColor = [UIColor whiteColor];
         _charactersLeft.shadowOffset = CGSizeMake(0, 1);
         _charactersLeft.text = @"140";
