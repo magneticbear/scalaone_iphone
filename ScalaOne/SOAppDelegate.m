@@ -33,6 +33,7 @@
 // TODO (Optional): Generic push notification support
 
 #import <Crashlytics/Crashlytics.h>
+#import "MixpanelAPI.h"
 #import "SOAppDelegate.h"
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
@@ -47,6 +48,7 @@
 {
     //    Analytics
     [Crashlytics startWithAPIKey:kSOCrashlyticsToken];
+    [MixpanelAPI sharedAPIWithToken:kSOMixpanelToken];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

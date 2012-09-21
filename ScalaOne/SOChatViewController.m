@@ -100,7 +100,7 @@
     sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
     
     if (!_myUserID) {
-        _chatInputField.inputField.placeholder = ;
+        _chatInputField.inputField.placeholder = kSOChatInputPlaceholderNoAccount;
         _chatInputField.inputField.userInteractionEnabled = NO;
     }
     

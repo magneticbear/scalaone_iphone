@@ -25,6 +25,8 @@
 
 #define kSOCrashlyticsToken             @""
 
+#define kSOMixpanelToken                @""
+
 #define kSOAPIHost                      @""
 
 #define kSOAPIToken                     @""
