@@ -72,4 +72,11 @@
 #define kSOImageURLFormatForUser        @"%@assets/img/user/%d.jpg"
 #define kSOImageURLFormatForSpeaker     @"%@assets/img/profile/%d.jpg"
 
+#pragma mark - Placeholders
+
+#define kSOChatInputPlaceholderNoAccount    @"Please create your profile to chat"
+#define kSOChatInputPlaceholder         @"Chat Message"
+#define kSOEventSearchPlaceholder       @"Find events"
+#define kSOSpeakerSearchPlaceholder     @"Find speakers"
+
 #endif

@@ -38,7 +38,7 @@
         _inputField.autocorrectionType = UITextAutocorrectionTypeNo;
         _inputField.contentInset = UIEdgeInsetsMake(-2, 0, 0, 0);
         _inputField.delegate = self;
-        _inputField.placeholder = @"Chat Message";
+        _inputField.placeholder = kSOChatInputPlaceholder;
         [self addSubview:_inputField];
         
 //        Input BG

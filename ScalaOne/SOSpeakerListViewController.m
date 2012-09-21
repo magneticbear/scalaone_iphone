@@ -40,7 +40,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     
 //    Setup
-    _searchBar.placeholder = @"Find speakers";
+    _searchBar.placeholder = kSOSpeakerSearchPlaceholder;
     _avatarState = SOAvatarStateDefault;
     ((SOUniqueTouchView*)self.view).viewDelegate = self;
     

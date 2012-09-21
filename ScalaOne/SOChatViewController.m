@@ -100,7 +100,7 @@
     sendingQueue = [[NSMutableArray alloc] initWithCapacity:3];
     
     if (!_myUserID) {
-        _chatInputField.inputField.placeholder = @"Please create your profile to chat";
+        _chatInputField.inputField.placeholder = ;
         _chatInputField.inputField.userInteractionEnabled = NO;
     }
     

@@ -33,7 +33,7 @@
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
-    _searchBar.placeholder = @"Find events";
+    _searchBar.placeholder = kSOEventSearchPlaceholder;
     
     moc = [(id)[[UIApplication sharedApplication] delegate] managedObjectContext];
     [[SOHTTPClient sharedClient] getEventsWithSuccess:^(AFJSONRequestOperation *operation, NSDictionary *responseDict) {
