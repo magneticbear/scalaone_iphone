@@ -368,9 +368,9 @@
     cell.messageTextView.text = message.text;
     cell.userID = message.senderID.integerValue;
     [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
-//    [NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,message.senderID.integerValue]
+    
     [_manager downloadWithURL:
-     [NSURL URLWithString:@"http://mgn.tc/scalaone/test.jpg"]
+     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {

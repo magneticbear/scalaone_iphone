@@ -162,6 +162,36 @@
             [self.navigationController pushViewController:speakerVC animated:YES];
         }
         return NO;
+    } else if ([request.URL.absoluteString rangeOfString:@"scala1.tindr.co"].location == NSNotFound) {
+        if ([[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:@"googlechrome://"]]) {
+            NSString *scheme = request.URL.scheme;
+            
+            // Replace the URL Scheme with the Chrome equivalent.
+            NSString *chromeScheme = nil;
+            if ([scheme isEqualToString:@"http"]) {
+                chromeScheme = @"googlechrome";
+            } else if ([scheme isEqualToString:@"https"]) {
+                chromeScheme = @"googlechromes";
+            }
+            
+            // Proceed only if a valid Google Chrome URI Scheme is available.
+            if (chromeScheme) {
+                NSString *absoluteString = [request.URL absoluteString];
+                NSRange rangeForScheme = [absoluteString rangeOfString:@":"];
+                NSString *urlNoScheme =
+                [absoluteString substringFromIndex:rangeForScheme.location];
+                NSString *chromeURLString =
+                [chromeScheme stringByAppendingString:urlNoScheme];
+                NSURL *chromeURL = [NSURL URLWithString:chromeURLString];
+                
+                // Open the URL with Chrome.
+                [[UIApplication sharedApplication] openURL:chromeURL];
+            }
+        } else {
+            [[UIApplication sharedApplication] openURL:request.URL];
+        }
+        return NO;
     }
 	return YES;
 }
