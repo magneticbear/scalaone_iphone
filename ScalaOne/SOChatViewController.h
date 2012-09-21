@@ -13,6 +13,7 @@
 #import "DAKeyboardControl.h"
 #import "SOChatInputField.h"
 #import "SOChatCell.h"
+#import "SDWebImageManager.h"
 
 // Social
 #import <Twitter/Twitter.h>     // iOS 5
@@ -29,6 +30,7 @@
     NSInteger myUserID;
     NSString *chatURL;
     NSString *pusherChannelName;
+    SDWebImageManager *manager;
 }
 
 @property (nonatomic, retain) BLYClient *client;
@@ -40,6 +42,7 @@
 @property (nonatomic) NSInteger myUserID;
 @property (nonatomic, retain) NSString *chatURL;
 @property (nonatomic, retain) NSString *pusherChannelName;
+@property (nonatomic, retain) SDWebImageManager *manager;
 
 - (id)initWithChatURL:(NSString *)aChatURL andPusherChannel:(NSString *)pusherChannel;
 

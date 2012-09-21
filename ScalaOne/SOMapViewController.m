@@ -13,6 +13,7 @@
 #import "SOLocationAnnotation.h"
 #import "SOUser.h"
 #import "SOHTTPClient.h"
+#import "SDImageCache.h"
 
 #define kMoveToLocationAnimationDuration    2.0
 
@@ -133,6 +134,8 @@
         });
     }];
     
+    
+    
     [self resetAndFetch];
     [self performSelector:@selector(didPressLocateMe:) withObject:nil afterDelay:1.0];
 }
@@ -197,6 +200,14 @@
     // e.g. self.myOutlet = nil;
     _mapView.delegate = nil;
     _mapView = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    [imageCache clearMemory];
+    [imageCache clearDisk];
+    [imageCache cleanDisk];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -19,7 +19,7 @@
 #import "SOProfileViewController.h"
 #import "SOMessage.h"
 #import "UIImage+SOAvatar.h"
-#import "SDWebImageManager.h"
+#import "SDImageCache.h"
 #import "SVProgressHUD.h"
 
 #define kSOChatInputFieldStandardHeight 45.0f
@@ -42,6 +42,7 @@
 @synthesize myUserID = _myUserID;
 @synthesize chatURL = _chatURL;
 @synthesize pusherChannelName = _pusherChannelName;
+@synthesize manager = _manager;
 
 - (id)initWithChatURL:(NSString *)aChatURL andPusherChannel:(NSString *)pusherChannel {
     self = [super init];
@@ -242,6 +243,12 @@
         [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
     }];
     
+    _manager = [SDWebImageManager sharedManager];
+    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+    [imageCache clearMemory];
+    [imageCache clearDisk];
+    [imageCache cleanDisk];
+    
     [self resetAndFetch];
 }
 
@@ -361,10 +368,9 @@
     cell.messageTextView.text = message.text;
     cell.userID = message.senderID.integerValue;
     [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
-    
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,message.senderID.integerValue]]
+//    [NSString stringWithFormat:@"%@assets/img/user/%d.jpg",kSOAPIHost,message.senderID.integerValue]
+    [_manager downloadWithURL:
+     [NSURL URLWithString:@"http://mgn.tc/scalaone/test.jpg"]
                     delegate:self
                      options:0
                      success:^(UIImage *image, BOOL cached) {
