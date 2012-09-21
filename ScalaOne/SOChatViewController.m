@@ -65,6 +65,9 @@
         self.title = kSOScreenTitleChatEvent;
     }
     
+    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+    [mixpanel track:self.title properties:@{@"chatURL" : _chatURL,@"chatChannel" : _pusherChannelName}];
+    
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     

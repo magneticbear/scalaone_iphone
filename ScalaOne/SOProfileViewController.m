@@ -101,6 +101,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+    [mixpanel track:self.title];
+    
     //    Right bar button
     NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Chat";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];

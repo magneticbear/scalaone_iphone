@@ -33,7 +33,6 @@
 // TODO (Optional): Generic push notification support
 
 #import <Crashlytics/Crashlytics.h>
-#import "MixpanelAPI.h"
 #import "SOAppDelegate.h"
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
