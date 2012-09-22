@@ -47,6 +47,16 @@
 #define kSONoFacebookAccountTitle       @"No Facebook Account"
 #define kSONoFacebookAccountMessage     @"You have not yet linked a Facebook account with this iPhone. Open iPhone Settings to link one."
 
+#pragma mark - Profile Screen Strings
+
+#define kSOLeavingAppAlertTitle         @"Leave this app?"
+#define kSOLeavingAppAlertString        @"Are you sure you want to leave this application and %@"
+#define kSOLeavingAppTwitter            @"access %@'s Twitter profile?"
+#define kSOLeavingAppFacebook           @"access %@'s Facebook profile?"
+#define kSOLeavingAppPhone              @"call %@?"
+#define kSOLeavingAppEmail              @"email %@?"
+#define kSOLeavingAppWebsite            @"access %@'s website?"
+
 #pragma mark - URL schemes
 
 #define kSOGoogleChromeScheme           @"googlechrome"

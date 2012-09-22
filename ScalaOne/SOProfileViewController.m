@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
 //
 
-// TODO (Optional): Appropriate actions for each table cell (call, open url, etc.)
 // TODO (Optional): Better highlight feedback (too much lag)
 // TODO (Optional): Allow camera for image picking
 // TODO (Optional): Convert name box to table
@@ -20,6 +19,7 @@
 #import "SOHTTPClient.h"
 #import "SVProgressHUD.h"
 #import "NSString+SOAdditions.h"
+#import "UIAlertView+Blocks.h"
 #import "UIActionSheet+Blocks.h"
 
 @interface SOProfileViewController () {
@@ -474,6 +474,123 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    // Don't do anything if isMyProfile
+    if (isMyProfile) return;
+    
+    // Otherwise, launch appropriate action
+    __block NSMutableArray *nonEmptyArray = [NSMutableArray arrayWithCapacity:_profileCellContents.count];
+    [_profileCellContents enumerateObjectsUsingBlock:^(NSString *string, NSUInteger idx, BOOL *stop) {
+        if (![string isEqualToString:@""]) {
+            [nonEmptyArray addObject:[NSNumber numberWithInt:idx]];
+        }
+    }];
+    
+    NSInteger selectedIndex = [[nonEmptyArray objectAtIndex:indexPath.row] integerValue];
+    
+    NSString *urlString = [_profileCellContents objectAtIndex:selectedIndex];
+    
+    NSString *alertString = kSOLeavingAppAlertString;
+    
+    switch (selectedIndex) {
+        // Twitter
+        case 0:
+        {
+            // Remove @ symbol if present
+            urlString = [urlString stringByReplacingOccurrencesOfString:@"@" withString:@""];
+            urlString = [NSString stringWithFormat:@"https://twitter.com/%@",urlString];
+            NSString *alertString2 = [NSString stringWithFormat:kSOLeavingAppTwitter,self.title];
+            alertString = [NSString stringWithFormat:alertString,alertString2];
+            break;
+        }
+            
+        // Facebook
+        case 1:
+        {
+            urlString = [NSString stringWithFormat:@"https://facebook.com/%@",urlString];
+            NSString *alertString2 = [NSString stringWithFormat:kSOLeavingAppFacebook,self.title];
+            alertString = [NSString stringWithFormat:alertString,alertString2];
+        }
+            break;
+            
+        // Phone
+        case 2:
+        {
+            urlString = [NSString stringWithFormat:@"tel://%@",urlString];
+            NSString *alertString2 = [NSString stringWithFormat:kSOLeavingAppPhone,self.title];
+            alertString = [NSString stringWithFormat:alertString,alertString2];
+        }
+            break;
+            
+        // Email
+        case 3:
+        {
+            urlString = [NSString stringWithFormat:@"mailto://%@",urlString];
+            NSString *alertString2 = [NSString stringWithFormat:kSOLeavingAppEmail,self.title];
+            alertString = [NSString stringWithFormat:alertString,alertString2];
+        }
+            break;
+            
+        // Website
+        case 4:
+        {
+            // Add HTTP scheme if necessary
+            if ([urlString rangeOfString:@"://"].location == NSNotFound) {
+                urlString = [NSString stringWithFormat:@"http://%@",urlString];
+            }
+            NSString *alertString2 = [NSString stringWithFormat:kSOLeavingAppWebsite,self.title];
+            alertString = [NSString stringWithFormat:alertString,alertString2];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    RIButtonItem *yesButton = [RIButtonItem itemWithLabel:@"Yes"];
+    yesButton.action = ^{
+        NSURL *profileURL = [NSURL URLWithString:urlString];
+        
+        // If scheme is HTTP or HTTPS and Chrome is installed, open in Chrome
+        // Otherwise, open in default app
+        if ([profileURL.scheme rangeOfString:kSOHTTPScheme].location != NSNotFound &&
+            [[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:[NSString stringWithFormat:@"%@://",kSOGoogleChromeScheme]]]) {
+                NSString *scheme = profileURL.scheme;
+                
+                // Replace the URL Scheme with the Chrome equivalent.
+                NSString *chromeScheme = nil;
+                if ([scheme isEqualToString:kSOHTTPScheme]) {
+                    chromeScheme = kSOGoogleChromeScheme;
+                } else if ([scheme isEqualToString:kSOHTTPSchemeSecure]) {
+                    chromeScheme = kSOGoogleChromeSchemeSecure;
+                } else {
+                    [[UIApplication sharedApplication] openURL:profileURL];
+                }
+                
+                // Proceed only if a valid Google Chrome URI Scheme is available.
+                if (chromeScheme) {
+                    NSString *absoluteString = [profileURL absoluteString];
+                    NSRange rangeForScheme = [absoluteString rangeOfString:@":"];
+                    NSString *urlNoScheme =
+                    [absoluteString substringFromIndex:rangeForScheme.location];
+                    NSString *chromeURLString =
+                    [chromeScheme stringByAppendingString:urlNoScheme];
+                    NSURL *chromeURL = [NSURL URLWithString:chromeURLString];
+                    
+                    // Open the URL with Chrome.
+                    [[UIApplication sharedApplication] openURL:chromeURL];
+                }
+                
+                // Everything else
+            } else {
+                [[UIApplication sharedApplication] openURL:profileURL];
+            }
+    };
+    
+    RIButtonItem *noButton = [RIButtonItem itemWithLabel:@"No"];
+    
+    UIAlertView *leaveAppAlert = [[UIAlertView alloc] initWithTitle:kSOLeavingAppAlertTitle message:alertString cancelButtonItem:noButton otherButtonItems:yesButton, nil];
+    [leaveAppAlert show];
 }
 
 #pragma mark - UITextFieldDelegate
