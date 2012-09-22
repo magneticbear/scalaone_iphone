@@ -20,6 +20,7 @@
 #import "SOHTTPClient.h"
 #import "SVProgressHUD.h"
 #import "NSString+SOAdditions.h"
+#import "UIActionSheet+Blocks.h"
 
 @interface SOProfileViewController () {
     NSManagedObjectContext *moc;
@@ -93,6 +94,29 @@
 }
 
 - (IBAction)didPressAvatar:(id)sender {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        RIButtonItem *cameraButton = [RIButtonItem itemWithLabel:@"Camera"];
+        cameraButton.action = ^{
+            _imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:_imgPicker animated:YES completion:nil];
+        };
+        
+        RIButtonItem *libraryButton = [RIButtonItem itemWithLabel:@"Photo Library"];
+        libraryButton.action = ^{
+            _imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:_imgPicker animated:YES completion:nil];
+        };
+        
+        RIButtonItem *cancelButton = [RIButtonItem itemWithLabel:@"Cancel"];
+        
+        UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil cancelButtonItem:cancelButton destructiveButtonItem:nil otherButtonItems:cameraButton,libraryButton,nil];
+        
+        [actionsheet showInView:self.view];
+        
+        return;
+    }
+    
+    _imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:_imgPicker animated:YES completion:nil];
 }
 
