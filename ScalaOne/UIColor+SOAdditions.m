@@ -14,16 +14,12 @@
     return [self colorWithRed:13.0f/255.0f green:164.0f/255.0f blue:208.0f/255.0f alpha:1.0f];
 }
 
-+ (UIColor *)lightGray {
-    return [self colorWithWhite:0.15f alpha:1.0f];
-}
-
 + (UIColor *)darkBlue {
     return [self colorWithRed:0.059 green:0.486 blue:0.612 alpha:1];
 }
 
-+ (UIColor *)mediumGray {
-    return [self colorWithWhite:0.3f alpha:1.0f];
++ (UIColor *)darkGray {
+    return [self colorWithWhite:0.15f alpha:1.0f];
 }
 
 @end

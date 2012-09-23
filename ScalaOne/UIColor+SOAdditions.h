@@ -11,8 +11,7 @@
 @interface UIColor (SOAdditions)
 
 + (UIColor *)lightBlue;
-+ (UIColor *)lightGray;
 + (UIColor *)darkBlue;
-+ (UIColor *)mediumGray;
++ (UIColor *)darkGray;
 
 @end

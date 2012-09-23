@@ -44,8 +44,11 @@
         _cellAlignment = SOChatCellAlignmentLeft;
         
         _messageTextView.numberOfLines = 0;
-        _messageTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-        _messageTextView.textColor = [UIColor lightGray];
+        _messageTextView.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        _messageTextView.textColor = [UIColor darkGray];
+        
+        _messageMetaLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:9];
+        _messageMetaLabel.textColor = [UIColor lightGrayColor];
         
         [_avatarBtn addTarget:self action:@selector(didPressAvatar:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -63,20 +66,22 @@
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _avatarBtn.frame = CGRectMake(10, 10, 49, 49);
         _messageTextView.frame = CGRectMake(68, 5, 200, 1000);
-        _messageMetaLabel.frame = CGRectMake(64, 54, 246, 10);
+        _messageMetaLabel.frame = CGRectMake(74, 56, 236, 10);
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _avatarBtn.frame = CGRectMake(260, 10, 49, 49);
         _messageTextView.frame = CGRectMake(0, 5, 200, 1000);
-        _messageMetaLabel.frame = CGRectMake(10, 54, 246, 10);
+        _messageMetaLabel.frame = CGRectMake(10, 56, 236, 10);
     }
     
 //    Content
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-gray"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 20, 16, 13)];
         _messageTextView.textAlignment = UITextAlignmentLeft;
+        _messageMetaLabel.textAlignment = UITextAlignmentLeft;
     } else if (_cellAlignment == SOChatCellAlignmentRight) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-blue-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 13, 16, 20)];
         _messageTextView.textAlignment = UITextAlignmentRight;
+        _messageMetaLabel.textAlignment = UITextAlignmentRight;
     }
     
 //    Adjust textview size

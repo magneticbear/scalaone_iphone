@@ -78,7 +78,7 @@
         _charactersLeft = [[UILabel alloc] initWithFrame:CGRectMake(215, 45, 62, 32)];
         _charactersLeft.backgroundColor = [UIColor clearColor];
         _charactersLeft.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
-        _charactersLeft.textColor = [UIColor mediumGray];
+        _charactersLeft.textColor = [UIColor darkGrayColor];
         _charactersLeft.shadowColor = [UIColor whiteColor];
         _charactersLeft.shadowOffset = CGSizeMake(0, 1);
         _charactersLeft.text = @"140";

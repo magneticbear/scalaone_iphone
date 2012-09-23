@@ -369,6 +369,12 @@
     //    Cell Content
     SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.messageTextView.text = message.text;
+    
+    // Date formatter
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"MMM. d 'at' h:mma"];
+    cell.messageMetaLabel.text = [NSString stringWithFormat:@"%@ - %@",message.senderName,[df stringFromDate:message.sent]];
+    
     cell.userID = message.senderID.integerValue;
     [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
     
