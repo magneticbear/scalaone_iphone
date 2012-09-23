@@ -220,6 +220,8 @@
     if (![_fetchedResultsController performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
+    } else {
+        [_tableView reloadData];
     }
 }
 

@@ -232,6 +232,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     if (![_fetchedResultsController performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
+    } else {
+        [_tableView reloadData];
     }
 }
 
