@@ -7,7 +7,6 @@
 //
 
 // TODO (Optional): Better highlight feedback (too much lag)
-// TODO (Optional): Allow camera for image picking
 // TODO (Optional): Convert name box to table
 // TODO (Optional): Persistent @ symbol for twitter textfield
 

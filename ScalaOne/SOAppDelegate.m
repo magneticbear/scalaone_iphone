@@ -26,7 +26,6 @@
 //  Optional TODOs
 ////////////////////////
 
-// TODO (Optional): Add analytics framework
 // TODO (Optional): Create podspecs for Vendor classes: https://github.com/CocoaPods/Specs#creating-specifications
 // TODO (Optional): Pull-to-refresh functionality throughout
 // TODO (Optional): App-level location manager and API update
