@@ -95,13 +95,13 @@
 
 - (IBAction)didPressAvatar:(id)sender {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        RIButtonItem *cameraButton = [RIButtonItem itemWithLabel:@"Camera"];
+        RIButtonItem *cameraButton = [RIButtonItem itemWithLabel:@"Take Photo"];
         cameraButton.action = ^{
             _imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentViewController:_imgPicker animated:YES completion:nil];
         };
         
-        RIButtonItem *libraryButton = [RIButtonItem itemWithLabel:@"Photo Library"];
+        RIButtonItem *libraryButton = [RIButtonItem itemWithLabel:@"Choose Existing"];
         libraryButton.action = ^{
             _imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             [self presentViewController:_imgPicker animated:YES completion:nil];
@@ -128,12 +128,12 @@
     MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
     [mixpanel track:self.title];
     
-    //    Right bar button
+    // Right bar button
     NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Chat";
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
-    //    Data
+    // Data
     [self setCellHeadersAndPlaceholders];
     [self setCellContents];
     

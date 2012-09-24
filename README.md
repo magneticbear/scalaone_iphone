@@ -1,8 +1,11 @@
 # ScalaOne for iPhone
 
-This is the iPhone app commissioned by TypeSafe for the Scala portion of the 2012 Oracle JavaOne conference.
+## About
+This is the iPhone app commissioned by [Typesafe](http://www.typesafe.com) for the Scala portion of the 2012 Oracle JavaOne conference.
 
-Built by [Magnetic Bear Studios](http://magneticbear.com).
+Built by [Magnetic Bear Studios](http://magneticbear.com) in collaboration with [Tindr](http://tindr.co).
+
+## How To Run
 
 Currently uses these Pod versions:
 
