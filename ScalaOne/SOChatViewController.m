@@ -7,7 +7,6 @@
 //
 
 // TODO: Improve performance on load
-// TODO: Show name of sender, and message sent date
 
 // TODO (Optional): Add day separators
 // TODO (Optional): Remove new cell animation on keyboard dismiss

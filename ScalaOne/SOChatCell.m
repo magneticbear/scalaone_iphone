@@ -123,6 +123,11 @@
         selfFrame.size.height = 71;
     }
     self.frame = selfFrame;
+    
+    // Adjust meta frame
+    CGRect metaFrame = _messageMetaLabel.frame;
+    metaFrame.origin.y = self.frame.size.height - 14;
+    _messageMetaLabel.frame = metaFrame;
 }
 
 - (void)didPressAvatar:(id)sender {
