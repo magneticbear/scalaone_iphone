@@ -39,8 +39,10 @@
     // Do any additional setup after loading the view from its nib.
     self.title = kSOScreenTitleFavorites;
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title];
+    }
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
@@ -168,7 +170,7 @@
                         event.textDescription = [eventDict objectForKey:@"description"];
                         event.code = [eventDict objectForKey:@"code"];
                         
-                        //                        Dates
+                        // Dates
                         NSDateFormatter *df = [[NSDateFormatter alloc] init];
                         [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"]; // Sample date format: 2012-01-16T01:38:37.123Z
                         event.start = [df dateFromString:(NSString*)[eventDict objectForKey:@"start"]];
@@ -238,7 +240,7 @@
                 });
             } failure:^(AFJSONRequestOperation *operation, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-//                    NSLog(@"getSpeakers failed");
+                    // NSLog(@"getSpeakers failed");
                 });
             }];
             

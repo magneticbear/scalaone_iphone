@@ -53,13 +53,13 @@
     self.backgroundColor = [UIColor clearColor];
     self.centerOffset = CGPointMake(0, -SOLocationViewVerticalOffset);
     
-//    Avatar
+    // Avatar
     _avatarImg = [[UIImageView alloc] initWithImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser]];
     _avatarImg.frame = CGRectMake(13, 12, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
     [self addSubview:_avatarImg];
     self.layer.masksToBounds = NO;
     
-//    Name Label
+    // Name Label
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 20, 170, 20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.textColor = [UIColor whiteColor];
@@ -70,7 +70,7 @@
     _nameLabel.alpha = 0;
     [self addSubview:_nameLabel];
     
-//    Distance Label
+    // Distance Label
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(-34, 36, 170, 20)];
     _distanceLabel.backgroundColor = [UIColor clearColor];
     _distanceLabel.textColor = [UIColor whiteColor];
@@ -81,7 +81,7 @@
     _distanceLabel.alpha = 0;
     [self addSubview:_distanceLabel];
     
-//    Disclosure button
+    // Disclosure button
     disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     disclosureButton.frame = CGRectMake(SOLocationViewExpandOffset/2 + self.frame.size.width/2 - 4.0f, 21, disclosureButton.frame.size.width, disclosureButton.frame.size.height);
     
@@ -99,7 +99,7 @@
 
 - (void)didSelectAnnotationViewInMap:(MKMapView*) mapView;
 {
-//    Center map at annotation point
+    // Center map at annotation point
     [mapView setCenterCoordinate:_coordinate animated:YES];
     [self expand];
 }
@@ -195,7 +195,7 @@
         _nameLabel.alpha = 1;
         _distanceLabel.alpha = 1;
     } completion:^(BOOL finished) {
-//        NSLog(@"Animations completed");
+        // NSLog(@"Animations completed");
     }];
 }
 
@@ -208,12 +208,12 @@
         _distanceLabel.alpha = 0;
     } completion:^(BOOL finished) {
         [self animateBubbleWithDirection:SOLocationViewAnimationDirectionShrink];
-//        NSLog(@"Animations completed");
+        // NSLog(@"Animations completed");
     }];
 }
 
 - (void)animateBubbleWithDirection:(SOLocationViewAnimationDirection)animationDirection {
-//    Avatar
+    // Avatar
     [UIView animateWithDuration:SOLocationViewAnimationDuration animations:^{
         if (animationDirection == SOLocationViewAnimationDirectionGrow) {
             _avatarImg.frame = CGRectMake(_avatarImg.frame.origin.x-SOLocationViewExpandOffset/2, _avatarImg.frame.origin.y, _avatarImg.frame.size.width, _avatarImg.frame.size.height);
@@ -222,7 +222,7 @@
         }
     }];
     
-//    Bubble
+    // Bubble
     CGRect largeRect = CGRectMake(self.bounds.origin.x-SOLocationViewExpandOffset/2, self.bounds.origin.y, self.bounds.size.width+SOLocationViewExpandOffset, self.bounds.size.height);
     CGRect standardRect = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -233,7 +233,7 @@
     animation.fillMode = kCAFillModeForwards;
     animation.duration = SOLocationViewAnimationDuration;
     
-//    Stroke & Shadow From/To Values
+    // Stroke & Shadow From/To Values
     CGPathRef fromPath = (animationDirection == SOLocationViewAnimationDirectionGrow) ? [self newBubbleWithRect:standardRect] : [self newBubbleWithRect:largeRect];
     animation.fromValue = (__bridge id)fromPath;
     CGPathRelease(fromPath);
@@ -244,7 +244,7 @@
     
     [strokeAndShadowLayer addAnimation:animation forKey:animation.keyPath];
     
-//    ShapeLayer From/To Values
+    // ShapeLayer From/To Values
     fromPath = (animationDirection == SOLocationViewAnimationDirectionGrow) ?
     [self newBubbleWithRect:standardRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)] : [self newBubbleWithRect:largeRect andOffset:CGSizeMake(SOLocationViewExpandOffset/2, 0)];
     animation.fromValue = (__bridge id)fromPath;

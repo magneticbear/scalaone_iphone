@@ -65,13 +65,15 @@
         self.title = kSOScreenTitleChatEvent;
     }
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title properties:@{@"chatURL" : _chatURL,@"chatChannel" : _pusherChannelName}];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title properties:@{@"chatURL" : _chatURL,@"chatChannel" : _pusherChannelName}];
+    }
     
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    //    Keyboard show/hide notifications
+    // Keyboard show/hide notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -237,7 +239,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //    Keyboard show/hide notifications
+    // Keyboard show/hide notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -256,7 +258,7 @@
 }
 
 - (void)updateLayoutWithKeyboardRect:(CGRect)keyboardFrameInView onlyTable:(BOOL)onlyTable {
-    //    Update input field frame
+    // Update input field frame
     CGRect chatInputFieldFrame = _chatInputField.frame;
     if (!onlyTable) {
         CGFloat inputFramePanConstant = (kSOChatInputFieldExpandedHeight - kSOChatInputFieldStandardHeight)/216.0f;
@@ -265,11 +267,11 @@
         
         chatInputFieldFrame.origin.y = keyboardFrameInView.origin.y - chatInputFieldFrame.size.height;
         _chatInputField.frame = chatInputFieldFrame;
-        //    Deselect text
+        // Deselect text
         _chatInputField.inputField.selectedTextRange = nil;
     }
     
-    //    Update tableView frame
+    // Update tableView frame
     CGRect tableViewRect = _chatTableView.frame;
     tableViewRect.size.height = chatInputFieldFrame.origin.y;
     _chatTableView.frame = tableViewRect;
@@ -324,13 +326,13 @@
 #pragma mark - Keyboard
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    //    Show navBar
+    // Show navBar
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self scrollToBottom];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    //    Hide navBar
+    // Hide navBar
     double delayInSeconds = 0.33f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -366,7 +368,7 @@
         cell.delegate = self;
     }
     
-    //    Cell Content
+    // Cell Content
     SOMessage *message = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.messageTextView.text = message.text;
     
@@ -400,7 +402,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    NSLog(@"selected cell: %d",indexPath.row);
+    // NSLog(@"selected cell: %d",indexPath.row);
 }
 
 - (void)scrollToBottom {

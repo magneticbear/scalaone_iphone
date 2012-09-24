@@ -13,8 +13,6 @@
 typedef void (^SOHTTPClientSuccess)(AFJSONRequestOperation *operation, id responseObject);
 typedef void (^SOHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *error);
 
-@class BLYChannel;
-
 @interface SOHTTPClient : AFHTTPClient
 
 + (SOHTTPClient *)sharedClient;

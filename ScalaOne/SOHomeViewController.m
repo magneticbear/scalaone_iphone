@@ -31,10 +31,12 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = kSOScreenTitleHome;
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title];
+    }
     
-//    Fade out splash image
+    // Fade out splash image
     UIWindow* window = [[[UIApplication sharedApplication] windows] lastObject];
     NSString *splashImageSuffix = @"";
     if (window.frame.size.height == 568) {

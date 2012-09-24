@@ -28,19 +28,19 @@
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-//        Initializers
+        // Initializers
         _avatarBtn = [[UIButton alloc] init];
         _messageBG = [[UIImageView alloc] init];
         _messageTextView = [[UILabel alloc] init];
         _messageMetaLabel = [[UILabel alloc] init];
         
-//        Clear background colors
+        // Clear background colors
         _avatarBtn.backgroundColor = [UIColor clearColor];
         _messageBG.backgroundColor = [UIColor clearColor];
         _messageTextView.backgroundColor = [UIColor clearColor];
         _messageMetaLabel.backgroundColor = [UIColor clearColor];
         
-//        Configuration
+        // Configuration
         _cellAlignment = SOChatCellAlignmentLeft;
         
         _messageTextView.numberOfLines = 0;
@@ -62,7 +62,7 @@
 
 - (void)layoutSubviews {
     
-//    Frames
+    // Frames
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _avatarBtn.frame = CGRectMake(10, 10, 49, 49);
         _messageTextView.frame = CGRectMake(68, 5, 200, 1000);
@@ -73,7 +73,7 @@
         _messageMetaLabel.frame = CGRectMake(10, 56, 236, 10);
     }
     
-//    Content
+    // Content
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         _messageBG.image = [[UIImage imageNamed:@"chat-speech-gray"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 20, 16, 13)];
         _messageTextView.textAlignment = UITextAlignmentLeft;
@@ -84,7 +84,7 @@
         _messageMetaLabel.textAlignment = UITextAlignmentRight;
     }
     
-//    Adjust textview size
+    // Adjust textview size
     CGSize textSize = [_messageTextView.text sizeWithFont:_messageTextView.font constrainedToSize:_messageTextView.frame.size  lineBreakMode:(UILineBreakMode)_messageTextView.contentMode];
     CGRect newMessageTextViewRect = CGRectMake(_messageTextView.frame.origin.x+10, _messageTextView.frame.origin.y, textSize.width, textSize.height+14);
     if (_cellAlignment == SOChatCellAlignmentRight) {
@@ -95,7 +95,7 @@
     }
     _messageTextView.frame = newMessageTextViewRect;
     
-//    Adjust BG size
+    // Adjust BG size
     CGRect messageBGRect = _messageTextView.frame;
     if (_cellAlignment == SOChatCellAlignmentLeft) {
         messageBGRect.origin.x -= 16;
@@ -108,7 +108,7 @@
     }
     _messageBG.frame = messageBGRect;
     
-//    Adjust avatar position
+    // Adjust avatar position
     CGRect avatarRect = _avatarBtn.frame;
     avatarRect.origin.y = _messageBG.frame.origin.y+_messageBG.frame.size.height-avatarRect.size.height-3;
     if (_cellAlignment == SOChatCellAlignmentRight) {
@@ -116,7 +116,7 @@
     }
     _avatarBtn.frame = avatarRect;
     
-//    Adjust cell frame
+    // Adjust cell frame
     CGRect selfFrame = self.frame;
     selfFrame.size.height = _messageTextView.frame.size.height + 20;
     if (selfFrame.size.height < 65) {

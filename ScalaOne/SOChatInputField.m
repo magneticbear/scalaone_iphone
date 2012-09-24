@@ -31,7 +31,7 @@
         _shouldSendToFacebook = NO;
         _shouldSendToTwitter = NO;
         
-//        Input field
+        // Input field
         _inputField = [[SOInputTextView alloc] initWithFrame:CGRectMake(6.0f, 8.0f, self.frame.size.width - 12.0f, 30.0f)];
         _inputField.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
         _inputField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -41,19 +41,19 @@
         _inputField.placeholder = kSOChatInputPlaceholder;
         [self addSubview:_inputField];
         
-//        Input BG
+        // Input BG
         _inputBG = [[UIImageView alloc] initWithFrame:_inputField.frame];
         _inputBG.image = [[UIImage imageNamed:@"chat-input-field"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 15, 15, 15)];
         [self insertSubview:_inputBG belowSubview:_inputField];
         
-//        Twitter button
+        // Twitter button
         _twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(7, 45, 52, 32)];
         [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn"] forState:UIControlStateNormal];
         [_twitterButton setBackgroundImage:[UIImage imageNamed:@"chat-twitter-btn-checked"] forState:UIControlStateHighlighted];
         [_twitterButton addTarget:self action:@selector(didPressTwitter:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_twitterButton];
         
-//        Facebook button
+        // Facebook button
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
             _facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(66, 45, 52, 32)];
             [_facebookButton setBackgroundImage:[UIImage imageNamed:@"chat-facebook-btn"] forState:UIControlStateNormal];
@@ -62,7 +62,7 @@
             [self addSubview:_facebookButton];
         }
         
-//        Send button
+        // Send button
         _sendButton = [[UIButton alloc] initWithFrame:CGRectMake(251, 45, 62, 32)];
         [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn"] forState:UIControlStateNormal];
         [_sendButton setBackgroundImage:[UIImage imageNamed:@"chat-send-btn-down"] forState:UIControlStateHighlighted];
@@ -74,7 +74,7 @@
         [_sendButton setTitle:@"Send" forState:UIControlStateNormal];
         [self addSubview:_sendButton];
         
-//        Characters Left Label
+        // Characters Left Label
         _charactersLeft = [[UILabel alloc] initWithFrame:CGRectMake(215, 45, 62, 32)];
         _charactersLeft.backgroundColor = [UIColor clearColor];
         _charactersLeft.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
@@ -136,7 +136,7 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//    Limit size of textview
+    // Limit size of textview
     if ((textView.contentSize.height >= 196.0f || [textView.text length] >= 140) && [text length]){
         return NO;
     }

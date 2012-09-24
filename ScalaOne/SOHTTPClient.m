@@ -7,7 +7,6 @@
 //
 
 #import "SOHTTPClient.h"
-#import <Bully/Bully.h>
 
 @implementation SOHTTPClient {
 	dispatch_queue_t _callbackQueue;

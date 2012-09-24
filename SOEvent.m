@@ -22,8 +22,7 @@
 @dynamic favorite;
 
 - (NSDate *) day {
-    //    Return start date without time components
-    
+    // Return start date without time components
     [self willAccessValueForKey:@"day"];
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];

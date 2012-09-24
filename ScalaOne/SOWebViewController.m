@@ -14,8 +14,8 @@
 
 @interface SOWebViewController ()
 @property (nonatomic, strong) NSURLRequest *urlRequest;
-@property (nonatomic, assign) SOEvent *event;
-@property (nonatomic, assign) SOSpeaker *speaker;
+@property (nonatomic, strong) SOEvent *event;
+@property (nonatomic, strong) SOSpeaker *speaker;
 @property (nonatomic, retain) UIButton *starBtn;
 @end
 
@@ -62,8 +62,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title];
+    }
     
     _webView.backgroundColor = [UIColor colorWithRed: 0.93 green: 0.97 blue: 0.99 alpha: 1];
     for(UIView *wview in [[[_webView subviews] objectAtIndex:0] subviews]) {
@@ -72,21 +74,18 @@
     [_webView loadRequest:_urlRequest];
     _webView.scalesPageToFit = YES;
     
-    // Bug when favoriting something with 4+ VCs in the nav stack
-    if ((_event || _speaker) && self.navigationController.viewControllers.count <= 3) {
-        //    Right bar button star
-        _starBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _starBtn.frame = CGRectMake(0, 0, 40, 24);
-        _starBtn.contentMode = UIViewContentModeCenter;
-        
-        UIImage *starImg = [UIImage imageNamed:@"topbar-star-off"];
-        if ((_event && _event.favorite.boolValue) || (_speaker && _speaker.favorite.boolValue)) {
-            starImg = [UIImage imageNamed:@"topbar-star-on"];
-        }
-        [_starBtn setBackgroundImage:starImg forState:UIControlStateNormal];
-        [_starBtn addTarget:self action:@selector(didPressStar:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_starBtn];
+    // Right bar button star
+    _starBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _starBtn.frame = CGRectMake(0, 0, 40, 24);
+    _starBtn.contentMode = UIViewContentModeCenter;
+    
+    UIImage *starImg = [UIImage imageNamed:@"topbar-star-off"];
+    if ((_event && _event.favorite.boolValue) || (_speaker && _speaker.favorite.boolValue)) {
+        starImg = [UIImage imageNamed:@"topbar-star-on"];
     }
+    [_starBtn setBackgroundImage:starImg forState:UIControlStateNormal];
+    [_starBtn addTarget:self action:@selector(didPressStar:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_starBtn];
 }
 
 - (void)viewDidUnload

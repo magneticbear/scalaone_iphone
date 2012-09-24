@@ -30,13 +30,13 @@
         selfFrame.size.width = kCellWidth;
         self.frame = selfFrame;
         
-//        Background Image View
+        // Background Image View
         _bg = [[UIImageView alloc] initWithFrame:self.frame];
         _bg.backgroundColor = [UIColor clearColor];
         [self addSubview:_bg];
         [self setCellType:SOProfileInfoCellTypeMiddle];
         
-//        Header Label
+        // Header Label
         _headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 9, 68, 28)];
         _headerLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
         _headerLabel.textAlignment = UITextAlignmentRight;
@@ -44,7 +44,7 @@
         _headerLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_headerLabel];
         
-//        Content Text Field
+        // Content Text Field
         _contentTextField = [[UITextField alloc] initWithFrame:CGRectMake(_headerLabel.frame.origin.x+_headerLabel.frame.size.width+11, _headerLabel.frame.origin.y+3, self.frame.size.width-(_headerLabel.frame.origin.x+_headerLabel.frame.size.width+10), _headerLabel.frame.size.height)];
         _contentTextField.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:16.0f];
         _contentTextField.textColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
@@ -65,7 +65,7 @@
         _contentTextField.textColor = [UIColor colorWithWhite:0.15f alpha:1.0f];
     }
     
-//    Update cell bg on highlight
+    // Update cell bg on highlight
     switch (_cellType) {
         case SOProfileInfoCellTypeTop:
             _bg.image = [[UIImage imageNamed:[NSString stringWithFormat:@"profile-cell-top%@",highlightedBGString]] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 1, 3)];

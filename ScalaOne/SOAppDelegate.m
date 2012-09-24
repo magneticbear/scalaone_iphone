@@ -45,18 +45,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //    Analytics
-    [Crashlytics startWithAPIKey:kSOCrashlyticsToken];
-    [MixpanelAPI sharedAPIWithToken:kSOMixpanelToken];
+    // Analytics
+    if (kSOAnalyticsEnabled) {
+        [Crashlytics startWithAPIKey:kSOCrashlyticsToken];
+        [MixpanelAPI sharedAPIWithToken:kSOMixpanelToken];
+    }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    //    Configure navigation controller
+    // Configure navigation controller
     navController = [[UINavigationController alloc] initWithRootViewController:[[SOHomeViewController alloc] init]];
     
     ////////////////////////
-    //    UIAppearance
+    // UIAppearance
     ////////////////////////
     
     // Navigation Bar

@@ -125,8 +125,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title];
+    }
     
     // Right bar button
     NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Chat";
@@ -249,11 +251,11 @@
     
     BOOL editing = NO;
     
-    //    Reload table in editing mode
+    // Reload table in editing mode
     _tableView.editing = editing;
     [_tableView reloadData];
     
-    //    Show/hide Cancel button
+    // Show/hide Cancel button
     if (editing && _currentUser.remoteID.boolValue) {
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didPressRightButton:)];
         self.navigationItem.leftBarButtonItem = leftButton;
@@ -263,18 +265,18 @@
     
     self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
     
-    //    Show/Hide name box and avatar edit image
+    // Show/Hide name box and avatar edit image
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
     
-    //    Enable avatar button only when editing
+    // Enable avatar button only when editing
     _avatarBtn.enabled = editing;
 }
 
 - (void)toggleEditing {
     BOOL editing = !_tableView.editing;
     
-    //    Dismiss keyboard on done editing
+    // Dismiss keyboard on done editing
     [self.view endEditing:!editing];
     
     if (!editing) {
@@ -299,11 +301,11 @@
         }
     }
     
-    //    Reload table in editing mode
+    // Reload table in editing mode
     _tableView.editing = editing;
     [_tableView reloadData];
     
-    //    Show/hide Cancel button
+    // Show/hide Cancel button
     if (editing && _currentUser.remoteID.boolValue) {
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(didCancelEditing)];
         self.navigationItem.leftBarButtonItem = leftButton;
@@ -313,11 +315,11 @@
     
     self.navigationItem.rightBarButtonItem.title = editing ? @"Done" : @"Edit";
     
-    //    Show/Hide name box and avatar edit image
+    // Show/Hide name box and avatar edit image
     _nameBox.hidden = !editing;
     _avatarEditImg.hidden = !editing;
     
-    //    Enable avatar button only when editing
+    // Enable avatar button only when editing
     _avatarBtn.enabled = editing;
 }
 
@@ -392,14 +394,14 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    //    Set backgrounds for top and bottom cells (otherwise middle style is default)
+    // Set backgrounds for top and bottom cells (otherwise middle style is default)
     if (indexPath.row == 0) {
         cell.cellType = SOProfileInfoCellTypeTop;
     } else if (indexPath.row + 1 == [self tableView:tableView numberOfRowsInSection:indexPath.section]) {
         cell.cellType = SOProfileInfoCellTypeBottom;
     }
     
-    //    Set cell titles, content and placeholders for edit/read modes
+    // Set cell titles, content and placeholders for edit/read modes
     if (_tableView.editing) {
         cell.headerLabel.text = [_profileCellHeaders objectAtIndex:indexPath.row%_profileCellHeaders.count];
         cell.contentTextField.text = [_profileCellContents objectAtIndex:indexPath.row];
@@ -448,7 +450,7 @@
 
 - (NSString *)headerTextForCell:(NSInteger)row {
     NSMutableArray *dataCellTitles = [[NSMutableArray alloc] initWithCapacity:_profileCellHeaders.count];
-    //    Get non-empty data cell titles
+    // Get non-empty data cell titles
     [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
         if (cellContent.length) {
             [dataCellTitles addObject:[_profileCellHeaders objectAtIndex:idx]];
@@ -459,7 +461,7 @@
 
 - (NSString *)contentTextForCell:(NSInteger)row {
     NSMutableArray *dataCells = [[NSMutableArray alloc] initWithCapacity:_profileCellHeaders.count];
-    //    Get non-empty data cell contents
+    // Get non-empty data cell contents
     [_profileCellContents enumerateObjectsUsingBlock:^(NSString *cellContent, NSUInteger idx, BOOL *stop) {
         if (cellContent.length > 0) {
             [dataCells addObject:cellContent];

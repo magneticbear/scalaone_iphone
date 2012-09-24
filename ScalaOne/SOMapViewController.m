@@ -34,8 +34,10 @@
     // Do any additional setup after loading the view from its nib.
     self.title = kSOScreenTitleMap;
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title];
+    }
     
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;
@@ -245,28 +247,28 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-//    Animate pin drops
+    // Animate pin drops
     NSInteger idx = 0;
     for (SOLocationView *aV in views) {
         CGRect endFrame = aV.frame;
         
-//        Convert pin frame relative to mapView for intersection measurement
+        // Convert pin frame relative to mapView for intersection measurement
         CGPoint convertedOrigin = [mapView convertCoordinate:aV.coordinate toPointToView:mapView];
         CGRect convertedFrame = endFrame;
         convertedFrame.origin.x = convertedOrigin.x + aV.centerOffset.x;
         convertedFrame.origin.y = convertedOrigin.y + aV.centerOffset.y;
         
-//        If pin is in view, animate
+        // If pin is in view, animate
         if (CGRectIntersectsRect(convertedFrame,self.mapView.frame)) {
-//            Start animation outside view
+            // Start animation outside view
             aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y-self.mapView.frame.size.height, aV.frame.size.width, aV.frame.size.height);
             
             [UIView animateWithDuration:0.5f delay:idx*0.1f options:UIViewAnimationCurveEaseOut animations:^{
                 aV.frame = endFrame;
             } completion:^(BOOL finished) {
-//                Pin drop animation finished
+                // Pin drop animation finished
             }];
-//            Increase the next animation's delay
+            // Increase the next animation's delay
             idx++;
         }
     }

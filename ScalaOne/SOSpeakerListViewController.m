@@ -36,13 +36,15 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     // Do any additional setup after loading the view from its nib.
     self.title = kSOScreenTitleSpeakers;
     
-    MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-    [mixpanel track:self.title];
+    if (kSOAnalyticsEnabled) {
+        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
+        [mixpanel track:self.title];
+    }
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     
-//    Setup
+    // Setup
     _searchBar.placeholder = kSOSpeakerSearchPlaceholder;
     _avatarState = SOAvatarStateDefault;
     ((SOUniqueTouchView*)self.view).viewDelegate = self;
@@ -353,7 +355,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 }
 
 - (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {
-    //    If the avatar is in default state, or the user is tapping the "favorite" image
+    // If the avatar is in default state, or the user is tapping the "favorite" image
     if (_avatarState == SOAvatarStateDefault || (hitView == _currentCell.imageView && _avatarState == SOAvatarStateFavorite)) {
         return hitView;
     } else if (_avatarState == SOAvatarStateFavorite && hitView != _currentCell.imageView) {
