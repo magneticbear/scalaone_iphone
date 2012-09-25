@@ -5,18 +5,41 @@ This is the iPhone app commissioned by [Typesafe](http://www.typesafe.com) for t
 
 Built by [Magnetic Bear Studios](http://magneticbear.com) in collaboration with [Tindr](http://tindr.co).
 
+## Features
+
+* Find and learn about events and speakers
+* Save events and speakers to your favorites for fast access
+* Introduce yourself to fellow conference attendees by creating a profile including:
+  * Avatar
+  * Name
+  * Twitter handle
+  * Facebook username
+  * Phone number
+  * Email
+  * Website
+* Discuss the conference, specific events or engage another attendee in a private chat... all in real-time
+* Find other attendees around the world, and around San Francisco, in the real-time map
+* Explore the Scala Playground
+* Find out more about the app and its creators
+* Share events and conversations on Facebook or Twitter
+
+## Requirements
+
+* Xcode 4.5
+* [Cocoapods](https://github.com/CocoaPods/CocoaPods)
+
 ## How To Run
 
-Currently uses these Pod versions:
+1. Clone the project: `git clone git@github.com:magneticbear/scalaone_iphone.git`
+2. CD into the project's directory `cd scalaone_iphone`
+3. Install the project's pods: `pod install`
+4. Open ScalaOne.xcworkspace
+5. Enter missing details in SODefines.h
+6. Compile and run!
 
-* AFNetworking (1.0RC1)
-* Bully (0.1.0)
-* Facebook-iOS-SDK (1.2)
-* Reachability (3.0.0)
-* SBJson (2.2.3)
-* SDWebImage (2.7)
-* SSKeychain (0.1.4)
-* SVProgressHUD (0.8)
-* ShareKit (2.0)
-* SocketRocket (0.2.0)
-* TPKeyboardAvoiding (0.0.1)
+## Links
+
+Feel free to fork and modify the other open-source Scala1 apps.
+
+* [Android app](https://github.com/magneticbear/scala1_android)
+* [Back end](https://github.com/tindr/Scala1)
