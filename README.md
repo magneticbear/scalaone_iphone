@@ -3,6 +3,8 @@
 ## About
 This is the iPhone app commissioned by [Typesafe](http://www.typesafe.com) for the Scala portion of the 2012 Oracle JavaOne conference.
 
+Find it in the App Store here: [mgn.tc/s1ios](http://mgn.tc/s1ios).
+
 Built by [Magnetic Bear Studios](http://magneticbear.com) in collaboration with [Tindr](http://tindr.co).
 
 ## Features
