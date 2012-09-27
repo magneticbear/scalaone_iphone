@@ -45,3 +45,7 @@ Feel free to fork and modify the other open-source Scala1 apps.
 
 * [Android app](https://github.com/magneticbear/scala1_android)
 * [Back end](https://github.com/tindr/Scala1)
+
+## License
+
+Scala1 for iPhone is released under the [Simplified BSD License](https://github.com/magneticbear/scalaone_iphone/blob/master/LICENSE).
