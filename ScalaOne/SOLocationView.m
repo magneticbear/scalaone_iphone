@@ -4,6 +4,7 @@
 //
 //  Created by Jean-Pierre Simard on 8/22/12.
 //  Copyright (c) 2012 Magnetic Bear Studios. All rights reserved.
+//  http://www.magneticbear.com
 
 // TODO (Optional): Improve layout logic to allow arbitrary sizes
 // TODO (Optional): Set width based on size of name string
