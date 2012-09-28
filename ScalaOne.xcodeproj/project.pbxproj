@@ -481,12 +481,12 @@
 		E808E2CC15EE992D00B0BA69 /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E8604A25160CF87B00F91C82 /* UIColor+SOAdditions */,
 				E83E7F3415F64823003E6FB4 /* Model */,
-				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E842CC1D15E6887B00B40B33 /* SODefines */,
+				E842CC1E15E68AF000B40B33 /* SOHTTPClient */,
 				E8E4623D15E6D7F500908C6A /* SOChatMessage */,
 				E83565EF1600C3F4001A4D69 /* NSString+SOAdditions */,
+				E8604A25160CF87B00F91C82 /* UIColor+SOAdditions */,
 			);
 			name = "Model Classes";
 			sourceTree = "<group>";

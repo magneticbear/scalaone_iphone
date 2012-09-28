@@ -205,7 +205,8 @@
     // Don't reset data if displaying imgPicker
     if (!self.modalViewController) {
         [[NSFileManager defaultManager] removeItemAtPath:[self myNewAvatarPath] error:nil];
-        [moc reset];
+        // Hitting back before profile is created
+        if (isMyProfile) [moc reset];
     }
 }
 

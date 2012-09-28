@@ -21,7 +21,7 @@
 + (NSString *)privateChannelNameWithSenderID:(NSInteger)senderID targetID:(NSInteger)targetID {
     NSInteger lowID = MIN(senderID, targetID);
     NSInteger highID = MAX(senderID, targetID);
-    return [self stringWithFormat:@"private-%d-%d", lowID, highID];
+    return [self stringWithFormat:@"private_%d_%d", lowID, highID];
 }
 
 + (NSString *)generalChatURL {

@@ -11,13 +11,6 @@
 #ifndef SODEFINES
 #define SODEFINES
 
-// SODispatchRelease
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
-#define SODispatchRelease(queue)
-#else
-#define SODispatchRelease(queue) dispatch_release(queue)
-#endif
-
 #pragma mark - Tokens
 #if public
 #warning All constants here must be valid for the app to work
@@ -36,6 +29,10 @@
 #define kSOFacebookAppId                @""
 
 #endif
+
+#pragma mark - Features
+
+#define kSOAnalyticsEnabled             TRUE
 
 #pragma mark - Strings
 

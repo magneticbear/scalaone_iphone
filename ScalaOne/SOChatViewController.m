@@ -107,12 +107,6 @@
         _chatInputField.inputField.placeholder = kSOChatInputPlaceholderNoAccount;
         _chatInputField.inputField.userInteractionEnabled = NO;
     }
-    
-    client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
-    chatChannel = [client subscribeToChannelWithName:_pusherChannelName];
-    [chatChannel bindToEvent:@"newMessage" block:^(NSDictionary *message) {
-        [self getMessages];
-    }];
 }
 
 - (void)setMyID {
@@ -242,6 +236,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
+    client = [[BLYClient alloc] initWithAppKey:kSOPusherAPIKey delegate:self];
+    
+    chatChannel = [client subscribeToChannelWithName:_pusherChannelName];
+    [chatChannel bindToEvent:@"newMessage" block:^(NSDictionary *message) {
+        [self getMessages];
+    }];
+    
     __weak SOChatViewController *ref = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
         [ref updateLayoutWithKeyboardRect:keyboardFrameInView onlyTable:NO];
@@ -279,11 +280,8 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [self setChatTableView:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [chatChannel unbindEvent:@"new_message"];
-    [chatChannel unsubscribe];
     client = nil;
+    chatChannel = nil;
     moc = nil;
     sendingQueue = nil;
     _chatTableView = nil;
@@ -292,6 +290,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [chatChannel unbindEvent:@"new_message"];
+    [chatChannel unsubscribe];
+    [client disconnect];
     _fetchedResultsController.delegate = nil;
     [self.view removeKeyboardControl];
 }

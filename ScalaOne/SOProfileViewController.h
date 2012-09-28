@@ -29,7 +29,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *nameBox;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarEditImg;
-@property (nonatomic, retain) SOUser *currentUser;
+@property (nonatomic, strong) SOUser *currentUser;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

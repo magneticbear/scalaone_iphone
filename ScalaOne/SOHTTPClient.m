@@ -39,11 +39,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	SODispatchRelease(_callbackQueue);
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark - AFHTTPClient
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
