@@ -1607,8 +1607,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Pierre Simard (F5JU2BQATH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Pierre Simard (F5JU2BQATH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1619,8 +1619,8 @@
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3DA5E754-8234-4E42-B12E-69EEDA514625";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DA5E754-8234-4E42-B12E-69EEDA514625";
+				PROVISIONING_PROFILE = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

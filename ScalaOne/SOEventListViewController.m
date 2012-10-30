@@ -20,8 +20,6 @@
 @end
 
 @implementation SOEventListViewController
-@synthesize tableView = _tableView;
-@synthesize searchBar = _searchBar;
 
 - (void)viewDidLoad
 {
