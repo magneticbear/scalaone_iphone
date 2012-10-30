@@ -38,7 +38,7 @@
 
 #define kSONoTwitterAccountsTitle       @"No Twitter Accounts"
 #define kSONoTwitterAccountsMessage     @"You have not yet linked a Twitter account with this iPhone. Open iPhone Settings to link one."
-#define kSOTwitterHashtag               @"#scala1"
+#define kSOTwitterHashtag               @"#typesafe"
 #define kSOTwitterServiceType           @"com.apple.social.twitter"
 
 #define kSONoFacebookAccountTitle       @"No Facebook Account"
@@ -64,7 +64,7 @@
 
 #pragma mark - Screen Titles
 
-#define kSOScreenTitleHome              @"Scala1"
+#define kSOScreenTitleHome              @"TypesafeCon"
 #define kSOScreenTitleEvents            @"Events"
 #define kSOScreenTitleSpeakers          @"Speakers"
 #define kSOScreenTitleFavorites         @"Favorites"
@@ -73,7 +73,7 @@
 #define kSOScreenTitleChatPrivate       @"Private chat"
 #define kSOScreenTitleChatEvent         @"Event chat"
 #define kSOScreenTitleMap               @"Find an enthusiast"
-#define kSOScreenTitleAbout             @"About Scala1"
+#define kSOScreenTitleAbout             @"About TypesafeCon"
 #define kSOScreenTitlePlayground        @"Playground"
 
 #pragma mark - Image URL Formats

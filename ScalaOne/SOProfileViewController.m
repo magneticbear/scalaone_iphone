@@ -236,7 +236,7 @@
                                                               targetID:_currentUser.remoteID.integerValue]];
             [self.navigationController pushViewController:chatVC animated:YES];
         } else {
-            UIAlertView *noProfileAlert = [[UIAlertView alloc] initWithTitle:@"No Profile" message:@"Please create a Scala1 profile to enable chat." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+            UIAlertView *noProfileAlert = [[UIAlertView alloc] initWithTitle:@"No Profile" message:@"Please create a TypesafeCon profile to enable chat." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
             [noProfileAlert show];
         }
     }
