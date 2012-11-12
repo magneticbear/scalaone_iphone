@@ -2,10 +2,13 @@
 PODS:
 - AFNetworking (1.0)
 - Bully (0.2.0):
+  - Reachability
   - SocketRocket
 - Mixpanel (1.3.1)
 - Reachability (3.0.0)
-- SDWebImage (2.7)
+- SDWebImage (2.7):
+  - SDWebImage/Main (= 2.7)
+- SDWebImage/Main (2.7)
 - SVProgressHUD (0.8)
 - SocketRocket (0.2.0)
 - TPKeyboardAvoiding (0.0.1)
@@ -14,19 +17,19 @@ DEPENDENCIES:
 - AFNetworking
 - Bully
 - Mixpanel
-- Reachability
 - SDWebImage
 - SVProgressHUD
 - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
-  AFNetworking: e9e0911a6afd846691672a4d832fb531e8bae72f
-  Bully: 3df5802bc3d5660ee83e138a6a17aa2018b6d310
+  AFNetworking: 758a1cb1ab5a0d22795ba1c44abb9cad395bc126
+  Bully: 2c0127e4f8e2e6ba33548b0107592856f946264e
   Mixpanel: 4dbc198bf441400be45f5b77ad30e2ddc7cee3af
   Reachability: 500bd76bf6cd8ff2c6fb715fc5f44ef6e4c024f2
-  SDWebImage: 46ddc51b46f6d53b1ac3c04789f9f648975ff570
+  SDWebImage: 6be78ee398d329bdd22c85a0e11ee41bd1f52066
+  SDWebImage/Main: 6be78ee398d329bdd22c85a0e11ee41bd1f52066
   SVProgressHUD: 51042a14e3a716efdbdd73cbb2181fb23ee94389
   SocketRocket: a0529878e3c4c200196fa3a7e2ac1ef34aa33ffe
   TPKeyboardAvoiding: 129e3c55ac9165d0692e66f02fd1f611d917ec1a
 
-COCOAPODS: 0.14.0
+COCOAPODS: 0.15.2

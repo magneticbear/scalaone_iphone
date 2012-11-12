@@ -1533,6 +1533,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6763CE7D-39E0-47EB-B5AE-608C70D3DB29";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6763CE7D-39E0-47EB-B5AE-608C70D3DB29";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1607,8 +1608,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F4E18102E17471FBED4DC43 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jean-Pierre Simard (8888MNCX7Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Apps MBS (LH37M323M9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Apps MBS (LH37M323M9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1619,8 +1620,9 @@
 				INFOPLIST_FILE = "ScalaOne/ScalaOne-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CDD0B559-5843-4A1F-9614-B6DC34AD7323";
+				PROVISIONING_PROFILE = "8867C079-B780-4727-8EFC-7BC603D76AB3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8867C079-B780-4727-8EFC-7BC603D76AB3";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1643,6 +1645,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "863EC583-ED89-4EC7-A883-7C64CB7E9084";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "863EC583-ED89-4EC7-A883-7C64CB7E9084";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
