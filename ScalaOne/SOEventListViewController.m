@@ -27,10 +27,7 @@
     // Do any additional setup after loading the view from its nib.
     self.title = kSOScreenTitleEvents;
     
-    if (kSOAnalyticsEnabled) {
-        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-        [mixpanel track:self.title];
-    }
+    if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];

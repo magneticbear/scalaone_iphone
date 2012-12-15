@@ -62,10 +62,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    if (kSOAnalyticsEnabled) {
-        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-        [mixpanel track:self.title];
-    }
+    if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
     
     _webView.backgroundColor = [UIColor colorWithRed: 0.93 green: 0.97 blue: 0.99 alpha: 1];
     for(UIView *wview in [[[_webView subviews] objectAtIndex:0] subviews]) {

@@ -34,10 +34,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     // Do any additional setup after loading the view from its nib.
     self.title = kSOScreenTitleSpeakers;
     
-    if (kSOAnalyticsEnabled) {
-        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-        [mixpanel track:self.title];
-    }
+    if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
     
     _tableView.separatorColor = [UIColor colorWithWhite:0.85 alpha:1];
     _tableView.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
@@ -311,45 +308,46 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (void)dismissAvatar {
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForSpeaker,kSOAPIHost,_currentCell.speaker.remoteID.integerValue]]
-                    delegate:self
+    [manager downloadWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForSpeaker,kSOAPIHost,_currentCell.speaker.remoteID.integerValue]]
                      options:0
-                     success:^(UIImage *image, BOOL cached) {
-                         _avatarState = SOAvatarStateAnimatingToDefault;
-                         [UIView transitionWithView:_currentCell.imageView
-                                           duration:0.66f
-                                            options:UIViewAnimationOptionTransitionFlipFromLeft
-                                         animations:^{
-                                             if (_currentCell.speaker.favorite.boolValue) {
-                                                 _currentCell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOn];
-                                             } else {
-                                                 _currentCell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOff];
-                                             }
-                                         }
-                                         completion:^(BOOL finished){
-                                             _avatarState = SOAvatarStateDefault;
-                                             _currentCell = nil;
-                                             [_tableView reloadData];
-                                         }];
-                     } failure:^(NSError *error) {
-                         _avatarState = SOAvatarStateAnimatingToDefault;
-                         [UIView transitionWithView:_currentCell.imageView
-                                           duration:0.66f
-                                            options:UIViewAnimationOptionTransitionFlipFromLeft
-                                         animations:^{
-                                             if (_currentCell.speaker.favorite.boolValue) {
-                                                 _currentCell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOn];
-                                             } else {
-                                                 _currentCell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOff];
-                                             }
-                                         }
-                                         completion:^(BOOL finished){
-                                             _avatarState = SOAvatarStateDefault;
-                                             _currentCell = nil;
-                                             [_tableView reloadData];
-                                         }];
-                     }];
+                    progress:nil
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                       if (finished && !error) {
+                           _avatarState = SOAvatarStateAnimatingToDefault;
+                           [UIView transitionWithView:_currentCell.imageView
+                                             duration:0.66f
+                                              options:UIViewAnimationOptionTransitionFlipFromLeft
+                                           animations:^{
+                                               if (_currentCell.speaker.favorite.boolValue) {
+                                                   _currentCell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOn];
+                                               } else {
+                                                   _currentCell.imageView.image = [UIImage avatarWithSource:image type:SOAvatarTypeFavoriteOff];
+                                               }
+                                           }
+                                           completion:^(BOOL finished){
+                                               _avatarState = SOAvatarStateDefault;
+                                               _currentCell = nil;
+                                               [_tableView reloadData];
+                                           }];
+                       } else {
+                           _avatarState = SOAvatarStateAnimatingToDefault;
+                           [UIView transitionWithView:_currentCell.imageView
+                                             duration:0.66f
+                                              options:UIViewAnimationOptionTransitionFlipFromLeft
+                                           animations:^{
+                                               if (_currentCell.speaker.favorite.boolValue) {
+                                                   _currentCell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOn];
+                                               } else {
+                                                   _currentCell.imageView.image = [UIImage avatarWithSource:nil type:SOAvatarTypeFavoriteOff];
+                                               }
+                                           }
+                                           completion:^(BOOL finished){
+                                               _avatarState = SOAvatarStateDefault;
+                                               _currentCell = nil;
+                                               [_tableView reloadData];
+                                           }];
+                       }
+                   }];
 }
 
 - (UIView *)view:(SOUniqueTouchView *)view hitTest:(CGPoint)point withEvent:(UIEvent *)event hitView:(UIView *)hitView {

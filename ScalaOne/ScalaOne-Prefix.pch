@@ -21,7 +21,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
     #import <CoreData/CoreData.h>
     #import "SODefines.h"
-    #import "MixpanelAPI.h"
+    #import "Mixpanel.h"
 #endif

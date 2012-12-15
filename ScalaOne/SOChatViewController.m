@@ -64,10 +64,7 @@
         self.title = kSOScreenTitleChatEvent;
     }
     
-    if (kSOAnalyticsEnabled) {
-        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-        [mixpanel track:self.title properties:@{@"chatURL" : _chatURL,@"chatChannel" : _pusherChannelName}];
-    }
+    if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
     
     _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _chatTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -381,14 +378,10 @@
     cell.userID = message.senderID.integerValue;
     [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeUser] forState:UIControlStateNormal];
     
-    [_manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,message.senderID.integerValue]]
-                    delegate:self
-                     options:0
-                     success:^(UIImage *image, BOOL cached) {
-                         [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeUser] forState:UIControlStateNormal];
-                     } failure:^(NSError *error) {
-                         // NSLog(@"Image retrieval failed");
+    [_manager downloadWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,message.senderID.integerValue]]
+                      options:0
+                     progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                         if (finished && !error) [cell.avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeUser] forState:UIControlStateNormal];
                      }];
     
     if (message.senderID.integerValue == _myUserID) {

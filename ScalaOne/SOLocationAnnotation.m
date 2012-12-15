@@ -43,15 +43,11 @@
     locationView.distanceLabel.text = _distanceString;
     locationView.profileID = _profileID;
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_profileID]]
-                    delegate:self
+    [manager downloadWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser, kSOAPIHost, _profileID]]
                      options:0
-                     success:^(UIImage *image, BOOL cached) {
-                         locationView.avatarImg.image = [UIImage avatarWithSource:image type:SOAvatarTypeUser];
-                     } failure:^(NSError *error) {
-                         // NSLog(@"Image retrieval failed");
-                     }];
+                    progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                        if (finished && !error) locationView.avatarImg.image = [UIImage avatarWithSource:image type:SOAvatarTypeUser];
+                    }];
     return locationView;
 }
 
@@ -93,15 +89,11 @@
         locationView.distanceLabel.text = _distanceString;
         locationView.profileID = _profileID;
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        [manager downloadWithURL:
-         [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_profileID]]
-                        delegate:self
+        [manager downloadWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_profileID]]
                          options:0
-                         success:^(UIImage *image, BOOL cached) {
-                             locationView.avatarImg.image = [UIImage avatarWithSource:image type:SOAvatarTypeUser];
-                         } failure:^(NSError *error) {
-                             // NSLog(@"Image retrieval failed");
-                         }];
+                        progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                            if (finished && !error) locationView.avatarImg.image = [UIImage avatarWithSource:image type:SOAvatarTypeUser];
+                        }];
     }
 }
 

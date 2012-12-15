@@ -72,15 +72,12 @@
     self.imageView.image = [UIImage avatarWithSource:nil type:avatarType];
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadWithURL:
-     [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForSpeaker,kSOAPIHost,_speaker.remoteID.integerValue]]
-                    delegate:self
+    [manager downloadWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForSpeaker,kSOAPIHost,_speaker.remoteID.integerValue]]
                      options:0
-                     success:^(UIImage *image, BOOL cached) {
-                         self.imageView.image = [UIImage avatarWithSource:image type:avatarType];
-                     } failure:^(NSError *error) {
-                         // NSLog(@"Image retrieval failed");
-                     }];
+                    progress:nil
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                       if (finished && !error) self.imageView.image = [UIImage avatarWithSource:image type:avatarType];
+                   }];
 }
 
 - (void)didTapAvatar:(UIGestureRecognizer *)gestureRecognizer {

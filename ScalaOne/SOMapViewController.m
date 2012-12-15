@@ -34,10 +34,7 @@
     // Do any additional setup after loading the view from its nib.
     self.title = kSOScreenTitleMap;
     
-    if (kSOAnalyticsEnabled) {
-        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-        [mixpanel track:self.title];
-    }
+    if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
     
     UIBarButtonItem *locateMeBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"map-find-btn"] style:UIBarButtonItemStylePlain target:self action:@selector(didPressLocateMe:)];
     self.navigationItem.rightBarButtonItem = locateMeBtn;

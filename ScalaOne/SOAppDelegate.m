@@ -47,7 +47,7 @@
     // Analytics
     if (kSOAnalyticsEnabled) {
         [Crashlytics startWithAPIKey:kSOCrashlyticsToken];
-        [MixpanelAPI sharedAPIWithToken:kSOMixpanelToken];
+        [Mixpanel sharedInstanceWithToken:kSOMixpanelToken];
     }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

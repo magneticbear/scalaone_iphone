@@ -124,10 +124,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    if (kSOAnalyticsEnabled) {
-        MixpanelAPI *mixpanel = [MixpanelAPI sharedAPI];
-        [mixpanel track:self.title];
-    }
+    if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
     
     // Right bar button
     NSString *rightButtonTitle = isMyProfile ? @"Edit" : @"Chat";
@@ -157,15 +154,12 @@
     } else {
         [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:nil type:SOAvatarTypeLarge] forState:UIControlStateNormal];
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        [manager downloadWithURL:
-         [NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_currentUser.remoteID.integerValue]]
-                        delegate:self
+        [manager downloadWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSOImageURLFormatForUser,kSOAPIHost,_currentUser.remoteID.integerValue]]
                          options:0
-                         success:^(UIImage *image, BOOL cached) {
-                             [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
-                         } failure:^(NSError *error) {
-                             // NSLog(@"Image retrieval failed");
-                         }];
+                        progress:nil
+                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                           if (finished && !error) [_avatarBtn setBackgroundImage:[UIImage avatarWithSource:image type:SOAvatarTypeLarge] forState:UIControlStateNormal];
+                       }];
     }
 }
 
