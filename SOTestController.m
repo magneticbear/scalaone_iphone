@@ -20,6 +20,10 @@
 
 - (void)initializeScenarios{
     [self addScenario:[KIFTestScenario scenarioToCheckMyProfile]];
+    [self addScenario:[KIFTestScenario scenarioToCheckEvents]];
+    [self addScenario:[KIFTestScenario scenarioToCheckDiscussion]];
+    [self addScenario:[KIFTestScenario scenarioToCheckFavourites]];
+    [self addScenario:[KIFTestScenario scenarioToCheckSpeakers]];
 }
 
 @end

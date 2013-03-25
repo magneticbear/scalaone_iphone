@@ -122,6 +122,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     
     if (kSOAnalyticsEnabled) [[Mixpanel sharedInstance] track:self.title];
@@ -143,6 +144,7 @@
         
         _firstNameField.tag = SOProfileCellTypeFirstName;
         _firstNameField.delegate = self;
+        _firstNameField.accessibilityLabel = @"First";
         _lastNameField.tag = SOProfileCellTypeLastName;
         _lastNameField.delegate = self;
         

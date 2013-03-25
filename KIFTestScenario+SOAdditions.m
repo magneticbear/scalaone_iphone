@@ -39,7 +39,10 @@
     KIFTestScenario *scenario = [KIFTestScenario scenarioWithDescription:@"Scenario To check the my profile view"];
     [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"My Profile"]];
     [scenario addStep:[KIFTestStep stepToWaitForViewWithAccessibilityLabel:@"My Profile"]];
+    [scenario addStep:[KIFTestStep stepToEnterText:@"Stuart" intoViewWithAccessibilityLabel:@"First"]];
+    [scenario addStep:[KIFTestStep stepToEnterText:@"stuart@example.com" intoViewWithAccessibilityLabel:@"email@example.com"]];
     [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"Done"]];
+    [scenario addStep:[KIFTestStep stepToTapViewWithAccessibilityLabel:@"OK"]];
     
     return scenario;
 }

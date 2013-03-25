@@ -11,4 +11,9 @@
 @interface KIFTestScenario (SOAdditions)
 
 + (id)scenarioToCheckMyProfile;
++ (id)scenarioToCheckDiscussion;
++ (id)scenarioToCheckFavourites;
++ (id)scenarioToCheckSpeakers;
++ (id)scenarioToCheckEvents;
+
 @end
