@@ -32,7 +32,7 @@
 
 #pragma mark - Features
 
-#define kSOAnalyticsEnabled             TRUE
+#define kSOAnalyticsEnabled             FALSE
 
 #pragma mark - Strings
 
