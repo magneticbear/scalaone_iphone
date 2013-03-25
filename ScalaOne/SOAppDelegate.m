@@ -36,6 +36,7 @@
 #import "SOHomeViewController.h"
 #import "SOProfileViewController.h"
 #import "UIColor+SOAdditions.h"
+#import "SOTestController.h"
 
 @implementation SOAppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -55,7 +56,6 @@
     
     // Configure navigation controller
     navController = [[UINavigationController alloc] initWithRootViewController:[[SOHomeViewController alloc] init]];
-    
     ////////////////////////
     // UIAppearance
     ////////////////////////
@@ -78,6 +78,7 @@
     UIImage *backBtnDown = [[UIImage imageNamed:@"back-btn-down"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backBtnDown forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
+    
     // Reset back button when in image picker since we can't remove its text
     [[UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil] setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
@@ -88,6 +89,10 @@
     // Launch app
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
+    
+#if RUN_KIF_TESTS
+    [SOTestController runTests];
+#endif
     
     return YES;
 }

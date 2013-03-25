@@ -6,3 +6,8 @@ pod 'SDWebImage'
 pod 'TPKeyboardAvoiding'
 pod 'SVProgressHUD'
 pod 'Mixpanel'
+
+
+target :Integration do
+    pod 'KIF', :head
+end
